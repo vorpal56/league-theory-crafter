@@ -1,0 +1,76 @@
+select champions, level, items (including certain specialized items) -> select targets that have items and levels => dummy target on the champion component
+remove items from your inventory -> base function done
+expected damage/healing output on target? -> not dps
+buffs and debuffs -> grevious wounds, drakes, potions (apply one), champion abilities, runes (gathering storm, eyeball collection, ghost poro, hunters, )
+how do you account for toggle abilities?
+tldr champion abilities
+use disclaimer
+popular builds (user sign up process to submit builds) -> load builds (filtered by patch, most popular)
+2 web scrapers -> 1 for patch notes on upcoming changes, one for current patch (toggle for damages on proposed changes and its differences) -> runs weekly (patches can come more often or not) -> what about hotfixes?
+
+runes component
+champion component (can includes stats?)
+inventory component (total additive stats?)
+
+mouseover tldr abilities, passives, items, runes
+
+2 column layout?
+left -> selected champion, items, runes
+right -> target champion, items, runes
+next row -> computational stats -> expected dps
+
+what is the design?
+
+database
+champions table
+ashe : {
+	lvl : int
+	base_stats : {
+		hp: int,
+		hp_regen: int, 
+		mp : int or none,
+		mp_regen : int,
+		ad: int,
+		ap: int,
+		ms: int,
+		as: int,
+		cdr: int,
+		armour: int,
+		mr: int,
+		range: int,
+	}
+	passive: {
+		text : "",
+		damage: damage_formula x rank
+		cooldown: int
+
+	}
+	ability_1: {
+		text : "",
+		rank : int,
+		damage: damage_formula x rank
+		cooldown: int
+
+	}
+	ability_2: {
+		text : "",
+		rank : int,
+		damage: damage_formula x rank
+		cooldown: int
+
+	}
+	ability_3: {
+		text : "",
+		rank : int,
+		damage: damage_formula x rank
+		cooldown: int
+
+	}
+	ability_4: {
+		text : "",
+		rank : int,
+		damage: damage_formula x rank
+		cooldown: int
+
+	}
+}

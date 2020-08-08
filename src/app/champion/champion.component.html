@@ -1,0 +1,94 @@
+<!-- {{champion | json}} -->
+<div class="row">
+	<div class="col-md-3 center med-spacer" *ngIf="champion.img">
+		<img class="champion-portrait img-fluid" [src]="champion.img" alt="" />
+	</div>
+	<div class="col-md-3 med-spacer">
+		<div class="row">
+			<div class="col-6 stats">
+				<div>
+					<span [title]="champion.stats.ad">
+						<img class="stat" src="assets/images/ad_icon.png" alt="" />
+						{{ champion.stats.ad }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.arm">
+						<img class="stat" src="assets/images/arm_icon.png" alt="" />
+						{{ champion.stats.arm }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.as">
+						<img class="stat" src="assets/images/as_icon.png" alt="" />
+						{{ champion.stats.as }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.crit">
+						<img class="stat" src="assets/images/crit_icon.png" alt="" />
+						{{ champion.stats.crit }}
+					</span>
+				</div>
+			</div>
+			<div class="col-6 stats">
+				<div>
+					<span [title]="champion.stats.ap">
+						<img class="stat" src="assets/images/ap_icon.png" alt="" />
+						{{ champion.stats.ap }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.mr">
+						<img class="stat" src="assets/images/mr_icon.png" alt="" />
+						{{ champion.stats.mr }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.cdr">
+						<img class="stat" src="assets/images/cdr_icon.png" alt="" />
+						{{ champion.stats.cdr }}
+					</span>
+				</div>
+				<div>
+					<span [title]="champion.stats.ms">
+						<img class="stat" src="assets/images/ms_icon.png" alt="" />
+						{{ champion.stats.ms }}
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 med-spacer">
+		<div class="row">
+			<div class="col-md-5ths small-spacer">
+				{{champion.skill_i[1]}}
+				<!-- <ability-leveler [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="true" [ability]="champion.skill_i"></ability-leveler> -->
+			</div>
+			<div class="col-md-5ths small-spacer">
+				{{champion.skill_q[1]}}
+				<!-- <ability-leveler [max_level]="champion.skill_q_max_level" [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="false" [ability]="champion.skill_q" [currentChampionLevel]="currentLevel" [allowReallocation]="reallocatePoints" (resetAllocation)="emitChampionState($event)"></ability-leveler> -->
+			</div>
+			<div class="col-md-5ths small-spacer">
+				{{champion.skill_w[1]}}
+				<!-- <ability-leveler [max_level]="champion.skill_w_max_level" [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="false" [ability]="champion.skill_w" [currentChampionLevel]="currentLevel" [allowReallocation]="reallocatePoints" (resetAllocation)="emitChampionState($event)"></ability-leveler> -->
+			</div>
+			<div class="col-md-5ths small-spacer">
+				{{champion.skill_e[1]}}
+				<!-- <ability-leveler [max_level]="champion.skill_e_max_level" [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="false" [ability]="champion.skill_e" [currentChampionLevel]="currentLevel" [allowReallocation]="reallocatePoints" (resetAllocation)="emitChampionState($event)"></ability-leveler> -->
+			</div>
+			<div class="col-md-5ths small-spacer">
+				{{champion.skill_r[1]}}
+				<!-- <ability-leveler [max_level]="champion.skill_r_max_level" [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="false" [ability]="champion.skill_r" [currentChampionLevel]="currentLevel"[allowReallocation]="reallocatePoints" (resetAllocation)="emitChampionState($event)"></ability-leveler> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 center hp">
+				{{champion.stats.hp}} / {{champion.stats.hp_lvl}} / {{champion.stats.hp5}}
+			</div>
+			<div class="col-md-12 center mp">
+				{{champion.stats.mp}} / {{champion.stats.mp_lvl}} / {{champion.stats.mp5}}
+			</div>
+		</div>
+	</div>
+</div>

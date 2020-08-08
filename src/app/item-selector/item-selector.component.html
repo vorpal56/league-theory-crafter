@@ -1,0 +1,42 @@
+<div class="grid">
+	<div class="item-grid-gamemode-filter">
+		<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Select a gamemode" [(ngModel)]="searchMode">
+		</ng-select>
+		<!-- <select id="item-grid-filter-modes-field" [(ngModel)]="searchMode">
+			<ng-container *ngFor="let gamemode of gamemodes">
+				<option *ngFor="let options of gamemode; first as isAll" [value]="options.shortname" selected>
+					{{options.fullname}}
+				</option>
+			</ng-container>
+		</select> -->
+	</div>
+	<div class="row">
+		<div class="col-md-6 item-grid-search-filter">
+			<mat-form-field>
+				<mat-label>Search Items</mat-label>
+				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. Zhonyas, IE" id="item-grid-filter-search-field">
+				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-form-field>
+		</div>
+		<div class="col-md-6 clear-items">
+			<button mat-button *ngIf="selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 item-grid">
+			<ul>
+				<li *ngFor="let item of items | itemFilter: searchText : searchMode" (click)="addItem(item)">{{item.name}}</li>
+			</ul>
+		</div>
+		<div class="col-md-6 selected-items">
+
+			<ul>
+				<li *ngFor="let selectedItem of selectedItems; index as i" (click)="removeItem(selectedItem, i)">
+					{{selectedItem.name}}
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

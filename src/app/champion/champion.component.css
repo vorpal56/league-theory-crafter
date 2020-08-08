@@ -1,0 +1,61 @@
+.container {
+	margin-top: 30px;
+}
+.column {
+	float: left;
+	width: 50%;
+	padding: 10px;
+}
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.stats {
+	padding: 0 !important;
+}
+.abilities {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+hr {
+	height: 30px !important;
+	/* Set the hr color */
+	color: #333; /* old IE */
+	background-color: #333; /* Modern Browsers */
+}
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.hp {
+	background-color: green;
+}
+.mp {
+	background-color: royalblue;
+}
+
+.stat {
+	padding-right: 5px;
+}
+.champion-portrait {
+	border-radius: 50%;
+	border: 2px solid black;
+}
+
+.small-spacer {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.med-spacer {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.large-spacer {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
