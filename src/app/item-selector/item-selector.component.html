@@ -1,20 +1,17 @@
 <div class="grid">
-	<div class="item-grid-gamemode-filter">
-		<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Select a gamemode" [(ngModel)]="searchMode">
+	<div class="item-grid-orderby-sort">
+		<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by" [(ngModel)]="orderBy">
 		</ng-select>
-		<!-- <select id="item-grid-filter-modes-field" [(ngModel)]="searchMode">
-			<ng-container *ngFor="let gamemode of gamemodes">
-				<option *ngFor="let options of gamemode; first as isAll" [value]="options.shortname" selected>
-					{{options.fullname}}
-				</option>
-			</ng-container>
-		</select> -->
+	</div>
+	<div class="item-grid-gamemode-filter">
+		<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter Items by Gamemodes" [(ngModel)]="searchMode">
+		</ng-select>
 	</div>
 	<div class="row">
 		<div class="col-md-6 item-grid-search-filter">
 			<mat-form-field>
 				<mat-label>Search Items</mat-label>
-				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. Zhonyas, IE" id="item-grid-filter-search-field">
+				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
 				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
 					<mat-icon>close</mat-icon>
 				</button>
@@ -25,16 +22,22 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6 item-grid">
-			<ul>
-				<li *ngFor="let item of items | itemFilter: searchText : searchMode" (click)="addItem(item)">{{item.name}}</li>
+		<div class="col-md-6">
+			<ul class="item-grid">
+				<li *ngFor="let item of items | itemFilter: searchText : searchMode : orderBy" (click)="addItem(item)">
+					<div class="item-block bg-black">
+						<img class="item-block" [src]="item.img" />
+					</div>
+				</li>
 			</ul>
 		</div>
 		<div class="col-md-6 selected-items">
-
-			<ul>
+			<ul class="item-grid">
+				<li *ngIf="selectedElixir">Elixir:{{selectedElixir.name}}</li>
 				<li *ngFor="let selectedItem of selectedItems; index as i" (click)="removeItem(selectedItem, i)">
-					{{selectedItem.name}}
+					<div class="item-block bg-black">
+						<img class="item-block" [src]="selectedItem.img" />
+					</div>
 				</li>
 			</ul>
 		</div>

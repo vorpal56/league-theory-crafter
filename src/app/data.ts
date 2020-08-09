@@ -1,7 +1,68 @@
-export const GAMEMODES = [{ "gamemodeLabel": "All", "gamemodeValue": "all" }, { "gamemodeLabel": "Classic 5V5", "gamemodeValue": "sr" }, { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" }, { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }];
+export const GAMEMODES = [{ "gamemodeLabel": "All", "gamemodeValue": "all" }, { "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" }, { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" }, { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }];
+export const ORDERBY = [{ "orderByLabel": "Alphabetical", "orderByValue": "alpha" }, { "orderByLabel": "Gold/Price", "orderByValue": "gold" },];
+export const LEVELS = [
+	{ "levelLabel": "Level 1", "levelValue": 1 },
+	{ "levelLabel": "Level 2", "levelValue": 2 },
+	{ "levelLabel": "Level 3", "levelValue": 3 },
+	{ "levelLabel": "Level 4", "levelValue": 4 },
+	{ "levelLabel": "Level 5", "levelValue": 5 },
+	{ "levelLabel": "Level 6", "levelValue": 6 },
+	{ "levelLabel": "Level 7", "levelValue": 7 },
+	{ "levelLabel": "Level 8", "levelValue": 8 },
+	{ "levelLabel": "Level 9", "levelValue": 9 },
+	{ "levelLabel": "Level 10", "levelValue": 10 },
+	{ "levelLabel": "Level 11", "levelValue": 11 },
+	{ "levelLabel": "Level 12", "levelValue": 12 },
+	{ "levelLabel": "Level 13", "levelValue": 13 },
+	{ "levelLabel": "Level 14", "levelValue": 14 },
+	{ "levelLabel": "Level 15", "levelValue": 15 },
+	{ "levelLabel": "Level 16", "levelValue": 16 },
+	{ "levelLabel": "Level 17", "levelValue": 17 },
+	{ "levelLabel": "Level 18", "levelValue": 18 },
+];
 export const CHAMPIONS = [
 	{
+		id: 7777,
+		img: "",
+		apiname: "Dummy",
+		name: "Target Dummy",
+		title: "",
+		herotype: "Fighter",
+		alttype: "Tank",
+		resource: "None",
+		stats: {
+			hp_base: 10000,
+			hp_lvl: 0,
+			mp_base: 0,
+			mp_lvl: 0,
+			arm_base: 0,
+			arm_lvl: 0,
+			mr_base: 0,
+			mr_lvl: 0,
+			hp5_base: 0,
+			hp5_lvl: 0,
+			mp5_base: 0,
+			mp5_lvl: 0,
+			ad_base: 0,
+			ad_lvl: 0,
+			as_base: 0,
+			as_lvl: 0,
+			range: 0,
+			ms: 0,
+		},
+		skill_i: { 1: "TDP" },
+		skill_q: { 1: "TDQ" },
+		skill_q_max_level: 5,
+		skill_w: { 1: "TDW" },
+		skill_w_max_level: 5,
+		skill_e: { 1: "TDE" },
+		skill_e_max_level: 5,
+		skill_r: { 1: "TDR" },
+		skill_r_max_level: 3,
+	},
+	{
 		id: 266,
+		img: "",
 		apiname: "Aatrox",
 		name: "Aatrox",
 		title: "the Darkin Blade",
@@ -66,6 +127,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 103,
+		img: "",
 		apiname: "Ahri",
 		name: "Ahri",
 		title: "the Nine-Tailed Fox",
@@ -127,6 +189,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 84,
+		img: "",
 		apiname: "Akali",
 		name: "Akali",
 		title: "the Rogue Assassin",
@@ -195,6 +258,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 12,
+		img: "",
 		apiname: "Alistar",
 		name: "Alistar",
 		title: "the Minotaur",
@@ -262,6 +326,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 32,
+		img: "",
 		apiname: "Amumu",
 		name: "Amumu",
 		title: "the Sad Mummy",
@@ -326,6 +391,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 34,
+		img: "",
 		apiname: "Anivia",
 		name: "Anivia",
 		title: "the Cryophoenix",
@@ -388,6 +454,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 1,
+		img: "",
 		apiname: "Annie",
 		name: "Annie",
 		title: "the Dark Child",
@@ -450,6 +517,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 523,
+		img: "",
 		apiname: "Aphelios",
 		name: "Aphelios",
 		title: "the Weapon of the Faithful",
@@ -525,6 +593,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 22,
+		img: "",
 		apiname: "Ashe",
 		name: "Ashe",
 		title: "the Frost Archer",
@@ -591,6 +660,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 136,
+		img: "",
 		apiname: "AurelionSol",
 		name: "Aurelion Sol",
 		title: "The Star Forger",
@@ -650,6 +720,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 268,
+		img: "",
 		apiname: "Azir",
 		name: "Azir",
 		title: "the Emperor of the Sands",
@@ -717,6 +788,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 432,
+		img: "",
 		apiname: "Bard",
 		name: "Bard",
 		title: "the Wandering Caretaker",
@@ -787,6 +859,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 53,
+		img: "",
 		apiname: "Blitzcrank",
 		name: "Blitzcrank",
 		title: "the Great Steam Golem",
@@ -849,6 +922,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 63,
+		img: "",
 		apiname: "Brand",
 		name: "Brand",
 		title: "the Burning Vengeance",
@@ -912,6 +986,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 201,
+		img: "",
 		apiname: "Braum",
 		name: "Braum",
 		title: "the Heart of the Freljord",
@@ -976,6 +1051,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 51,
+		img: "",
 		apiname: "Caitlyn",
 		name: "Caitlyn",
 		title: "the Sheriff of Piltover",
@@ -1037,6 +1113,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 164,
+		img: "",
 		apiname: "Camille",
 		name: "Camille",
 		title: "the Steel Shadow",
@@ -1107,6 +1184,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 69,
+		img: "",
 		apiname: "Cassiopeia",
 		name: "Cassiopeia",
 		title: "the Serpent's Embrace",
@@ -1169,6 +1247,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 31,
+		img: "",
 		apiname: "Chogath",
 		name: "Chogath",
 		title: "the Terror of the Void",
@@ -1231,6 +1310,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 42,
+		img: "",
 		apiname: "Corki",
 		name: "Corki",
 		title: "the Daring Bombardier",
@@ -1293,6 +1373,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 122,
+		img: "",
 		apiname: "Darius",
 		name: "Darius",
 		title: "the Hand of Noxus",
@@ -1360,6 +1441,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 131,
+		img: "",
 		apiname: "Diana",
 		name: "Diana",
 		title: "Scorn of the Moon",
@@ -1421,6 +1503,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 36,
+		img: "",
 		apiname: "DrMundo",
 		name: "Dr. Mundo",
 		title: "the Madman of Zaun",
@@ -1486,6 +1569,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 119,
+		img: "",
 		apiname: "Draven",
 		name: "Draven",
 		title: "the Glorious Executioner",
@@ -1548,6 +1632,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 245,
+		img: "",
 		apiname: "Ekko",
 		name: "Ekko",
 		title: "the Boy Who Shattered Time",
@@ -1609,6 +1694,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 60,
+		img: "",
 		apiname: "Elise",
 		name: "Elise",
 		title: "the Spider Queen",
@@ -1675,6 +1761,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 28,
+		img: "",
 		apiname: "Evelynn",
 		name: "Evelynn",
 		title: "Agony's Embrace",
@@ -1744,6 +1831,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 81,
+		img: "",
 		apiname: "Ezreal",
 		name: "Ezreal",
 		title: "the Prodigal Explorer",
@@ -1806,6 +1894,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 9,
+		img: "",
 		apiname: "Fiddlesticks",
 		name: "Fiddlesticks",
 		title: "the Ancient Fear",
@@ -1872,6 +1961,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 114,
+		img: "",
 		apiname: "Fiora",
 		name: "Fiora",
 		title: "the Grand Duelist",
@@ -1936,6 +2026,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 105,
+		img: "",
 		apiname: "Fizz",
 		name: "Fizz",
 		title: "the Tidal Trickster",
@@ -2001,6 +2092,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 3,
+		img: "",
 		apiname: "Galio",
 		name: "Galio",
 		title: "the Colossus",
@@ -2064,6 +2156,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 41,
+		img: "",
 		apiname: "Gangplank",
 		name: "Gangplank",
 		title: "the Saltwater Scourge",
@@ -2128,6 +2221,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 86,
+		img: "",
 		apiname: "Garen",
 		name: "Garen",
 		title: "The Might of Demacia",
@@ -2191,6 +2285,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 150,
+		img: "",
 		apiname: "Gnar",
 		name: "Gnar",
 		title: "the Missing Link",
@@ -2255,6 +2350,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 150.2,
+		img: "",
 		apiname: "GnarBig",
 		name: "Mega Gnar",
 		title: "the Missing Link",
@@ -2317,6 +2413,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 79,
+		img: "",
 		apiname: "Gragas",
 		name: "Gragas",
 		title: "the Rabble Rouser",
@@ -2378,6 +2475,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 104,
+		img: "",
 		apiname: "Graves",
 		name: "Graves",
 		title: "the Outlaw",
@@ -2438,6 +2536,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 120,
+		img: "",
 		apiname: "Hecarim",
 		name: "Hecarim",
 		title: "the Shadow of War",
@@ -2499,6 +2598,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 74,
+		img: "",
 		apiname: "Heimerdinger",
 		name: "Heimerdinger",
 		title: "the Revered Inventor",
@@ -2567,6 +2667,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 420,
+		img: "",
 		apiname: "Illaoi",
 		name: "Illaoi",
 		title: "the Kraken Priestess",
@@ -2634,6 +2735,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 39,
+		img: "",
 		apiname: "Irelia",
 		name: "Irelia",
 		title: "the Blade Dancer",
@@ -2700,6 +2802,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 427,
+		img: "",
 		apiname: "Ivern",
 		name: "Ivern",
 		title: "the Green Father",
@@ -2763,6 +2866,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 40,
+		img: "",
 		apiname: "Janna",
 		name: "Janna",
 		title: "the Storm's Fury",
@@ -2827,6 +2931,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 59,
+		img: "",
 		apiname: "JarvanIV",
 		name: "Jarvan IV",
 		title: "the Exemplar of Demacia",
@@ -2890,6 +2995,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 24,
+		img: "",
 		apiname: "Jax",
 		name: "Jax",
 		title: "Grandmaster at Arms",
@@ -2955,6 +3061,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 126,
+		img: "",
 		apiname: "Jayce",
 		name: "Jayce",
 		title: "the Defender of Tomorrow",
@@ -3020,6 +3127,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 202,
+		img: "",
 		apiname: "Jhin",
 		name: "Jhin",
 		title: "the Virtuoso",
@@ -3089,6 +3197,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 222,
+		img: "",
 		apiname: "Jinx",
 		name: "Jinx",
 		title: "the Loose Cannon",
@@ -3152,6 +3261,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 145,
+		img: "",
 		apiname: "Kaisa",
 		name: "Kai'Sa",
 		title: "Daughter of the Void",
@@ -3215,6 +3325,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 429,
+		img: "",
 		apiname: "Kalista",
 		name: "Kalista",
 		title: "the Spear of Vengeance",
@@ -3277,6 +3388,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 43,
+		img: "",
 		apiname: "Karma",
 		name: "Karma",
 		title: "the Enlightened One",
@@ -3337,6 +3449,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 30,
+		img: "",
 		apiname: "Karthus",
 		name: "Karthus",
 		title: "the Deathsinger",
@@ -3398,6 +3511,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 38,
+		img: "",
 		apiname: "Kassadin",
 		name: "Kassadin",
 		title: "the Void Walker",
@@ -3460,6 +3574,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 55,
+		img: "",
 		apiname: "Katarina",
 		name: "Katarina",
 		title: "the Sinister Blade",
@@ -3525,6 +3640,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 10,
+		img: "",
 		apiname: "Kayle",
 		name: "Kayle",
 		title: "the Righteous",
@@ -3593,6 +3709,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 141,
+		img: "",
 		apiname: "Kayn",
 		name: "Kayn",
 		title: "the Shadow Reaper",
@@ -3674,6 +3791,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 85,
+		img: "",
 		apiname: "Kennen",
 		name: "Kennen",
 		title: "the Heart of the Tempest",
@@ -3736,6 +3854,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 121,
+		img: "",
 		apiname: "Khazix",
 		name: "Kha'Zix",
 		title: "the Voidreaver",
@@ -3801,6 +3920,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 203,
+		img: "",
 		apiname: "Kindred",
 		name: "Kindred",
 		title: "The Eternal Hunters",
@@ -3862,6 +3982,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 240,
+		img: "",
 		apiname: "Kled",
 		name: "Kled",
 		title: "the Cantankerous Cavalier",
@@ -3924,6 +4045,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 240.1,
+		img: "",
 		apiname: "Kled",
 		name: "Skaarl",
 		title: "the Cantankerous Cavaliers",
@@ -3986,6 +4108,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 96,
+		img: "",
 		apiname: "KogMaw",
 		name: "Kog'Maw",
 		title: "the Mouth of the Abyss",
@@ -4050,6 +4173,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 7,
+		img: "",
 		apiname: "Leblanc",
 		name: "Leblanc",
 		title: "the Deceiver",
@@ -4121,6 +4245,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 64,
+		img: "",
 		apiname: "LeeSin",
 		name: "Lee Sin",
 		title: "the Blind Monk",
@@ -4185,6 +4310,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 89,
+		img: "",
 		apiname: "Leona",
 		name: "Leona",
 		title: "the Radiant Dawn",
@@ -4245,6 +4371,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 876,
+		img: "",
 		apiname: "Lillia",
 		name: "Lillia",
 		title: "the Bashful Bloom",
@@ -4305,6 +4432,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 127,
+		img: "",
 		apiname: "Lissandra",
 		name: "Lissandra",
 		title: "the Ice Witch",
@@ -4366,6 +4494,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 236,
+		img: "",
 		apiname: "Lucian",
 		name: "Lucian",
 		title: "the Purifier",
@@ -4431,6 +4560,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 117,
+		img: "",
 		apiname: "Lulu",
 		name: "Lulu",
 		title: "the Fae Sorceress",
@@ -4491,6 +4621,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 99,
+		img: "",
 		apiname: "Lux",
 		name: "Lux",
 		title: "the Lady of Luminosity",
@@ -4554,6 +4685,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 54,
+		img: "",
 		apiname: "Malphite",
 		name: "Malphite",
 		title: "Shard of the Monolith",
@@ -4616,6 +4748,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 90,
+		img: "",
 		apiname: "Malzahar",
 		name: "Malzahar",
 		title: "the Prophet of the Void",
@@ -4679,6 +4812,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 57,
+		img: "",
 		apiname: "Maokai",
 		name: "Maokai",
 		title: "the Twisted Treant",
@@ -4747,6 +4881,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 11,
+		img: "",
 		apiname: "Master Yi",
 		name: "MasterYi",
 		title: "the Wuju Bladesman",
@@ -4811,6 +4946,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 21,
+		img: "",
 		apiname: "MissFortune",
 		name: "Miss Fortune",
 		title: "the Bounty Hunter",
@@ -4875,6 +5011,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 82,
+		img: "",
 		apiname: "Mordekaiser",
 		name: "Mordekaiser",
 		title: "the Iron Revenant",
@@ -4940,6 +5077,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 25,
+		img: "",
 		apiname: "Morgana",
 		name: "Morgana",
 		title: "the Fallen",
@@ -5002,6 +5140,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 267,
+		img: "",
 		apiname: "Nami",
 		name: "Nami",
 		title: "the Tidecaller",
@@ -5066,6 +5205,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 75,
+		img: "",
 		apiname: "Nasus",
 		name: "Nasus",
 		title: "the Curator of the Sands",
@@ -5128,6 +5268,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 111,
+		img: "",
 		apiname: "Nautilus",
 		name: "Nautilus",
 		title: "the Titan of the Depths",
@@ -5190,6 +5331,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 518,
+		img: "",
 		apiname: "Neeko",
 		name: "Neeko",
 		title: "the Curious Chameleon",
@@ -5253,6 +5395,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 76,
+		img: "",
 		apiname: "Nidalee",
 		name: "Nidalee",
 		title: "the Bestial Huntress",
@@ -5319,6 +5462,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 56,
+		img: "",
 		apiname: "Nocturne",
 		name: "Nocturne",
 		title: "the Eternal Nightmare",
@@ -5382,6 +5526,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 20,
+		img: "",
 		apiname: "Nunu",
 		name: "Nunu",
 		title: "the Boy and His Yeti",
@@ -5452,6 +5597,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 2,
+		img: "",
 		apiname: "Olaf",
 		name: "Olaf",
 		title: "the Berserker",
@@ -5514,6 +5660,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 61,
+		img: "",
 		apiname: "Orianna",
 		name: "Orianna",
 		title: "the Lady of Clockwork",
@@ -5577,6 +5724,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 516,
+		img: "",
 		apiname: "Ornn",
 		name: "Ornn",
 		title: "The Fire below the Mountain",
@@ -5641,6 +5789,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 80,
+		img: "",
 		apiname: "Pantheon",
 		name: "Pantheon",
 		title: "the Unbreakable Spear",
@@ -5705,6 +5854,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 78,
+		img: "",
 		apiname: "Poppy",
 		name: "Poppy",
 		title: "Keeper of the Hammer",
@@ -5768,6 +5918,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 555,
+		img: "",
 		apiname: "Pyke",
 		name: "Pyke",
 		title: "the Bloodharbor Ripper",
@@ -5834,6 +5985,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 246,
+		img: "",
 		apiname: "Qiyana",
 		name: "Qiyana",
 		title: "Empress of the Elements",
@@ -5900,6 +6052,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 133,
+		img: "",
 		apiname: "Quinn",
 		name: "Quinn",
 		title: "Demacia's Wings",
@@ -5964,6 +6117,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 497,
+		img: "",
 		apiname: "Rakan",
 		name: "Rakan",
 		title: "The Charmer",
@@ -6025,6 +6179,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 33,
+		img: "",
 		apiname: "Rammus",
 		name: "Rammus",
 		title: "the Armordillo",
@@ -6087,6 +6242,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 421,
+		img: "",
 		apiname: "RekSai",
 		name: "Rek'Sai",
 		title: "the Void Burrower",
@@ -6156,6 +6312,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 58,
+		img: "",
 		apiname: "Renekton",
 		name: "Renekton",
 		title: "the Butcher of the Sands",
@@ -6218,6 +6375,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 107,
+		img: "",
 		apiname: "Rengar",
 		name: "Rengar",
 		title: "the Pridestalker",
@@ -6281,6 +6439,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 92,
+		img: "",
 		apiname: "Riven",
 		name: "Riven",
 		title: "the Exile",
@@ -6345,6 +6504,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 68,
+		img: "",
 		apiname: "Rumble",
 		name: "Rumble",
 		title: "the Mechanized Menace",
@@ -6411,6 +6571,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 13,
+		img: "",
 		apiname: "Ryze",
 		name: "Ryze",
 		title: "the Rune Mage",
@@ -6481,6 +6642,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 113,
+		img: "",
 		apiname: "Sejuani",
 		name: "Sejuani",
 		title: "Fury of the North",
@@ -6544,6 +6706,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 235,
+		img: "",
 		apiname: "Senna",
 		name: "Senna",
 		title: "the Redeemer",
@@ -6611,6 +6774,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 875,
+		img: "",
 		apiname: "Sett",
 		name: "Sett",
 		title: "the Boss",
@@ -6676,6 +6840,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 35,
+		img: "",
 		apiname: "Shaco",
 		name: "Shaco",
 		title: "the Demon Jester",
@@ -6737,6 +6902,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 98,
+		img: "",
 		apiname: "Shen",
 		name: "Shen",
 		title: "the Eye of Twilight",
@@ -6801,6 +6967,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 102,
+		img: "",
 		apiname: "Shyvana",
 		name: "Shyvana",
 		title: "the Half-Dragon",
@@ -6863,6 +7030,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 27,
+		img: "",
 		apiname: "Singed",
 		name: "Singed",
 		title: "the Mad Chemist",
@@ -6925,6 +7093,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 14,
+		img: "",
 		apiname: "Sion",
 		name: "Sion",
 		title: "The Undead Juggernaut",
@@ -6992,6 +7161,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 15,
+		img: "",
 		apiname: "Sivir",
 		name: "Sivir",
 		title: "the Battle Mistress",
@@ -7053,6 +7223,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 72,
+		img: "",
 		apiname: "Skarner",
 		name: "Skarner",
 		title: "the Crystal Vanguard",
@@ -7116,6 +7287,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 37,
+		img: "",
 		apiname: "Sona",
 		name: "Sona",
 		title: "Maven of the Strings",
@@ -7183,6 +7355,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 16,
+		img: "",
 		apiname: "Soraka",
 		name: "Soraka",
 		title: "the Starchild",
@@ -7247,6 +7420,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 50,
+		img: "",
 		apiname: "Swain",
 		name: "Swain",
 		title: "the Noxian Grand General",
@@ -7311,6 +7485,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 517,
+		img: "",
 		apiname: "Sylas",
 		name: "Sylas",
 		title: "the Unshackled",
@@ -7373,6 +7548,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 134,
+		img: "",
 		apiname: "Syndra",
 		name: "Syndra",
 		title: "the Dark Sovereign",
@@ -7435,6 +7611,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 223,
+		img: "",
 		apiname: "TahmKench",
 		name: "Tahm Kench",
 		title: "the River King",
@@ -7504,6 +7681,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 163,
+		img: "",
 		apiname: "Taliyah",
 		name: "Taliyah",
 		title: "the Stoneweaver",
@@ -7570,6 +7748,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 91,
+		img: "",
 		apiname: "Talon",
 		name: "Talon",
 		title: "the Blade's Shadow",
@@ -7634,6 +7813,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 44,
+		img: "",
 		apiname: "Taric",
 		name: "Taric",
 		title: "the Shield of Valoran",
@@ -7698,6 +7878,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 17,
+		img: "",
 		apiname: "Teemo",
 		name: "Teemo",
 		title: "the Swift Scout",
@@ -7762,6 +7943,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 412,
+		img: "",
 		apiname: "Thresh",
 		name: "Thresh",
 		title: "the Chain Warden",
@@ -7836,6 +8018,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 18,
+		img: "",
 		apiname: "Tristana",
 		name: "Tristana",
 		title: "the Yordle Gunner",
@@ -7898,6 +8081,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 48,
+		img: "",
 		apiname: "Trundle",
 		name: "Trundle",
 		title: "the Troll King",
@@ -7961,6 +8145,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 23,
+		img: "",
 		apiname: "Tryndamere",
 		name: "Tryndamere",
 		title: "the Barbarian King",
@@ -8023,6 +8208,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 4,
+		img: "",
 		apiname: "TwistedFate",
 		name: "Twisted Fate",
 		title: "the Card Master",
@@ -8088,6 +8274,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 29,
+		img: "",
 		apiname: "Twitch",
 		name: "Twitch",
 		title: "the Plague Rat",
@@ -8148,6 +8335,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 77,
+		img: "",
 		apiname: "Udyr",
 		name: "Udyr",
 		title: "the Spirit Walker",
@@ -8212,6 +8400,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 6,
+		img: "",
 		apiname: "Urgot",
 		name: "Urgot",
 		title: "the Dreadnought",
@@ -8276,6 +8465,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 110,
+		img: "",
 		apiname: "Varus",
 		name: "Varus",
 		title: "the Arrow of Retribution",
@@ -8338,6 +8528,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 67,
+		img: "",
 		apiname: "Vayne",
 		name: "Vayne",
 		title: "the Night Hunter",
@@ -8400,6 +8591,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 45,
+		img: "",
 		apiname: "Veigar",
 		name: "Veigar",
 		title: "the Tiny Master of Evil",
@@ -8464,6 +8656,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 161,
+		img: "",
 		apiname: "Velkoz",
 		name: "Vel'Koz",
 		title: "the Eye of the Void",
@@ -8525,6 +8718,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 254,
+		img: "",
 		apiname: "Vi",
 		name: "Vi",
 		title: "the Piltover Enforcer",
@@ -8588,6 +8782,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 112,
+		img: "",
 		apiname: "Viktor",
 		name: "Viktor",
 		title: "the Machine Herald",
@@ -8648,6 +8843,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 8,
+		img: "",
 		apiname: "Vladimir",
 		name: "Vladimir",
 		title: "the Crimson Reaper",
@@ -8713,6 +8909,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 106,
+		img: "",
 		apiname: "Volibear",
 		name: "Volibear",
 		title: "the Relentless Storm",
@@ -8777,6 +8974,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 19,
+		img: "",
 		apiname: "Warwick",
 		name: "Warwick",
 		title: "the Uncaged Wrath of Zaun",
@@ -8840,6 +9038,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 62,
+		img: "",
 		apiname: "MonkeyKing",
 		name: "Wukong",
 		title: "the Monkey King",
@@ -8906,6 +9105,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 498,
+		img: "",
 		apiname: "Xayah",
 		name: "Xayah",
 		title: "the Rebel",
@@ -8967,6 +9167,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 101,
+		img: "",
 		apiname: "Xerath",
 		name: "Xerath",
 		title: "the Magus Ascendant",
@@ -9027,6 +9228,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 5,
+		img: "",
 		apiname: "XinZhao",
 		name: "Xin Zhao",
 		title: "the Seneschal of Demacia",
@@ -9088,6 +9290,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 157,
+		img: "",
 		apiname: "Yasuo",
 		name: "Yasuo",
 		title: "the Unforgiven",
@@ -9155,6 +9358,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 777,
+		img: "",
 		apiname: "Yone",
 		name: "Yone",
 		title: "the Unforgotten",
@@ -9215,6 +9419,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 83,
+		img: "",
 		apiname: "Yorick",
 		name: "Yorick",
 		title: "Shepherd of Souls",
@@ -9280,6 +9485,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 350,
+		img: "",
 		apiname: "Yuumi",
 		name: "Yuumi",
 		title: "the Magical Cat",
@@ -9346,6 +9552,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 154,
+		img: "",
 		apiname: "Zac",
 		name: "Zac",
 		title: "the Secret Weapon",
@@ -9409,6 +9616,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 238,
+		img: "",
 		apiname: "Zed",
 		name: "Zed",
 		title: "the Master of Shadows",
@@ -9471,6 +9679,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 115,
+		img: "",
 		apiname: "Ziggs",
 		name: "Ziggs",
 		title: "the Hexplosives Expert",
@@ -9533,6 +9742,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 26,
+		img: "",
 		apiname: "Zilean",
 		name: "Zilean",
 		title: "the Chronokeeper",
@@ -9595,6 +9805,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 142,
+		img: "",
 		apiname: "Zoe",
 		name: "Zoe",
 		title: "the Aspect of Twilight",
@@ -9661,6 +9872,7 @@ export const CHAMPIONS = [
 	},
 	{
 		id: 143,
+		img: "",
 		apiname: "Zyra",
 		name: "Zyra",
 		title: "Rise of the Thorns",
@@ -9721,25 +9933,4 @@ export const CHAMPIONS = [
 		skill_r: { 1: "Stranglethorns" },
 		skill_r_max_level: 3,
 	},
-];
-// export const LEVELS = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14", "Level 15", "Level 16", "Level 17", "Level 18"];
-export const LEVELS = [
-	{ "levelLabel": "Level 1", "levelValue": 1 },
-	{ "levelLabel": "Level 2", "levelValue": 2 },
-	{ "levelLabel": "Level 3", "levelValue": 3 },
-	{ "levelLabel": "Level 4", "levelValue": 4 },
-	{ "levelLabel": "Level 5", "levelValue": 5 },
-	{ "levelLabel": "Level 6", "levelValue": 6 },
-	{ "levelLabel": "Level 7", "levelValue": 7 },
-	{ "levelLabel": "Level 8", "levelValue": 8 },
-	{ "levelLabel": "Level 9", "levelValue": 9 },
-	{ "levelLabel": "Level 10", "levelValue": 10 },
-	{ "levelLabel": "Level 11", "levelValue": 11 },
-	{ "levelLabel": "Level 12", "levelValue": 12 },
-	{ "levelLabel": "Level 13", "levelValue": 13 },
-	{ "levelLabel": "Level 14", "levelValue": 14 },
-	{ "levelLabel": "Level 15", "levelValue": 15 },
-	{ "levelLabel": "Level 16", "levelValue": 16 },
-	{ "levelLabel": "Level 17", "levelValue": 17 },
-	{ "levelLabel": "Level 18", "levelValue": 18 },
 ];

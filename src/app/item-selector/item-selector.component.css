@@ -1,0 +1,14 @@
+
+li {
+	display:inline-block
+}
+.bg-black {
+	background-color:#000;
+}
+div.item-block {
+	border:2px solid #123abf;
+	border-radius:2px;
+}
+img.item-block {
+	border:1px solid #abf123;
+}

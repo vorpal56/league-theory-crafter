@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <div class="top">
-	<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampionOnSelect($event)"></ng-select>
-	<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="setChampionLevel($event)" [readonly]="!levelSelectorEnabled">
+	<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+	<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
 	</ng-select>
-	<div *ngIf="champion">
-		<champion [champion]="champion"></champion>
-	</div>
-	<item-selector [selectedChampion]="champion"></item-selector>
+	<champion [champion]="champion"></champion>
+	<item-selector [(selectedChampion)]="champion" (selectedItems)="viewSelectedItems($event)" [currentLevel]="currentLevel"></item-selector>
 </div>

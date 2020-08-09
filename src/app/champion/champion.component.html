@@ -1,6 +1,6 @@
-<!-- {{champion | json}} -->
+<!-- {{champion | json | number: '1.0-2'}} -->
 <div class="row">
-	<div class="col-md-3 center med-spacer" *ngIf="champion.img">
+	<div class="col-md-3 center med-spacer" *ngIf="champion">
 		<img class="champion-portrait img-fluid" [src]="champion.img" alt="" />
 	</div>
 	<div class="col-md-3 med-spacer">
@@ -8,52 +8,52 @@
 			<div class="col-6 stats">
 				<div>
 					<span [title]="champion.stats.ad">
-						<img class="stat" src="assets/images/ad_icon.png" alt="" />
-						{{ champion.stats.ad }}
+						<img class="stat" src="assets/images/icons/ad_icon.png" alt="" />
+						{{ champion.stats.ad | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.arm">
-						<img class="stat" src="assets/images/arm_icon.png" alt="" />
-						{{ champion.stats.arm }}
+						<img class="stat" src="assets/images/icons/arm_icon.png" alt="" />
+						{{ champion.stats.arm | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.as">
-						<img class="stat" src="assets/images/as_icon.png" alt="" />
-						{{ champion.stats.as }}
+						<img class="stat" src="assets/images/icons/as_icon.png" alt="" />
+						{{ champion.stats.as | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.crit">
-						<img class="stat" src="assets/images/crit_icon.png" alt="" />
-						{{ champion.stats.crit }}
+						<img class="stat" src="assets/images/icons/crit_icon.png" alt="" />
+						{{ champion.stats.crit | number: '1.0-2' }}
 					</span>
 				</div>
 			</div>
 			<div class="col-6 stats">
 				<div>
 					<span [title]="champion.stats.ap">
-						<img class="stat" src="assets/images/ap_icon.png" alt="" />
-						{{ champion.stats.ap }}
+						<img class="stat" src="assets/images/icons/ap_icon.png" alt="" />
+						{{ champion.stats.ap | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.mr">
-						<img class="stat" src="assets/images/mr_icon.png" alt="" />
-						{{ champion.stats.mr }}
+						<img class="stat" src="assets/images/icons/mr_icon.png" alt="" />
+						{{ champion.stats.mr | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.cdr">
-						<img class="stat" src="assets/images/cdr_icon.png" alt="" />
-						{{ champion.stats.cdr }}
+						<img class="stat" src="assets/images/icons/cdr_icon.png" alt="" />
+						{{ champion.stats.cdr | number: '1.0-2' }}
 					</span>
 				</div>
 				<div>
 					<span [title]="champion.stats.ms">
-						<img class="stat" src="assets/images/ms_icon.png" alt="" />
-						{{ champion.stats.ms }}
+						<img class="stat" src="assets/images/icons/ms_icon.png" alt="" />
+						{{ champion.stats.ms | number: '1.0-2' }}
 					</span>
 				</div>
 			</div>
@@ -84,10 +84,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 center hp">
-				{{champion.stats.hp}} / {{champion.stats.hp_lvl}} / {{champion.stats.hp5}}
+				{{champion.stats.hp | number: '1.0-2'}} / {{champion.stats.hp_lvl | number: '1.0-2'}} / {{champion.stats.hp5 | number: '1.0-2'}}
 			</div>
 			<div class="col-md-12 center mp">
-				{{champion.stats.mp}} / {{champion.stats.mp_lvl}} / {{champion.stats.mp5}}
+				{{champion.stats.mp | number: '1.0-2'}} / {{champion.stats.mp_lvl | number: '1.0-2'}} / {{champion.stats.mp5 | number: '1.0-2'}}
 			</div>
 		</div>
 	</div>

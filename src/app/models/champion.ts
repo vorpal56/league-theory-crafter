@@ -2,8 +2,7 @@ export interface Champion {
 	apiname: string;
 	name: string;
 	img?: string;
-	current_level: number;
-	allow_first_level_change?: boolean;
+	resource?: string;
 	stats: {
 		hp?: number;
 		hp_base?: number;
@@ -54,13 +53,13 @@ export interface Champion {
 		crit_base?: number;
 		crit_lvl?: number;
 	};
-	skill_i: any;
-	skill_q: any;
-	skill_q_max_level: number;
-	skill_w: any;
-	skill_w_max_level: number;
-	skill_e: any;
-	skill_e_max_level: number;
-	skill_r: any;
-	skill_r_max_level: number;
+	skill_i?: any;
+	skill_q?: any;
+	skill_q_max_level?: number;
+	skill_w?: any;
+	skill_w_max_level?: number;
+	skill_e?: any;
+	skill_e_max_level?: number;
+	skill_r?: any;
+	skill_r_max_level?: number;
 }

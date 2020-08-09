@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { CHAMPIONS, LEVELS } from "./data";
 import { Champion } from "./models/champion";
+import { Item } from "./models/item";
 import { ChampionService } from './services/champion.service';
 @Component({
 	selector: "app-root",
@@ -10,37 +11,23 @@ import { ChampionService } from './services/champion.service';
 export class AppComponent implements OnInit {
 	title = "league-theory-crafter";
 	champions = CHAMPIONS;
-	champion: Champion;
+	champion: Champion = this.champions[1];
 	levels = LEVELS;
 	levelSelectorEnabled: boolean = false;
-	// @Input() championDetails: Champion;
-	// @Input() currentChampionLevel: number;
-	@Input() championState: any;
-	currentLevel: number = 1;
-	// reallocatePoints: boolean = false;
-	// setChampionState(championState) {
-	// 	this.champion = championState.selectedChampion;
-	// 	this.currentLevel = championState.currentLevel;
-	// 	// console.log(this.reallocatePoints);
-	// 	// this.reallocatePoints = false;
-	// 	console.log(this.reallocatePoints);
-	// }
+	selectedItems: Array<Item>;
+	currentLevel: number = LEVELS[0].levelValue;
+	currentLevelName: string = LEVELS[0].levelLabel;
 
-	setChampionLevel(levelName: string) {
-		this.currentLevel = LEVELS[levelName];
-		this.championService.adjustBaseStats(this.champion, this.currentLevel);
+	updateChampion() {
+		// this.levelSelectorEnabled = true;
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems);
 	}
-
-	updateChampionOnSelect(selectedChampion: Champion) {
-		this.champion = selectedChampion;
-		this.levelSelectorEnabled = true;
-		this.championService.adjustBaseStats(this.champion, this.currentLevel);
+	viewSelectedItems(value: any) {
+		this.selectedItems = value;
 	}
-
-
 	constructor(private championService: ChampionService) {
 	}
 	ngOnInit() {
-
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems);
 	}
 }
