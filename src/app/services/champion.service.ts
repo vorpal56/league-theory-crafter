@@ -17,10 +17,7 @@ export class ChampionService {
 		);
 		return value;
 	}
-	statsGrowthFormula(
-		growthStatistic: number,
-		championLevel: number,
-		base?: number
+	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number
 	): number {
 		var value =
 			growthStatistic *
@@ -31,7 +28,37 @@ export class ChampionService {
 		}
 		return value;
 	}
-	addItemStats(champion: Champion, selectedItems: Array<Item>) {
+	adjustBaseStats(selectedChampion: Champion, currentLevel: number) {
+		selectedChampion.stats.hp = this.statsGrowthFormula(selectedChampion.stats.hp_lvl, currentLevel, selectedChampion.stats.hp_base);
+		selectedChampion.stats.hp5 = this.statsGrowthFormula(selectedChampion.stats.hp5_lvl, currentLevel, selectedChampion.stats.hp5_base);
+		selectedChampion.stats.mp = selectedChampion.stats.mp_base ? this.statsGrowthFormula(selectedChampion.stats.mp_lvl, currentLevel, selectedChampion.stats.mp_base) : 0;
+		selectedChampion.stats.mp5 = selectedChampion.stats.mp5_base ? this.statsGrowthFormula(selectedChampion.stats.mp5_lvl, currentLevel, selectedChampion.stats.mp5_base) : 0;
+		selectedChampion.stats.ad = selectedChampion.stats.ad_base ? this.statsGrowthFormula(selectedChampion.stats.ad_lvl, currentLevel, selectedChampion.stats.ad_base) : 0;
+		selectedChampion.stats.ap = selectedChampion.stats.ap_base ? selectedChampion.stats.ap_base : 0;
+		selectedChampion.stats.arm = selectedChampion.stats.arm_base ? this.statsGrowthFormula(selectedChampion.stats.arm_lvl, currentLevel, selectedChampion.stats.arm_base) : 0;
+		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
+		selectedChampion.stats.as = selectedChampion.stats.as_base ? this.formatNPlaces(selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel)), 3) : 0;
+		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
+		selectedChampion.stats.range = selectedChampion.stats.range_base ? selectedChampion.stats.range_base : 0;
+		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
+		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
+		return;
+	}
+	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems?: [Item, Item, Item, Item, Item, Item], selectedElixir?: Item) {
+		this.adjustBaseStats(selectedChampion, currentLevel);
+		if (selectedItems) {
+			let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
+			if (selectedElixir) {
+				selectedItemsIncludingElixir.push(selectedElixir);
+			}
+			if (selectedItemsIncludingElixir) {
+				this.addItemStats(selectedChampion, selectedItemsIncludingElixir);
+			}
+		}
+		return;
+
+	}
+	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item]) {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 		// console.log(selectedItems);
@@ -89,7 +116,6 @@ export class ChampionService {
 					hasTotalMultiplier = true;
 				}
 			}
-
 		}
 		// are the total multipliers added including the bonus stats or just the base+item
 		// console.log(champion.stats, totalStatsFromItems, multKeyValues);
@@ -116,37 +142,4 @@ export class ChampionService {
 		}
 		return;
 	}
-
-	adjustBaseStats(selectedChampion: Champion, currentLevel: number) {
-		selectedChampion.stats.hp = this.statsGrowthFormula(selectedChampion.stats.hp_lvl, currentLevel, selectedChampion.stats.hp_base);
-		selectedChampion.stats.hp5 = this.statsGrowthFormula(selectedChampion.stats.hp5_lvl, currentLevel, selectedChampion.stats.hp5_base);
-		selectedChampion.stats.mp = selectedChampion.stats.mp_base ? this.statsGrowthFormula(selectedChampion.stats.mp_lvl, currentLevel, selectedChampion.stats.mp_base) : 0;
-		selectedChampion.stats.mp5 = selectedChampion.stats.mp5_base ? this.statsGrowthFormula(selectedChampion.stats.mp5_lvl, currentLevel, selectedChampion.stats.mp5_base) : 0;
-		selectedChampion.stats.ad = selectedChampion.stats.ad_base ? this.statsGrowthFormula(selectedChampion.stats.ad_lvl, currentLevel, selectedChampion.stats.ad_base) : 0;
-		selectedChampion.stats.ap = selectedChampion.stats.ap_base ? selectedChampion.stats.ap_base : 0;
-		selectedChampion.stats.arm = selectedChampion.stats.arm_base ? this.statsGrowthFormula(selectedChampion.stats.arm_lvl, currentLevel, selectedChampion.stats.arm_base) : 0;
-		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
-		selectedChampion.stats.as = selectedChampion.stats.as_base ? this.formatNPlaces(selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel)), 3) : 0;
-		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
-		selectedChampion.stats.range = selectedChampion.stats.range_base ? selectedChampion.stats.range_base : 0;
-		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
-		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
-		return;
-	}
-	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems?: Array<Item>, selectedElixir?: Item) {
-		this.adjustBaseStats(selectedChampion, currentLevel);
-
-		if (selectedItems) {
-			let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
-			if (selectedElixir) {
-				selectedItemsIncludingElixir.push(selectedElixir);
-			}
-			if (selectedItemsIncludingElixir) {
-				this.addItemStats(selectedChampion, selectedItemsIncludingElixir);
-			}
-		}
-		return;
-
-	}
-
 }

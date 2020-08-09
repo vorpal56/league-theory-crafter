@@ -18,25 +18,38 @@
 			</mat-form-field>
 		</div>
 		<div class="col-md-6 clear-items">
-			<button mat-button *ngIf="selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
+			<button mat-button *ngIf="!selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-6">
 			<ul class="item-grid">
-				<li *ngFor="let item of items | itemFilter: searchText : searchMode : orderBy" (click)="addItem(item)">
+				<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy" (click)="addItem(item)">
 					<div class="item-block bg-black">
-						<img class="item-block" [src]="item.img" />
+						<img [src]="item.img" />
 					</div>
 				</li>
 			</ul>
 		</div>
 		<div class="col-md-6 selected-items">
 			<ul class="item-grid">
-				<li *ngIf="selectedElixir">Elixir:{{selectedElixir.name}}</li>
-				<li *ngFor="let selectedItem of selectedItems; index as i" (click)="removeItem(selectedItem, i)">
-					<div class="item-block bg-black">
-						<img class="item-block" [src]="selectedItem.img" />
+				<li (click)="removeItem(selectedElixir)">
+					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
+						<img *ngIf="!selectedSlotIsFree(selectedElixir)" class="item-block" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" />
+						<ng-template [ngIf]="selectedSlotIsFree(selectedElixir)">
+							Elixir Slot
+						</ng-template>
+					</div>
+				</li>
+			</ul>
+			<ul class="item-grid">
+				<li *ngFor="let selectedItem of selectedItems; index as i">
+					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
+						<img *ngIf="!selectedSlotIsFree(selectedItem)" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
+						<ng-template [ngIf]="selectedSlotIsFree(selectedItem)">
+							Item Slot {{i + 1}}
+						</ng-template>
+						<!-- <span *ngIf="selectedSlotIsFree(selectedItem)" class="item-block"></span> -->
 					</div>
 				</li>
 			</ul>

@@ -1,6 +1,7 @@
 export interface Item {
 	'ad': number,
 	'ad_mult': { 'type': string, 'value': number; },
+	'allowed_to': { 'melee': boolean, 'ranged': boolean; },
 	'ap': number,
 	'ap_mult': { 'type': string, 'value': number; },
 	'apen%': number,

@@ -11,10 +11,10 @@ import { ChampionService } from './services/champion.service';
 export class AppComponent implements OnInit {
 	title = "league-theory-crafter";
 	champions = CHAMPIONS;
-	champion: Champion = this.champions[1];
+	champion: Champion = this.champions[135];
 	levels = LEVELS;
 	levelSelectorEnabled: boolean = false;
-	selectedItems: Array<Item>;
+	selectedItems: [Item, Item, Item, Item, Item, Item];
 	currentLevel: number = LEVELS[0].levelValue;
 	currentLevelName: string = LEVELS[0].levelLabel;
 
@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
 		// this.levelSelectorEnabled = true;
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems);
 	}
-	viewSelectedItems(value: any) {
-		this.selectedItems = value;
+	viewSelectedItems(selectedItems: [Item, Item, Item, Item, Item, Item]) {
+		this.selectedItems = selectedItems;
 	}
 	constructor(private championService: ChampionService) {
 	}

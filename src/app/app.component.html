@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div class="top">
+<div class="top" style="padding-top:50px">
 	<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
 	<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
 	</ng-select>

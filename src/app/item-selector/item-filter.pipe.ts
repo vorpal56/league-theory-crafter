@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Item } from '../models/item';
+import { Champion } from '../models/champion';
 
 @Pipe({
 	name: 'itemFilter'
 })
 export class ItemFilterPipe implements PipeTransform {
 
-	transform(items: any[], searchText: string, searchMode: string, orderBy: string): any[] {
+	transform(items: any[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string): any[] {
 		function byGold(itemA: Item, itemB: Item) {
 			if (itemA.gold < itemB.gold) {
 				return -1;
@@ -18,6 +19,8 @@ export class ItemFilterPipe implements PipeTransform {
 		}
 		if (!items) return [];
 		if (!searchText && !searchMode) return items;
+		let championName = selectedChampion.name;
+		let championRangeType = selectedChampion["rangetype"].toLowerCase();
 		searchText = searchText.toLowerCase();
 		searchMode = searchMode.toLowerCase();
 		let result = items.filter(item => {
@@ -25,10 +28,32 @@ export class ItemFilterPipe implements PipeTransform {
 			// make sure that it's also within the selected gamemode
 			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText);
-			if (item.tags && item.tags != "") {
-				return (itemsSearchedByName || item.tags.toLowerCase().includes(searchText)) && itemsSearchedByMode;
+			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.toLowerCase().includes(searchText) : null;
+			let itemsAllowedToMelee = item.allowed_to.melee == true && championRangeType == "melee";
+			let itemsAllowedToRange = item.allowed_to.ranged == true && championRangeType == "ranged";
+			let intermediaryCondition1: boolean;
+			let intermediaryCondition2: boolean;
+			let finalCondition: boolean;
+			if (itemsSearchedByTag) {
+				intermediaryCondition1 = (itemsSearchedByName || itemsSearchedByTag);
+			} else {
+				intermediaryCondition1 = itemsSearchedByName;
 			}
-			return itemsSearchedByName && itemsSearchedByMode;
+			// honestly very confusing literally have no idea if this works or not -> need further testing
+			if (itemsAllowedToMelee === true && itemsAllowedToRange === true) {
+				intermediaryCondition2 = intermediaryCondition1;
+			} else if (itemsAllowedToMelee === true && itemsAllowedToRange == false) {
+				intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToMelee;
+			} else if (itemsAllowedToMelee === false && itemsAllowedToRange == true) {
+				intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToRange;
+			}
+			finalCondition = intermediaryCondition2 && itemsSearchedByMode;
+			if (championName == "Cassiopeia") {
+				return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
+			} else if (championName == "Viktor") {
+				return finalCondition || item.apiname.includes("hexcore");
+			}
+			return finalCondition && !item.apiname.includes("hexcore");
 		});
 		// order the returned items by price or alpha
 		if (orderBy == "alpha") {

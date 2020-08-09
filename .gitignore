@@ -2,7 +2,8 @@
 
 /*.com/
 *.zip
-items_*
+*_test.ts
+*_test2.ts
 
 # compiled output
 /dist

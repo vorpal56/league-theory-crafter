@@ -1,7 +1,52 @@
 let None = null;
+let True = true;
+let False = false;
+export const EMPTY_ITEM = {
+	'ad': 0,
+	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
+	'ap': 0,
+	'ap_mult': { 'type': 'total', 'value': 0 },
+	'apen%': 0,
+	'apiname': '',
+	'arm': 0,
+	'as': 0,
+	'att_m_proc': 0,
+	'att_phys_proc': 0,
+	'boots_ms': 0,
+	'cdr': 0,
+	'crit': 0,
+	'critdmg': 0,
+	'flat_ms': 0,
+	'gold': 0,
+	'heal_shield': 0,
+	'hp': 0,
+	'hp5': 0,
+	'hp_mult': { 'type': 'total', 'value': 0 },
+	'img': '',
+	'leth': 0,
+	'ls': 0,
+	'magic_on_hit': 0,
+	'modes': 'all',
+	'mp': 0,
+	'mp5': 0,
+	'mpen': 0,
+	'mpen%': 0,
+	'mr': 0,
+	'ms%': 0,
+	'name': 'Empty',
+	'phys_on_hit': 0,
+	'shared_item': None,
+	'shield': 0,
+	'spell_m_proc': 0,
+	'spell_vamp': 0,
+	'tags': '',
+	'tenacity': 0
+};
 export const ITEMS = [{
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 15 },
 	'apen%': 0,
@@ -43,6 +88,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -84,6 +130,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -125,6 +172,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 30,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -166,6 +214,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -207,6 +256,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -248,6 +298,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -289,6 +340,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 30,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -330,6 +382,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -371,6 +424,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -412,6 +466,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -453,6 +508,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -494,6 +550,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -535,6 +592,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -576,6 +634,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -617,6 +676,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -658,6 +718,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -699,6 +760,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -740,6 +802,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -781,6 +844,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -822,6 +886,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 25,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -863,6 +928,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -904,6 +970,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -945,6 +1012,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -986,6 +1054,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1027,6 +1096,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1068,6 +1138,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1109,6 +1180,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1150,6 +1222,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1191,6 +1264,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1232,6 +1306,7 @@ export const ITEMS = [{
 {
 	'ad': 7,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1273,6 +1348,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1314,6 +1390,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1355,6 +1432,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1396,6 +1474,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1437,6 +1516,7 @@ export const ITEMS = [{
 {
 	'ad': 8,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1478,6 +1558,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1519,6 +1600,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 15,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1560,6 +1642,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1601,6 +1684,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1642,6 +1726,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1683,6 +1768,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1700,7 +1786,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
-	'hp_mult': { 'type': 'bonus', 'value': 15 },
+	'hp_mult': { 'type': 'total', 'value': 15 },
 	'img': 'assets/images/items/Enchantment Cinderhulk.png',
 	'leth': 0,
 	'ls': 0,
@@ -1724,6 +1810,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1765,6 +1852,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1806,6 +1894,7 @@ export const ITEMS = [{
 {
 	'ad': 70,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1847,6 +1936,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1888,6 +1978,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1929,6 +2020,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 35,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1970,6 +2062,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2011,6 +2104,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 15,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2052,6 +2146,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2093,6 +2188,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2134,6 +2230,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2175,6 +2272,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2216,6 +2314,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2257,6 +2356,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2298,6 +2398,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 25,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 15,
@@ -2339,6 +2440,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 10 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 35,
 	'ap_mult': { 'type': 'total', 'value': 10 },
 	'apen%': 0,
@@ -2380,6 +2482,7 @@ export const ITEMS = [{
 {
 	'ad': 10,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2421,6 +2524,7 @@ export const ITEMS = [{
 {
 	'ad': 20,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2462,6 +2566,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2503,6 +2608,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2544,6 +2650,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2585,6 +2692,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2626,6 +2734,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 3,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2667,6 +2776,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 6,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2708,6 +2818,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2749,6 +2860,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2790,6 +2902,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2831,6 +2944,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2872,6 +2986,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2913,6 +3028,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2954,6 +3070,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2995,6 +3112,7 @@ export const ITEMS = [{
 {
 	'ad': 20,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 20,
@@ -3036,6 +3154,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 10 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 75,
 	'ap_mult': { 'type': 'total', 'value': 10 },
 	'apen%': 0,
@@ -3077,6 +3196,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3118,6 +3238,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3159,6 +3280,7 @@ export const ITEMS = [{
 {
 	'ad': 10,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3200,6 +3322,7 @@ export const ITEMS = [{
 {
 	'ad': 45,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 35,
@@ -3241,6 +3364,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3282,6 +3406,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 90,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3323,6 +3448,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3364,6 +3490,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3405,6 +3532,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3446,6 +3574,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3487,6 +3616,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3528,6 +3658,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3569,6 +3700,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3610,6 +3742,7 @@ export const ITEMS = [{
 {
 	'ad': 45,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 25,
@@ -3651,6 +3784,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3692,6 +3826,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3733,6 +3868,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3774,6 +3910,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3815,6 +3952,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3856,6 +3994,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3897,6 +4036,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3938,6 +4078,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3979,6 +4120,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4020,6 +4162,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4061,6 +4204,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4102,6 +4246,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 1,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4143,6 +4288,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4184,6 +4330,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4225,6 +4372,7 @@ export const ITEMS = [{
 {
 	'ad': 6,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4266,6 +4414,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4307,6 +4456,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4348,6 +4498,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4389,6 +4540,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': False },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4430,6 +4582,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4471,6 +4624,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4512,6 +4666,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4553,6 +4708,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 5,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4594,6 +4750,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4635,6 +4792,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4676,6 +4834,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4717,6 +4876,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': False, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4758,6 +4918,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 90,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4799,6 +4960,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4840,6 +5002,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4881,6 +5044,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4922,6 +5086,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4963,6 +5128,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5004,6 +5170,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5045,6 +5212,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5086,6 +5254,7 @@ export const ITEMS = [{
 {
 	'ad': 3,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5127,6 +5296,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5168,6 +5338,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5209,6 +5380,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5250,6 +5422,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5291,6 +5464,7 @@ export const ITEMS = [{
 {
 	'ad': 5,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5332,6 +5506,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 8,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5373,6 +5548,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5414,6 +5590,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5455,6 +5632,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5496,6 +5674,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5537,6 +5716,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5578,6 +5758,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5619,6 +5800,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5660,6 +5842,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5701,6 +5884,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5742,6 +5926,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': False },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5783,6 +5968,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': False },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5824,6 +6010,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5865,6 +6052,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5906,6 +6094,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5947,6 +6136,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5988,6 +6178,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6029,6 +6220,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6070,6 +6262,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6111,6 +6304,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6152,6 +6346,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6193,6 +6388,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6234,6 +6430,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6275,6 +6472,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6316,6 +6514,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6357,6 +6556,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6398,6 +6598,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6439,6 +6640,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 15 },
 	'apen%': 0,
@@ -6480,6 +6682,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6521,6 +6724,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6562,6 +6766,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6603,6 +6808,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 175,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6644,6 +6850,7 @@ export const ITEMS = [{
 {
 	'ad': 110,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6685,6 +6892,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6726,6 +6934,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6767,6 +6976,7 @@ export const ITEMS = [{
 {
 	'ad': 75,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6808,6 +7018,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 100,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6849,6 +7060,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6890,6 +7102,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6931,6 +7144,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
+	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,

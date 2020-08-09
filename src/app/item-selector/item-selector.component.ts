@@ -3,7 +3,7 @@ import { ChampionService } from '../services/champion.service';
 import { Champion } from "../models/champion";
 import { Item } from "../models/item";
 import { GAMEMODES, ORDERBY } from ".././data";
-import { ITEMS } from ".././items";
+import { ITEMS, EMPTY_ITEM } from ".././items";
 
 @Component({
 	selector: 'item-selector',
@@ -19,14 +19,14 @@ export class ItemSelectorComponent implements OnInit {
 	items = ITEMS;
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
-	searchText: string = "cinderhulk";
+	searchText: string = "";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	@Input('selectedChampion') champion: Champion;
 	@Input('currentLevel') currentLevel: number;
-	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<Array<Item>>();
-	selectedItems: Array<Item> = [];
-	selectedElixir: Item = null;
+	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
+	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
+	selectedElixir: Item = EMPTY_ITEM;
 	selectedItemsRestrictions = { "hasGoldOrJg": false, "hasBoots": false };
 
 	isItemAllowed(selectedItem: Item) {
@@ -38,11 +38,8 @@ export class ItemSelectorComponent implements OnInit {
 		}
 		return true;
 	}
-	replaceElixir(selectedElixir: Item) {
-		console.log("here you would replace", selectedElixir);
-	}
 	addItem(itemDetails: Item) {
-		if (this.selectedItems.length < 6 && this.isItemAllowed(itemDetails)) {
+		if (this.isItemAllowed(itemDetails)) {
 			if (itemDetails.shared_item == "enchantments") {
 				this.selectedItemsRestrictions.hasGoldOrJg = true;
 			}
@@ -52,14 +49,18 @@ export class ItemSelectorComponent implements OnInit {
 			if (itemDetails.name.toLowerCase().includes("elixir")) {
 				this.selectedElixir = itemDetails;
 			} else {
-				this.selectedItems.push(itemDetails);
+				for (let itemIndex in this.selectedItems) {
+					if (this.selectedItems[itemIndex].name == "Empty") {
+						this.selectedItems[itemIndex] = itemDetails;
+						break;
+					}
+				}
 			}
-
 			this.selectedItemsEmitter.emit(this.selectedItems);
 			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems);
 		}
 	}
-	removeItem(itemDetails: Item, index: number) {
+	removeItem(itemDetails: Item, index?: number) {
 		if (itemDetails.shared_item == "enchantments") {
 			this.selectedItemsRestrictions.hasGoldOrJg = false;
 		}
@@ -67,20 +68,34 @@ export class ItemSelectorComponent implements OnInit {
 			this.selectedItemsRestrictions.hasBoots = false;
 		}
 		if (itemDetails.name.toLowerCase().includes("elixir")) {
-			this.selectedElixir = null;
+			this.selectedElixir = EMPTY_ITEM;
 		} else {
-			this.selectedItems.splice(index, 1);
+			this.selectedItems.splice(index, 1, EMPTY_ITEM);
 		}
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems);
 	}
-
+	selectedSlotIsFree(itemDetails: Item) {
+		return itemDetails.name == "Empty" ? true : false;
+	}
+	selectedSlotIsFreeClass(itemDetails: Item) {
+		return itemDetails.name == "Empty" ? "empty-padding" : "";
+	}
 	selectedItemsIsEmpty() {
-		return this.selectedItems.length > 0 ? true : false;
+		let isEmpty = true;
+		for (let itemIndex in this.selectedItems) {
+			if (this.selectedItems[itemIndex].name != "Empty") {
+				return false;
+			}
+		}
+		if (this.selectedElixir == EMPTY_ITEM) {
+			return false;
+		}
+		return isEmpty;
 	}
 	clearSelectedItems() {
-		this.selectedItems = [];
-		this.selectedElixir = null;
+		this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
+		this.selectedElixir = EMPTY_ITEM;
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 
