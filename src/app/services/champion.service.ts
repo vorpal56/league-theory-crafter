@@ -7,9 +7,14 @@ import { Item } from "../models/item";
 export class ChampionService {
 
 	constructor() { }
-
+	/**
+	 * Method that formats the number to n places
+	 * Might not be as useful with DecimalPipe when interpolating
+	 * @param  {number} num the number to format
+	 * @param  {number} n? the number of places to format to
+	 * @returns number
+	 */
 	formatNPlaces(num: number, n?: number): number {
-		// don't think this is useful with the built in decimalpipe when interpolating
 		let exponent: number = n ? 10 ** n : 100;
 		var value = Number(
 			Math.round((num + Number.EPSILON) * exponent) /
@@ -17,6 +22,13 @@ export class ChampionService {
 		);
 		return value;
 	}
+	/**
+	 * Method that applies the stats growth formula since per level stats do not grow linearly
+	 * @param  {number} growthStatistic the growth statistic per level
+	 * @param  {number} championLevel the champion level
+	 * @param  {number} base? the base value of the stat
+	 * @returns number
+	 */
 	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number
 	): number {
 		var value =
@@ -28,7 +40,13 @@ export class ChampionService {
 		}
 		return value;
 	}
-	adjustBaseStats(selectedChampion: Champion, currentLevel: number) {
+	/**
+	 * Method that adjusts the base stats given the champion stats
+	 * @param  {Champion} selectedChampion the champion to adjust stats by
+	 * @param  {number} currentLevel the current level to adjust stats by
+	 * @returns void
+	 */
+	adjustBaseStats(selectedChampion: Champion, currentLevel: number): void {
 		selectedChampion.stats.hp = this.statsGrowthFormula(selectedChampion.stats.hp_lvl, currentLevel, selectedChampion.stats.hp_base);
 		selectedChampion.stats.hp5 = this.statsGrowthFormula(selectedChampion.stats.hp5_lvl, currentLevel, selectedChampion.stats.hp5_base);
 		selectedChampion.stats.mp = selectedChampion.stats.mp_base ? this.statsGrowthFormula(selectedChampion.stats.mp_lvl, currentLevel, selectedChampion.stats.mp_base) : 0;
@@ -44,7 +62,15 @@ export class ChampionService {
 		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
 		return;
 	}
-	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems?: [Item, Item, Item, Item, Item, Item], selectedElixir?: Item) {
+	/**
+	 * Method that calls the adjustBaseStats method and adjustItemStats method
+	 * @param  {Champion} selectedChampion the champion to adjust stats by
+	 * @param  {number} currentLevel the current level to adjust stats by
+	 * @param  {[Item*6]} selectedItems? the selected items/inventory (tuple of 6 items)
+	 * @param  {Item} selectedElixir? adds an elixir to the selectedItems
+	 * @returns void
+	 */
+	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems?: [Item, Item, Item, Item, Item, Item], selectedElixir?: Item): void {
 		this.adjustBaseStats(selectedChampion, currentLevel);
 		if (selectedItems) {
 			let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
@@ -58,7 +84,13 @@ export class ChampionService {
 		return;
 
 	}
-	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item]) {
+	/**
+	 * Method that adds the items stats to the champion stats after adjustBaseStats is applied
+	 * @param  {Champion} champion the champion to adjust stats by
+	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
+	 * @returns void
+	 */
+	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item]): void {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 		// console.log(selectedItems);
@@ -127,7 +159,13 @@ export class ChampionService {
 		}
 		return;
 	}
-	applyTotalMultipliers(champion: Champion, multKeyValues: any) {
+	/**
+	 * Method that applies the total multiplers for ad, ap, and hp after items have been added
+	 * @param  {Champion} champion champion to apply total multipliers towards
+	 * @param  {any} multKeyValues multipliers for ad, ap, and hp with their type and value
+	 * @returns void
+	 */
+	applyTotalMultipliers(champion: Champion, multKeyValues: any): void {
 		for (let key in multKeyValues) {
 			let additionalMultipliers = multKeyValues[key];
 			for (let additionalMultiplierObj in additionalMultipliers) {

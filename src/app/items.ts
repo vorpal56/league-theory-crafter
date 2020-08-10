@@ -40,6 +40,7 @@ export const EMPTY_ITEM = {
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 };
@@ -82,6 +83,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -124,6 +126,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -166,6 +169,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -208,6 +212,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -250,7 +255,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -288,11 +294,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Archangel's Staff",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'tear',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': True,
+	'tags': 'tear',
 	'tenacity': 0
 },
 {
@@ -334,6 +341,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -376,6 +384,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -418,6 +427,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -460,6 +470,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -502,6 +513,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -544,6 +556,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -586,6 +599,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -628,6 +642,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -666,11 +681,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Black Mist Scythe',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -712,6 +728,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -754,6 +771,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -796,6 +814,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -838,6 +857,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -880,6 +900,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -918,11 +939,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bulwark of the Mountain',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -964,6 +986,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1006,6 +1029,7 @@ export const ITEMS = [{
 	'shield': 50,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1048,6 +1072,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1090,6 +1115,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1132,6 +1158,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1174,6 +1201,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1216,6 +1244,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1258,6 +1287,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1300,6 +1330,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1342,7 +1373,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -1384,6 +1416,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1426,7 +1459,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': True,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -1468,6 +1502,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1510,6 +1545,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1552,7 +1588,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -1594,7 +1631,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -1636,7 +1674,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -1678,6 +1717,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1720,6 +1760,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1758,11 +1799,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Bloodrazor',
 	'phys_on_hit': 0,
-	'shared_item': 'enchantments',
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'jungle,jg',
 	'tenacity': 0
 },
 {
@@ -1800,11 +1842,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Cinderhulk',
 	'phys_on_hit': 0,
-	'shared_item': 'enchantments',
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'jungle,jg',
 	'tenacity': 0
 },
 {
@@ -1842,11 +1885,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Echoes',
 	'phys_on_hit': 0,
-	'shared_item': 'enchantments',
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 60,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'jungle,jg',
 	'tenacity': 0
 },
 {
@@ -1884,11 +1928,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Warrior',
 	'phys_on_hit': 0,
-	'shared_item': 'enchantments',
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'jungle,jg',
 	'tenacity': 0
 },
 {
@@ -1930,6 +1975,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1972,6 +2018,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2014,6 +2061,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2056,6 +2104,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2098,6 +2147,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2136,11 +2186,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frostfang',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -2182,6 +2233,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2224,6 +2276,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2266,6 +2319,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2308,6 +2362,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2350,6 +2405,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2392,6 +2448,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2434,6 +2491,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2476,6 +2534,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2514,11 +2573,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Harrowing Crescent',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -2560,6 +2620,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2602,6 +2663,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2644,6 +2706,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 175,
 	'spell_vamp': 15,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2686,6 +2749,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': '127,5',
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2728,6 +2792,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 50,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2770,6 +2835,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2812,6 +2878,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2854,6 +2921,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2896,6 +2964,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2938,6 +3007,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2980,6 +3050,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3022,6 +3093,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3064,6 +3136,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3106,6 +3179,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3148,6 +3222,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3190,6 +3265,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3232,6 +3308,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3274,6 +3351,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3316,7 +3394,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -3358,6 +3437,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3400,6 +3480,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3442,6 +3523,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3480,11 +3562,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Manamune',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'tear',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': True,
+	'tags': 'tear',
 	'tenacity': 0
 },
 {
@@ -3526,6 +3609,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3568,6 +3652,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': True,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3610,6 +3695,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3652,6 +3738,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 35
 },
@@ -3694,6 +3781,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3736,6 +3824,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3778,6 +3867,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3816,11 +3906,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Muramana',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'tear',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'tear',
 	'tenacity': 0
 },
 {
@@ -3862,6 +3953,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3904,6 +3996,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3946,6 +4039,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3988,6 +4082,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4030,7 +4125,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -4072,6 +4168,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4114,6 +4211,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4156,6 +4254,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4198,6 +4297,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4240,6 +4340,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4282,6 +4383,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4320,11 +4422,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Pauldrons of Whiterock',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -4366,6 +4469,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4404,11 +4508,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Runesteel Spaulders',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -4450,6 +4555,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4492,6 +4598,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4534,6 +4641,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4576,6 +4684,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4618,6 +4727,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4660,6 +4770,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4702,6 +4813,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4740,11 +4852,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Relic Shield',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
 {
@@ -4786,6 +4899,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4828,6 +4942,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4870,7 +4985,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'starter,starting',
 	'tenacity': 0
 },
 {
@@ -4912,6 +5028,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4954,6 +5071,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4996,6 +5114,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5038,6 +5157,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5080,6 +5200,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': True,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5118,11 +5239,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Seraph's Embrace",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'tear',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'tear',
 	'tenacity': 0
 },
 {
@@ -5164,6 +5286,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5206,6 +5329,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5248,6 +5372,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5286,11 +5411,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Steel Shoulderguards',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
 {
@@ -5328,11 +5454,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Shard of True Ice',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -5374,6 +5501,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5416,6 +5544,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5458,6 +5587,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5496,11 +5626,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Spectral Sickle',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
 {
@@ -5538,11 +5669,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Spellthief's Edge",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
 {
@@ -5584,6 +5716,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5626,13 +5759,14 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': True, 'ranged': False },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5668,6 +5802,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5710,6 +5845,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5752,6 +5888,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5794,6 +5931,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5832,11 +5970,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Targon's Buckler",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'goldjg',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'support,gold',
 	'tenacity': 0
 },
 {
@@ -5874,11 +6013,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Tear of the Goddess',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'tear',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': True,
+	'tags': 'tear',
 	'tenacity': 0
 },
 {
@@ -5920,6 +6060,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5962,6 +6103,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6004,6 +6146,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6046,6 +6189,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6088,6 +6232,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6130,6 +6275,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6172,6 +6318,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6214,6 +6361,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6256,6 +6404,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6298,6 +6447,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6340,6 +6490,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6382,6 +6533,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6424,6 +6576,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6466,6 +6619,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6508,6 +6662,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
+	'stackable': False,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6550,7 +6705,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6592,7 +6748,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6634,7 +6791,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6676,7 +6834,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6718,7 +6877,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6760,7 +6920,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6802,7 +6963,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6844,7 +7006,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6886,7 +7049,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6928,7 +7092,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -6970,7 +7135,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -7012,7 +7178,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -7054,7 +7221,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
 {
@@ -7096,7 +7264,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'pots,potions',
 	'tenacity': 25
 },
 {
@@ -7138,7 +7307,8 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'tags': '',
+	'stackable': False,
+	'tags': 'pots,potions',
 	'tenacity': 0
 },
 {
@@ -7180,6 +7350,7 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
-	'tags': '',
+	'stackable': False,
+	'tags': 'pots,potions',
 	'tenacity': 0
 }];

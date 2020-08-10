@@ -33,10 +33,11 @@ export interface Item {
 	'ms%': number,
 	'name': string,
 	'phys_on_hit': number,
-	'shared_item'?: string,
+	'shared_item': string,
 	'shield': number,
 	'spell_m_proc': number,
 	'spell_vamp': number,
+	'stackable': boolean,
 	'tags': string,
 	'tenacity': number;
 }

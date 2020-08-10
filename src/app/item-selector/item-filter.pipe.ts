@@ -6,17 +6,37 @@ import { Champion } from '../models/champion';
 	name: 'itemFilter'
 })
 export class ItemFilterPipe implements PipeTransform {
-
-	transform(items: any[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string): any[] {
-		function byGold(itemA: Item, itemB: Item) {
-			if (itemA.gold < itemB.gold) {
-				return -1;
-			}
-			if (itemA.gold > itemB.gold) {
-				return 1;
-			}
-			return 0;
-		}
+	/**
+	 * @param  {Item} itemA to compare to itemB
+	 * @param  {Item} itemB to compare to itemA
+	 * @returns number
+	 */
+	byGoldAscending(itemA: Item, itemB: Item): number {
+		if (itemA.gold < itemB.gold) { return -1; }
+		if (itemA.gold > itemB.gold) { return 1; }
+		return 0;
+	}
+	byGoldDescending(itemA: Item, itemB: Item): number {
+		if (itemA.gold > itemB.gold) { return -1; }
+		if (itemA.gold < itemB.gold) { return 1; }
+		return 0;
+	}
+	byAlphaDescending(itemA: Item, itemB: Item) {
+		if (itemA.name > itemB.name) { return -1; }
+		if (itemA.name < itemB.name) { return 1; }
+		return 0;
+	}
+	/**
+	 * Item filter pipe that is called on search input
+	 * @param  {any[]} items the list of all items
+	 * @param  {Champion} selectedChampion the selected champion to filter items that are unobtainable
+	 * @param  {string} searchText search input when typed in
+	 * @param  {string} searchMode search by gamemode
+	 * @param  {string} orderBy orders results by name or gold/price
+	 * @param  {string} orderMode orders in ascending or descending order
+	 * @returns Item
+	 */
+	transform(items: any[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
 		if (!items) return [];
 		if (!searchText && !searchMode) return items;
 		let championName = selectedChampion.name;
@@ -51,16 +71,17 @@ export class ItemFilterPipe implements PipeTransform {
 			if (championName == "Cassiopeia") {
 				return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
 			} else if (championName == "Viktor") {
-				return finalCondition || item.apiname.includes("hexcore");
+				return finalCondition || (finalCondition && item.apiname.includes("hexcore"));
 			}
 			return finalCondition && !item.apiname.includes("hexcore");
 		});
 		// order the returned items by price or alpha
-		if (orderBy == "alpha") {
-			return result;
-		} else if (orderBy == "gold") {
-			return result.sort(byGold);
+		if (orderMode == "desc") {
+			return orderBy == "gold" ? result.sort(this.byGoldDescending) : result.sort(this.byAlphaDescending);
+		} else if (orderMode == "asc") {
+			return orderBy == "gold" ? result.sort(this.byGoldAscending) : result;
 		}
+
 	}
 
 }

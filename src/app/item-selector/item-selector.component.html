@@ -1,15 +1,21 @@
 <div class="grid">
-	<div class="item-grid-orderby-sort">
-		<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by" [(ngModel)]="orderBy">
-		</ng-select>
-	</div>
-	<div class="item-grid-gamemode-filter">
-		<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter Items by Gamemodes" [(ngModel)]="searchMode">
-		</ng-select>
+	<div class="row">
+		<div class="col-md-4 item-grid-orderby-sort">
+			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by name" [(ngModel)]="orderBy">
+			</ng-select>
+		</div>
+		<div class="col-md-4 item-grid-orderby-sort">
+			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
+			</ng-select>
+		</div>
+		<div class="col-md-4 item-grid-gamemode-filter">
+			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter items by Gamemodes" [(ngModel)]="searchMode">
+			</ng-select>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-6 item-grid-search-filter">
-			<mat-form-field>
+			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
 				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
 				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
@@ -24,9 +30,9 @@
 	<div class="row">
 		<div class="col-md-6">
 			<ul class="item-grid">
-				<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy" (click)="addItem(item)">
+				<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 					<div class="item-block bg-black">
-						<img [src]="item.img" />
+						<img [src]="item.img" [title]="item.name" />
 					</div>
 				</li>
 			</ul>
@@ -45,7 +51,10 @@
 			<ul class="item-grid">
 				<li *ngFor="let selectedItem of selectedItems; index as i">
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
-						<img *ngIf="!selectedSlotIsFree(selectedItem)" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
+						<div>
+							<img *ngIf="!selectedSlotIsFree(selectedItem)" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
+							<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin">Stack</mat-checkbox>
+						</div>
 						<ng-template [ngIf]="selectedSlotIsFree(selectedItem)">
 							Item Slot {{i + 1}}
 						</ng-template>

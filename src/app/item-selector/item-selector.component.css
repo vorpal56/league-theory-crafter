@@ -12,9 +12,16 @@ div.item-block {
 	display:inline-block;
 	vertical-align: middle;
 	text-align:center;
-	color:white !important;
+	color:white;
+	user-select: none;
 }
-.empty-padding {
+.empty-slot-padding {
 	padding:6px;
 	cursor:default;
+}
+ul.item-grid {
+	padding-inline-start: 0px;
+}
+mat-form-field.full-width {
+	width:100%;
 }

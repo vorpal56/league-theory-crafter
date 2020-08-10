@@ -4,6 +4,7 @@
 *.zip
 *_test.ts
 *_test2.ts
+ability-leveler/
 
 # compiled output
 /dist

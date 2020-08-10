@@ -1,9 +1,0 @@
-<div *ngIf="!isPassive">
-	<button (click)="level_up_ability()" [disabled]="!this.can_level_up">
-		+
-	</button>
-	<button (click)="level_down_ability()" [disabled]="!this.can_level_down">
-		-
-	</button>
-</div>
-{{ability[1]}} {{this._abilityLevel}}

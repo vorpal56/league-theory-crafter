@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <div class="top" style="padding-top:50px">
-	<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
-	<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
-	</ng-select>
+	<div class="row">
+		<div class="col-md-6">
+			<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+		</div>
+		<div class="col-md-6">
+			<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
+			</ng-select>
+		</div>
+	</div>
 	<champion [champion]="champion"></champion>
 	<item-selector [(selectedChampion)]="champion" (selectedItems)="viewSelectedItems($event)" [currentLevel]="currentLevel"></item-selector>
 </div>
