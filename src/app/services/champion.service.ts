@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Champion } from "../models/champion";
 import { Item } from "../models/item";
+import { EMPTY_ITEM } from '../items';
 @Injectable({
 	providedIn: 'root'
 })
@@ -40,6 +41,23 @@ export class ChampionService {
 		}
 		return value;
 	}
+	damageReduction(champion: Champion, statName: string) {
+		let championDef = champion.stats[statName];
+		if (championDef >= 0) {
+			return 100 / (100 + championDef);
+		} else {
+			return 2 - (100 / (100 - championDef));
+		}
+	}
+	effectiveHealth(champion: Champion, statName: string) {
+		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
+	}
+	magicPenetration(champion: Champion) {
+		// Magic resistance reduction, flat. (Wit's End, Baron Debuff while fighting it) -> wits end passive was removed and baron is interesting... maybe we can add that as a target
+		// Magic resistance reduction, percentage. (Insert Champion Abilities here) eg. trundle subjugate
+		// Magic penetration, percentage. (Void Staff)
+		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
+	}
 	/**
 	 * Method that adjusts the base stats given the champion stats
 	 * @param  {Champion} selectedChampion the champion to adjust stats by
@@ -70,14 +88,14 @@ export class ChampionService {
 	 * @param  {Item} selectedElixir? adds an elixir to the selectedItems
 	 * @returns void
 	 */
-	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems?: [Item, Item, Item, Item, Item, Item], selectedElixir?: Item): void {
+	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, somenum?: number): void {
 		this.adjustBaseStats(selectedChampion, currentLevel);
-		if (selectedItems) {
-			let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
-			if (selectedElixir) {
-				selectedItemsIncludingElixir.push(selectedElixir);
-			}
-			if (selectedItemsIncludingElixir) {
+		if (!this.allSelectedItemsIsEmpty(selectedItems, selectedElixir)) {
+			if (selectedItems != undefined || selectedItems != null) {
+				let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
+				if (selectedElixir != EMPTY_ITEM) {
+					selectedItemsIncludingElixir.push(selectedElixir);
+				}
 				this.addItemStats(selectedChampion, selectedItemsIncludingElixir);
 			}
 		}
@@ -104,30 +122,62 @@ export class ChampionService {
 		let sharedItemCounts = {};
 		for (let itemIndex in selectedItems) {
 			let selectedItem = selectedItems[itemIndex];
-			if (selectedItem.shared_item in sharedItemCounts === false) {
-				sharedItemCounts[selectedItem.shared_item] = 1;
-			} else {
-				sharedItemCounts[selectedItem.shared_item] += 1;
-			}
-			for (let itemStatName in selectedItem) {
-				let itemStatVal = selectedItem[itemStatName];
-				if (itemStatVal != 0 && typeof (itemStatVal) !== 'string') {
-					if (itemStatName.includes("mult") && sharedItemCounts[selectedItem.shared_item] <= 1) {
-						if (itemStatVal["type"] == "total") {
-							multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
-						} else if (itemStatVal["type"] == "bonus") {
-							multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+			if (selectedItem.name != "Empty") {
+				if (selectedItem.shared_item.name != null && selectedItem.shared_item.name in sharedItemCounts === false) {
+					sharedItemCounts[selectedItem.shared_item.name] = 1;
+				} else if (selectedItem.shared_item.name != null) {
+					sharedItemCounts[selectedItem.shared_item.name] += 1;
+				}
+
+				for (let itemStatName in selectedItem) {
+					let itemStatVal = selectedItem[itemStatName];
+					if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && typeof (itemStatVal) != "string") {
+						let hasMultType = itemStatName.includes("mult");
+						if (hasMultType && sharedItemCounts[selectedItem.shared_item.name] <= 1) {
+							if (itemStatVal["type"] == "total") {
+								multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
+							} else if (itemStatVal["type"] == "bonus") {
+								multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+							}
+						} else if (hasMultType === false) {
+							if (itemStatName in totalStatsFromItems) {
+								if (itemStatName in selectedItem.shared_item === false) {
+									totalStatsFromItems[itemStatName] += itemStatVal;
+								} else {
+									console.log(itemStatName);
+								}
+							} else if (itemStatName in totalStatsFromItems === false) {
+								if (itemStatName in selectedItem.shared_item === false) {
+									totalStatsFromItems[itemStatName] = itemStatVal;
+								} else {
+									if (sharedItemCounts[selectedItem.shared_item.name] <= 1) {
+										totalStatsFromItems[itemStatName] = itemStatVal;
+									}
+
+								}
+							}
 						}
-					} else {
-						if (itemStatName in totalStatsFromItems) {
-							totalStatsFromItems[itemStatName] += itemStatVal;
-						} else {
-							totalStatsFromItems[itemStatName] = itemStatVal;
+					} else if (itemStatName == "shared_item" && itemStatVal != null) {
+
+					} else if (itemStatName == "stackable") {
+						if (selectedItem.stackable != false && selectedItem.stacked == true && sharedItemCounts[selectedItem.shared_item] <= 1) {
+							for (let stackedItemStatKey in selectedItem.stackable) {
+								if (stackedItemStatKey != "name") {
+									if (stackedItemStatKey in totalStatsFromItems) {
+										totalStatsFromItems[stackedItemStatKey] += selectedItem.stackable[stackedItemStatKey];
+									} else {
+										totalStatsFromItems[stackedItemStatKey] = selectedItem.stackable[stackedItemStatKey];
+									}
+								}
+							}
 						}
 					}
 				}
+			} else {
+				// console.log(itemIndex, selectedItem);
 			}
 		}
+		console.log(totalStatsFromItems, sharedItemCounts);
 		for (let key in totalStatsFromItems) {
 			if (champion.resource.toUpperCase() != "MANA" && key.includes("mp")) {
 				totalStatsFromItems[key] = 0;
@@ -152,7 +202,11 @@ export class ChampionService {
 		// are the total multipliers added including the bonus stats or just the base+item
 		// console.log(champion.stats, totalStatsFromItems, multKeyValues);
 		for (let key in totalStatsFromItems) {
-			champion.stats[key] += totalStatsFromItems[key];
+			if (key.includes("%")) {
+				champion.stats[key.replace("%", "")] *= (1 + totalStatsFromItems[key] / 100);
+			} else {
+				champion.stats[key] += totalStatsFromItems[key];
+			}
 		}
 		if (hasTotalMultiplier) {
 			this.applyTotalMultipliers(champion, multKeyValues);
@@ -179,5 +233,16 @@ export class ChampionService {
 			}
 		}
 		return;
+	}
+	allSelectedItemsIsEmpty(selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item) {
+		for (let index in selectedItems) {
+			if (selectedItems[index] != EMPTY_ITEM) {
+				return false;
+			}
+		}
+		if (selectedElixir != EMPTY_ITEM) {
+			return false;
+		}
+		return true;
 	}
 }

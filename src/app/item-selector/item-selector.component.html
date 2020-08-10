@@ -41,8 +41,8 @@
 			<ul class="item-grid">
 				<li (click)="removeItem(selectedElixir)">
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
-						<img *ngIf="!selectedSlotIsFree(selectedElixir)" class="item-block" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" />
-						<ng-template [ngIf]="selectedSlotIsFree(selectedElixir)">
+						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" class="item-block" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" />
+						<ng-template #emptyElixir>
 							Elixir Slot
 						</ng-template>
 					</div>
@@ -51,17 +51,19 @@
 			<ul class="item-grid">
 				<li *ngFor="let selectedItem of selectedItems; index as i">
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
-						<div>
-							<img *ngIf="!selectedSlotIsFree(selectedItem)" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
-							<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin">Stack</mat-checkbox>
-						</div>
-						<ng-template [ngIf]="selectedSlotIsFree(selectedItem)">
+						<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
+						<ng-template #emptySlot>
 							Item Slot {{i + 1}}
 						</ng-template>
 						<!-- <span *ngIf="selectedSlotIsFree(selectedItem)" class="item-block"></span> -->
 					</div>
 				</li>
 			</ul>
+			<div class="item-grid">
+				<div *ngFor="let selectedItem of selectedItems; index as i">
+					<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.shared_item | titlecase}} </mat-checkbox>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

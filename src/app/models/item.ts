@@ -21,6 +21,7 @@ export interface Item {
 	'hp5': number,
 	'hp_mult': { 'type': string, 'value': number; },
 	'img': string,
+	'index': number,
 	'leth': number,
 	'ls': number,
 	'magic_on_hit': number,
@@ -33,11 +34,13 @@ export interface Item {
 	'ms%': number,
 	'name': string,
 	'phys_on_hit': number,
-	'shared_item': string,
+	'shared_item': any,
 	'shield': number,
-	'spell_m_proc': number,
+	'spell_m_proc': any, // type string is not assignable to number?
 	'spell_vamp': number,
-	'stackable': boolean,
+	'stacked': boolean,
+	'stackable': any,
 	'tags': string,
-	'tenacity': number;
+	'tenacity': number,
+	'unique_passives'?: any,
 }

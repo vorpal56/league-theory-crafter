@@ -15,22 +15,24 @@ export class ItemSelectorComponent implements OnInit {
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
+		// this.addItem(this.items[83]);
 	}
 
 	items = ITEMS;
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "";
+	searchText: string = "morello";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	orderMode: string = this.orderModes[0].orderModeValue;
 	@Input('selectedChampion') champion: Champion;
 	@Input('currentLevel') currentLevel: number;
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
+	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
-	selectedItemsRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
+	selectedItemsRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasMejaisSeaL": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
 	previousChampion: Champion;
 
 	/**
@@ -39,7 +41,10 @@ export class ItemSelectorComponent implements OnInit {
 	 * @returns boolean
 	 */
 	isItemAllowed(itemDetails: Item): boolean {
-		if (this.selectedItemsRestrictions.hasGoldOrJg == true && itemDetails.shared_item == "goldjg") {
+		if (this.selectedItemsRestrictions.hasGoldOrJg == true && itemDetails.shared_item.name == "goldjg") {
+			return false;
+		}
+		if (this.selectedItemsRestrictions.hasMejaisSeaL == true && itemDetails.shared_item.name == "mejais") {
 			return false;
 		}
 		if (this.selectedItemsRestrictions.hasBoots == true && itemDetails.boots_ms) {
@@ -52,7 +57,7 @@ export class ItemSelectorComponent implements OnInit {
 			alert("Elixirs are available when level 9 or greater");
 			return false;
 		}
-		if (itemDetails.shared_item == "masterwork") {
+		if (itemDetails.apiname.includes("masterwork")) {
 			let occupiedSlots = 0;
 			for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
 				let masterworkItem = this.selectedItemsRestrictions.masterworkItems[masterworkIndex];
@@ -82,8 +87,11 @@ export class ItemSelectorComponent implements OnInit {
 	 */
 	addItem(itemDetails: Item): void {
 		if (this.isItemAllowed(itemDetails)) {
-			if (itemDetails.shared_item == "goldjg") {
+			if (itemDetails.shared_item.name == "goldjg") {
 				this.selectedItemsRestrictions.hasGoldOrJg = true;
+			}
+			if (itemDetails.shared_item.name == "mejais") {
+				this.selectedItemsRestrictions.hasMejaisSeaL = true;
 			}
 			if (itemDetails.boots_ms != 0) {
 				this.selectedItemsRestrictions.hasBoots = true;
@@ -99,7 +107,7 @@ export class ItemSelectorComponent implements OnInit {
 					if (this.selectedItems[itemIndex] == EMPTY_ITEM) {
 						this.selectedItems[itemIndex] = itemDetails;
 						// check if the item we're adding is an ornn item and there's an open space -> break after finding
-						if (itemDetails.shared_item == "masterwork") {
+						if (itemDetails.apiname.includes("masterwork")) {
 							for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
 								let masterworkItem = this.selectedItemsRestrictions.masterworkItems[masterworkIndex];
 								if (masterworkItem == EMPTY_ITEM) {
@@ -112,7 +120,7 @@ export class ItemSelectorComponent implements OnInit {
 					}
 				}
 			}
-			this.selectedItemsEmitter.emit(this.selectedItems);
+			this.emitSelectedItems();
 			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		}
 		return;
@@ -125,8 +133,12 @@ export class ItemSelectorComponent implements OnInit {
 	 * @returns void
 	 */
 	removeItem(itemDetails: Item, index?: number): void {
-		if (itemDetails.shared_item == "goldjg") {
+		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemsRestrictions.hasGoldOrJg = false;
+		}
+		if (itemDetails.shared_item.name == "mejais") {
+			this.selectedItemsRestrictions.hasMejaisSeaL = false;
+			itemDetails.stacked = false;
 		}
 		if (itemDetails.boots_ms != 0) {
 			this.selectedItemsRestrictions.hasBoots = false;
@@ -140,7 +152,7 @@ export class ItemSelectorComponent implements OnInit {
 			// replace the item at index with an empty item
 			this.selectedItems.splice(index, 1, EMPTY_ITEM);
 			// replace the item in the masterworkItems as well
-			if (itemDetails.shared_item == "masterwork") {
+			if (itemDetails.apiname.includes("masterwork")) {
 				for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
 					let masterworkItem = this.selectedItemsRestrictions.masterworkItems[masterworkIndex];
 					if (masterworkItem == itemDetails) {
@@ -150,7 +162,7 @@ export class ItemSelectorComponent implements OnInit {
 				}
 			}
 		}
-		this.selectedItemsEmitter.emit(this.selectedItems);
+		this.emitSelectedItems();
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
@@ -218,7 +230,7 @@ export class ItemSelectorComponent implements OnInit {
 				this.removeItem(item, index);
 			} else if (item.allowed_to.ranged && !item.allowed_to.melee && championRangeType == "melee") {
 				this.removeItem(item, index);
-			} else if (item.shared_item == "masterwork" && selectedChampion.name != "Ornn") {
+			} else if (item.apiname.includes("masterwork") && selectedChampion.name != "Ornn") {
 				let occupiedSlots = 0;
 				// look at this logic again and see if there is a logically better way of doing this
 				// remove any ornn items that can't be held in the inventory on switching champs
@@ -234,7 +246,7 @@ export class ItemSelectorComponent implements OnInit {
 				}
 			}
 		});
-		this.selectedItemsEmitter.emit(this.selectedItems);
+		this.emitSelectedItems();
 		this.championService.adjustBaseAndItemStats(selectedChampion, currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
@@ -249,6 +261,34 @@ export class ItemSelectorComponent implements OnInit {
 			this.selectedElixir = EMPTY_ITEM;
 		}
 	}
-
+	/**
+	 * Method that emits the selected items 
+	 * Called on parent component on ngAfterViewInit
+	 * @returns void
+	 */
+	emitSelectedItems(): void {
+		this.selectedItemsEmitter.emit(this.selectedItems);
+		this.selectedElixirEmitter.emit(this.selectedElixir);
+		return;
+	}
+	setStackedSelectedItem(isStacked: boolean, index: number): void {
+		this.selectedItems[index].stacked = isStacked;
+		// console.log("index to update", index, this.selectedItems, this.selectedItems[index], this.selectedItems[index].stacked, this.selectedItems[0].stacked);
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+	}
+	allowedToBeStacked(itemDetails: Item): boolean {
+		for (let i in this.selectedItems) {
+			let item = this.selectedItems[i];
+			// console.log(item.stacked, itemDetails.stackable);
+			if (item == EMPTY_ITEM) {
+				return false;
+			}
+			console.log(item == itemDetails);
+			if (item == itemDetails && itemDetails.stackable && item.stackable) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
 

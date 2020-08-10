@@ -10,5 +10,5 @@
 		</div>
 	</div>
 	<champion [champion]="champion"></champion>
-	<item-selector [(selectedChampion)]="champion" (selectedItems)="viewSelectedItems($event)" [currentLevel]="currentLevel"></item-selector>
+	<item-selector [selectedChampion]="champion" (selectedItems)="setSelectedItems($event)" (selectedElixir)="setSelectedElixir($event)" [currentLevel]="currentLevel"></item-selector>
 </div>

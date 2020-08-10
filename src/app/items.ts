@@ -24,6 +24,7 @@ export const EMPTY_ITEM = {
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': '',
+	'index': 0,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -36,11 +37,14 @@ export const EMPTY_ITEM = {
 	'ms%': 0,
 	'name': 'Empty',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 };
@@ -49,7 +53,7 @@ export const ITEMS = [{
 	'ad_mult': { 'type': 'total', 'value': 0 },
 	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
-	'ap_mult': { 'type': 'total', 'value': 15 },
+	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
 	'apiname': 'abyssalmask',
 	'arm': 0,
@@ -67,6 +71,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Abyssal Mask.png',
+	'index': 0,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -79,11 +84,15 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Abyssal Mask',
 	'phys_on_hit': 0,
-	'shared_item': 'abyssal',
+	'shared_item': {
+		'name': 'aura',
+		'ap_mult': { 'type': 'total', 'value': 0 },
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -110,6 +119,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Adaptive Helm.png',
+	'index': 1,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -122,11 +132,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Adaptive Helm',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -153,6 +166,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Aegis of the Legion.png',
+	'index': 2,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -165,11 +179,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Aegis of the Legion',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -196,6 +213,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Aether Wisp.png',
+	'index': 3,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -208,11 +226,14 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': 'Aether Wisp',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -239,6 +260,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Amplifying Tome.png',
+	'index': 4,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -251,11 +273,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Amplifying Tome',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -282,6 +307,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Archangel's Staff.png",
+	'index': 5,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -299,6 +325,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': True,
+	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
 },
@@ -325,6 +352,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ardent Censer.png',
+	'index': 6,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -337,11 +365,14 @@ export const ITEMS = [{
 	'ms%': 8,
 	'name': 'Ardent Censer',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -368,6 +399,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Athene's Unholy Grail.png",
+	'index': 7,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -380,11 +412,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Athene's Unholy Grail",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -411,6 +446,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/BF Sword.png',
+	'index': 8,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -423,11 +459,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'BF Sword',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -454,6 +493,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Bami's Cinder.png",
+	'index': 9,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -466,11 +506,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Bami's Cinder",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -497,6 +540,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Banshee's Veil.png",
+	'index': 10,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -509,11 +553,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Banshee's Veil",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -540,6 +587,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Berserker's Greaves.png",
+	'index': 11,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -552,11 +600,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Berserker's Greaves",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -583,6 +634,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bilgewater Cutlass.png',
+	'index': 12,
 	'leth': 0,
 	'ls': 10,
 	'magic_on_hit': 0,
@@ -595,11 +647,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bilgewater Cutlass',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -626,6 +681,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Blasting Wand.png',
+	'index': 13,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -638,11 +694,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Blasting Wand',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -669,6 +728,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Black Mist Scythe.png',
+	'index': 14,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -686,6 +746,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -712,6 +773,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Blade of the Ruined King.png',
+	'index': 15,
 	'leth': 0,
 	'ls': 12,
 	'magic_on_hit': 0,
@@ -724,11 +786,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Blade of the Ruined King',
 	'phys_on_hit': 15,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -755,6 +820,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Mobility.png',
+	'index': 16,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -767,11 +833,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Mobility',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -798,6 +867,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Speed.png',
+	'index': 17,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -810,11 +880,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Speed',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -841,6 +914,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Swiftness.png',
+	'index': 18,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -853,11 +927,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Swiftness',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -884,6 +961,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bramble Vest.png',
+	'index': 19,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -896,11 +974,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bramble Vest',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -927,6 +1008,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bulwark of the Mountain.png',
+	'index': 20,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -944,6 +1026,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -970,6 +1053,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Black Cleaver.png',
+	'index': 21,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -982,11 +1066,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Black Cleaver',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1013,6 +1100,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bloodthirster.png',
+	'index': 22,
 	'leth': 0,
 	'ls': 20,
 	'magic_on_hit': 0,
@@ -1025,11 +1113,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bloodthirster',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 50,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1056,6 +1147,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Catalyst of Aeons.png',
+	'index': 23,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1068,11 +1160,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Catalyst of Aeons',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1099,6 +1194,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Caulfield's Warhammer.png",
+	'index': 24,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1111,11 +1207,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Caulfield's Warhammer",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1142,6 +1241,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Chain Vest.png',
+	'index': 25,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1154,11 +1254,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Chain Vest',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1185,6 +1288,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Chalice of Harmony.png',
+	'index': 26,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1197,11 +1301,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Chalice of Harmony',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1228,6 +1335,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cloak of Agility.png',
+	'index': 27,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1240,11 +1348,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cloak of Agility',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1271,6 +1382,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cloth Armor.png',
+	'index': 28,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1283,11 +1395,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cloth Armor',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1314,6 +1429,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Crystalline Bracer.png',
+	'index': 29,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1326,11 +1442,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Crystalline Bracer',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1357,6 +1476,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cull.png',
+	'index': 30,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1369,11 +1489,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cull',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -1400,6 +1523,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Dagger.png',
+	'index': 31,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1412,11 +1536,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Dagger',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1443,6 +1570,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Dark Seal.png',
+	'index': 32,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1455,11 +1583,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Dark Seal',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'mejais',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': True,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -1486,6 +1615,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Dead Man's Plate.png",
+	'index': 33,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1498,11 +1628,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Dead Man's Plate",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1529,6 +1662,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Death's Dance.png",
+	'index': 34,
 	'leth': 0,
 	'ls': 15,
 	'magic_on_hit': 0,
@@ -1541,11 +1675,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Death's Dance",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1572,6 +1709,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Blade.png",
+	'index': 35,
 	'leth': 0,
 	'ls': 3,
 	'magic_on_hit': 0,
@@ -1584,11 +1722,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Blade",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -1615,6 +1756,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Shield.png",
+	'index': 36,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1627,11 +1769,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Shield",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -1658,6 +1803,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Ring.png",
+	'index': 37,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1670,11 +1816,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Ring",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -1701,6 +1850,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Duskblade of Draktharr.png',
+	'index': 38,
 	'leth': 21,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1713,11 +1863,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Duskblade of Draktharr',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1744,6 +1897,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Edge of Night.png',
+	'index': 39,
 	'leth': 10,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1756,11 +1910,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Edge of Night',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -1787,6 +1944,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Bloodrazor.png',
+	'index': 40,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1804,6 +1962,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0
 },
@@ -1830,6 +1989,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 15 },
 	'img': 'assets/images/items/Enchantment Cinderhulk.png',
+	'index': 41,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1847,6 +2007,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0
 },
@@ -1873,6 +2034,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Echoes.png',
+	'index': 42,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1890,6 +2052,7 @@ export const ITEMS = [{
 	'spell_m_proc': 60,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0
 },
@@ -1916,6 +2079,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Warrior.png',
+	'index': 43,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1933,6 +2097,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0
 },
@@ -1959,6 +2124,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Essence Reaver.png',
+	'index': 44,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -1971,11 +2137,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Essence Reaver',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2002,6 +2171,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Executioner's Calling.png",
+	'index': 45,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2014,11 +2184,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Executioner's Calling",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2045,6 +2218,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Faerie Charm.png',
+	'index': 46,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2057,11 +2231,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Faerie Charm',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2088,6 +2265,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Fiendish Codex.png',
+	'index': 47,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2100,11 +2278,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Fiendish Codex',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2131,6 +2312,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Forbidden Idol.png',
+	'index': 48,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2143,11 +2325,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Forbidden Idol',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2174,6 +2359,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frostfang.png',
+	'index': 49,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2191,6 +2377,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -2217,6 +2404,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Heart.png',
+	'index': 50,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2229,11 +2417,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Heart',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2260,6 +2451,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Mallet.png',
+	'index': 51,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2272,11 +2464,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Mallet',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2303,6 +2498,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Gargoyle Stoneplate.png',
+	'index': 52,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2315,11 +2511,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Gargoyle Stoneplate',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2346,6 +2545,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Giant's Belt.png",
+	'index': 53,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2358,11 +2558,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Giant's Belt",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2389,6 +2592,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Glacial Shroud.png',
+	'index': 54,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2401,11 +2605,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Glacial Shroud',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2432,6 +2639,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Guardian Angel.png',
+	'index': 55,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2444,11 +2652,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Guardian Angel',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2475,6 +2686,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Guinsoo's Rageblade.png",
+	'index': 56,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 15,
@@ -2487,11 +2699,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Guinsoo's Rageblade",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2518,6 +2733,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Haunting Guise.png',
+	'index': 57,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2535,6 +2751,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2561,6 +2778,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Harrowing Crescent.png',
+	'index': 58,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2578,6 +2796,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -2604,6 +2823,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hexdrinker.png',
+	'index': 59,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2616,11 +2836,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hexdrinker',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2647,6 +2870,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech GLP.png',
+	'index': 60,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2659,11 +2883,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech GLP-800',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2690,6 +2917,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Gunblade.png',
+	'index': 61,
 	'leth': 0,
 	'ls': 15,
 	'magic_on_hit': 0,
@@ -2702,11 +2930,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Gunblade',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 175,
 	'spell_vamp': 15,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2733,6 +2964,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Protobelt.png',
+	'index': 62,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2745,11 +2977,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Protobelt-01',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': '127,5',
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2776,6 +3011,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Revolver.png',
+	'index': 63,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2788,11 +3024,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Revolver',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 50,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2819,6 +3058,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hex Core mk1.png',
+	'index': 64,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2831,11 +3071,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hex Core mk-1',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2862,6 +3105,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hex Core mk2.png',
+	'index': 65,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2874,11 +3118,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hex Core mk-2',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2905,6 +3152,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Iceborn Gauntlet.png',
+	'index': 66,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2917,11 +3165,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Iceborn Gauntlet',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2948,6 +3199,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Infinity Edge.png',
+	'index': 67,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -2960,11 +3212,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Infinity Edge',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -2991,6 +3246,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ionian Boots of Lucidity.png',
+	'index': 68,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3003,11 +3259,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ionian Boots of Lucidity',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3034,6 +3293,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Jaurim's Fist.png",
+	'index': 69,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3046,11 +3306,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Jaurim's Fist",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3077,6 +3340,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Kindlegem.png',
+	'index': 70,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3089,11 +3353,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Kindlegem',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3120,6 +3387,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Kircheis Shard.png',
+	'index': 71,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3132,11 +3400,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Kircheis Shard',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3163,6 +3434,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Knight's Vow.png",
+	'index': 72,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3175,11 +3447,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Knight's Vow",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3206,6 +3481,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Last Whisper.png',
+	'index': 73,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3218,11 +3494,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Last Whisper',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3249,6 +3528,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Liandry's Torment.png",
+	'index': 74,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3266,6 +3546,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3292,6 +3573,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Lich Bane.png',
+	'index': 75,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3304,11 +3586,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Lich Bane',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3335,6 +3620,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Locket of the Iron Solari.png',
+	'index': 76,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3347,11 +3633,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Locket of the Iron Solari',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3378,6 +3667,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Long Sword.png',
+	'index': 77,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3390,11 +3680,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Long Sword',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -3421,6 +3714,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Lord Dominik's Regards.png",
+	'index': 78,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3433,11 +3727,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Lord Dominik's Regards",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3464,6 +3761,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Lost Chapter.png',
+	'index': 79,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3476,11 +3774,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Lost Chapter',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3507,6 +3808,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Luden's Echo.png",
+	'index': 80,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3519,11 +3821,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Luden's Echo",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3550,6 +3855,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Manamune.png',
+	'index': 81,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3567,6 +3873,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': True,
+	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
 },
@@ -3593,6 +3900,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Maw of Malmortius.png',
+	'index': 82,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3605,11 +3913,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Maw of Malmortius',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3636,6 +3947,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mejai's Soulstealer.png",
+	'index': 83,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3648,11 +3960,16 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mejai's Soulstealer",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': 'mejais',
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': {
+		'name': "Mejai's Soulstealer",
+		'ap': 125,
+		'ms%': 10,
+	},
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3679,6 +3996,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Mercurial Scimitar.png',
+	'index': 84,
 	'leth': 0,
 	'ls': 10,
 	'magic_on_hit': 0,
@@ -3691,11 +4009,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Mercurial Scimitar',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3722,6 +4043,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mercury's Treads.png",
+	'index': 85,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3734,11 +4056,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mercury's Treads",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 35
 },
@@ -3765,6 +4090,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mikael's Crucible.png",
+	'index': 86,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3777,11 +4103,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mikael's Crucible",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3808,6 +4137,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Morellonomicon.png',
+	'index': 87,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3820,11 +4150,15 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Morellonomicon',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		'name': 'morellonomicon',
+		'mpen': True,
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3851,6 +4185,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Mortal Reminder.png',
+	'index': 88,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3863,11 +4198,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Mortal Reminder',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3894,6 +4232,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Muramana.png',
+	'index': 89,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3911,6 +4250,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
 },
@@ -3937,6 +4277,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Nashor's Tooth.png",
+	'index': 90,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 15,
@@ -3949,11 +4290,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Nashor's Tooth",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -3980,6 +4324,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Needlessly Large Rod.png',
+	'index': 91,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -3992,11 +4337,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Needlessly Large Rod',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4023,6 +4371,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Negatron Cloak.png',
+	'index': 92,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4035,11 +4384,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Negatron Cloak',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4066,6 +4418,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ninja Tabi.png',
+	'index': 93,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4078,11 +4431,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ninja Tabi',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4109,6 +4465,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Null-Magic Mantle.png',
+	'index': 94,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4121,11 +4478,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Null-Magic Mantle',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -4152,6 +4512,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Oblivion Orb.png',
+	'index': 95,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4164,11 +4525,15 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Oblivion Orb',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		'name': 'morellonomicon',
+		'mpen': True,
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4195,6 +4560,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Perfect Hex Core.png',
+	'index': 96,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4207,11 +4573,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Perfect Hex Core',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4238,6 +4607,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Phage.png',
+	'index': 97,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4250,11 +4620,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Phage',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4281,6 +4654,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Phantom Dancer.png',
+	'index': 98,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4293,11 +4667,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Phantom Dancer',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4324,6 +4701,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Pickaxe.png',
+	'index': 99,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4336,11 +4714,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Pickaxe',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4367,6 +4748,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Prototype Hex Core.png',
+	'index': 100,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4379,11 +4761,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Prototype Hex Core',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4410,6 +4795,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Pauldrons of Whiterock.png',
+	'index': 101,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4427,6 +4813,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -4453,6 +4840,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Quicksilver Sash.png',
+	'index': 102,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4465,11 +4853,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Quicksilver Sash',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4496,6 +4887,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Runesteel Spaulders.png',
+	'index': 103,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4513,6 +4905,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -4539,6 +4932,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rabadon's Deathcap.png",
+	'index': 104,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4551,11 +4945,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rabadon's Deathcap",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4582,6 +4979,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Randuin's Omen.png",
+	'index': 105,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4594,11 +4992,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Randuin's Omen",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4625,6 +5026,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rapid Firecannon.png',
+	'index': 106,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4637,11 +5039,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Rapid Firecannon',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4668,6 +5073,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ravenous Hydra.png',
+	'index': 107,
 	'leth': 0,
 	'ls': 18,
 	'magic_on_hit': 0,
@@ -4680,11 +5086,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ravenous Hydra',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4711,6 +5120,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Recurve Bow.png',
+	'index': 108,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4723,11 +5133,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Recurve Bow',
 	'phys_on_hit': 15,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4754,6 +5167,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Redemption.png',
+	'index': 109,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4766,11 +5180,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Redemption',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4797,6 +5214,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rejuvenation Bead.png',
+	'index': 110,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4809,11 +5227,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Rejuvenation Bead',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4840,6 +5261,7 @@ export const ITEMS = [{
 	'hp5': 25,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Relic Shield.png',
+	'index': 111,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4857,6 +5279,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
@@ -4883,6 +5306,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Righteous Glory.png',
+	'index': 112,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4895,11 +5319,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Righteous Glory',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4926,6 +5353,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rod of Ages.png',
+	'index': 113,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4938,11 +5366,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Rod of Ages',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -4969,6 +5400,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ruby Crystal.png',
+	'index': 114,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -4981,11 +5413,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ruby Crystal',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0
 },
@@ -5012,6 +5447,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Runaan's Hurricane.png",
+	'index': 115,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5024,11 +5460,14 @@ export const ITEMS = [{
 	'ms%': 9,
 	'name': "Runaan's Hurricane",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5055,6 +5494,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rylai's Crystal Scepter.png",
+	'index': 116,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5067,11 +5507,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rylai's Crystal Scepter",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5098,6 +5541,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sanguine Blade.png',
+	'index': 117,
 	'leth': 10,
 	'ls': 15,
 	'magic_on_hit': 0,
@@ -5110,11 +5554,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sanguine Blade',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5141,6 +5588,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sapphire Crystal.png',
+	'index': 118,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5153,11 +5601,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sapphire Crystal',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5184,6 +5635,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Seeker's Armguard.png",
+	'index': 119,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5196,11 +5648,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Seeker's Armguard",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': True,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5227,6 +5682,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Seraph's Embrace.png",
+	'index': 120,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5244,6 +5700,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
 },
@@ -5270,6 +5727,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Serrated Dirk.png',
+	'index': 121,
 	'leth': 10,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5282,11 +5740,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Serrated Dirk',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5313,6 +5774,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sheen.png',
+	'index': 122,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5325,11 +5787,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sheen',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5356,6 +5821,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Shurelya's Reverie.png",
+	'index': 123,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5368,11 +5834,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Shurelya's Reverie",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5399,6 +5868,7 @@ export const ITEMS = [{
 	'hp5': 25,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Steel Shoulderguards.png',
+	'index': 124,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5416,6 +5886,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
@@ -5442,6 +5913,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Shard of True Ice.png',
+	'index': 125,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5459,6 +5931,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -5485,6 +5958,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Sorcerer's Shoes.png",
+	'index': 126,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5497,11 +5971,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Sorcerer's Shoes",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5528,6 +6005,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Spectre's Cowl.png",
+	'index': 127,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5540,11 +6018,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Spectre's Cowl",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5571,6 +6052,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spellbinder.png',
+	'index': 128,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5583,11 +6065,14 @@ export const ITEMS = [{
 	'ms%': 10,
 	'name': 'Spellbinder',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5614,6 +6099,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spectral Sickle.png',
+	'index': 129,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5631,6 +6117,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
@@ -5657,6 +6144,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Spellthief's Edge.png",
+	'index': 130,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5674,6 +6162,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0
 },
@@ -5700,6 +6189,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spirit Visage.png',
+	'index': 131,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5712,11 +6202,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Spirit Visage',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5743,6 +6236,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Statikk Shiv.png',
+	'index': 132,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5755,11 +6249,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Statikk Shiv',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5786,6 +6283,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Sterak's Gage.png",
+	'index': 133,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5798,11 +6296,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Sterak's Gage",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5829,6 +6330,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Stinger.png',
+	'index': 134,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5841,11 +6343,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Stinger',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5872,6 +6377,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Stormrazor.png',
+	'index': 135,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5884,11 +6390,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Stormrazor',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5915,6 +6424,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sunfire Cape.png',
+	'index': 136,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5927,11 +6437,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sunfire Cape',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -5958,6 +6471,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Targon's Buckler.png",
+	'index': 137,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -5975,6 +6489,7 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0
 },
@@ -6001,6 +6516,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Tear of the Goddess.png',
+	'index': 138,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6017,7 +6533,11 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': {
+		'name': 'Tear of the Goddess',
+		'mp': 500,
+	},
+	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
 },
@@ -6044,6 +6564,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Thornmail.png',
+	'index': 139,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6056,11 +6577,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Thornmail',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6087,6 +6611,7 @@ export const ITEMS = [{
 	'hp5': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Tiamat.png',
+	'index': 140,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6099,11 +6624,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Tiamat',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6130,6 +6658,7 @@ export const ITEMS = [{
 	'hp5': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Titanic Hydra.png',
+	'index': 141,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6142,11 +6671,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Titanic Hydra',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6173,6 +6705,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Trinity Force.png',
+	'index': 142,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6185,11 +6718,14 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': 'Trinity Force',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6216,6 +6752,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Twin Shadows.png',
+	'index': 143,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6228,11 +6765,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Twin Shadows',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6259,6 +6799,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Umbral Glaive.png',
+	'index': 144,
 	'leth': 12,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6271,11 +6812,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Umbral Glaive',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6302,6 +6846,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Vampiric Scepter.png',
+	'index': 145,
 	'leth': 0,
 	'ls': 10,
 	'magic_on_hit': 0,
@@ -6314,11 +6859,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Vampiric Scepter',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6345,6 +6893,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Void Staff.png',
+	'index': 146,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6357,11 +6906,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Void Staff',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6388,6 +6940,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Warden's Mail.png",
+	'index': 147,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6400,11 +6953,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Warden's Mail",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6431,6 +6987,7 @@ export const ITEMS = [{
 	'hp5': 200,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Warmog's Armor.png",
+	'index': 148,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6443,11 +7000,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Warmog's Armor",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6474,6 +7034,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Wit's End.png",
+	'index': 149,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 15,
@@ -6486,11 +7047,14 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': "Wit's End",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6517,6 +7081,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Youmuu's Ghostblade.png",
+	'index': 150,
 	'leth': 18,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6529,11 +7094,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Youmuu's Ghostblade",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6560,6 +7128,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Zeal.png',
+	'index': 151,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6572,11 +7141,14 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Zeal',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6603,6 +7175,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zeke's Convergence.png",
+	'index': 152,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6615,11 +7188,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zeke's Convergence",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6646,6 +7222,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zhonya's Hourglass.png",
+	'index': 153,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6658,11 +7235,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zhonya's Hourglass",
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': '',
 	'tenacity': 0
 },
@@ -6673,7 +7253,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'circletoftheironsolari',
+	'apiname': 'masterworkcircletoftheironsolari',
 	'arm': 45,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6689,6 +7269,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Circlet of the Iron Solari.png',
+	'index': 154,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6701,11 +7282,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Circlet of the Iron Solari',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6716,7 +7300,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'forgefirecape',
+	'apiname': 'masterworkforgefirecape',
 	'arm': 100,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6732,6 +7316,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Forgefire Cape.png',
+	'index': 155,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6744,11 +7329,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Forgefire Cape',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6759,7 +7347,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'frozenfist',
+	'apiname': 'masterworkfrozenfist',
 	'arm': 125,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6775,6 +7363,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Fist.png',
+	'index': 156,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6787,11 +7376,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Fist',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6800,9 +7392,9 @@ export const ITEMS = [{
 	'ad_mult': { 'type': 'total', 'value': 0 },
 	'allowed_to': { 'melee': True, 'ranged': True },
 	'ap': 0,
-	'ap_mult': { 'type': 'total', 'value': 15 },
+	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'infernalmask',
+	'apiname': 'masterworkinfernalmask',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6818,6 +7410,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Infernal Mask.png',
+	'index': 157,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6830,11 +7423,15 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Infernal Mask',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': 'aura',
+		'ap_mult': { 'type': 'total', 'value': 0 },
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6845,7 +7442,7 @@ export const ITEMS = [{
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'ludenspulse',
+	'apiname': 'masterworkludenspulse',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6861,6 +7458,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Luden's Pulse.png",
+	'index': 158,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6873,11 +7471,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Luden's Pulse",
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6888,7 +7489,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'obsidiancleaver',
+	'apiname': 'masterworkobsidiancleaver',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6904,6 +7505,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Obsidian Cleaver.png',
+	'index': 159,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6916,11 +7518,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Obsidian Cleaver',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6931,7 +7536,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'salvation',
+	'apiname': 'masterworksalvation',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6947,6 +7552,7 @@ export const ITEMS = [{
 	'hp5': 150,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Salvation.png',
+	'index': 160,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -6959,11 +7565,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Salvation',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -6974,7 +7583,7 @@ export const ITEMS = [{
 	'ap': 175,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'rabadonsdeathcrown',
+	'apiname': 'masterworkrabadonsdeathcrown',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -6990,6 +7599,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rabadon's Deathcrown.png",
+	'index': 161,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7002,11 +7612,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rabadon's Deathcrown",
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7017,7 +7630,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'moltenedge',
+	'apiname': 'masterworkmoltenedge',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -7033,6 +7646,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Molten Edge.png',
+	'index': 162,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7045,11 +7659,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Molten Edge',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7060,7 +7677,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'mightoftheruinedking',
+	'apiname': 'masterworkmightoftheruinedking',
 	'arm': 0,
 	'as': 40,
 	'att_m_proc': 0,
@@ -7076,6 +7693,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Might of the Ruined King.png',
+	'index': 163,
 	'leth': 0,
 	'ls': 12,
 	'magic_on_hit': 0,
@@ -7088,11 +7706,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Might of the Ruined King',
 	'phys_on_hit': 15,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7103,7 +7724,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'trinityfusion',
+	'apiname': 'masterworktrinityfusion',
 	'arm': 0,
 	'as': 50,
 	'att_m_proc': 0,
@@ -7119,6 +7740,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Trinity Fusion.png',
+	'index': 164,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7131,11 +7753,14 @@ export const ITEMS = [{
 	'ms%': 8,
 	'name': 'Trinity Fusion',
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7146,7 +7771,7 @@ export const ITEMS = [{
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'youmuuswraithblade',
+	'apiname': 'masterworkyoumuuswraithblade',
 	'arm': 0,
 	'as': 0,
 	'att_m_proc': 0,
@@ -7162,6 +7787,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Youmuu's Wraithblade.png",
+	'index': 165,
 	'leth': 25,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7174,11 +7800,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Youmuu's Wraithblade",
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7189,7 +7818,7 @@ export const ITEMS = [{
 	'ap': 100,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
-	'apiname': 'zhonyasparadox',
+	'apiname': 'masterworkzhonyasparadox',
 	'arm': 60,
 	'as': 0,
 	'att_m_proc': 0,
@@ -7205,6 +7834,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zhonya's Paradox.png",
+	'index': 166,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7217,11 +7847,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zhonya's Paradox",
 	'phys_on_hit': 0,
-	'shared_item': 'masterwork',
+	'shared_item': {
+		'name': None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0
 },
@@ -7248,6 +7881,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Iron.png',
+	'index': 167,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7260,11 +7894,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Iron',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 25
 },
@@ -7291,6 +7928,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Sorcery.png',
+	'index': 168,
 	'leth': 0,
 	'ls': 0,
 	'magic_on_hit': 0,
@@ -7303,11 +7941,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Sorcery',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 0
 },
@@ -7334,6 +7975,7 @@ export const ITEMS = [{
 	'hp5': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Wrath.png',
+	'index': 169,
 	'leth': 0,
 	'ls': 15,
 	'magic_on_hit': 0,
@@ -7346,11 +7988,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Wrath',
 	'phys_on_hit': 0,
-	'shared_item': None,
+	'shared_item': {
+		"name": None
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
 	'stackable': False,
+	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 0
 }];

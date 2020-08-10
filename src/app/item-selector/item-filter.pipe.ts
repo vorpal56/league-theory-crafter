@@ -47,8 +47,8 @@ export class ItemFilterPipe implements PipeTransform {
 			// for every item, compares the items if the search term is a tag or an item name
 			// make sure that it's also within the selected gamemode
 			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
-			let itemsSearchedByName = item.name.toLowerCase().includes(searchText);
-			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.toLowerCase().includes(searchText) : null;
+			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
+			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
 			let itemsAllowedToMelee = item.allowed_to.melee == true && championRangeType == "melee";
 			let itemsAllowedToRange = item.allowed_to.ranged == true && championRangeType == "ranged";
 			let intermediaryCondition1: boolean;
