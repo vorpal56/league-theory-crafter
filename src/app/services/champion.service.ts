@@ -30,8 +30,7 @@ export class ChampionService {
 	 * @param  {number} base? the base value of the stat
 	 * @returns number
 	 */
-	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number
-	): number {
+	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number): number {
 		var value =
 			growthStatistic *
 			(championLevel - 1) *
@@ -73,7 +72,7 @@ export class ChampionService {
 		selectedChampion.stats.ap = selectedChampion.stats.ap_base ? selectedChampion.stats.ap_base : 0;
 		selectedChampion.stats.arm = selectedChampion.stats.arm_base ? this.statsGrowthFormula(selectedChampion.stats.arm_lvl, currentLevel, selectedChampion.stats.arm_base) : 0;
 		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
-		selectedChampion.stats.as = selectedChampion.stats.as_base ? this.formatNPlaces(selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel)), 3) : 0;
+		selectedChampion.stats.as = selectedChampion.stats.as_base ? selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel) / 100) : 0;
 		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
 		selectedChampion.stats.range = selectedChampion.stats.range_base ? selectedChampion.stats.range_base : 0;
 		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
@@ -120,6 +119,7 @@ export class ChampionService {
 		};
 
 		let sharedItemCounts = {};
+		let aweItem: Item = EMPTY_ITEM;
 		for (let itemIndex in selectedItems) {
 			let selectedItem = selectedItems[itemIndex];
 			if (selectedItem.name != "Empty") {
@@ -130,6 +130,9 @@ export class ChampionService {
 							sharedItemCounts[passiveName] = 1;
 						} else {
 							sharedItemCounts[passiveName] += 1;
+						}
+						if (passiveName == "awe" && selectedItem.name.includes("tear") === false) {
+							aweItem = selectedItem;
 						}
 					});
 				}
@@ -243,6 +246,11 @@ export class ChampionService {
 		}
 		if (hasTotalMultiplier) {
 			this.applyTotalMultipliers(champion, multKeyValues);
+		}
+		if (aweItem.apiname == "manamune" || aweItem.apiname == "muramana") {
+			champion.stats.ad += (champion.stats.mp * 0.02);
+		} else if (aweItem.apiname == "seraphsembrace" || aweItem.apiname == "archangelsstaff") {
+			champion.stats.ap += (champion.stats.mp * 0.02);
 		}
 		return;
 	}
