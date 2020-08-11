@@ -245,7 +245,11 @@ export class ChampionService {
 			if (key.includes("%")) {
 				champion.stats[key.replace("%", "")] *= (1 + totalStatsFromItems[key] / 100);
 			} else {
-				champion.stats[key] += totalStatsFromItems[key];
+				if (key == "boots_ms" || key == "flat_ms") {
+					champion.stats.ms += totalStatsFromItems[key];
+				} else {
+					champion.stats[key] += totalStatsFromItems[key];
+				}
 			}
 		}
 		if (hasTotalMultiplier) {

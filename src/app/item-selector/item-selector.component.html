@@ -39,9 +39,9 @@
 		</div>
 		<div class="col-md-6 selected-items">
 			<ul class="item-grid">
-				<li (click)="removeItem(selectedElixir)">
+				<li>
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
-						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" draggable="false" />
+						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeElixir()" draggable="false" />
 						<ng-template #emptyElixir>
 							Elixir Slot
 						</ng-template>

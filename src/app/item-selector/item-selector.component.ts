@@ -4,6 +4,7 @@ import { Champion } from "../models/champion";
 import { Item } from "../models/item";
 import { GAMEMODES, ORDERBY, ORDERMODES } from ".././data";
 import { ITEMS, EMPTY_ITEM } from ".././items";
+import { HashLocationStrategy } from '@angular/common';
 
 @Component({
 	selector: 'item-selector',
@@ -53,10 +54,6 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.selectedItemsRestrictions.hasTear == true && itemDetails.tags.includes("tear")) {
 			return false;
 		}
-		if (this.currentLevel < 9 && itemDetails.name.toLowerCase().includes("elixir")) {
-			alert("Elixirs are available when level 9 or greater");
-			return false;
-		}
 		if (itemDetails.apiname.includes("masterwork")) {
 			let occupiedSlots = 0;
 			for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
@@ -77,8 +74,21 @@ export class ItemSelectorComponent implements OnInit {
 				}
 			}
 		}
-		// return this.numberOfEquippableItems <= 5;
-		return true;
+		return this.numberOfEquippableItems != 6;
+	}
+	removeElixir() {
+		this.selectedElixir = EMPTY_ITEM;
+		this.emitSelectedItems();
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+	}
+	addElixir(selectedElixir: Item) {
+		if (this.currentLevel >= 9) {
+			this.selectedElixir = selectedElixir;
+			this.emitSelectedItems();
+			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		} else {
+			alert("need to be lvl 9 or more");
+		}
 	}
 	/**
 	 * Method that adds the item so long as its allowed to 
@@ -87,45 +97,39 @@ export class ItemSelectorComponent implements OnInit {
 	 * @returns void
 	 */
 	addItem(itemDetails: Item): void {
-		if (this.isItemAllowed(itemDetails)) {
+		if (itemDetails.name.toLowerCase().includes("elixir") && itemDetails != this.selectedElixir) {
+			this.addElixir(itemDetails);
+		} else if (this.isItemAllowed(itemDetails) && itemDetails != this.selectedElixir) {
 			if (itemDetails.shared_item.name == "goldjg") {
 				this.selectedItemsRestrictions.hasGoldOrJg = true;
-				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.shared_item.name == "dread") {
 				this.selectedItemsRestrictions.hasMejaisSeaL = true;
-				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.boots_ms != 0) {
 				this.selectedItemsRestrictions.hasBoots = true;
-				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.tags.includes("tear")) {
 				this.selectedItemsRestrictions.hasTear = true;
-				this.numberOfEquippableItems += 1;
 			}
-			if (itemDetails.name.toLowerCase().includes("elixir")) {
-				this.selectedElixir = itemDetails;
-			} else {
-				this.numberOfEquippableItems += 1;
-				// go through the items and change the first empty item to the selected item -> break afterwards
-				for (let itemIndex in this.selectedItems) {
-					if (this.selectedItems[itemIndex] == EMPTY_ITEM) {
-						this.selectedItems[itemIndex] = itemDetails;
-						// check if the item we're adding is an ornn item and there's an open space -> break after finding
-						if (itemDetails.apiname.includes("masterwork")) {
-							for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
-								let masterworkItem = this.selectedItemsRestrictions.masterworkItems[masterworkIndex];
-								if (masterworkItem == EMPTY_ITEM) {
-									this.selectedItemsRestrictions.masterworkItems[masterworkIndex] = itemDetails;
-									break;
-								}
+			// go through the items and change the first empty item to the selected item -> break afterwards
+			for (let itemIndex in this.selectedItems) {
+				if (this.selectedItems[itemIndex] == EMPTY_ITEM) {
+					this.selectedItems[itemIndex] = itemDetails;
+					// check if the item we're adding is an ornn item and there's an open space -> break after finding
+					if (itemDetails.apiname.includes("masterwork")) {
+						for (let masterworkIndex in this.selectedItemsRestrictions.masterworkItems) {
+							let masterworkItem = this.selectedItemsRestrictions.masterworkItems[masterworkIndex];
+							if (masterworkItem == EMPTY_ITEM) {
+								this.selectedItemsRestrictions.masterworkItems[masterworkIndex] = itemDetails;
+								break;
 							}
 						}
-						break;
 					}
+					break;
 				}
 			}
+			this.numberOfEquippableItems += 1;
 			this.emitSelectedItems();
 			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		}
@@ -141,25 +145,17 @@ export class ItemSelectorComponent implements OnInit {
 	removeItem(itemDetails: Item, index?: number): void {
 		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemsRestrictions.hasGoldOrJg = false;
-			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.shared_item.name == "dread") {
 			this.selectedItemsRestrictions.hasMejaisSeaL = false;
 			itemDetails.stacked = false;
-			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.boots_ms != 0) {
 			this.selectedItemsRestrictions.hasBoots = false;
-			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.tags.includes("tear")) {
 			this.selectedItemsRestrictions.hasTear = false;
-			this.numberOfEquippableItems -= 1;
-		}
-		if (itemDetails.name.toLowerCase().includes("elixir")) {
-			this.selectedElixir = EMPTY_ITEM;
 		} else {
-			this.numberOfEquippableItems -= 1;
 			// replace the item at index with an empty item
 			this.selectedItems.splice(index, 1, EMPTY_ITEM);
 			// replace the item in the masterworkItems as well
@@ -173,6 +169,7 @@ export class ItemSelectorComponent implements OnInit {
 				}
 			}
 		}
+		this.numberOfEquippableItems -= 1;
 		this.emitSelectedItems();
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
