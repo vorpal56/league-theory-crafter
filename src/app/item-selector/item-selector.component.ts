@@ -15,14 +15,14 @@ export class ItemSelectorComponent implements OnInit {
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
-		this.addItem(this.items[83]);
+		// this.addItem(ITEMS[83]);
 	}
 
 	items = ITEMS;
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "guinsoo";
+	searchText: string = "x";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	orderMode: string = this.orderModes[0].orderModeValue;
@@ -33,7 +33,7 @@ export class ItemSelectorComponent implements OnInit {
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
 	selectedItemsRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasMejaisSeaL": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
-	previousChampion: Champion;
+	numberOfEquippableItems = 0;
 
 	/**
 	 * Method that determines if the item is allowed given the champion and item restrictions
@@ -77,6 +77,7 @@ export class ItemSelectorComponent implements OnInit {
 				}
 			}
 		}
+		// return this.numberOfEquippableItems <= 5;
 		return true;
 	}
 	/**
@@ -89,19 +90,24 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.isItemAllowed(itemDetails)) {
 			if (itemDetails.shared_item.name == "goldjg") {
 				this.selectedItemsRestrictions.hasGoldOrJg = true;
+				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.shared_item.name == "dread") {
 				this.selectedItemsRestrictions.hasMejaisSeaL = true;
+				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.boots_ms != 0) {
 				this.selectedItemsRestrictions.hasBoots = true;
+				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.tags.includes("tear")) {
 				this.selectedItemsRestrictions.hasTear = true;
+				this.numberOfEquippableItems += 1;
 			}
 			if (itemDetails.name.toLowerCase().includes("elixir")) {
 				this.selectedElixir = itemDetails;
 			} else {
+				this.numberOfEquippableItems += 1;
 				// go through the items and change the first empty item to the selected item -> break afterwards
 				for (let itemIndex in this.selectedItems) {
 					if (this.selectedItems[itemIndex] == EMPTY_ITEM) {
@@ -135,20 +141,25 @@ export class ItemSelectorComponent implements OnInit {
 	removeItem(itemDetails: Item, index?: number): void {
 		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemsRestrictions.hasGoldOrJg = false;
+			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.shared_item.name == "dread") {
 			this.selectedItemsRestrictions.hasMejaisSeaL = false;
 			itemDetails.stacked = false;
+			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.boots_ms != 0) {
 			this.selectedItemsRestrictions.hasBoots = false;
+			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.tags.includes("tear")) {
 			this.selectedItemsRestrictions.hasTear = false;
+			this.numberOfEquippableItems -= 1;
 		}
 		if (itemDetails.name.toLowerCase().includes("elixir")) {
 			this.selectedElixir = EMPTY_ITEM;
 		} else {
+			this.numberOfEquippableItems -= 1;
 			// replace the item at index with an empty item
 			this.selectedItems.splice(index, 1, EMPTY_ITEM);
 			// replace the item in the masterworkItems as well
@@ -272,9 +283,24 @@ export class ItemSelectorComponent implements OnInit {
 		return;
 	}
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
-		this.selectedItems[index].stacked = isStacked;
+		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
+			this.selectedItems[index] = ITEMS[89];
+		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
+			this.selectedItems[index] = ITEMS[120];
+		} else {
+			this.selectedItems[index].stacked = isStacked;
+		}
 		// console.log("index to update", index, this.selectedItems, this.selectedItems[index], this.selectedItems[index].stacked, this.selectedItems[0].stacked);
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+	}
+	isInventoryFull() {
+		let count = 0;
+		for (let i in this.selectedItems) {
+			if (this.selectedItems[i] != EMPTY_ITEM) {
+				count += 1;
+			}
+		}
+		return count == this.selectedItems.length;
 	}
 	allowedToBeStacked(itemDetails: Item): boolean {
 		for (let i in this.selectedItems) {

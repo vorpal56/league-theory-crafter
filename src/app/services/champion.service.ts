@@ -142,16 +142,19 @@ export class ChampionService {
 						let hasMultType = itemStatName.includes("mult");
 						if (hasMultType) {
 							let counts = 0;
-							passiveNames.forEach((passiveName: string) => {
-								if (sharedItemCounts[passiveName] <= 1) {
-									counts += 1;
-								}
-							});
-							if (counts == passiveNames.length) {
-								if (itemStatVal["type"] == "total") {
-									multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
-								} else if (itemStatVal["type"] == "bonus") {
-									multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+							if (selectedItem.shared_item.name != null) {
+								passiveNames = selectedItem.shared_item.name.split(",");
+								passiveNames.forEach((passiveName: string) => {
+									if (sharedItemCounts[passiveName] <= 1) {
+										counts += 1;
+									}
+								});
+								if (counts == passiveNames.length) {
+									if (itemStatVal["type"] == "total") {
+										multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
+									} else if (itemStatVal["type"] == "bonus") {
+										multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+									}
 								}
 							}
 						} else if (hasMultType === false) {
@@ -170,6 +173,7 @@ export class ChampionService {
 									totalStatsFromItems[itemStatName] = itemStatVal;
 								} else {
 									let counts = 0;
+									passiveNames = selectedItem.shared_item.name.split(",");
 									passiveNames.forEach((passiveName: string) => {
 										if (sharedItemCounts[passiveName] <= 1) {
 											counts += 1;
@@ -249,8 +253,10 @@ export class ChampionService {
 		}
 		if (aweItem.apiname == "manamune" || aweItem.apiname == "muramana") {
 			champion.stats.ad += (champion.stats.mp * 0.02);
-		} else if (aweItem.apiname == "seraphsembrace" || aweItem.apiname == "archangelsstaff") {
-			champion.stats.ap += (champion.stats.mp * 0.02);
+		} else if (aweItem.apiname == "archangelsstaff") {
+			champion.stats.ap += (champion.stats.mp * 0.01);
+		} else if (aweItem.apiname == "seraphsembrace") {
+			champion.stats.ap += (champion.stats.mp * 0.03);
 		}
 		return;
 	}

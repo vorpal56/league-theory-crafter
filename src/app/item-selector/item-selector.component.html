@@ -32,7 +32,7 @@
 			<ul class="item-grid">
 				<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 					<div class="item-block bg-black">
-						<img [src]="item.img" [title]="item.name" />
+						<img [src]="item.img" [title]="item.name" draggable="false" />
 					</div>
 				</li>
 			</ul>
@@ -41,7 +41,7 @@
 			<ul class="item-grid">
 				<li (click)="removeItem(selectedElixir)">
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
-						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" class="item-block" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" />
+						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeItem(selectedElixir)" draggable="false" />
 						<ng-template #emptyElixir>
 							Elixir Slot
 						</ng-template>
@@ -51,11 +51,10 @@
 			<ul class="item-grid">
 				<li *ngFor="let selectedItem of selectedItems; index as i">
 					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
-						<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" class="item-block" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" />
+						<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" draggable="false" />
 						<ng-template #emptySlot>
 							Item Slot {{i + 1}}
 						</ng-template>
-						<!-- <span *ngIf="selectedSlotIsFree(selectedItem)" class="item-block"></span> -->
 					</div>
 				</li>
 			</ul>
