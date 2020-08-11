@@ -321,8 +321,8 @@ export const ITEMS = [{
 	'name': "Archangel's Staff",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": "awe",
-
+		"name": "awe,haste",
+		"cdr": True
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -419,7 +419,7 @@ export const ITEMS = [{
 	'name': "Athene's Unholy Grail",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'dissonance'
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -1312,7 +1312,7 @@ export const ITEMS = [{
 	'name': 'Chalice of Harmony',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'harmony'
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -2064,7 +2064,8 @@ export const ITEMS = [{
 	'name': 'Enchantment: Echoes',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": 'goldjg'
+		"name": 'goldjg,echo',
+		"spell_m_proc": true,
 	},
 	'shield': 0,
 	'spell_m_proc': 60,
@@ -2912,7 +2913,8 @@ export const ITEMS = [{
 	'name': 'Hextech GLP-800',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "haste",
+		"cdr": True,
 	},
 	'shield': 0,
 	'spell_m_proc': 100,
@@ -3807,7 +3809,8 @@ export const ITEMS = [{
 	'name': 'Lost Chapter',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'haste',
+		"cdr": True,
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3854,7 +3857,9 @@ export const ITEMS = [{
 	'name': "Luden's Echo",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'echo,haste',
+		"cdr": True,
+		"spell_m_proc": true,
 	},
 	'shield': 0,
 	'spell_m_proc': 100,
@@ -4144,7 +4149,7 @@ export const ITEMS = [{
 	'name': "Mikael's Crucible",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'harmony'
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5041,7 +5046,7 @@ export const ITEMS = [{
 	'name': "Randuin's Omen",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "cripple"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5746,8 +5751,8 @@ export const ITEMS = [{
 	'name': "Seraph's Embrace",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": "awe",
-
+		"name": "awe,haste",
+		"cdr": True
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -6644,7 +6649,7 @@ export const ITEMS = [{
 	'name': 'Thornmail',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "cripple"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -7021,7 +7026,8 @@ export const ITEMS = [{
 	'name': "Warden's Mail",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "cripple",
+
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -7539,7 +7545,9 @@ export const ITEMS = [{
 	'name': "Luden's Pulse",
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': 'echo,haste',
+		'cdr': true,
+		'spell_m_proc': True,
 	},
 	'shield': 0,
 	'spell_m_proc': 100,

@@ -12,10 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RunesComponent } from './runes/runes.component';
 
 
 @NgModule({
-	declarations: [AppComponent, ChampionComponent, ItemSelectorComponent, ItemFilterPipe],
+	declarations: [AppComponent, ChampionComponent, ItemSelectorComponent, ItemFilterPipe, RunesComponent],
 	imports: [BrowserModule, NgSelectModule, FormsModule, BrowserAnimationsModule, MatInputModule, MatIconModule, MatButtonModule, MatCheckboxModule],
 	providers: [],
 	bootstrap: [AppComponent],
