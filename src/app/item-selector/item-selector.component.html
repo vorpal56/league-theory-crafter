@@ -61,7 +61,7 @@
 			</ul>
 			<div class="item-grid">
 				<div *ngFor="let selectedItem of selectedItems; index as i">
-					<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.shared_item | titlecase}} </mat-checkbox>
+					<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
 				</div>
 			</div>
 		</div>

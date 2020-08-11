@@ -13,7 +13,7 @@ import { ChampionService } from './services/champion.service';
 export class AppComponent implements OnInit {
 	title = "league-theory-crafter";
 	champions = CHAMPIONS;
-	champion: Champion = this.champions[1];
+	champion: Champion = this.champions[2];
 	levels = LEVELS;
 	levelSelectorEnabled: boolean = false;
 	selectedItems: [Item, Item, Item, Item, Item, Item];
@@ -50,10 +50,10 @@ export class AppComponent implements OnInit {
 	}
 	ngAfterViewInit() {
 		this.itemSelectorComponent.emitSelectedItems();
-		// this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		this.cdRef.detectChanges();
 	}
 	ngOnInit() {
-		// this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, 1);
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, 1);
 	}
 }

@@ -123,34 +123,56 @@ export class ChampionService {
 		for (let itemIndex in selectedItems) {
 			let selectedItem = selectedItems[itemIndex];
 			if (selectedItem.name != "Empty") {
-				if (selectedItem.shared_item.name != null && selectedItem.shared_item.name in sharedItemCounts === false) {
-					sharedItemCounts[selectedItem.shared_item.name] = 1;
-				} else if (selectedItem.shared_item.name != null) {
-					sharedItemCounts[selectedItem.shared_item.name] += 1;
+				if (selectedItem.shared_item.name != null) {
+					var passiveNames = selectedItem.shared_item.name.split(",");
+					passiveNames.forEach((passiveName: string) => {
+						if (passiveName in sharedItemCounts === false) {
+							sharedItemCounts[passiveName] = 1;
+						} else {
+							sharedItemCounts[passiveName] += 1;
+						}
+					});
 				}
-
 				for (let itemStatName in selectedItem) {
 					let itemStatVal = selectedItem[itemStatName];
 					if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && typeof (itemStatVal) != "string") {
 						let hasMultType = itemStatName.includes("mult");
-						if (hasMultType && sharedItemCounts[selectedItem.shared_item.name] <= 1) {
-							if (itemStatVal["type"] == "total") {
-								multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
-							} else if (itemStatVal["type"] == "bonus") {
-								multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+						if (hasMultType) {
+							let counts = 0;
+							passiveNames.forEach((passiveName: string) => {
+								if (sharedItemCounts[passiveName] <= 1) {
+									counts += 1;
+								}
+							});
+							if (counts == passiveNames.length) {
+								if (itemStatVal["type"] == "total") {
+									multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
+								} else if (itemStatVal["type"] == "bonus") {
+									multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+								}
 							}
 						} else if (hasMultType === false) {
 							if (itemStatName in totalStatsFromItems) {
 								if (itemStatName in selectedItem.shared_item === false) {
 									totalStatsFromItems[itemStatName] += itemStatVal;
 								} else {
-									console.log(itemStatName);
+									if (totalStatsFromItems[itemStatName] < itemStatVal) {
+										totalStatsFromItems[itemStatName] = itemStatVal;
+									} else {
+										console.log(selectedItem, itemStatName, itemStatVal);
+									}
 								}
 							} else if (itemStatName in totalStatsFromItems === false) {
 								if (itemStatName in selectedItem.shared_item === false) {
 									totalStatsFromItems[itemStatName] = itemStatVal;
 								} else {
-									if (sharedItemCounts[selectedItem.shared_item.name] <= 1) {
+									let counts = 0;
+									passiveNames.forEach((passiveName: string) => {
+										if (sharedItemCounts[passiveName] <= 1) {
+											counts += 1;
+										}
+									});
+									if (counts == passiveNames.length) {
 										totalStatsFromItems[itemStatName] = itemStatVal;
 									}
 
@@ -160,13 +182,24 @@ export class ChampionService {
 					} else if (itemStatName == "shared_item" && itemStatVal != null) {
 
 					} else if (itemStatName == "stackable") {
-						if (selectedItem.stackable != false && selectedItem.stacked == true && sharedItemCounts[selectedItem.shared_item] <= 1) {
-							for (let stackedItemStatKey in selectedItem.stackable) {
-								if (stackedItemStatKey != "name") {
-									if (stackedItemStatKey in totalStatsFromItems) {
-										totalStatsFromItems[stackedItemStatKey] += selectedItem.stackable[stackedItemStatKey];
-									} else {
-										totalStatsFromItems[stackedItemStatKey] = selectedItem.stackable[stackedItemStatKey];
+						// console.log(selectedItem.stackable != false, selectedItem.stacked == true, sharedItemCounts[selectedItem.shared_item.name] <= 1);
+						if (selectedItem.stackable != false && selectedItem.stacked == true) {
+							let passNames = selectedItem.shared_item.name.split(",");
+							let counts = 0;
+							passNames.forEach((passName: string) => {
+								if (sharedItemCounts[passName] <= 1) {
+									counts += 1;
+								}
+							});
+							if (counts == passNames.length) {
+								for (let stackedItemStatKey in selectedItem.stackable) {
+									// console.log("here", stackedItemStatKey);
+									if (stackedItemStatKey != "name") {
+										if (stackedItemStatKey in totalStatsFromItems) {
+											totalStatsFromItems[stackedItemStatKey] += selectedItem.stackable[stackedItemStatKey];
+										} else {
+											totalStatsFromItems[stackedItemStatKey] = selectedItem.stackable[stackedItemStatKey];
+										}
 									}
 								}
 							}

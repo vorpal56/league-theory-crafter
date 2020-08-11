@@ -320,11 +320,17 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Archangel's Staff",
 	'phys_on_hit': 0,
-	'shared_item': 'tear',
+	'shared_item': {
+		"name": "awe",
+
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': {
+		"name": "Archangel's Staff",
+		"mp": 749,
+	},
 	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
@@ -741,7 +747,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Black Mist Scythe',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1021,7 +1029,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bulwark of the Mountain',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1583,7 +1593,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Dark Seal',
 	'phys_on_hit': 0,
-	'shared_item': 'mejais',
+	'shared_item': {
+		"name": "dread"
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1957,7 +1969,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Bloodrazor',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2002,7 +2016,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Cinderhulk',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2047,7 +2063,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Echoes',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 60,
 	'spell_vamp': 0,
@@ -2092,7 +2110,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Warrior',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2372,7 +2392,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frostfang',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2700,7 +2722,9 @@ export const ITEMS = [{
 	'name': "Guinsoo's Rageblade",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'dissolve,lastwhisper',
+		"apen%": True,
+		"mpen%": True,
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -2746,7 +2770,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Haunting Guise',
 	'phys_on_hit': 0,
-	'shared_item': 'liandrys',
+	'shared_item': {
+		"name": "madness"
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2791,7 +2817,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Harrowing Crescent',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3495,7 +3523,8 @@ export const ITEMS = [{
 	'name': 'Last Whisper',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "lastwhisper",
+		"apen%": true
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3541,7 +3570,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Liandry's Torment",
 	'phys_on_hit': 0,
-	'shared_item': 'liandrys',
+	'shared_item': {
+		"name": "madness"
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3728,14 +3759,15 @@ export const ITEMS = [{
 	'name': "Lord Dominik's Regards",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'lastwhisper',
+		"apen%": True
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
 	'stacked': false,
-	'tags': '',
+	'tags': 'ldr',
 	'tenacity': 0
 },
 {
@@ -3868,11 +3900,17 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Manamune',
 	'phys_on_hit': 0,
-	'shared_item': 'tear',
+	'shared_item': {
+		"name": "awe",
+
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': {
+		"name": "Manamune",
+		"mp": 749,
+	},
 	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0
@@ -3960,7 +3998,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mejai's Soulstealer",
 	'phys_on_hit': 0,
-	'shared_item': 'mejais',
+	'shared_item': {
+		"name": "dread"
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4199,7 +4239,8 @@ export const ITEMS = [{
 	'name': 'Mortal Reminder',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "lastwhisper",
+		"apen%": True,
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4245,7 +4286,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Muramana',
 	'phys_on_hit': 0,
-	'shared_item': 'tear',
+	'shared_item': {
+		"name": "awe",
+
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4808,7 +4852,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Pauldrons of Whiterock',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4900,7 +4946,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Runesteel Spaulders',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5274,7 +5322,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Relic Shield',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5695,7 +5745,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Seraph's Embrace",
 	'phys_on_hit': 0,
-	'shared_item': 'tear',
+	'shared_item': {
+		"name": "awe",
+
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5881,7 +5934,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Steel Shoulderguards',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5926,7 +5981,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Shard of True Ice',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6112,7 +6169,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Spectral Sickle',
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6157,7 +6216,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Spellthief's Edge",
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6484,7 +6545,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Targon's Buckler",
 	'phys_on_hit': 0,
-	'shared_item': 'goldjg',
+	'shared_item': {
+		"name": 'goldjg'
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6529,13 +6592,16 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Tear of the Goddess',
 	'phys_on_hit': 0,
-	'shared_item': 'tear',
+	'shared_item': {
+		"name": "awe"
+
+	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
 		'name': 'Tear of the Goddess',
-		'mp': 500,
+		'mp': 750,
 	},
 	'stacked': false,
 	'tags': 'tear',
@@ -6907,7 +6973,8 @@ export const ITEMS = [{
 	'name': 'Void Staff',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "dissolve",
+		"mpen%": True
 	},
 	'shield': 0,
 	'spell_m_proc': 0,

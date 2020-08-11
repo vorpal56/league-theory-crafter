@@ -15,14 +15,14 @@ export class ItemSelectorComponent implements OnInit {
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
-		// this.addItem(this.items[83]);
+		this.addItem(this.items[83]);
 	}
 
 	items = ITEMS;
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "morello";
+	searchText: string = "guinsoo";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	orderMode: string = this.orderModes[0].orderModeValue;
@@ -44,7 +44,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.selectedItemsRestrictions.hasGoldOrJg == true && itemDetails.shared_item.name == "goldjg") {
 			return false;
 		}
-		if (this.selectedItemsRestrictions.hasMejaisSeaL == true && itemDetails.shared_item.name == "mejais") {
+		if (this.selectedItemsRestrictions.hasMejaisSeaL == true && itemDetails.shared_item.name == "dread") {
 			return false;
 		}
 		if (this.selectedItemsRestrictions.hasBoots == true && itemDetails.boots_ms) {
@@ -90,7 +90,7 @@ export class ItemSelectorComponent implements OnInit {
 			if (itemDetails.shared_item.name == "goldjg") {
 				this.selectedItemsRestrictions.hasGoldOrJg = true;
 			}
-			if (itemDetails.shared_item.name == "mejais") {
+			if (itemDetails.shared_item.name == "dread") {
 				this.selectedItemsRestrictions.hasMejaisSeaL = true;
 			}
 			if (itemDetails.boots_ms != 0) {
@@ -136,7 +136,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemsRestrictions.hasGoldOrJg = false;
 		}
-		if (itemDetails.shared_item.name == "mejais") {
+		if (itemDetails.shared_item.name == "dread") {
 			this.selectedItemsRestrictions.hasMejaisSeaL = false;
 			itemDetails.stacked = false;
 		}
