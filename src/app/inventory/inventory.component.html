@@ -11,7 +11,7 @@
 	<span>Items and Elixir</span>
 </div>
 <div class="component-body">
-	<div class="selected-items-grid" style="max-width:240px;margin:auto">
+	<div class="selected-items-grid">
 		<div id="selected-items">
 			<div class="equipped-items-grid">
 				<div class="item-block bg-black" *ngFor="let selectedItem of selectedItems; index as i">
@@ -29,7 +29,7 @@
 		<div id="clear-selected-items">clear</div>
 	</div>
 	<div id="stackables">
-		<ng-container *ngFor="let selectedItem of selectedItems; index as i">
+		<ng-container *ngFor="let selectedItem of selectedItems; index as i;">
 			<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
 		</ng-container>
 	</div>

@@ -38,6 +38,7 @@ export class ItemSelectorComponent implements OnInit {
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
 	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<any>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
+	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 
 
 	/**
@@ -181,6 +182,10 @@ export class ItemSelectorComponent implements OnInit {
 			}
 		}
 		return count == this.selectedItems.length;
+	}
+
+	switchToRunesPage() {
+		this.selectedPageEmitter.emit("runes");
 	}
 }
 

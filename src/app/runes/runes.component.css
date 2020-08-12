@@ -1,0 +1,30 @@
+img.tab-icon {
+	width:48px;
+	height:48px;
+}
+.rune-selection-grid {
+	display:grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 4fr 1fr;
+	grid-template-areas:
+	"primary-rune-selection secondary-rune-selection"
+	"primary-rune-selection rune-shards";
+}
+#primary-rune-selection {
+	display:flex;
+	justify-content: space-between;
+	grid-area: primary-rune-selection
+}
+#secondary-rune-selection {
+	grid-area: secondary-rune-selection
+}
+#rune-shards {
+	grid-area: rune-shards
+}
+.primary-rune-selection-grid {
+	display:grid
+}
+img {
+	width:48px;
+	height:48px
+}

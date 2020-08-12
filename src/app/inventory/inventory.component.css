@@ -14,6 +14,9 @@ ul.item-grid {
 .selected-items-grid {
 	display:grid;
 	height:auto;
+	max-width:240px;
+	margin:auto;
+	padding:15px 0px;
 	grid-template-columns: 3fr 1fr;
 	grid-template-rows: repeat(2,1fr);
 	grid-template-areas: 
@@ -37,11 +40,12 @@ ul.item-grid {
 }
 #stackables {
 	grid-area: stackables;
-	margin:auto;
+	/* margin-top:10px; */
+	margin-left:auto;
+	margin-right:auto;
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top:10px;
 }
 #selected-items .equipped-items-grid {
 	display:grid;
@@ -51,4 +55,7 @@ ul.item-grid {
 	"slot1 slot2 slot3"
 	"slot4 slot5 slot6";
 
+}
+.stackables-margin {
+	margin-top:10px
 }

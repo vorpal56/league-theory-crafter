@@ -1,21 +1,27 @@
-<div class="component-header">
-	<span>List of Items</span>
+<div class="component-header-grid">
+	<div id="tab-switcher">
+		<img src="assets/images/icons/items_small_icon.png" alt="Runes" (click)="switchToRunesPage()" />
+	</div>
+	<div class="component-header">
+		<span class="component-title" id="component-title">List of Items</span>
+	</div>
 </div>
 <div class="component-body">
-	<div class="row">
-		<div class="col-md-3 item-grid-orderby-sort">
+	<div class="item-selector-grid">
+
+		<div id="item-grid-orderby-sort">
 			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by name" [(ngModel)]="orderBy">
 			</ng-select>
 		</div>
-		<div class="col-md-3 item-grid-orderby-sort">
+		<div id="item-grid-orderby-sort">
 			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
 			</ng-select>
 		</div>
-		<div class="col-md-3 item-grid-gamemode-filter">
+		<div id="item-grid-gamemode-filter">
 			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter items by Gamemodes" [(ngModel)]="searchMode">
 			</ng-select>
 		</div>
-		<div class="col-md-3 item-grid-search-filter">
+		<div id="item-grid-search-filter">
 			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
 				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
@@ -25,13 +31,16 @@
 			</mat-form-field>
 		</div>
 	</div>
-	<div class="overflow">
-		<ul class="item-grid">
-			<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
-				<div class="item-block bg-black">
-					<img [src]="item.img" [title]="item.name" draggable="false" />
-				</div>
-			</li>
-		</ul>
+	<div class="flex-wrapper" id="item-list">
+		<div class="item-list overflow">
+			<ul class="item-grid">
+				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
+					<div class="item-block bg-black">
+						<img [src]="item.img" [title]="item.name" draggable="false" />
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
+
 </div>

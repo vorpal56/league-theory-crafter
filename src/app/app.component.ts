@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
 	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
 	numberOfEquippedItems = 0;
 
+	selectedTab: string = "runes";
+
 	currentLevel: number = LEVELS[9].levelValue;
 	currentLevelName: string = LEVELS[0].levelLabel;
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
@@ -50,6 +52,9 @@ export class AppComponent implements OnInit {
 	setSelectedElixir(selectedElixir: Item): void {
 		this.selectedElixir = selectedElixir;
 		return;
+	}
+	setPage(selectedTabName: string) {
+		this.selectedTab = selectedTabName;
 	}
 	constructor(private championService: ChampionService, private cdRef: ChangeDetectorRef) {
 	}

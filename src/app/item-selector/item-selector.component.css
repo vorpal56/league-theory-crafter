@@ -17,3 +17,37 @@ div.overflow {
 	height:100%;
 	overflow-y: auto;
 }
+/* div.overflow-mobile {
+	overflow-y:auto;
+} */
+.component-body {
+	height: -moz-calc(100% - var(--component-header-height));
+    height: -webkit-calc(100% - var(--component-header-height));
+    height: calc(100% - var(--component-header-height));
+}
+.item-selector-grid {
+	display:grid;
+	grid-template-columns: repeat(4,1fr);
+	grid-template-rows: 72px;
+	grid-template-areas:
+	"orderby-name orderby-mode gamemode-filter search-filter"
+}
+#item-grid-orderby-name {
+	grid-area: orderby-name;
+}
+#item-grid-orderby-mode {
+	grid-area: orderby-name;
+}
+#item-grid-gamemode-filter {
+	grid-area: gamemode-filter;
+}
+#item-grid-search-filter {
+	grid-area: search-filter;
+}
+
+.flex-wrapper {
+	display:flex;
+	flex-direction: column;
+	overflow:hidden;
+	height:100%;
+}

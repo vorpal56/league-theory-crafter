@@ -1,1 +1,17 @@
-<p>runes works!</p>
+<div class="component-header-grid">
+	<div id="tab-switcher">
+		<img src="assets/images/icons/runes_icon.png" alt="Items" class="tab-icon" (click)="switchToItemSelectorPage()" />
+	</div>
+	<div class="component-header">
+		<span class="component-title" id="component-title">Rune Selection</span>
+	</div>
+</div>
+<div class="component-body">
+	<div class="rune-selection-grid">
+		<div id="primary-rune-selection">
+			<img *ngFor="let img of runeSources" [src]="img" [alt]="img" />
+		</div>
+		<div id="secondary-rune-selection">secondary rune</div>
+		<div id="rune-shards">rune shards</div>
+	</div>
+</div>
