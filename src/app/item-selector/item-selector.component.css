@@ -1,28 +1,10 @@
-
-li {
-	display:inline-block
-}
-.bg-black {
-	background-color:#000;
-}
 div.item-block {
-	border:1px solid rgb(85,250, 250);
 	width:50px;
 	height:50px;
-	display:inline-block;
-	vertical-align: middle;
-	text-align:center;
-	color:white;
-	user-select: none;
-}
-.empty-slot-padding {
-	padding:6px;
-	cursor:default;
+	
 }
 ul.item-grid {
-	height:auto;
-	padding-inline-start: 0px;
-	overflow:hidden; overflow-y:scroll;
+	padding-inline-start: 20px;
 }
 img {
 	width:48px;

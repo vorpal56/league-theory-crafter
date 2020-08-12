@@ -21,42 +21,10 @@
 		</mat-form-field>
 	</div>
 </div>
-<!-- <div class="col-md-6 clear-items">
-		<button mat-button *ngIf="!selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
-	</div> -->
-
 <ul class="item-grid">
-	<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
+	<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 		<div class="item-block bg-black">
 			<img [src]="item.img" [title]="item.name" draggable="false" />
 		</div>
 	</li>
 </ul>
-
-<!-- <div class="col-md-6 selected-items" id="content2">
-		<ul class="item-grid">
-			<li>
-				<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
-					<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeElixir()" draggable="false" />
-					<ng-template #emptyElixir>
-						Elixir Slot
-					</ng-template>
-				</div>
-			</li>
-		</ul>
-		<ul class="item-grid">
-			<li *ngFor="let selectedItem of selectedItems; index as i">
-				<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
-					<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" draggable="false" />
-					<ng-template #emptySlot>
-						Item Slot {{i + 1}}
-					</ng-template>
-				</div>
-			</li>
-		</ul>
-		<div class="item-grid">
-			<div *ngFor="let selectedItem of selectedItems; index as i">
-				<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
-			</div>
-		</div>
-	</div> -->

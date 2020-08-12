@@ -1,5 +1,5 @@
 <!-- {{champion | json | number: '1.0-2'}} -->
-<div class="row">
+<div class="row" *ngIf="champion">
 	<div class="col-md-3 center med-spacer" *ngIf="champion.img!=''">
 		<img class="champion-portrait img-fluid" [src]="champion.img" alt="" />
 	</div>

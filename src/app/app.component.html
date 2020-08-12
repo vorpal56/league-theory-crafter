@@ -2,7 +2,7 @@
 	<div id="sidebar">
 
 	</div>
-	<div id="main">
+	<div id="champion">
 		<div class="row">
 			<div class="col-md-6">
 				<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
@@ -14,12 +14,13 @@
 		</div>
 		<champion [champion]="champion"></champion>
 	</div>
-	<item-selector id="content1" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
-				   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"></item-selector>
-	<inventory id="content2" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
+	<item-selector id="item-selector" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
+				   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
+				   (numberOfEquippedItems)="setNumberOfEquippedItems($event)"></item-selector>
+	<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
 			   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
 	</inventory>
-	<div id="content3">
+	<div id="damage-calc">
 		<!-- this iherethis iherethis iherethis iherethis iherethis iherethis iherethis ihere
 		this iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis
 		iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis -->
