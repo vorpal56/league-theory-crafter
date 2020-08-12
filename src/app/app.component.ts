@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 	champion: Champion = this.champions[2];
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
-	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasMejaisSeaL": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
+	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
 	numberOfEquippedItems = 0;
 
 	currentLevel: number = LEVELS[9].levelValue;

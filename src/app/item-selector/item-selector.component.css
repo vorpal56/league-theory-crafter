@@ -1,7 +1,7 @@
 div.item-block {
 	width:50px;
 	height:50px;
-	
+	margin:2px;
 }
 ul.item-grid {
 	padding-inline-start: 20px;
@@ -12,4 +12,8 @@ img {
 }
 mat-form-field.full-width {
 	width:100%;
+}
+div.overflow {
+	height:100%;
+	overflow-y: auto;
 }

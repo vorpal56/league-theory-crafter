@@ -64,11 +64,12 @@ export class InventoryComponent implements OnInit {
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 	removeItem(itemDetails: Item, index?: number): void {
+		console.log(index);
 		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemRestrictions.hasGoldOrJg = false;
 		}
 		if (itemDetails.shared_item.name == "dread") {
-			this.selectedItemRestrictions.hasMejaisSeaL = false;
+			this.selectedItemRestrictions.hasSealOrMejais = false;
 			itemDetails.stacked = false;
 		}
 		if (itemDetails.boots_ms != 0) {
@@ -76,20 +77,21 @@ export class InventoryComponent implements OnInit {
 		}
 		if (itemDetails.tags.includes("tear")) {
 			this.selectedItemRestrictions.hasTear = false;
-		} else {
-			// replace the item at index with an empty item
-			this.selectedItems.splice(index, 1, EMPTY_ITEM);
-			// replace the item in the masterworkItems as well
-			if (itemDetails.apiname.includes("masterwork")) {
-				for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
-					let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-					if (masterworkItem == itemDetails) {
-						this.selectedItemRestrictions.masterworkItems.splice(Number(masterworkIndex), 1, EMPTY_ITEM);
-						break;
-					}
+		}
+		// replace the item at index with an empty item
+		this.selectedItems.splice(index, 1, EMPTY_ITEM);
+		// replace the item in the masterworkItems as well
+		if (itemDetails.apiname.includes("masterwork")) {
+			for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
+				let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
+				if (masterworkItem == itemDetails) {
+					this.selectedItemRestrictions.masterworkItems.splice(Number(masterworkIndex), 1, EMPTY_ITEM);
+					break;
 				}
 			}
 		}
+
+		// console.log(this.selectedItems);
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
@@ -164,8 +166,7 @@ export class InventoryComponent implements OnInit {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
 		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
-
-		console.log("emitting number of equipped items on removal", this.selectedElixir);
+		// console.log("emitting number of equipped items on removal", this.selectedItems);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

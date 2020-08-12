@@ -49,7 +49,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item.name == "goldjg") {
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasMejaisSeaL == true && itemDetails.shared_item.name == "dread") {
+		if (this.selectedItemRestrictions.hasSealOrMejais == true && itemDetails.shared_item.name == "dread") {
 			return false;
 		}
 		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.boots_ms) {
@@ -105,7 +105,7 @@ export class ItemSelectorComponent implements OnInit {
 				this.selectedItemRestrictions.hasGoldOrJg = true;
 			}
 			if (itemDetails.shared_item.name == "dread") {
-				this.selectedItemRestrictions.hasMejaisSeaL = true;
+				this.selectedItemRestrictions.hasSealOrMejais = true;
 			}
 			if (itemDetails.boots_ms != 0) {
 				this.selectedItemRestrictions.hasBoots = true;
@@ -168,7 +168,7 @@ export class ItemSelectorComponent implements OnInit {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
 		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
-		console.log("emitting number of equipped items on adding", this.selectedElixir);
+		// console.log("emitting number of equipped items on adding", this.selectedItems);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

@@ -2,7 +2,7 @@
 /* @import "~@ng-select/ng-select/themes/material.theme.css"; */
 :root {
 	--main-radius: 5px;
-	--main-padding: 5px;
+	--main-padding: 10px;
 	--background-main: #070720;
 	--background: #222238;
 	--background-2: #0b0b23;
@@ -50,7 +50,7 @@
 }
 html, body { 
 	height: 100%;
-	background-color: var(--background-main);
+	/* background-color: var(--background-main); */
 	color:white !important;
 	
 }
@@ -60,52 +60,48 @@ mat-label, input {
 mat-form-field {
 	line-height: 1.5 !important;
 }
+button:focus, :focus {
+	outline:none;
+}
 .container-grid-league {
 	display: grid;
-	height: auto;
+	height: 100vh;
 	grid-template-columns: 0.5fr 2fr 0.7fr;
 	grid-template-rows: 0.6fr 0.6fr 1.2fr;
 	grid-template-areas:
 	"sidebar champion champion"
-	"sidebar item-selector inventory"
-	"sidebar item-selector damage-calc";
+	"sidebar item-selector-rune-selector inventory"
+	"sidebar item-selector-rune-selector damage-calc";
 	grid-gap: 10px;
-	background-color: var(--background-alt);
+	background-color: var(--background-main);
 }
 
-#champion {
+/* #champion, #sidebar, #item-selector, #inventory, #damage-calc {
 	background-color: var(--background);
-	grid-area: champion;
 	border-radius: var(--main-radius);
-	padding-top: var(--main-padding);
+} */
+#champion {
+	grid-area: champion;
 }
 
 #sidebar {
-	background-color: var(--background);
 	grid-area: sidebar;
-	border-radius: var(--main-radius);
-	padding-top: var(--main-padding);
 }
 
-#item-selector {
-	background-color: var(--background);
-	grid-area: item-selector;
-	border-radius: var(--main-radius);
-	padding-top: var(--main-padding);
+#item-selector-rune-selector {
+	grid-area: item-selector-rune-selector;
 }
 
 #inventory {
-	background-color: var(--background);
 	grid-area: inventory;
-	border-radius: var(--main-radius);
-	padding-top: var(--main-padding);
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 #damage-calc {
-	background-color: var(--background);
 	grid-area: damage-calc;
-	border-radius: var(--main-radius);
-	padding-top: var(--main-padding);
 }
 
 @media only screen and (max-width: 696px) {
@@ -115,7 +111,7 @@ mat-form-field {
 	grid-template-areas:
 	"sidebar champion"
 	"sidebar inventory"
-	"sidebar item-selector"
+	"sidebar item-selector-rune-selector"
 	"sidebar damage-calc"
 	}
 }
@@ -138,4 +134,21 @@ div.item-block {
 .empty-slot-padding {
 	padding:6px;
 	cursor:default;
+}
+.component-header {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0 0 46px;
+    height: 46px;
+    margin-bottom: 6px;
+    padding: 0 24px;
+	background-color: var(--background-alt);
+	width:100%;
+}
+.component-body {
+	width:100%;
+	background-color:var(--background);
+	display:flex;
+	flex-direction: column;
 }

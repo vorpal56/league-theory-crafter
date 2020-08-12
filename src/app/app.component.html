@@ -1,26 +1,41 @@
 <div class="container-grid-league">
 	<div id="sidebar">
-
+		<span>some sidebar content</span>
 	</div>
 	<div id="champion">
-		<div class="row">
-			<div class="col-md-6">
-				<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
-			</div>
-			<div class="col-md-6">
-				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
-				</ng-select>
-			</div>
+		<div class="component-header">
+			<span>Champion and Level Selector</span>
+			<span>Stats and Abilities</span>
 		</div>
-		<champion [champion]="champion"></champion>
+		<div class="component-body">
+			<div class="row">
+				<div class="col-md-6">
+					<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+				</div>
+				<div class="col-md-6">
+					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
+					</ng-select>
+				</div>
+			</div>
+			<champion [champion]="champion"></champion>
+		</div>
 	</div>
-	<item-selector id="item-selector" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
-				   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-				   (numberOfEquippedItems)="setNumberOfEquippedItems($event)"></item-selector>
-	<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
-			   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
+	<div id="item-selector-rune-selector">
+		<item-selector class="flex-wrapper" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
+					   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
+					   (numberOfEquippedItems)="setNumberOfEquippedItems($event)"></item-selector>
+	</div>
+	<inventory style="background-color: transparent;" id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
+			   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
+			   (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
 	</inventory>
 	<div id="damage-calc">
+		<div class="component-header">
+			<span>Damage Calculations</span>
+		</div>
+		<div class="component-body">
+			<span>Some content here</span>
+		</div>
 		<!-- this iherethis iherethis iherethis iherethis iherethis iherethis iherethis ihere
 		this iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis
 		iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis -->
