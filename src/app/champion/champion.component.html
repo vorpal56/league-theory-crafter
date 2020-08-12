@@ -1,6 +1,6 @@
 <!-- {{champion | json | number: '1.0-2'}} -->
 <div class="row">
-	<div class="col-md-3 center med-spacer" *ngIf="champion">
+	<div class="col-md-3 center med-spacer" *ngIf="champion.img!=''">
 		<img class="champion-portrait img-fluid" [src]="champion.img" alt="" />
 	</div>
 	<div class="col-md-3 med-spacer">
@@ -82,7 +82,7 @@
 				<!-- <ability-leveler [max_level]="champion.skill_r_max_level" [increase_level]="increaseLevel" [decrease_level]="decreaseLevel" [isPassive]="false" [ability]="champion.skill_r" [currentChampionLevel]="currentLevel"[allowReallocation]="reallocatePoints" (resetAllocation)="emitChampionState($event)"></ability-leveler> -->
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="margin-right:0px;margin-left:0px">
 			<div class="col-md-12 center hp">
 				{{champion.stats.hp | number: '1.0-2'}} / {{champion.stats.hp_lvl | number: '1.0-2'}} / {{champion.stats.hp5 | number: '1.0-2'}}
 			</div>

@@ -1,68 +1,62 @@
-<div class="grid">
-	<div class="row">
-		<div class="col-md-4 item-grid-orderby-sort">
-			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by name" [(ngModel)]="orderBy">
-			</ng-select>
-		</div>
-		<div class="col-md-4 item-grid-orderby-sort">
-			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
-			</ng-select>
-		</div>
-		<div class="col-md-4 item-grid-gamemode-filter">
-			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter items by Gamemodes" [(ngModel)]="searchMode">
-			</ng-select>
-		</div>
+<div class="row">
+	<div class="col-md-3 item-grid-orderby-sort">
+		<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by name" [(ngModel)]="orderBy">
+		</ng-select>
 	</div>
-	<div class="row">
-		<div class="col-md-6 item-grid-search-filter">
-			<mat-form-field class="full-width">
-				<mat-label>Search Items</mat-label>
-				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
-				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
-					<mat-icon>close</mat-icon>
-				</button>
-			</mat-form-field>
-		</div>
-		<div class="col-md-6 clear-items">
-			<button mat-button *ngIf="!selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
-		</div>
+	<div class="col-md-3 item-grid-orderby-sort">
+		<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
+		</ng-select>
 	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<ul class="item-grid">
-				<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
-					<div class="item-block bg-black">
-						<img [src]="item.img" [title]="item.name" draggable="false" />
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="col-md-6 selected-items">
-			<ul class="item-grid">
-				<li>
-					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
-						<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeElixir()" draggable="false" />
-						<ng-template #emptyElixir>
-							Elixir Slot
-						</ng-template>
-					</div>
-				</li>
-			</ul>
-			<ul class="item-grid">
-				<li *ngFor="let selectedItem of selectedItems; index as i">
-					<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
-						<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" draggable="false" />
-						<ng-template #emptySlot>
-							Item Slot {{i + 1}}
-						</ng-template>
-					</div>
-				</li>
-			</ul>
-			<div class="item-grid">
-				<div *ngFor="let selectedItem of selectedItems; index as i">
-					<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
-				</div>
-			</div>
-		</div>
+	<div class="col-md-3 item-grid-gamemode-filter">
+		<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter items by Gamemodes" [(ngModel)]="searchMode">
+		</ng-select>
+	</div>
+	<div class="col-md-3 item-grid-search-filter">
+		<mat-form-field class="full-width">
+			<mat-label>Search Items</mat-label>
+			<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
+			<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
+				<mat-icon>close</mat-icon>
+			</button>
+		</mat-form-field>
 	</div>
 </div>
+<!-- <div class="col-md-6 clear-items">
+		<button mat-button *ngIf="!selectedItemsIsEmpty()" (click)="clearSelectedItems()">Clear Items</button>
+	</div> -->
+
+<ul class="item-grid">
+	<li *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
+		<div class="item-block bg-black">
+			<img [src]="item.img" [title]="item.name" draggable="false" />
+		</div>
+	</li>
+</ul>
+
+<!-- <div class="col-md-6 selected-items" id="content2">
+		<ul class="item-grid">
+			<li>
+				<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedElixir)">
+					<img *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir" [src]="selectedElixir.img" (click)="removeElixir()" draggable="false" />
+					<ng-template #emptyElixir>
+						Elixir Slot
+					</ng-template>
+				</div>
+			</li>
+		</ul>
+		<ul class="item-grid">
+			<li *ngFor="let selectedItem of selectedItems; index as i">
+				<div class="item-block bg-black" [ngClass]="selectedSlotIsFreeClass(selectedItem)">
+					<img *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot" [src]="selectedItem.img" (click)="removeItem(selectedItem, i)" draggable="false" />
+					<ng-template #emptySlot>
+						Item Slot {{i + 1}}
+					</ng-template>
+				</div>
+			</li>
+		</ul>
+		<div class="item-grid">
+			<div *ngFor="let selectedItem of selectedItems; index as i">
+				<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
+			</div>
+		</div>
+	</div> -->

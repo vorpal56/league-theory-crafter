@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<div class="top" style="padding-top:100px;padding-bottom:100px">
-	<div class="row">
-		<div class="col-md-6">
-			<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
-		</div>
-		<div class="col-md-6">
-			<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
-			</ng-select>
-		</div>
+<div class="container-grid-league">
+	<div id="sidebar">
+
 	</div>
-	<champion [champion]="champion"></champion>
-	<item-selector [selectedChampion]="champion" (selectedItems)="setSelectedItems($event)" (selectedElixir)="setSelectedElixir($event)" [currentLevel]="currentLevel"></item-selector>
+	<div id="main">
+		<div class="row">
+			<div class="col-md-6">
+				<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+			</div>
+			<div class="col-md-6">
+				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
+				</ng-select>
+			</div>
+		</div>
+		<champion [champion]="champion"></champion>
+	</div>
+	<item-selector id="content1" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
+				   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"></item-selector>
+	<inventory id="content2" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
+			   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
+	</inventory>
+	<div id="content3">
+		<!-- this iherethis iherethis iherethis iherethis iherethis iherethis iherethis ihere
+		this iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis
+		iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis -->
+	</div>
 </div>

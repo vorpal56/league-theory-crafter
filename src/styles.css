@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/material.theme.css";
+
+:root {
+	--main-radius: 5px;
+	--main-padding: 5px;
+	--background-main: #070720;
+	--background: #0b0b23;
+	--background-alt: #17172e;
+	--background-alt-2: #222238;
+	--background-alt-3: #17172e
+}
 .col-xs-5ths,
 .col-sm-5ths,
 .col-md-5ths,
@@ -9,7 +19,10 @@
     padding-right: 10px;
     padding-left: 10px;
 }
-
+.row {
+	margin-left:0px;
+	margin-right:0px;
+}
 .col-xs-5ths {
     width: 20%;
     float: left;
@@ -36,4 +49,66 @@
     }
 }
 html, body { height: 100%; }
-/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.container-grid-league {
+display: grid;
+height: auto;
+grid-template-columns: 0.5fr 2fr 0.7fr;
+grid-template-rows: 0.6fr 0.6fr 1.2fr;
+grid-gap: 0.2rem;
+color: #004d40;
+}
+#main {
+	background: #84ffff;
+	grid-row: 1/2;
+	grid-column: 2/4;
+	border-radius: var(--main-radius);
+	padding-top: var(--main-padding);
+}
+
+#sidebar {
+	background: #18ffff;
+	grid-row : 1/4;
+	grid-column: 1/2;
+	border-radius: var(--main-radius);
+	padding-top: var(--main-padding);
+}
+
+#content1 {
+	background: #6fffd2;
+	grid-row: 2/4;
+	grid-column: 2/3;
+	border-radius: var(--main-radius);
+	padding-top: var(--main-padding);
+}
+
+#content2 {
+	background: #64ffda;
+	grid-row:2/3;
+	grid-column:3/4;
+	border-radius: var(--main-radius);
+	padding-top: var(--main-padding);
+}
+
+#content3 {
+	background: #73ffba;
+	grid-row:3/4;
+	grid-column:3/4;
+	border-radius: var(--main-radius);
+	padding-top: var(--main-padding);
+}
+
+@media only screen and (max-width: 550px) {
+	.container-grid-league {
+	grid-template-columns: 1fr;
+	grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+	grid-template-areas:
+	"nav"
+	"sidebar"
+	"main"
+	"content1"
+	"content2"
+	"content3"
+	}
+}
+  
