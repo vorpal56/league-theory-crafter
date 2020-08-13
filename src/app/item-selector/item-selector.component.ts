@@ -33,6 +33,7 @@ export class ItemSelectorComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("itemRestrictions") selectedItemRestrictions: any;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
+	@Input("selectedPage") selectedPage: string;
 
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();

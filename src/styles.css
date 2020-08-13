@@ -29,10 +29,10 @@
 	display:grid;
 	height: 48px;
     margin-bottom: 6px;
-	grid-template-columns: 48px auto;
+	grid-template-columns: auto 48px 48px;
 	grid-template-rows: 1fr;
 	grid-template-areas: 
-	"tab-switcher component-title";
+	"component-title rune-tab inventory-tab";
 	grid-gap:10px;
 	/* You can switch the order of the tab switcher in the grid template area and columns */
 }
@@ -40,11 +40,18 @@ span.component-title#component-title {
 	grid-area: component-title;
 	background-color: var(--background-alt);
 }
-#tab-switcher {
-	grid-area: tab-switcher;
+.rune-tab {
+	grid-area: rune-tab;
+	background-color: var(--background);
+}
+.inactive-tab {
+	height:48px;
+}
+.inventory-tab {
+	grid-area: inventory-tab;
 	background-color: var(--background);
 	/* background-color: var(--background-alt); */
-	/* height:48px; */
+	
 	/* You can comment the height out to connect the tab switcher img to the component-body */
 }
 .component-body {
@@ -61,12 +68,13 @@ span.component-title#component-title {
 .container-grid-league {
 	display: grid;
 	height: 100vh;
-	grid-template-columns: 0.5fr 2fr 0.7fr;
-	grid-template-rows: 0.3fr 0.5fr 2fr;
+	grid-template-columns: 2fr 0.7fr;
+	grid-template-rows: 0.2fr 0.3fr 0.5fr 2fr;
 	grid-template-areas:
-	"sidebar champion champion"
-	"sidebar item-selector-rune-selector inventory"
-	"sidebar item-selector-rune-selector damage-calc";
+	"navbar navbar"
+	"champion champion"
+	"item-selector-rune-selector inventory"
+	"item-selector-rune-selector damage-calc";
 	grid-gap: 10px;
 	background-color: var(--background-main);
 }
@@ -74,8 +82,8 @@ span.component-title#component-title {
 #champion {
 	grid-area: champion;
 }
-#sidebar {
-	grid-area: sidebar;
+#navbar {
+	grid-area: navbar;
 }
 #item-selector-rune-selector {
 	grid-area: item-selector-rune-selector;
@@ -92,15 +100,16 @@ span.component-title#component-title {
 #damage-calc {
 	grid-area: damage-calc;
 }
-@media only screen and (max-width: 812px) {
+@media only screen and (max-width: 767px) {
 	.container-grid-league {
-	grid-template-columns: 75px auto;
+	grid-template-columns: auto;
 	grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
 	grid-template-areas:
-	"sidebar champion"
-	"sidebar inventory"
-	"sidebar item-selector-rune-selector"
-	"sidebar damage-calc"
+	"navbar"
+	"champion"
+	"inventory"
+	"item-selector-rune-selector"
+	"damage-calc"
 	}
 }
 /* Body changes */

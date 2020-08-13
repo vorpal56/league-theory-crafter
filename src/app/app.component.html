@@ -1,43 +1,47 @@
-<div class="container-grid-league">
-	<div id="sidebar">
-		<!-- <span>some sidebar content</span> -->
-	</div>
-	<div id="champion">
-		<div class="component-header">
-			<span>Champion and Level Selector</span>
-			<span>Stats and Abilities</span>
+<div class="container">
+
+
+	<div class="container-grid-league">
+		<div id="navbar">
+			<!-- <span>some sidebar content</span> -->
 		</div>
-		<div class="component-body">
-			<div class="row">
-				<div class="col-md-6">
-					<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
-				</div>
-				<div class="col-md-6">
-					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
-					</ng-select>
-				</div>
+		<div id="champion">
+			<div class="component-header">
+				<span>Champion and Level Selector</span>
+				<span>Stats and Abilities</span>
 			</div>
-			<champion [champion]="champion"></champion>
+			<div class="component-body">
+				<div class="row">
+					<div class="col-md-6">
+						<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+					</div>
+					<div class="col-md-6">
+						<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
+						</ng-select>
+					</div>
+				</div>
+				<champion [champion]="champion"></champion>
+			</div>
 		</div>
-	</div>
-	<div id="item-selector-rune-selector">
-		<item-selector id="item-selector" [hidden]="selectedTab=='runes'" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
-					   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-					   (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)"></item-selector>
-		<runes id="rune-selector" (selectedPage)="setPage($event)" [hidden]="selectedTab=='item-selector'"></runes>
-	</div>
-	<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
-			   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
-	</inventory>
-	<div id="damage-calc">
-		<div class="component-header">
-			<span>Damage Calculations</span>
+		<div id="item-selector-rune-selector">
+			<item-selector id="item-selector" [hidden]="selectedTab=='runes'" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
+						   (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
+						   (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedPage]="selectedTab"></item-selector>
+			<runes id="rune-selector" (selectedPage)="setPage($event)" [hidden]="selectedTab=='item-selector'" [selectedPage]="selectedTab"></runes>
 		</div>
-		<div class="component-body">
-			<span>Some content here</span>
-		</div>
-		<!-- this iherethis iherethis iherethis iherethis iherethis iherethis iherethis ihere
+		<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
+				   [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)">
+		</inventory>
+		<div id="damage-calc">
+			<div class="component-header">
+				<span>Damage Calculations</span>
+			</div>
+			<div class="component-body">
+				<span>Some content here</span>
+			</div>
+			<!-- this iherethis iherethis iherethis iherethis iherethis iherethis iherethis ihere
 		this iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis
 		iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis iherethis -->
+		</div>
 	</div>
 </div>

@@ -1,9 +1,12 @@
 <div class="component-header-grid">
-	<div id="tab-switcher">
-		<img src="assets/images/icons/items_small_icon.png" alt="Runes" (click)="switchToRunesPage()" />
-	</div>
 	<div class="component-header">
 		<span class="component-title" id="component-title">List of Items</span>
+	</div>
+	<div class="rune-tab" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
+		<img src="assets/images/icons/runes_icon.png" alt="Runes" (click)="switchToRunesPage()" />
+	</div>
+	<div class="inventory-tab" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
+		<img src="assets/images/icons/items_small_icon.png" alt="Runes" />
 	</div>
 </div>
 <div class="component-body">

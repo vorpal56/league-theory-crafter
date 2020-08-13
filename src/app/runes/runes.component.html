@@ -1,17 +1,32 @@
 <div class="component-header-grid">
-	<div id="tab-switcher">
-		<img src="assets/images/icons/runes_icon.png" alt="Items" class="tab-icon" (click)="switchToItemSelectorPage()" />
-	</div>
 	<div class="component-header">
 		<span class="component-title" id="component-title">Rune Selection</span>
 	</div>
+	<div class="rune-tab" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
+		<img src="assets/images/icons/runes_icon.png" alt="Items" class="tab-icon" />
+	</div>
+	<div class="inventory-tab" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
+		<img src="assets/images/icons/items_small_icon.png" alt="Inventory" class="tab-icon" (click)="switchToItemSelectorPage()" />
+	</div>
 </div>
 <div class="component-body">
-	<div class="rune-selection-grid">
-		<div id="primary-rune-selection">
-			<img *ngFor="let img of runeSources" [src]="img" [alt]="img" />
+	<div class="rune-trees">
+		<div class="rune-tree">
+			<div class="paths">
+				<div class="primary-selection">
+					<div *ngFor="let primaryKeystone of primaries">
+						<img [src]="primaryKeystone">
+					</div>
+				</div>
+				<div class="primary-keystone keystones"></div>
+				<div class="path-rune-1"></div>
+				<div class="path-rune-2"></div>
+				<div class="path-rune-3"></div>
+			</div>
 		</div>
-		<div id="secondary-rune-selection">secondary rune</div>
-		<div id="rune-shards">rune shards</div>
+		<div class="rune-tree">
+
+		</div>
+		<!-- <img *ngFor="let img of runeSources" [src]="img" [alt]="img" /> -->
 	</div>
 </div>

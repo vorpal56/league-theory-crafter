@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ChampionService } from '../services/champion.service';
 
 @Component({
@@ -15,9 +15,17 @@ export class RunesComponent implements OnInit {
 		"assets/images/runes/Fleet Footwork.png",
 		"assets/images/runes/Conqueror.png",
 	];
+	primaries = [
+		"assets/images/runes/Precision.png",
+		"assets/images/runes/Domination.png",
+		"assets/images/runes/Sorcery.png",
+		"assets/images/runes/Inspiration.png",
+		"assets/images/runes/Resolve.png",
+	];
 	ngOnInit(): void {
 	}
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
+	@Input('selectedPage') selectedPage: string;
 
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
