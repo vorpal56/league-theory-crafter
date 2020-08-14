@@ -2,31 +2,82 @@
 	<div class="component-header">
 		<span class="component-title" id="component-title">Rune Selection</span>
 	</div>
-	<div class="rune-tab" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
+	<div class="rune-tab tab-icon" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
 		<img src="assets/images/icons/runes_icon.png" alt="Items" class="tab-icon" />
 	</div>
-	<div class="inventory-tab" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
+	<div class="inventory-tab tab-icon" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
 		<img src="assets/images/icons/items_small_icon.png" alt="Inventory" class="tab-icon" (click)="switchToItemSelectorPage()" />
 	</div>
 </div>
 <div class="component-body">
-	<div class="rune-trees">
+	<div class="rune-trees-container">
 		<div class="rune-tree">
-			<div class="paths">
-				<div class="primary-selection">
-					<div *ngFor="let primaryKeystone of primaries">
-						<img [src]="primaryKeystone">
+			<div class="flex-center">
+				<div class="path-runes">
+					<div class="rune-path">
+						<img class="medium-rune" *ngFor="let runePath of runes; index as i" [ngClass]="activeClass(runePath, 'primary')" [src]="runePath.img" [alt]="runePath.img" (click)="choosePrimaryPath(runePath, runes)" />
+					</div>
+					<div *ngFor="let runePath of runes; index as i">
+						<div [hidden]="selectedRunes.primaryTree.path != runePath.path_name">
+							<ng-container *ngFor="let runeType of runePath.runes">
+								<div class="primary-selection">
+									<ng-container *ngFor="let rune of runeType.keystones">
+										<img class="medium-rune" [ngClass]="activeClass(rune)" [src]="rune.img" (click)="setKeystone(rune, runeType.keystones)">
+									</ng-container>
+								</div>
+								<div class="primary-selection">
+									<ng-container *ngFor="let rune of runeType.slot1; index as i">
+										<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot1,1)" [src]="rune.img">
+									</ng-container>
+								</div>
+								<div class="primary-selection">
+									<ng-container *ngFor="let rune of runeType.slot2; index as i">
+										<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot2,2)" [src]="rune.img">
+									</ng-container>
+								</div>
+								<div class="primary-selection">
+									<ng-container *ngFor="let rune of runeType.slot3; index as i">
+										<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot3,3)" [src]="rune.img">
+									</ng-container>
+								</div>
+							</ng-container>
+						</div>
 					</div>
 				</div>
-				<div class="primary-keystone keystones"></div>
-				<div class="path-rune-1"></div>
-				<div class="path-rune-2"></div>
-				<div class="path-rune-3"></div>
 			</div>
 		</div>
 		<div class="rune-tree">
-
+			<div class="flex-center">
+				<div class="path-runes">
+					<div class="path-runes">
+						<div class="rune-path">
+							<img class="medium-rune" [hidden]="runePath.active_primary" *ngFor="let runePath of runes; index as i" [ngClass]="activeClass(runePath, 'secondary')" [src]="runePath.img" [alt]="runePath.img"
+									 (click)="chooseSecondaryPath(runePath, runes)" />
+						</div>
+						<div [hidden]="runePath.active_primary" *ngFor="let runePath of runes; index as i">
+							<div [hidden]="selectedRunes.secondaryTree.path != runePath.path_name">
+								<ng-container *ngFor="let runeType of runePath.runes">
+									<div class="primary-selection">
+										<ng-container *ngFor="let rune of runeType.slot1; index as i">
+											<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setSecondarySlots(rune, runePath.path_name)" [src]="rune.img">
+										</ng-container>
+									</div>
+									<div class="primary-selection">
+										<ng-container *ngFor="let rune of runeType.slot2; index as i">
+											<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setSecondarySlots(rune, runePath.path_name)" [src]="rune.img">
+										</ng-container>
+									</div>
+									<div class="primary-selection">
+										<ng-container *ngFor="let rune of runeType.slot3; index as i">
+											<img class="small-rune" [ngClass]="activeClass(rune)" (click)="setSecondarySlots(rune, runePath.path_name)" [src]="rune.img">
+										</ng-container>
+									</div>
+								</ng-container>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- <img *ngFor="let img of runeSources" [src]="img" [alt]="img" /> -->
 	</div>
 </div>

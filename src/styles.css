@@ -13,6 +13,34 @@
 	--component-header-height : 70px; 
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
 }
+/* Body changes */
+html, body { 
+	height: 100%;
+	/* background-color: var(--background-main); */
+	background-color: var(--background-main);
+	color:white !important;	
+}
+img {
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	-ms-user-select: none;
+	/* user-drag: none;  */
+}
+/* Material Changes */
+mat-label, input {
+	font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important
+}
+mat-form-field {
+	line-height: 1.5 !important;
+}
+button:focus, :focus {
+	outline:none;
+}
+
 /* Grid layouts and configs/Component configs */
 .component-header {
 	display: flex;
@@ -61,7 +89,6 @@ span.component-title#component-title {
 	flex-direction: column;
 	/* height:100%; */
 }
-
 .pad-top {
 	padding-top:10px;
 }
@@ -111,24 +138,6 @@ span.component-title#component-title {
 	"item-selector-rune-selector"
 	"damage-calc"
 	}
-}
-/* Body changes */
-html, body { 
-	height: 100%;
-	/* background-color: var(--background-main); */
-	background-color: var(--background-main);
-	color:white !important;
-	
-}
-/* Material Changes */
-mat-label, input {
-	font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important
-}
-mat-form-field {
-	line-height: 1.5 !important;
-}
-button:focus, :focus {
-	outline:none;
 }
 
 /* Bootstrap additions/changes */

@@ -2,18 +2,41 @@ img.tab-icon {
 	width:48px;
 	height:48px;
 }
-.rune-trees {
+img.medium-rune {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 2px;
+	background-color: var(--background-alt-3)
+}
+img.small-rune {
+	width:34px;
+	height:34px;
+	border-radius: 50%;
+	margin: 2px;
+	background-color: var(--background-alt-3)
+}
+.rune-trees-container {
+	display:flex;
+	justify-content: space-around;
+	margin-top:10px;
+}
+.rune-tree, .path-runes {
+	display:flex;
+	flex-direction:column;
+	align-items:center
+}
+.flex-center {
 	display:flex;
 	justify-content: center;
 	align-items: center;
 }
-.paths {
-	display:flex;
-	flex-direction: column;
-	align-items:center;
+.rune-path {
+	padding: 15px 0px
 }
-.primary-selection{ 
+.rune-path, .primary-selection{ 
 	display:flex;
+	justify-content: space-evenly;
 }
 .rune-selection-grid {
 	display:grid;
@@ -37,11 +60,10 @@ img.tab-icon {
 .primary-rune-selection-grid {
 	display:grid
 }
-img {
-	width:48px;
-	height:48px
-}
-.inactive {
+.inactive-rune {
 	filter: grayscale(100%);
 	opacity: .27;
 }
+/* .active-rune {
+border:1px solid white
+} */
