@@ -24,8 +24,8 @@ export class RunesComponent implements OnInit {
 	ngOnInit(): void {
 		this.selectedRunes.primaryTree.path = this.runes[0].path_name;
 		this.runes[0].active_primary = true;
-		this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
-		this.runes[1].active_secondary = true;
+		// this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
+		// this.runes[1].active_secondary = true;
 	}
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 	@Input('selectedPage') selectedPage: string;

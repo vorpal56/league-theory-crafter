@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 	champion: Champion = this.champions[2];
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
-	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM] };
+	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
 	numberOfEquippedItems = 0;
 
 	selectedTab: string = "runes";
@@ -64,6 +64,6 @@ export class AppComponent implements OnInit {
 		this.cdRef.detectChanges();
 	}
 	ngOnInit() {
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, 1);
+		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 }

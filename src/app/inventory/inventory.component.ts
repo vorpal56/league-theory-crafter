@@ -64,7 +64,9 @@ export class InventoryComponent implements OnInit {
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 	removeItem(itemDetails: Item, index?: number): void {
-		console.log(index);
+		if (itemDetails.shared_item.name == "hexcore") {
+			this.selectedItemRestrictions.hasHexcore = false;
+		}
 		if (itemDetails.shared_item.name == "goldjg") {
 			this.selectedItemRestrictions.hasGoldOrJg = false;
 		}

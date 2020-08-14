@@ -1,5 +1,5 @@
 export const GAMEMODES = [{ "gamemodeLabel": "All", "gamemodeValue": "all" }, { "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" }, { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" }, { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }];
-export const ORDERBY = [{ "orderByLabel": "Alphabetically", "orderByValue": "alpha" }, { "orderByLabel": "Gold/Price", "orderByValue": "gold" }];
+export const ORDERBY = [{ "orderByLabel": "A-Z", "orderByValue": "alpha" }, { "orderByLabel": "Gold", "orderByValue": "gold" }];
 export const ORDERMODES = [{ "orderModeLabel": "Ascending", "orderModeValue": "asc" }, { "orderModeLabel": "Descending", "orderModeValue": "desc" }];
 export const LEVELS = [
 	{ "levelLabel": "Level 1", "levelValue": 1 },

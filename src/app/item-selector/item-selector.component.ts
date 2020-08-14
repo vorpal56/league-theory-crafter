@@ -22,7 +22,7 @@ export class ItemSelectorComponent implements OnInit {
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "";
+	searchText: string = "x";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	orderMode: string = this.orderModes[0].orderModeValue;
@@ -48,6 +48,13 @@ export class ItemSelectorComponent implements OnInit {
 	 * @returns boolean
 	 */
 	isItemAllowed(itemDetails: Item): boolean {
+		if (itemDetails.visible == false) {
+			// can't add items that are 'invisible'
+			return false;
+		}
+		if (this.selectedItemRestrictions.hasHexcore == true && itemDetails.shared_item.name == "hexcore") {
+			return false;
+		}
 		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item.name == "goldjg") {
 			return false;
 		}
@@ -70,14 +77,10 @@ export class ItemSelectorComponent implements OnInit {
 					occupiedSlots += 1;
 				}
 			}
-			if (this.champion.name == "Ornn") {
-				if (occupiedSlots == 2) {
-					return false;
-				}
-			} else {
-				if (occupiedSlots == 1) {
-					return false;
-				}
+			if (this.champion.name == "Ornn" && occupiedSlots == 2) {
+				return false;
+			} else if (this.champion.name != "Ornn" && occupiedSlots == 1) {
+				return false;
 			}
 		}
 		return this.numberOfEquippedItems != 6;
@@ -103,6 +106,9 @@ export class ItemSelectorComponent implements OnInit {
 		if (itemDetails.name.toLowerCase().includes("elixir") && itemDetails != this.selectedElixir) {
 			this.addElixir(itemDetails);
 		} else if (this.isItemAllowed(itemDetails) && itemDetails != this.selectedElixir) {
+			if (itemDetails.shared_item.name == "hexcore") {
+				this.selectedItemRestrictions.hasHexcore = true;
+			}
 			if (itemDetails.shared_item.name == "goldjg") {
 				this.selectedItemRestrictions.hasGoldOrJg = true;
 			}
@@ -187,6 +193,10 @@ export class ItemSelectorComponent implements OnInit {
 
 	switchToRunesPage() {
 		this.selectedPageEmitter.emit("runes");
+	}
+
+	isVisible(itemDetails: Item) {
+		return itemDetails.visible ? 'visible-item' : 'invisible-item';
 	}
 }
 

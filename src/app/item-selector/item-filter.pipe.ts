@@ -43,9 +43,8 @@ export class ItemFilterPipe implements PipeTransform {
 		let championRangeType = selectedChampion["rangetype"].toLowerCase();
 		searchText = searchText.toLowerCase();
 		searchMode = searchMode.toLowerCase();
-		let result = items.filter(item => {
-			// for every item, compares the items if the search term is a tag or an item name
-			// make sure that it's also within the selected gamemode
+
+		items.forEach(item => {
 			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
 			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
@@ -69,18 +68,60 @@ export class ItemFilterPipe implements PipeTransform {
 			}
 			finalCondition = intermediaryCondition2 && itemsSearchedByMode;
 			if (championName == "Cassiopeia") {
-				return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
+				item.visible = finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
+				return;
 			} else if (championName == "Viktor") {
-				return finalCondition || (finalCondition && item.apiname.includes("hexcore"));
+				item.visible = finalCondition || (finalCondition && item.apiname.includes("hexcore"));
+				return;
 			}
-			return finalCondition && !item.apiname.includes("hexcore");
+			item.visible = finalCondition && !item.apiname.includes("hexcore");
+			return;
 		});
-		// order the returned items by price or alpha
 		if (orderMode == "desc") {
-			return orderBy == "gold" ? result.sort(this.byGoldDescending) : result.sort(this.byAlphaDescending);
+			return orderBy == "gold" ? items.sort(this.byGoldDescending) : items.sort(this.byAlphaDescending);
 		} else if (orderMode == "asc") {
-			return orderBy == "gold" ? result.sort(this.byGoldAscending) : result;
+			return orderBy == "gold" ? items.sort(this.byGoldAscending) : items;
 		}
+
+		// filter option to reduce the set
+		// let result = items.filter(item => {
+		// 	// for every item, compares the items if the search term is a tag or an item name
+		// 	// make sure that it's also within the selected gamemode
+		// 	let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
+		// 	let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
+		// 	let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
+		// 	let itemsAllowedToMelee = item.allowed_to.melee == true && championRangeType == "melee";
+		// 	let itemsAllowedToRange = item.allowed_to.ranged == true && championRangeType == "ranged";
+		// 	let intermediaryCondition1: boolean;
+		// 	let intermediaryCondition2: boolean;
+		// 	let finalCondition: boolean;
+		// 	if (itemsSearchedByTag) {
+		// 		intermediaryCondition1 = (itemsSearchedByName || itemsSearchedByTag);
+		// 	} else {
+		// 		intermediaryCondition1 = itemsSearchedByName;
+		// 	}
+		// 	// honestly very confusing literally have no idea if this works or not -> need further testing
+		// 	if (itemsAllowedToMelee === true && itemsAllowedToRange === true) {
+		// 		intermediaryCondition2 = intermediaryCondition1;
+		// 	} else if (itemsAllowedToMelee === true && itemsAllowedToRange == false) {
+		// 		intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToMelee;
+		// 	} else if (itemsAllowedToMelee === false && itemsAllowedToRange == true) {
+		// 		intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToRange;
+		// 	}
+		// 	finalCondition = intermediaryCondition2 && itemsSearchedByMode;
+		// 	if (championName == "Cassiopeia") {
+		// 		return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
+		// 	} else if (championName == "Viktor") {
+		// 		return finalCondition || (finalCondition && item.apiname.includes("hexcore"));
+		// 	}
+		// 	return finalCondition && !item.apiname.includes("hexcore");
+		// });
+		// // order the returned items by price or alpha
+		// if (orderMode == "desc") {
+		// 	return orderBy == "gold" ? result.sort(this.byGoldDescending) : result.sort(this.byAlphaDescending);
+		// } else if (orderMode == "asc") {
+		// 	return orderBy == "gold" ? result.sort(this.byGoldAscending) : result;
+		// }
 
 	}
 

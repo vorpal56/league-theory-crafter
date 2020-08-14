@@ -16,21 +16,32 @@ mat-form-field.full-width {
 div.overflow {
 	height:100%;
 	overflow-y: auto;
+	max-height:500px;
 }
-/* div.overflow-mobile {
-	overflow-y:auto;
-} */
 .component-body {
 	height: -moz-calc(100% - var(--component-header-height));
     height: -webkit-calc(100% - var(--component-header-height));
     height: calc(100% - var(--component-header-height));
 }
 .item-selector-grid {
+	padding: 5px 5px 0px 5px;
 	display:grid;
 	grid-template-columns: repeat(4,1fr);
 	grid-template-rows: 72px;
 	grid-template-areas:
-	"orderby-name orderby-mode gamemode-filter search-filter"
+	"orderby-name orderby-mode gamemode-filter search-filter";
+}
+@media only screen and (max-width: 767px) {
+	.item-selector-grid {
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows:  repeat(2, 1fr);
+	grid-template-areas:
+	"orderby-name orderby-mode"
+	"search-filter gamemode-filter"
+	}
+}
+.item-selector-filter {
+	padding:4px
 }
 #item-grid-orderby-name {
 	grid-area: orderby-name;

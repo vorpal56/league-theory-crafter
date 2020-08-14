@@ -2,32 +2,31 @@
 	<div class="component-header">
 		<span class="component-title" id="component-title">List of Items</span>
 	</div>
-	<div class="rune-tab" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
+	<div class="rune-tab tab-icon" class="inactive-tab">
 		<img src="assets/images/icons/runes_icon.png" alt="Runes" (click)="switchToRunesPage()" />
 	</div>
-	<div class="inventory-tab" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
+	<div class="inventory-tab tab-icon">
 		<img src="assets/images/icons/items_small_icon.png" alt="Runes" />
 	</div>
 </div>
 <div class="component-body">
 	<div class="item-selector-grid">
-
-		<div id="item-grid-orderby-sort">
-			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items by name" [(ngModel)]="orderBy">
+		<div id="item-grid-orderby-sort" class="item-selector-filter">
+			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items" [(ngModel)]="orderBy">
 			</ng-select>
 		</div>
-		<div id="item-grid-orderby-sort">
+		<div id="item-grid-orderby-sort" class="item-selector-filter">
 			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
 			</ng-select>
 		</div>
-		<div id="item-grid-gamemode-filter">
-			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter items by Gamemodes" [(ngModel)]="searchMode">
+		<div id="item-grid-gamemode-filter" class="item-selector-filter">
+			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter by Gamemodes" [(ngModel)]="searchMode">
 			</ng-select>
 		</div>
-		<div id="item-grid-search-filter">
+		<div id="item-grid-search-filter" class="item-selector-filter">
 			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
-				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. zhonyas, ornn, starters" id="item-grid-filter-search-field">
+				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. support, ornn.." id="item-grid-filter-search-field">
 				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
 					<mat-icon>close</mat-icon>
 				</button>
@@ -38,7 +37,7 @@
 		<div class="item-list overflow">
 			<ul class="item-grid">
 				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
-					<div class="item-block bg-black">
+					<div class="item-block bg-black" [ngClass]="isVisible(item)">
 						<img [src]="item.img" [title]="item.name" draggable="false" />
 					</div>
 				</li>

@@ -87,7 +87,7 @@ export class ChampionService {
 	 * @param  {Item} selectedElixir? adds an elixir to the selectedItems
 	 * @returns void
 	 */
-	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, somenum?: number): void {
+	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): void {
 		this.adjustBaseStats(selectedChampion, currentLevel);
 		if (!this.allSelectedItemsIsEmpty(selectedItems, selectedElixir)) {
 			if (selectedItems != undefined || selectedItems != null) {
@@ -95,7 +95,7 @@ export class ChampionService {
 				if (selectedElixir != EMPTY_ITEM) {
 					selectedItemsIncludingElixir.push(selectedElixir);
 				}
-				this.addItemStats(selectedChampion, selectedItemsIncludingElixir);
+				this.addItemStats(selectedChampion, selectedItemsIncludingElixir, currentLevel);
 			}
 		}
 		return;
@@ -107,7 +107,7 @@ export class ChampionService {
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns void
 	 */
-	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item]): void {
+	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], currentLevel: number): void {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 		// console.log(selectedItems);
@@ -120,6 +120,7 @@ export class ChampionService {
 
 		let sharedItemCounts = {};
 		let aweItem: Item = EMPTY_ITEM;
+		let hexCoreItem: Item = EMPTY_ITEM;
 		for (let itemIndex in selectedItems) {
 			let selectedItem = selectedItems[itemIndex];
 			if (selectedItem.name != "Empty") {
@@ -134,11 +135,14 @@ export class ChampionService {
 						if (passiveName == "awe" && selectedItem.name.includes("tear") === false) {
 							aweItem = selectedItem;
 						}
+						if (passiveName == "hexcore") {
+							hexCoreItem = selectedItem;
+						}
 					});
 				}
 				for (let itemStatName in selectedItem) {
 					let itemStatVal = selectedItem[itemStatName];
-					if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && typeof (itemStatVal) != "string") {
+					if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
 						let hasMultType = itemStatName.includes("mult");
 						if (hasMultType) {
 							let counts = 0;
@@ -254,6 +258,10 @@ export class ChampionService {
 		}
 		if (hasTotalMultiplier) {
 			this.applyTotalMultipliers(champion, multKeyValues);
+		}
+		if (hexCoreItem != EMPTY_ITEM) {
+			champion.stats.ap += (hexCoreItem.ap * (currentLevel - 1));
+			champion.stats.mp += (hexCoreItem.mp * (currentLevel - 1));
 		}
 		if (aweItem.apiname == "manamune" || aweItem.apiname == "muramana") {
 			champion.stats.ad += (champion.stats.mp * 0.02);

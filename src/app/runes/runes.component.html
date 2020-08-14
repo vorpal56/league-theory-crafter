@@ -2,10 +2,10 @@
 	<div class="component-header">
 		<span class="component-title" id="component-title">Rune Selection</span>
 	</div>
-	<div class="rune-tab tab-icon" [ngClass]="{'inactive-tab':selectedPage=='item-selector'}">
+	<div class="rune-tab tab-icon">
 		<img src="assets/images/icons/runes_icon.png" alt="Items" class="tab-icon" />
 	</div>
-	<div class="inventory-tab tab-icon" [ngClass]="{'inactive-tab':selectedPage=='runes'}">
+	<div class="inventory-tab tab-icon" class="inactive-tab">
 		<img src="assets/images/icons/items_small_icon.png" alt="Inventory" class="tab-icon" (click)="switchToItemSelectorPage()" />
 	</div>
 </div>

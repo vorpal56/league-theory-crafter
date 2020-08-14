@@ -42,5 +42,5 @@ export interface Item {
 	'stackable': any,
 	'tags': string,
 	'tenacity': number,
-	'unique_passives'?: any,
+	'visible': boolean,
 }

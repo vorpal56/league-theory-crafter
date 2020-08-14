@@ -46,7 +46,8 @@ export const EMPTY_ITEM = {
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 };
 export const ITEMS = [{
 	'ad': 0,
@@ -94,7 +95,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -141,7 +143,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -188,7 +191,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -235,7 +239,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -282,7 +287,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -333,7 +339,8 @@ export const ITEMS = [{
 	},
 	'stacked': false,
 	'tags': 'tear',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -380,7 +387,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -427,7 +435,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -474,7 +483,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -521,7 +531,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -568,7 +579,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -615,7 +627,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -662,7 +675,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -709,7 +723,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -756,7 +771,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -803,7 +819,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -850,7 +867,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -897,7 +915,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -944,7 +963,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -991,7 +1011,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1038,7 +1059,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -1085,7 +1107,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 80,
@@ -1132,7 +1155,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1179,7 +1203,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -1226,7 +1251,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1273,7 +1299,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1320,7 +1347,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1367,7 +1395,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1414,7 +1443,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1461,7 +1491,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 7,
@@ -1508,7 +1539,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1555,7 +1587,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1602,7 +1635,8 @@ export const ITEMS = [{
 	'stackable': True,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1649,7 +1683,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 50,
@@ -1696,7 +1731,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 8,
@@ -1743,7 +1779,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1790,7 +1827,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1837,7 +1875,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 60,
@@ -1884,7 +1923,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 55,
@@ -1931,7 +1971,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -1978,7 +2019,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'jungle,jg',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2025,7 +2067,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'jungle,jg',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2073,7 +2116,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'jungle,jg',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 60,
@@ -2120,7 +2164,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'jungle,jg',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 70,
@@ -2167,7 +2212,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 15,
@@ -2214,7 +2260,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2261,7 +2308,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2308,7 +2356,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2355,7 +2404,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2402,7 +2452,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2449,7 +2500,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 30,
@@ -2496,7 +2548,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2543,7 +2596,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2590,7 +2644,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2637,7 +2692,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -2684,7 +2740,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -2733,7 +2790,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2780,7 +2838,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 10,
@@ -2827,7 +2886,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 20,
@@ -2874,7 +2934,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -2922,7 +2983,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -2969,7 +3031,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3016,7 +3079,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3063,7 +3127,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3102,7 +3167,7 @@ export const ITEMS = [{
 	'name': 'Hex Core mk-1',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "hexcore"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3110,7 +3175,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3149,7 +3215,7 @@ export const ITEMS = [{
 	'name': 'Hex Core mk-2',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "hexcore"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3157,7 +3223,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3204,7 +3271,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 80,
@@ -3251,7 +3319,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3298,7 +3367,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 15,
@@ -3345,7 +3415,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3392,7 +3463,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3439,7 +3511,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3486,7 +3559,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 20,
@@ -3534,7 +3608,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3581,7 +3656,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3628,7 +3704,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3675,7 +3752,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 10,
@@ -3722,7 +3800,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 45,
@@ -3770,7 +3849,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ldr',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3818,7 +3898,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -3867,7 +3948,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 35,
@@ -3918,7 +4000,8 @@ export const ITEMS = [{
 	},
 	'stacked': false,
 	'tags': 'tear',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 50,
@@ -3965,7 +4048,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4016,7 +4100,8 @@ export const ITEMS = [{
 	},
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 50,
@@ -4063,7 +4148,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4110,7 +4196,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 35
+	'tenacity': 35,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4157,7 +4244,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4205,7 +4293,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 45,
@@ -4253,7 +4342,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 35,
@@ -4301,7 +4391,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'tear',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4348,7 +4439,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4395,7 +4487,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4442,7 +4535,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4489,7 +4583,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4536,7 +4631,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4584,7 +4680,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4623,7 +4720,7 @@ export const ITEMS = [{
 	'name': 'Perfect Hex Core',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "hexcore"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4631,7 +4728,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 15,
@@ -4678,7 +4776,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4725,7 +4824,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -4772,7 +4872,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4811,7 +4912,7 @@ export const ITEMS = [{
 	'name': 'Prototype Hex Core',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "hexcore"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4819,7 +4920,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 15,
@@ -4866,7 +4968,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -4913,7 +5016,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 6,
@@ -4960,7 +5064,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5007,7 +5112,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5054,7 +5160,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5101,7 +5208,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 80,
@@ -5148,7 +5256,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5195,7 +5304,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5242,7 +5352,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5289,7 +5400,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5336,7 +5448,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5383,7 +5496,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5430,7 +5544,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5477,7 +5592,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5524,7 +5640,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5571,7 +5688,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 55,
@@ -5618,7 +5736,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5665,7 +5784,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5712,7 +5832,8 @@ export const ITEMS = [{
 	'stackable': True,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5760,7 +5881,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'tear',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 30,
@@ -5807,7 +5929,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5854,7 +5977,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5901,7 +6025,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 3,
@@ -5948,7 +6073,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -5995,7 +6121,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6042,7 +6169,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6089,7 +6217,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6136,7 +6265,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 5,
@@ -6183,7 +6313,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6230,7 +6361,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6277,7 +6409,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6324,7 +6457,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6371,7 +6505,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6418,7 +6553,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 50,
@@ -6465,7 +6601,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6512,7 +6649,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6559,7 +6697,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'support,gold',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6610,7 +6749,8 @@ export const ITEMS = [{
 	},
 	'stacked': false,
 	'tags': 'tear',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6657,7 +6797,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -6704,7 +6845,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 40,
@@ -6751,7 +6893,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 25,
@@ -6798,7 +6941,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6845,7 +6989,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 50,
@@ -6892,7 +7037,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 15,
@@ -6939,7 +7085,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -6987,7 +7134,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7035,7 +7183,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7082,7 +7231,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7129,7 +7279,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 55,
@@ -7176,7 +7327,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7223,7 +7375,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7270,7 +7423,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7317,7 +7471,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7364,7 +7519,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7411,7 +7567,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7458,7 +7615,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7506,7 +7664,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7555,7 +7714,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 60,
@@ -7602,7 +7762,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7649,7 +7810,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7696,7 +7858,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 110,
@@ -7743,7 +7906,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 55,
@@ -7790,7 +7954,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 35,
@@ -7837,7 +8002,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 75,
@@ -7884,7 +8050,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7931,7 +8098,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -7978,7 +8146,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'pots,potions',
-	'tenacity': 25
+	'tenacity': 25,
+	'visible': true,
 },
 {
 	'ad': 0,
@@ -8025,7 +8194,8 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'pots,potions',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 },
 {
 	'ad': 30,
@@ -8072,5 +8242,6 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': 'pots,potions',
-	'tenacity': 0
+	'tenacity': 0,
+	'visible': true,
 }];
