@@ -36,7 +36,7 @@ export class ItemFilterPipe implements PipeTransform {
 	 * @param  {string} orderMode orders in ascending or descending order
 	 * @returns Item
 	 */
-	transform(items: any[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
+	transform(items: Item[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
 		if (!items) return [];
 		if (!searchText && !searchMode) return items;
 		let championName = selectedChampion.name;
@@ -48,23 +48,32 @@ export class ItemFilterPipe implements PipeTransform {
 			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
 			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
-			let itemsAllowedToMelee = item.allowed_to.melee == true && championRangeType == "melee";
-			let itemsAllowedToRange = item.allowed_to.ranged == true && championRangeType == "ranged";
+			// set some intermediary conditions for granularity
 			let intermediaryCondition1: boolean;
 			let intermediaryCondition2: boolean;
 			let finalCondition: boolean;
+
+			// for example, check if it has tags, include it as a possible search term
 			if (itemsSearchedByTag) {
 				intermediaryCondition1 = (itemsSearchedByName || itemsSearchedByTag);
 			} else {
 				intermediaryCondition1 = itemsSearchedByName;
 			}
-			// honestly very confusing literally have no idea if this works or not -> need further testing
-			if (itemsAllowedToMelee === true && itemsAllowedToRange === true) {
+			// fixed the logic, much more straight forward and actually makes sense
+			// check if there are any restrictions on the item given the champion
+			if (item.allowed_to.melee && item.allowed_to.ranged) {
+				// if it's an item that's available to both, we keep it as is
 				intermediaryCondition2 = intermediaryCondition1;
-			} else if (itemsAllowedToMelee === true && itemsAllowedToRange == false) {
-				intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToMelee;
-			} else if (itemsAllowedToMelee === false && itemsAllowedToRange == true) {
-				intermediaryCondition2 = intermediaryCondition1 && itemsAllowedToRange;
+			} else if (item.allowed_to.melee && !item.allowed_to.ranged) {
+				// if its an item that's only allowed to melees but not to ranged, make sure that the champion is also melee
+				intermediaryCondition2 = intermediaryCondition1 && item.allowed_to.melee && championRangeType == "melee";
+			} else if (!item.allowed_to.melee && item.allowed_to.ranged) {
+				// same here for ranged
+				intermediaryCondition2 = intermediaryCondition1 && item.allowed_to.ranged && championRangeType == "ranged";
+			} else {
+				// there must be an error with the item, it cant be restricted to both classes
+				item.visible = false;
+				return;
 			}
 			finalCondition = intermediaryCondition2 && itemsSearchedByMode;
 			if (championName == "Cassiopeia") {

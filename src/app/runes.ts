@@ -466,4 +466,80 @@ export const RUNES = [{
 	"img": "assets/images/runes/Inspiration/Inspiration.png",
 	"active_primary": false,
 	"active_secondary": false,
-}]
+}];
+
+export const RUNE_SHARDS = {
+	"set1": [{
+		"name": "Adaptive Force",
+		"apiname": "adaptive",
+		"index": 0,
+		"active": false,
+		"ad": 5.4,
+		"ap": 9,
+		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
+	},
+	{
+		"name": "Attack Speed",
+		"apiname": "as",
+		"index": 1,
+		"active": false,
+		"as": 10,
+		"img": "assets/images/runes/Rune Shards/Attack Speed.png"
+	},
+	{
+		"name": "Cooldown Reduction",
+		"apiname": "cdr",
+		"index": 2,
+		"active": false,
+		"cdr": 1,
+		"cdr_lvl": 0.53,
+		"img": "assets/images/runes/Rune Shards/Cooldown Reduction.png"
+	}], "set2": [{
+		"name": "Adaptive Force",
+		"apiname": "adaptive",
+		"index": 0,
+		"active": false,
+		"ad": 5.4,
+		"ap": 9,
+		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
+	},
+	{
+		"name": "Armor",
+		"apiname": "armor",
+		"index": 3,
+		"active": false,
+		"arm": 6,
+		"img": "assets/images/runes/Rune Shards/Armor.png"
+	},
+	{
+		"name": "Magic Resistance",
+		"apiname": "mr",
+		"index": 4,
+		"active": false,
+		"mr": 8,
+		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
+	}], "set3": [{
+		"name": "Health",
+		"apiname": "health",
+		"index": 5,
+		"active": false,
+		"hp": 15,
+		"hp_lvl": 4.41,
+		"img": "assets/images/runes/Rune Shards/Health.png"
+	}, {
+		"name": "Armor",
+		"apiname": "armor",
+		"index": 3,
+		"active": false,
+		"arm": 6,
+		"img": "assets/images/runes/Rune Shards/Armor.png"
+	},
+	{
+		"name": "Magic Resistance",
+		"apiname": "mr",
+		"index": 4,
+		"active": false,
+		"mr": 8,
+		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
+	}]
+};

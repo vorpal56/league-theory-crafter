@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ChampionService } from '../services/champion.service';
-import { RUNES } from '../runes';
+import { RUNES, RUNE_SHARDS } from '../runes';
+import { RuneShard } from '../models/rune';
+
 
 
 @Component({
@@ -13,11 +15,15 @@ export class RunesComponent implements OnInit {
 	constructor(private championService: ChampionService) { }
 
 	runes: any = RUNES;
+	runeShards: any = RUNE_SHARDS;
 	selectedRunes: any = {
 		"primaryTree": { "runes": [null, null, null, null], "path": null },
 		"secondaryTree": { "runes": [null, null], "path": null },
-		"runeShards": [],
+		"runeShards": [null, null, null],
 	};
+	runeShardSet1: [RuneShard, RuneShard, RuneShard] = this.runeShards.set1;
+	runeShardSet2: [RuneShard, RuneShard, RuneShard] = this.runeShards.set2;
+	runeShardSet3: [RuneShard, RuneShard, RuneShard] = this.runeShards.set3;
 	pathIndices = { "Precision": 0, "Domination": 1, "Sorcery": 2, "Resolve": 3, "Inspiration": 4 };
 	activePrimaryTree: any;
 
@@ -83,9 +89,21 @@ export class RunesComponent implements OnInit {
 		}
 
 	}
+	setRuneShards(runeShard: RuneShard, slotIndex: number) {
+		if (this.selectedRunes.runeShards[slotIndex] != runeShard) {
+			if (this.selectedRunes.runeShards[slotIndex]) {
+				this.selectedRunes.runeShards[slotIndex].active = false;
+			}
+			runeShard.active = true;
+			this.selectedRunes.runeShards[slotIndex] = runeShard;
+		}
+		return;
+	}
 	activeClass(rune: any, def?: string) {
-		if (def) {
+		if (def == "primary" || def == "secondary") {
 			return rune["active_" + def] ? "active-rune" : "inactive-rune";
+		} else if (def == "shard") {
+			return rune.active ? "" : "inactive-rune";
 		}
 		return rune.active ? "active-rune" : "inactive-rune";
 	}

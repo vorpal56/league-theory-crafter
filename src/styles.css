@@ -10,7 +10,7 @@
 	--background-alt-2: #222238;
 	--background-alt-3: #17172e;
 	--component-header-height : 54px; 
-	--component-header-height : 70px; 
+	/* --component-header-height : 70px;  */
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
 }
 /* Body changes */
@@ -48,19 +48,19 @@ button:focus, :focus {
 /* Grid layouts and configs/Component configs */
 .component-header {
 	display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 0 0 48px;
-    height: 48px;
-    margin-bottom: 6px;
-    padding: 0 24px;
+	justify-content: space-between;
+	align-items: center;
+	flex: 0 0 48px;
+	height: 48px;
+	margin-bottom: 6px;
+	padding: 0 24px;
 	background-color: var(--background-alt);
 	width:100%;
 }
 .component-header-grid {
 	display:grid;
 	height: 48px;
-    margin-bottom: 6px;
+		margin-bottom: 6px;
 	grid-template-columns: auto 48px 48px;
 	grid-template-rows: 1fr;
 	grid-template-areas: 
@@ -131,6 +131,7 @@ img.tab-icon {
 	"item-selector-rune-selector damage-calc";
 	grid-gap: 10px;
 	background-color: var(--background-main);
+	padding: 15px 0px;
 }
 
 #champion {
@@ -172,39 +173,39 @@ img.tab-icon {
 .col-sm-5ths,
 .col-md-5ths,
 .col-lg-5ths {
-    position: relative;
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
+		position: relative;
+		min-height: 1px;
+		padding-right: 10px;
+		padding-left: 10px;
 }
 .row {
 	margin-left:0px;
 	margin-right:0px;
 }
 .col-xs-5ths {
-    width: 20%;
-    float: left;
+		width: 20%;
+		float: left;
 }
 
 @media (min-width: 768px) {
-    .col-sm-5ths {
-        width: 20%;
-        float: left;
-    }
+		.col-sm-5ths {
+				width: 20%;
+				float: left;
+		}
 }
 
 @media (min-width: 992px) {
-    .col-md-5ths {
-        width: 20%;
-        float: left;
-    }
+		.col-md-5ths {
+				width: 20%;
+				float: left;
+		}
 }
 
 @media (min-width: 1200px) {
-    .col-lg-5ths {
-        width: 20%;
-        float: left;
-    }
+		.col-lg-5ths {
+				width: 20%;
+				float: left;
+		}
 }
 
 /* Inventory and Item Selector Components */
@@ -272,4 +273,19 @@ div.item-block {
 	transform:translate(-50%,-50%) rotate(45deg);
 	background-color:#EEEEEE;
 	box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: grey; 
 }
