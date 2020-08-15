@@ -5,22 +5,7 @@
 		<div id="navbar">
 		</div>
 		<div id="champion">
-			<div class="component-header">
-				<span>Champion and Level Selector</span>
-				<span>Stats and Abilities</span>
-			</div>
-			<div class="component-body">
-				<div class="row">
-					<div class="col-md-6">
-						<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
-					</div>
-					<div class="col-md-6">
-						<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateChampion()" [(ngModel)]="currentLevel">
-						</ng-select>
-					</div>
-				</div>
-				<champion [champion]="champion"></champion>
-			</div>
+			<champion (selectedChampion)="setChampion($event)" (selectedLevel)="setCurrentLevel($event)"></champion>
 		</div>
 		<div id="item-selector-rune-selector">
 			<item-selector id="item-selector" [hidden]="selectedTab=='runes'" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
