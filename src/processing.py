@@ -2,12 +2,12 @@ import re, csv, os
 from pprint import PrettyPrinter
 APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_PATH = os.path.join(APP_PATH, "src")
-pp = PrettyPrinter(indent=2)
+pp = PrettyPrinter(indent=2, width=300)
 
 def separateToList(line):
 	return next(csv.reader([line], delimiter=',', quotechar='"'))
 
-def dumpItems(): 
+def dumpItems():
 	file = open(os.path.join(FILES_PATH, "crixaliz-items-sheet.csv"), "r", encoding="utf-8")
 	fileHeaders = file.readline()
 	headers= "name,#,gold,hp,hp5,mp,mp5,ad,AP,ARm,MR,AS,crit,cdr,LS,Leth,MPEN,boots_ms,ms%,heal_shield,phys_on_hit,magic_on_hit,att_m_proc,spell_m_proc,att_phys_proc,apen%,Mpen%,CritDMG,spell_vamp,ap_mult,ad_mult,hp_mult,tenacity,flat_ms,shield"
@@ -44,7 +44,7 @@ def dumpItems():
 							itemStats[statNameLowered] = itemValue.replace("Masterwork: ", "")
 			for key in additionalKeys:
 				if key=="modes":
-					itemStats[key]="all" 
+					itemStats[key]="all"
 				if key == "shared_item":
 					if ("ENCHANTMENT:" in upperedName):
 						itemStats[key] = "enchantments" # adjust the shared item as the main parent (eg haunting shared = liandrys, liandrys shared = liandrys)
@@ -58,7 +58,7 @@ def dumpItems():
 					else:
 						itemStats[key] = None
 				if key == "tags":
-					itemStats[key] = "" 
+					itemStats[key] = ""
 				lowerLookUpName = name.lower()[:8]
 				if key == "img":
 					if (lowerLookUpName == "hex core"):
@@ -66,7 +66,7 @@ def dumpItems():
 					elif lowerLookUpName == "null-mag":
 						itemStats[key] = "assets/images/items/Null-Magic Mantle.png"
 					elif lowerLookUpName == "masterwo":
-						itemStats[key] = "assets/images/items/" + re.sub(r'[0-9\:\.\-]', '', name).replace("Masterwork ", "") + ".png"		
+						itemStats[key] = "assets/images/items/" + re.sub(r'[0-9\:\.\-]', '', name).replace("Masterwork ", "") + ".png"
 					else:
 						itemStats[key] = "assets/images/items/" + re.sub(r'[0-9\:\.\-]', '', name) + ".png"
 				if key =="apiname":
@@ -123,6 +123,60 @@ def countChamps():
 	file.write("export const CHAMPIONS = " + pp.pformat(new_list))
 	file.close()
 
+def scrape_op():
+	from bs4 import BeautifulSoup
+	import requests, re, urllib.request, time, random
+	from random import randint
+	# champion-stat__skill tip > a tag > img tag src
+
+	# mid, supp, bot, top, jng does not influence ability on getting assets
+	request_url = "https://www.op.gg/champion/{}/statistics/mid"
+	champs = []
+	for ci, champion in enumerate(CHAMPIONS):
+		champion_path = os.path.join(FILES_PATH, 'assets', 'images', 'champions', champion["name"])
+		if not os.path.exists(champion_path):
+			os.mkdir(champion_path)
+		champion_url = request_url.format(champion["apiname"])
+		response = requests.get(champion_url)
+		# we get request limited after about 500 or so requests to their cdn or so
+		time.sleep(randint(1, 5))
+		base_assets_path = "/".join(["assets", "images", "champions", champion["name"]])
+		if response.status_code == 200:
+			soup = BeautifulSoup(response.text, 'html.parser')
+			div_tag = soup.find_all("div", class_="champion-stat__skill")
+
+			for i, div in enumerate(div_tag):
+				src_tag = "https:" + div.find("img")["src"].split("?")[0]
+				if i == 0:
+					skill_name =  "skill_i"
+				elif i == 1:
+					skill_name =  "skill_q"
+				elif i ==2:
+					skill_name = "skill_w"
+				elif i == 3:
+					skill_name = "skill_e"
+				elif i == 4:
+					skill_name = "skill_r"
+				img_path = os.path.join(champion_path, champion[skill_name]["1"] +".png")
+				if not os.path.exists(img_path):
+					urllib.request.urlretrieve(src_tag, img_path)
+					print("Retrieved", skill_name)
+			print("Finished with", champion["name"], "\n")
+		else:
+			print("Something went wrong for", champion["name"])
+
+		champion["img"] = base_assets_path + "/" + champion["name"] + ".png"
+		champion["index"] = int(ci)
+		champion["apiname"] = champion["apiname"].lower()
+		champs.append(champion)
+	file = open(os.path.join(FILES_PATH, "app", "new_data.ts"), "w", encoding="utf-8")
+	file.write(pp.pformat(champs))
+	file.close()
+	print("Finished")
+	return
+
 if __name__ == '__main__':
-	items = dumpItems()
+	# scrape_op()
+	# items = dumpItems()
 	# countChamps()
+	return

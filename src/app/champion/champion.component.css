@@ -1,61 +1,142 @@
-.container {
-	margin-top: 30px;
-}
-.column {
-	float: left;
-	width: 50%;
-	padding: 10px;
-}
-.row:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-.stats {
-	padding: 0 !important;
-}
-.abilities {
-	padding-right: 10px;
-	padding-left: 10px;
-}
-
-hr {
-	height: 30px !important;
-	/* Set the hr color */
-	color: #333; /* old IE */
-	background-color: #333; /* Modern Browsers */
-}
-.center {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
 .hp {
 	background-color: green;
 }
 .mp {
 	background-color: royalblue;
 }
-
-.stat {
-	padding-right: 5px;
-}
-.champion-portrait {
-	border-radius: 50%;
-	border: 2px solid black;
-}
-
-.small-spacer {
-	margin-top: 5px;
-	margin-bottom: 5px;
+.champion-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: minmax(50px, 80px) auto;
+	grid-template-areas :
+	"champion-selector level-selector"
+	"champion-details champion-details"
 }
 
-.med-spacer {
-	margin-top: 15px;
-	margin-bottom: 15px;
+#champion-selector {
+	grid-area: champion-selector;
+}
+#level-selector {
+	grid-area: level-selector;
+}
+#champion-details {
+	grid-area: champion-details;
+}
+.champion-details-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr 3fr;
+	grid-template-rows: 1fr;
+	grid-template-areas:
+	"champion-stats champion-img champion-abilities"
 }
 
-.large-spacer {
-	margin-top: 30px;
-	margin-bottom: 30px;
+#champion-img {
+	grid-area : champion-img
+}
+#champion-stats {
+	grid-area : champion-stats;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-template-areas:
+	"ad ap ls spell_vamp"
+	"arm mr apen mpen"
+	"as cdr range critdmg"
+	"crit ms tenacity heal_shield"
+}
+#champion-abilities {
+	grid-area : champion-abilities;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(3, auto);
+	grid-template-areas:
+	"passive q w e r"
+	"hp hp hp hp hp"
+	"mp mp mp mp mp"
+}
+#ad {
+	grid-area:ad;
+}
+#ap {
+	grid-area:ap;
+}
+#ls {
+	grid-area:ls;
+}
+#spell_vamp {
+	grid-area:spell_vamp;
+}
+#arm {
+	grid-area:arm;
+}
+#mr {
+	grid-area:mr;
+}
+#apen {
+	grid-area:apen;
+}
+#mpen {
+	grid-area:mpen;
+}
+#as {
+	grid-area:as;
+}
+#cdr {
+	grid-area:cdr;
+}
+#range {
+	grid-area:range;
+}
+#critdmg {
+	grid-area:critdmg;
+}
+#crit {
+	grid-area:crit;
+}
+#ms {
+	grid-area:ms;
+}
+#tenacity {
+	grid-area:tenacity;
+}
+#heal_shield {
+	grid-area:heal_shield;
+}
+.abilities {
+	display:flex;
+	align-items:center;
+	justify-content: center;
+}
+img.large-ability {
+	width: 56px;
+	height: 56px;
+}
+img.medium-ability {
+	width: 48px;
+	height:48px
+}
+img.small-ability {
+	width: 40px;
+	height:40px
+}
+#passive {
+	grid-area:passive;
+}
+#q {
+	grid-area: q;
+}
+#w {
+	grid-area:w ;
+}
+#e {
+	grid-area:e ;
+}
+#r {
+	grid-area: r;
+}
+#hp {
+	grid-area: hp;
+}
+#mp {
+	grid-area: mp;
 }

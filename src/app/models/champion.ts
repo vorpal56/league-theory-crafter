@@ -2,6 +2,7 @@ export interface Champion {
 	apiname: string;
 	name: string;
 	img?: string;
+	index: number,
 	resource?: string;
 	stats: {
 		hp?: number;
@@ -42,7 +43,6 @@ export interface Champion {
 		cdr_lvl?: number;
 
 		range?: number;
-		range_base?: number;
 		range_lvl?: number;
 
 		ms?: number;
@@ -52,14 +52,24 @@ export interface Champion {
 		crit?: number;
 		crit_base?: number;
 		crit_lvl?: number;
+		critdmg?: number,
+
+		ls?: number,
+		spell_vamp?: number,
+
+		apen?: number,
+		'apen%'?: number,
+
+		mpen?: number,
+		'mpen%'?: number,
+
+		tenacity?: number,
+		heal_shield?: number;
+
 	};
 	skill_i?: any;
 	skill_q?: any;
-	skill_q_max_level?: number;
 	skill_w?: any;
-	skill_w_max_level?: number;
 	skill_e?: any;
-	skill_e_max_level?: number;
 	skill_r?: any;
-	skill_r_max_level?: number;
 }

@@ -1,10 +1,14 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+/venv/
 /*.com/
 *.zip
 *_test.ts
 *_test2.ts
 ability-leveler/
+*.psd
+example_layout.png
+# src/assets/images/champions/*
 
 # compiled output
 /dist

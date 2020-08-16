@@ -1,8 +1,9 @@
 # Editor configuration, see https://editorconfig.org
 root = true
 
-[*.html]
+[*.html,*.css]
 indent_size = 2
+
 [*]
 charset = utf-8
 indent_style = tab
@@ -10,8 +11,7 @@ indent_size = 4
 insert_final_newline = false
 trim_trailing_whitespace = true
 
-
-[*.ts]
+[*.py,*.ts]
 quote_type = double
 
 [*.md]
