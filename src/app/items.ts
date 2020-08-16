@@ -3311,14 +3311,15 @@ export const ITEMS = [{
 	'name': 'Infinity Edge',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'ie',
+		"critdmg": True
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': False,
 	'stacked': false,
-	'tags': '',
+	'tags': 'ie',
 	'tenacity': 0,
 	'visible': true,
 },

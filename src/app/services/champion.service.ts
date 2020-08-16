@@ -74,9 +74,20 @@ export class ChampionService {
 		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
 		selectedChampion.stats.as = selectedChampion.stats.as_base ? selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel) / 100) : 0;
 		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
-		selectedChampion.stats.range = selectedChampion.stats.range_base ? selectedChampion.stats.range_base : 0;
 		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
 		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
+		selectedChampion.stats.critdmg = 0;
+		selectedChampion.stats.ls = 0;
+		selectedChampion.stats.spell_vamp = 0;
+		selectedChampion.stats.apen = 0;
+		selectedChampion.stats["apen%"] = 0;
+		selectedChampion.stats.mpen = 0;
+		selectedChampion.stats["mpen%"] = 0;
+		selectedChampion.stats.tenacity = 0;
+		selectedChampion.stats.heal_shield = 0;
+		if (selectedChampion.apiname == "tristana") {
+			selectedChampion.stats.range = 525 + 8 * (currentLevel - 1);
+		}
 		return;
 	}
 	/**
@@ -144,7 +155,7 @@ export class ChampionService {
 					let itemStatVal = selectedItem[itemStatName];
 					if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
 						let hasMultType = itemStatName.includes("mult");
-						if (hasMultType) {
+						if (hasMultType && itemStatVal.value != 0) {
 							let counts = 0;
 							if (selectedItem.shared_item.name != null) {
 								passiveNames = selectedItem.shared_item.name.split(",");
@@ -183,7 +194,9 @@ export class ChampionService {
 											counts += 1;
 										}
 									});
-									if (counts == passiveNames.length) {
+									// ????? changed from counts == to <=
+									// I actually have no clue how to go about those stats
+									if (counts <= passiveNames.length) {
 										totalStatsFromItems[itemStatName] = itemStatVal;
 									}
 
@@ -191,7 +204,7 @@ export class ChampionService {
 							}
 						}
 					} else if (itemStatName == "shared_item" && itemStatVal != null) {
-
+						// do something
 					} else if (itemStatName == "stackable") {
 						// console.log(selectedItem.stackable != false, selectedItem.stacked == true, sharedItemCounts[selectedItem.shared_item.name] <= 1);
 						if (selectedItem.stackable != false && selectedItem.stacked == true) {
@@ -245,15 +258,12 @@ export class ChampionService {
 		}
 		// are the total multipliers added including the bonus stats or just the base+item
 		// console.log(champion.stats, totalStatsFromItems, multKeyValues);
+		// this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with
 		for (let key in totalStatsFromItems) {
-			if (key.includes("%")) {
-				champion.stats[key.replace("%", "")] *= (1 + totalStatsFromItems[key] / 100);
+			if (key == "boots_ms" || key == "flat_ms") {
+				champion.stats.ms += totalStatsFromItems[key];
 			} else {
-				if (key == "boots_ms" || key == "flat_ms") {
-					champion.stats.ms += totalStatsFromItems[key];
-				} else {
-					champion.stats[key] += totalStatsFromItems[key];
-				}
+				champion.stats[key] += totalStatsFromItems[key];
 			}
 		}
 		if (hasTotalMultiplier) {
@@ -269,6 +279,12 @@ export class ChampionService {
 			champion.stats.ap += (champion.stats.mp * 0.01);
 		} else if (aweItem.apiname == "seraphsembrace") {
 			champion.stats.ap += (champion.stats.mp * 0.03);
+		}
+		if (champion.stats.cdr > 40) {
+			champion.stats.cdr -= (champion.stats.cdr - 40);
+		}
+		if (champion.stats.crit > 100) {
+			champion.stats.crit -= (champion.stats.crit - 100);
 		}
 		return;
 	}

@@ -22,7 +22,7 @@ export class ItemSelectorComponent implements OnInit {
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "x";
+	searchText: string = "";
 	searchMode: string = "all";
 	orderBy: string = this.ordersBy[0].orderByValue;
 	orderMode: string = this.orderModes[0].orderModeValue;
@@ -97,7 +97,7 @@ export class ItemSelectorComponent implements OnInit {
 		}
 	}
 	/**
-	 * Method that adds the item so long as its allowed to 
+	 * Method that adds the item so long as its allowed to
 	 * Called on (click) for searchable items
 	 * @param  {Item} itemDetails item info to add in items
 	 * @returns void
@@ -168,7 +168,7 @@ export class ItemSelectorComponent implements OnInit {
 		return isEmpty;
 	}
 	/**
-	 * Method that emits the selected items 
+	 * Method that emits the selected items
 	 * Called on parent component on ngAfterViewInit
 	 * @returns void
 	 */

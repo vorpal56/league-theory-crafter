@@ -20,7 +20,7 @@
 					<span> No Champion Portrait found</span>
 				</ng-template>
 				<div id="champion-stats">
-					<ng-container *ngFor="let stat of champion.stats | keyvalue">
+					<!-- <ng-container *ngFor="let stat of champion.stats | keyvalue">
 						<div *ngIf="isValidStatName(stat.key)" [id]="stat.key" [title]="stat.key">
 							<ng-container [ngSwitch]="stat.key">
 								<ng-container *ngSwitchCase="'heal_shield'">
@@ -29,10 +29,74 @@
 								</ng-container>
 								<img *ngSwitchDefault class="stat" [src]="assetStatUrl(stat.key)" [alt]="stat.value">
 							</ng-container>
-
 							{{stat.value | number: '1.0-2'}}
 						</div>
-					</ng-container>
+					</ng-container> -->
+					<div id="ad" [title]="champion.stats.ad">
+						<img class="stat" src="assets/images/icons/ad_icon.png" alt="" />
+						{{ champion.stats.ad | number: '1.0-2' }}
+					</div>
+					<div id="ap" [title]="champion.stats.ap">
+						<img class="stat" src="assets/images/icons/ap_icon.png" alt="" />
+						{{ champion.stats.ap | number: '1.0-2' }}
+					</div>
+					<div id="ls" [title]="champion.stats.ls">
+						<img class="stat" src="assets/images/icons/ls_icon.png" alt="" />
+						{{ champion.stats.ls | number: '1.0-2' }}%
+					</div>
+					<div id="spell_vamp" [title]="champion.stats.spell_vamp">
+						<img class="stat" src="assets/images/icons/spell_vamp_icon.png" alt="" />
+						{{ champion.stats.spell_vamp | number: '1.0-2' }}%
+					</div>
+					<div id="arm" [title]="champion.stats.arm">
+						<img class="stat" src="assets/images/icons/arm_icon.png" alt="" />
+						{{ champion.stats.arm | number: '1.0-2' }}
+					</div>
+					<div id="mr" [title]="champion.stats.mr">
+						<img class="stat" src="assets/images/icons/mr_icon.png" alt="" />
+						{{ champion.stats.mr | number: '1.0-2' }}
+					</div>
+					<div id="apen" [title]="champion.stats.apen +'|'+ champion.stats['apen%']">
+						<img class=" stat" src="assets/images/icons/apen_icon.png" alt="" />
+						{{ champion.stats.apen | number: '1.0-2' }} | {{ champion.stats["apen%"] | number: '1.0-2' }}%
+					</div>
+					<div id="mpen" [title]="champion.stats.mpen +'|' +champion.stats['mpen%']">
+						<img class="stat" src="assets/images/icons/mpen_icon.png" alt="" />
+						{{ champion.stats.mpen | number: '1.0-2' }} | {{ champion.stats["mpen%"] | number: '1.0-2' }}%
+					</div>
+					<div id="as" [title]="champion.stats.as">
+						<img class="stat" src="assets/images/icons/as_icon.png" alt="" />
+						{{ champion.stats.as | number: '1.0-2' }}
+					</div>
+					<div id="cdr" [title]="champion.stats.cdr">
+						<img class="stat" src="assets/images/icons/cdr_icon.png" alt="" />
+						{{ champion.stats.cdr | number: '1.0-2' }}%
+					</div>
+					<div id="range" [title]="champion.stats.range">
+						<img class="stat" src="assets/images/icons/range_icon.png" alt="" />
+						{{ champion.stats.range | number: '1.0-2' }}
+					</div>
+					<div id="critdmg" [title]="champion.stats.critdmg">
+						<img class="stat" src="assets/images/icons/critdmg_icon.png" alt="" />
+						{{ champion.stats.critdmg | number: '1.0-2' }}%
+					</div>
+					<div id="crit" [title]="champion.stats.crit">
+						<img class="stat" src="assets/images/icons/crit_icon.png" alt="" />
+						{{ champion.stats.crit | number: '1.0-2' }}%
+					</div>
+					<div id="ms" [title]="champion.stats.ms">
+						<img class="stat" src="assets/images/icons/ms_icon.png" alt="" />
+						{{ champion.stats.ms | number: '1.0-2' }}
+					</div>
+					<div id="tenacity" [title]="champion.stats.tenacity">
+						<img class="stat" src="assets/images/icons/tenacity_icon.png" alt="" />
+						{{ champion.stats.tenacity | number: '1.0-2' }}
+					</div>
+					<div id="heal_shield" [title]="champion.stats.heal_shield">
+						<img class="stat" src="assets/images/icons/healing_icon.png" alt="" />
+						<img class="stat" src="assets/images/icons/heal_shield_icon.png" alt="" />
+						{{ champion.stats.heal_shield | number: '1.0-2' }}
+					</div>
 				</div>
 				<div id="champion-abilities">
 					<div id="passive" class="abilities">
