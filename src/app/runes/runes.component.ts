@@ -25,11 +25,11 @@ export class RunesComponent implements OnInit {
 	runeShardSet2: [RuneShard, RuneShard, RuneShard] = this.runeShards.set2;
 	runeShardSet3: [RuneShard, RuneShard, RuneShard] = this.runeShards.set3;
 	pathIndices = { "Precision": 0, "Domination": 1, "Sorcery": 2, "Resolve": 3, "Inspiration": 4 };
-	activePrimaryTree: any;
 
 	ngOnInit(): void {
 		this.selectedRunes.primaryTree.path = this.runes[0].path_name;
 		this.runes[0].active_primary = true;
+		// you can set the secondary path here oninit
 		// this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
 		// this.runes[1].active_secondary = true;
 	}
@@ -64,7 +64,7 @@ export class RunesComponent implements OnInit {
 				if (selectedRune == rune) {
 					return;
 				}
-				// if the slot is not empty but the slot is in the same line, set the previous rune as inactive 
+				// if the slot is not empty but the slot is in the same line, set the previous rune as inactive
 				if (selectedRune != null && selectedRune.keyslot == rune.keyslot) {
 					rune.active = true;
 					this.runes[this.pathIndices[pathName]].runes[0][selectedRune.keyslot][selectedRune.index].active = false;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ChampionService } from '../services/champion.service';
 import { Champion } from "../models/champion";
-import { Item } from "../models/item";
+import { Item, ItemRestrictions } from "../models/item";
 import { GAMEMODES, ORDERBY, ORDERMODES } from ".././data";
 import { ITEMS, EMPTY_ITEM } from ".././items";
 
@@ -31,13 +31,13 @@ export class ItemSelectorComponent implements OnInit {
 	@Input('currentLevel') currentLevel: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("itemRestrictions") selectedItemRestrictions: any;
+	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 	@Input("selectedPage") selectedPage: string;
 
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
-	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<any>();
+	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 

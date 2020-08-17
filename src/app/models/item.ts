@@ -44,3 +44,12 @@ export interface Item {
 	'tenacity': number,
 	'visible': boolean,
 }
+
+export interface ItemRestrictions {
+	"hasGoldOrJg": boolean,
+	"hasBoots": boolean,
+	"hasTear": boolean,
+	"hasSealOrMejais": boolean,
+	"masterworkItems": [Item, Item],
+	"hasHexcore": boolean;
+}

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { Champion } from "./models/champion";
-import { Item } from "./models/item";
+import { Item, ItemRestrictions } from "./models/item";
 import { ChampionService } from './services/champion.service';
 import { InventoryComponent } from './inventory/inventory.component';
 import { EMPTY_ITEM } from './items';
@@ -10,14 +10,14 @@ import { EMPTY_ITEM } from './items';
 	styleUrls: ["./app.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 	title = "league-theory-crafter";
 
 	// item definition from the item-selector component to the inventory component
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
-	selectedItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
-	numberOfEquippedItems = 0;
+	selectedItemRestrictions: ItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
+	numberOfEquippedItems: number = 0;
 
 	// rune/item-selector definition to show which page first
 	selectedTab: string = "runes";
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 			this.updateChampion();
 		}
 	}
-	setSelectedItemRestrictions(selectedItemRestrictions: any) {
+	setSelectedItemRestrictions(selectedItemRestrictions: ItemRestrictions) {
 		this.selectedItemRestrictions = selectedItemRestrictions;
 	};
 	setNumberOfEquippedItems(numberOfEquippedItems: number) {

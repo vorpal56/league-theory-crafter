@@ -6,30 +6,55 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Press the Attack.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Lethal Tempo",
 				"img": "assets/images/runes/Precision/Lethal Tempo.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Fleet Footwork",
 				"img": "assets/images/runes/Precision/Fleet Footwork.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Conqueror",
 				"img": "assets/images/runes/Precision/Conqueror.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			}],
 			"slot1": [{
 				"name": "Overheal",
 				"img": "assets/images/runes/Precision/Overheal.png",
 				"active": false,
 				"keyslot": "slot1",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 				"index": 0,
 			},
 			{
@@ -37,6 +62,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Triumph.png",
 				"active": false,
 				"keyslot": "slot1",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 				"index": 1,
 			},
 			{
@@ -44,6 +74,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Presence of Mind.png",
 				"active": false,
 				"keyslot": "slot1",
+				"stats": {
+					"mp": 0
+				},
+				"stackable": { "mp": 500 },
+				"stacked": false,
 				"index": 2,
 			}],
 			"slot2": [{
@@ -51,6 +86,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Legend Alacrity.png",
 				"active": false,
 				"keyslot": "slot2",
+				"stats": {
+					"as": 3,
+				},
+				"stackable": { "as": 15 },
+				"stacked": false,
 				"index": 0,
 			},
 			{
@@ -58,6 +98,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Legend Tenacity.png",
 				"active": false,
 				"keyslot": "slot2",
+				"stats": {
+					"tenacity": 3,
+				},
+				"stackable": { "tenacity": 30 },
+				"stacked": false,
 				"index": 1,
 			},
 			{
@@ -65,6 +110,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Legend Bloodline.png",
 				"active": false,
 				"keyslot": "slot2",
+				"stats": {
+					"ls": 0
+				},
+				"stackable": { "as": 12 },
+				"stacked": false,
 				"index": 2,
 			}],
 			"slot3": [{
@@ -72,6 +122,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Coup de Grace.png",
 				"active": false,
 				"keyslot": "slot3",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 				"index": 0,
 			},
 			{
@@ -79,6 +134,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Cut Down.png",
 				"active": false,
 				"keyslot": "slot3",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 				"index": 1,
 			},
 			{
@@ -86,6 +146,11 @@ export const RUNES = [{
 				"img": "assets/images/runes/Precision/Last Stand.png",
 				"active": false,
 				"keyslot": "slot3",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 				"index": 2,
 			}],
 		}],
@@ -101,30 +166,55 @@ export const RUNES = [{
 				"img": "assets/images/runes/Domination/Electrocute.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Predator",
 				"img": "assets/images/runes/Domination/Predator.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Dark Harvest",
 				"img": "assets/images/runes/Domination/Dark Harvest.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Hail of Blades",
 				"img": "assets/images/runes/Domination/Hail of Blades.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			}],
 		"slot1": [{
 			"name": "Cheap Shot",
 			"img": "assets/images/runes/Domination/Cheap Shot.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -132,6 +222,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Taste of Blood.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -139,6 +234,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Sudden Impact.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot2": [{
@@ -146,6 +246,12 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Zombie Ward.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": { "ad": 18, "ap": 30, },
+			"stacked": false,
+			"type": "adaptive",
 			"index": 0,
 		},
 		{
@@ -153,6 +259,12 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Ghost Poro.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": { "ad": 18, "ap": 30, },
+			"stacked": false,
+			"type": "adaptive",
 			"index": 1,
 		},
 		{
@@ -160,6 +272,12 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Eyeball Collection.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": { "ad": 18, "ap": 30, },
+			"stacked": false,
+			"type": "adaptive",
 			"index": 2,
 		}],
 		"slot3": [{
@@ -167,6 +285,12 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Ravenous Hunter.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+				"ls": 1.5,
+				"spell_vamp": 1.5,
+			},
+			"stackable": { "ls": 12.5, "spell_vamp": 12.5, },
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -174,6 +298,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Ingenious Hunter.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -181,6 +310,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Relentless Hunter.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		},
 		{
@@ -188,6 +322,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Domination/Ultimate Hunter.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 3,
 		}],
 
@@ -204,24 +343,44 @@ export const RUNES = [{
 				"img": "assets/images/runes/Sorcery/Summon Aery.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Arcane Comet",
 				"img": "assets/images/runes/Sorcery/Arcane Comet.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Phase Rush",
 				"img": "assets/images/runes/Sorcery/Phase Rush.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			}],
 		"slot1": [{
 			"name": "Nullifying Orb",
 			"img": "assets/images/runes/Sorcery/Nullifying Orb.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -229,6 +388,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Manaflow Band.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+				"mp": 0,
+			},
+			"stackable": { "mp": 250 },
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -236,6 +400,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Nimbus Cloak.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot2": [{
@@ -243,6 +412,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Transcendence.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -250,6 +424,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Celerity.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -257,6 +436,13 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Absolute Focus.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+				"ad": 1.8,
+				"ap": 3,
+			},
+			"stackable": { "ad_lvl": 0.953, "ap_lvl": 1.588 },
+			"stacked": false,
+			"type": "adaptive",
 			"index": 2,
 		}],
 		"slot3": [{
@@ -264,6 +450,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Scorch.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -271,6 +462,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Waterwalking.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -278,6 +474,12 @@ export const RUNES = [{
 			"img": "assets/images/runes/Sorcery/Gathering Storm.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
+			"type": "adaptive",
 			"index": 2
 		}],
 
@@ -294,24 +496,44 @@ export const RUNES = [{
 				"img": "assets/images/runes/Resolve/Grasp of the Undying.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Aftershock",
 				"img": "assets/images/runes/Resolve/Aftershock.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Guardian",
 				"img": "assets/images/runes/Resolve/Guardian.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},],
 		"slot1": [{
 			"name": "Demolish",
 			"img": "assets/images/runes/Resolve/Demolish.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -319,6 +541,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Font of Life.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -326,6 +553,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Shield Bash.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot2": [{
@@ -333,6 +565,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Conditioning.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -340,6 +577,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Second Wind.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -347,6 +589,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Bone Plating.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot3": [{
@@ -354,6 +601,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Overgrowth.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -361,6 +613,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Revitalize.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -368,6 +625,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Resolve/Unflinching.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 
@@ -384,24 +646,44 @@ export const RUNES = [{
 				"img": "assets/images/runes/Inspiration/Glacial Augment.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Unsealed Spellbook",
 				"img": "assets/images/runes/Inspiration/Unsealed Spellbook.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},
 			{
 				"name": "Prototype: Omnistone",
 				"img": "assets/images/runes/Inspiration/Prototype Omnistone.png",
 				"active": false,
 				"keyslot": "keystones",
+				"stats": {
+
+				},
+				"stackable": {},
+				"stacked": false,
 			},],
 		"slot1": [{
 			"name": "Hextech Flashtraption",
 			"img": "assets/images/runes/Inspiration/Hextech Flashtraption.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -409,6 +691,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Magical Footwear.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -416,6 +703,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Perfect Timing.png",
 			"active": false,
 			"keyslot": "slot1",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot2": [{
@@ -423,6 +715,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Future's Market.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -430,6 +727,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Minion Dematerializer.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -437,6 +739,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Biscuit Delivery.png",
 			"active": false,
 			"keyslot": "slot2",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 		"slot3": [{
@@ -444,6 +751,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Cosmic Insight.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 0,
 		},
 		{
@@ -451,6 +763,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Approach Velocity.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 1,
 		},
 		{
@@ -458,6 +775,11 @@ export const RUNES = [{
 			"img": "assets/images/runes/Inspiration/Time Warp Tonic.png",
 			"active": false,
 			"keyslot": "slot3",
+			"stats": {
+
+			},
+			"stackable": {},
+			"stacked": false,
 			"index": 2,
 		}],
 
@@ -474,8 +796,11 @@ export const RUNE_SHARDS = {
 		"apiname": "adaptive",
 		"index": 0,
 		"active": false,
-		"ad": 5.4,
-		"ap": 9,
+		"stats": {
+			"ad": 5.4,
+			"ap": 9,
+		},
+		"type": "adaptive",
 		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
 	},
 	{
@@ -483,7 +808,9 @@ export const RUNE_SHARDS = {
 		"apiname": "as",
 		"index": 1,
 		"active": false,
-		"as": 10,
+		"stats": {
+			"as": 10,
+		},
 		"img": "assets/images/runes/Rune Shards/Attack Speed.png"
 	},
 	{
@@ -491,16 +818,21 @@ export const RUNE_SHARDS = {
 		"apiname": "cdr",
 		"index": 2,
 		"active": false,
-		"cdr": 1,
-		"cdr_lvl": 0.53,
+		"stats": {
+			"cdr": 1,
+			"cdr_lvl": 0.53,
+		},
 		"img": "assets/images/runes/Rune Shards/Cooldown Reduction.png"
 	}], "set2": [{
 		"name": "Adaptive Force",
 		"apiname": "adaptive",
 		"index": 0,
 		"active": false,
-		"ad": 5.4,
-		"ap": 9,
+		"stats": {
+			"ad": 5.4,
+			"ap": 9,
+		},
+		"type": "adaptive",
 		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
 	},
 	{
@@ -508,7 +840,9 @@ export const RUNE_SHARDS = {
 		"apiname": "armor",
 		"index": 3,
 		"active": false,
-		"arm": 6,
+		"stats": {
+			"arm": 6,
+		},
 		"img": "assets/images/runes/Rune Shards/Armor.png"
 	},
 	{
@@ -516,22 +850,28 @@ export const RUNE_SHARDS = {
 		"apiname": "mr",
 		"index": 4,
 		"active": false,
-		"mr": 8,
+		"stats": {
+			"mr": 8,
+		},
 		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
 	}], "set3": [{
 		"name": "Health",
 		"apiname": "health",
 		"index": 5,
 		"active": false,
-		"hp": 15,
-		"hp_lvl": 4.41,
+		"stats": {
+			"hp": 15,
+			"hp_lvl": 4.41,
+		},
 		"img": "assets/images/runes/Rune Shards/Health.png"
 	}, {
 		"name": "Armor",
 		"apiname": "armor",
 		"index": 3,
 		"active": false,
-		"arm": 6,
+		"stats": {
+			"arm": 6,
+		},
 		"img": "assets/images/runes/Rune Shards/Armor.png"
 	},
 	{
@@ -539,7 +879,9 @@ export const RUNE_SHARDS = {
 		"apiname": "mr",
 		"index": 4,
 		"active": false,
-		"mr": 8,
+		"stats": {
+			"mr": 8,
+		},
 		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
 	}]
 };

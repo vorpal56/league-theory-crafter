@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Item } from '../models/item';
+import { Item, ItemRestrictions } from '../models/item';
 import { EMPTY_ITEM, ITEMS } from '../items';
 import { ChampionService } from '../services/champion.service';
 import { Champion } from '../models/champion';
@@ -19,14 +19,13 @@ export class InventoryComponent implements OnInit {
 	@Input("currentLevel") currentLevel: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("itemRestrictions") selectedItemRestrictions: any;
+	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
-	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<any>();
+	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
-
 
 	selectedSlotIsStackable(itemDetails: Item): boolean {
 		return itemDetails.stackable;
@@ -160,7 +159,7 @@ export class InventoryComponent implements OnInit {
 		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 	/**
-	 * Method that emits the selected items 
+	 * Method that emits the selected items
 	 * Called on parent component on ngAfterViewInit
 	 * @returns void
 	 */

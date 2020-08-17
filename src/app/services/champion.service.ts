@@ -57,6 +57,11 @@ export class ChampionService {
 		// Magic penetration, percentage. (Void Staff)
 		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
 	}
+	gatheringStormRune(adaptiveType: string, currentTime: number) {
+		let x = 1 + 1 * currentTime;
+		return adaptiveType == "ad" ? 4.8 * x * (x - 1) * 0.5 : 8 * x * (x - 1) * 0.5;
+	}
+
 	/**
 	 * Method that adjusts the base stats given the champion stats
 	 * @param  {Champion} selectedChampion the champion to adjust stats by
@@ -98,7 +103,7 @@ export class ChampionService {
 	 * @param  {Item} selectedElixir? adds an elixir to the selectedItems
 	 * @returns void
 	 */
-	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): void {
+	adjustBaseAndItemStats(selectedChampion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, currentTime?: number): void {
 		this.adjustBaseStats(selectedChampion, currentLevel);
 		if (!this.allSelectedItemsIsEmpty(selectedItems, selectedElixir)) {
 			if (selectedItems != undefined || selectedItems != null) {
@@ -116,20 +121,20 @@ export class ChampionService {
 	 * Method that adds the items stats to the champion stats after adjustBaseStats is applied
 	 * @param  {Champion} champion the champion to adjust stats by
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
-	 * @returns void
+	 * @returns any
 	 */
-	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], currentLevel: number): void {
+	addItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], currentLevel: number, currentTime?: number): any {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 		// console.log(selectedItems);
-		let totalStatsFromItems = {};
-		let multKeyValues = {
+		let totalStatsFromItems: object = {};
+		let multKeyValues: object = {
 			"ad_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }],
 			"ap_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }],
 			"hp_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }]
 		};
 
-		let sharedItemCounts = {};
+		let sharedItemCounts: object = {};
 		let aweItem: Item = EMPTY_ITEM;
 		let hexCoreItem: Item = EMPTY_ITEM;
 		for (let itemIndex in selectedItems) {
@@ -164,7 +169,7 @@ export class ChampionService {
 										counts += 1;
 									}
 								});
-								if (counts == passiveNames.length) {
+								if (counts <= passiveNames.length) {
 									if (itemStatVal["type"] == "total") {
 										multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
 									} else if (itemStatVal["type"] == "bonus") {
@@ -215,9 +220,8 @@ export class ChampionService {
 									counts += 1;
 								}
 							});
-							if (counts == passNames.length) {
+							if (counts <= passNames.length) {
 								for (let stackedItemStatKey in selectedItem.stackable) {
-									// console.log("here", stackedItemStatKey);
 									if (stackedItemStatKey != "name") {
 										if (stackedItemStatKey in totalStatsFromItems) {
 											totalStatsFromItems[stackedItemStatKey] += selectedItem.stackable[stackedItemStatKey];
@@ -235,6 +239,7 @@ export class ChampionService {
 			}
 		}
 		console.log(totalStatsFromItems, sharedItemCounts);
+		// the total stats from items does not include energy which is only obtainable with presence of mind
 		for (let key in totalStatsFromItems) {
 			if (champion.resource.toUpperCase() != "MANA" && key.includes("mp")) {
 				totalStatsFromItems[key] = 0;
@@ -259,6 +264,20 @@ export class ChampionService {
 		// are the total multipliers added including the bonus stats or just the base+item
 		// console.log(champion.stats, totalStatsFromItems, multKeyValues);
 		// this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with
+
+		let adaptiveType: string;
+		let totalApFromItems = totalStatsFromItems["ap"];
+		let totalAdFromItems = totalStatsFromItems["ad"];
+		if (totalAdFromItems == undefined && totalApFromItems == undefined) {
+			adaptiveType = champion.stats.ad > champion.stats.ap ? "ad" : "ap";
+		} else if (totalAdFromItems == undefined && totalApFromItems) {
+			adaptiveType = "ap";
+		} else if (totalAdFromItems && totalApFromItems == undefined) {
+			adaptiveType = "ad";
+		} else {
+			adaptiveType = totalAdFromItems > totalApFromItems ? "ad" : "ap";
+		}
+
 		for (let key in totalStatsFromItems) {
 			if (key == "boots_ms" || key == "flat_ms") {
 				champion.stats.ms += totalStatsFromItems[key];
@@ -266,28 +285,37 @@ export class ChampionService {
 				champion.stats[key] += totalStatsFromItems[key];
 			}
 		}
+		// this.addRuneStats(adaptiveType); // is this added before or after item stats?
 		if (hasTotalMultiplier) {
 			this.applyTotalMultipliers(champion, multKeyValues);
 		}
-		if (hexCoreItem != EMPTY_ITEM) {
-			champion.stats.ap += (hexCoreItem.ap * (currentLevel - 1));
-			champion.stats.mp += (hexCoreItem.mp * (currentLevel - 1));
-		}
-		if (aweItem.apiname == "manamune" || aweItem.apiname == "muramana") {
-			champion.stats.ad += (champion.stats.mp * 0.02);
-		} else if (aweItem.apiname == "archangelsstaff") {
-			champion.stats.ap += (champion.stats.mp * 0.01);
-		} else if (aweItem.apiname == "seraphsembrace") {
-			champion.stats.ap += (champion.stats.mp * 0.03);
-		}
-		if (champion.stats.cdr > 40) {
-			champion.stats.cdr -= (champion.stats.cdr - 40);
-		}
-		if (champion.stats.crit > 100) {
-			champion.stats.crit -= (champion.stats.crit - 100);
-		}
-		return;
+		return totalStatsFromItems;
 	}
+	addRuneStats(runes: any, champion: Champion, currentLevel: number, totalStatsFromItems: object, adaptiveType: string, currentTime?: number) {
+		let totalStatsFromRunes = {};
+		runes.forEach((rune: any) => {
+			if (rune.name == "Gathering Storm") {
+				let gatheringStormTotal = this.gatheringStormRune(adaptiveType, currentTime);
+				totalStatsFromRunes[adaptiveType] ? totalStatsFromRunes[adaptiveType] += gatheringStormTotal : totalStatsFromRunes = gatheringStormTotal;
+				// champion.stats[adaptiveType] += this.gatheringStormRune(adaptiveType, currentTime);
+			} else if (rune.name == "Transcendence") {
+				let additionalCdr: number = 0;
+				if (currentLevel >= 10) {
+					additionalCdr += 10;
+					// champion.stats.cdr += 10
+					totalStatsFromRunes["cdr"] ? totalStatsFromRunes["cdr"] += additionalCdr : totalStatsFromRunes = additionalCdr;
+				}
+				// let additionalCdr :number  = champion.stats.cdr > 40 ? champion.stats.cdr - 40 : 0;
+				additionalCdr += totalStatsFromItems["cdr"] && totalStatsFromItems["cdr"] > 40 ? totalStatsFromItems["cdr"] - 40 : 0;
+				champion.stats[adaptiveType] += adaptiveType == "ad" ? 1.2 * additionalCdr : 2 * additionalCdr;
+			} else {
+
+			}
+
+		});
+		return totalStatsFromRunes;
+	}
+
 	/**
 	 * Method that applies the total multiplers for ad, ap, and hp after items have been added
 	 * @param  {Champion} champion champion to apply total multipliers towards
@@ -319,5 +347,30 @@ export class ChampionService {
 			return false;
 		}
 		return true;
+	}
+	postCalculations(champion: Champion, currentLevel: number, itemAdditions: any) {
+		if (champion.apiname == "yasuo") {
+			champion.stats.crit *= 2;
+		}
+		if (itemAdditions.hexCoreItem) {
+			champion.stats.ap += (itemAdditions.hexCoreItem.ap * (currentLevel - 1));
+			champion.stats.mp += (itemAdditions.hexCoreItem.mp * (currentLevel - 1));
+		}
+		if (itemAdditions.aweItem) {
+			if (itemAdditions.aweItem.apiname == "manamune" || itemAdditions.aweItem.apiname == "muramana") {
+				champion.stats.ad += (champion.stats.mp * 0.02);
+			} else if (itemAdditions.aweItem.apiname == "archangelsstaff") {
+				champion.stats.ap += (champion.stats.mp * 0.01);
+			} else if (itemAdditions.aweItem.apiname == "seraphsembrace") {
+				champion.stats.ap += (champion.stats.mp * 0.03);
+			}
+		}
+
+		if (champion.stats.cdr > 40) {
+			champion.stats.cdr -= (champion.stats.cdr - 40);
+		}
+		if (champion.stats.crit > 100) {
+			champion.stats.crit -= (champion.stats.crit - 100);
+		}
 	}
 }
