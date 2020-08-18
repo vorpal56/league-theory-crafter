@@ -13,13 +13,15 @@ export class ItemsService {
 	/**
 	 * Method that adds the items stats to the champion stats after adjustBaseStats is applied
 	 * @param  {Champion} champion the champion to adjust stats by
+	 * @param  {number} currentLevel the current level for level dependant items
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns any
 	 */
-	addItemStats(champion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, currentTime?: number): any {
+	calculateItemStats(champion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, currentTime?: number): any {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
-		// console.log(selectedItems);
+
+		// calculate item stats if there are atleast some items
 		if (!this.allSelectedItemsIsEmpty(selectedItems, selectedElixir)) {
 			let selectedItemsIncludingElixir = JSON.parse(JSON.stringify(selectedItems));
 			if (selectedElixir != EMPTY_ITEM) {
@@ -38,9 +40,14 @@ export class ItemsService {
 			for (let itemIndex in selectedItemsIncludingElixir) {
 				let selectedItem = selectedItemsIncludingElixir[itemIndex];
 				if (selectedItem.name != "Empty") {
+					// add the tenacity directly (we're not gonna add steraks since its due to lifeline active items. This allows us to separate the tenacity formula dynamically into the rune/elixir calculation in the runesService and the items calc here).
+					//maybe in the future i'll take a look at adding in active items -> checkbox to see what stats on all activation? individual items might be too difficult
 					if (selectedItem.apiname == "mercurystreads") {
 						champion.stats.tenacity = selectedItem.tenacity;
 					}
+					// look at the shared items -> this generally means the passives that it shares or a unique item that doesn't add the shared item's stats
+					// for example stinger shares attack speed i.e. multiple stingers stack attackspeed but not cdr
+					// lost chapter items share cdr but can stack all other stats. the shared item has a boolean representing which stats are shared and which ones are not -> maybe in the future I can take a look at this and see what structure better suits this
 					if (selectedItem.shared_item.name != null) {
 						var passiveNames = selectedItem.shared_item.name.split(",");
 						passiveNames.forEach((passiveName: string) => {
@@ -49,6 +56,7 @@ export class ItemsService {
 							} else {
 								sharedItemCounts[passiveName] += 1;
 							}
+							// some specific items have post calculations like manamune, seraphs, hexcore items, etc
 							if (passiveName == "awe" && selectedItem.name.includes("tear") === false) {
 								aweItem = selectedItem;
 							}
@@ -59,7 +67,9 @@ export class ItemsService {
 					}
 					for (let itemStatName in selectedItem) {
 						let itemStatVal = selectedItem[itemStatName];
+						// skip any of irrelevant stat related items
 						if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
+							// check if it has any multipliers
 							let hasMultType = itemStatName.includes("mult");
 							if (hasMultType && itemStatVal.value != 0) {
 								let counts = 0;
@@ -70,6 +80,7 @@ export class ItemsService {
 											counts += 1;
 										}
 									});
+									// limit the number of total bonuses on additional items eg. stacking abyssal mask or liandrys
 									if (counts <= passiveNames.length) {
 										if (itemStatVal["type"] == "total") {
 											multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
@@ -78,11 +89,15 @@ export class ItemsService {
 										}
 									}
 								}
+								// on other stats that are not tenacity, add them since the tenacity calculation happens on the rune additions (tenacity only exists on mercs)
 							} else if (hasMultType === false && itemStatName != "tenacity") {
 								if (itemStatName in totalStatsFromItems) {
+									// check if the item stat is new or not
 									if (itemStatName in selectedItem.shared_item === false) {
 										totalStatsFromItems[itemStatName] += itemStatVal;
 									} else {
+										// if the stats is a shared item stats and the new stat is bigger, assign the larger one
+										// eg. voidstaff and guinsoos, lastwhipser, LDR, mortal reminder, etc.
 										if (totalStatsFromItems[itemStatName] < itemStatVal) {
 											totalStatsFromItems[itemStatName] = itemStatVal;
 										} else {
@@ -91,6 +106,7 @@ export class ItemsService {
 									}
 								} else if (itemStatName in totalStatsFromItems === false) {
 									if (itemStatName in selectedItem.shared_item === false) {
+										// if the stats is a shared item stat and it's new, set it to the value
 										totalStatsFromItems[itemStatName] = itemStatVal;
 									} else {
 										let counts = 0;
@@ -112,7 +128,7 @@ export class ItemsService {
 						} else if (itemStatName == "shared_item" && itemStatVal != null) {
 							// do something
 						} else if (itemStatName == "stackable") {
-							// console.log(selectedItem.stackable != false, selectedItem.stacked == true, sharedItemCounts[selectedItem.shared_item.name] <= 1);
+							// check if its a stackable item
 							if (selectedItem.stackable != false && selectedItem.stacked == true) {
 								let passNames = selectedItem.shared_item.name.split(",");
 								let counts = 0;
@@ -122,6 +138,7 @@ export class ItemsService {
 									}
 								});
 								if (counts <= passNames.length) {
+									// add the stackable stats. this is is the incremental value since we have the toggle option which switches from adding and decrementing.
 									for (let stackedItemStatKey in selectedItem.stackable) {
 										if (stackedItemStatKey != "name") {
 											if (stackedItemStatKey in totalStatsFromItems) {
@@ -146,25 +163,9 @@ export class ItemsService {
 					totalStatsFromItems[key] = 0;
 				}
 			}
-			let hasTotalMultiplier: boolean = false;
-			for (let key in multKeyValues) {
-				let additionalMultipliers = multKeyValues[key];
-				for (let additionalMultiplierObj in additionalMultipliers) {
-					let additionalMultiplier = additionalMultipliers[additionalMultiplierObj];
-					let additionalMultiplierType = additionalMultiplier["type"];
-					let additionalMultiplierVal = additionalMultiplier["value"];
-					let statKey = key.replace("_mult", "");
-					if (additionalMultiplierType == "bonus" && additionalMultiplierVal != 0) {
-						totalStatsFromItems[statKey] *= (1 + additionalMultiplier["value"]);
-					}
-					if (additionalMultiplierType == "total") {
-						hasTotalMultiplier = true;
-					}
-				}
-			}
+
 			// are the total multipliers added including the bonus stats or just the base+item
 			// console.log(champion.stats, totalStatsFromItems, multKeyValues);
-			// this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with
 
 			let adaptiveType: string;
 			let totalApFromItems = totalStatsFromItems["ap"];
@@ -178,22 +179,43 @@ export class ItemsService {
 			} else {
 				adaptiveType = totalAdFromItems > totalApFromItems ? "ad" : "ap";
 			}
-
-			for (let key in totalStatsFromItems) {
-				if (key == "boots_ms" || key == "flat_ms") {
-					champion.stats.ms += totalStatsFromItems[key];
-				} else {
-					champion.stats[key] += totalStatsFromItems[key];
+			let itemAdditions = { "aweItem": aweItem, "hexcoreItem": hexCoreItem };
+			return [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions];
+		}
+		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
+	}
+	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any, adaptiveType: string) {
+		let hasTotalMultiplier: boolean = false;
+		for (let key in multKeyValues) {
+			let additionalMultipliers = multKeyValues[key];
+			for (let additionalMultiplierObj in additionalMultipliers) {
+				let additionalMultiplier = additionalMultipliers[additionalMultiplierObj];
+				let additionalMultiplierType = additionalMultiplier["type"];
+				let additionalMultiplierVal = additionalMultiplier["value"];
+				let statKey = key.replace("_mult", "");
+				// some of the multipliers (as the name suggests are multiplicative) are dependant on total stats, some are dependant on bonus stats -> comeback to this
+				if (additionalMultiplierType == "bonus" && additionalMultiplierVal != 0) {
+					totalStatsFromItems[statKey] *= (1 + additionalMultiplier["value"]);
+				}
+				if (additionalMultiplierType == "total") {
+					hasTotalMultiplier = true;
 				}
 			}
-			// this.addRuneStats(adaptiveType); // is this added before or after item stats?
-			if (hasTotalMultiplier) {
-				this.applyTotalMultipliers(champion, multKeyValues);
-			}
-			return [totalStatsFromItems, adaptiveType];
 		}
-		return [{}, champion.stats.ad > champion.stats.ap ? "ad" : "ap"];
+		// add all the stats that we've computed from items. this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with and without having to keep track of a post stat calculation
+		for (let key in totalStatsFromItems) {
+			if (key == "boots_ms" || key == "flat_ms") {
+				champion.stats.ms += totalStatsFromItems[key];
+			} else if (key != "as") {
+				champion.stats[key] += totalStatsFromItems[key];
+			}
+		}
+		// the order of applying total multipliers is significant -> comeback to this
+		if (hasTotalMultiplier) {
+			this.applyTotalMultipliers(champion, multKeyValues);
+		}
 	}
+
 	allSelectedItemsIsEmpty(selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item) {
 		for (let index in selectedItems) {
 			if (selectedItems[index] != EMPTY_ITEM) {
@@ -220,7 +242,7 @@ export class ItemsService {
 				let additionalMultiplierVal = additionalMultiplier["value"];
 				let statKey = key.replace("_mult", "");
 				if (additionalMultiplierType == "total" && additionalMultiplierVal != 0) {
-					champion.stats[statKey] *= (1 + additionalMultiplier["value"]);
+					champion.stats[statKey] *= (1 + additionalMultiplierVal);
 				}
 			}
 		}

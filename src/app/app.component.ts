@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	// champion and current level definition from the champion component
 	champion: Champion;
 	currentLevel: number;
+	selectedRunes: any;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -35,7 +36,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		this.inventoryComponent.emitSelectedItems();
 		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
+
+		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
+
+		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
 		this.cdRef.detectChanges();
 	}
 	ngOnInit() {
@@ -54,7 +61,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 			this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
 		}
 		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
+
+		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
+
+		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
 		return;
 	}
 	setChampion(selectedChampion: Champion) {
@@ -82,6 +95,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 	setSelectedElixir(selectedElixir: Item): void {
 		this.selectedElixir = selectedElixir;
 		return;
+	}
+	setSelectedRunes(selectedRunes: any) {
+		this.selectedRunes = selectedRunes;
 	}
 	setPage(selectedTabName: string) {
 		this.selectedTab = selectedTabName;

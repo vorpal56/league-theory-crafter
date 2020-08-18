@@ -16,7 +16,7 @@ import { ItemsService } from '../services/items.service';
 })
 export class RunesComponent implements OnInit {
 
-	constructor(private runesService: RunesService, private itemsService: ItemsService) { }
+	constructor(private runesService: RunesService, private itemsService: ItemsService, private statsService: StatsService) { }
 
 	runes: any = RUNES;
 	runeShards: any = RUNE_SHARDS;
@@ -42,10 +42,14 @@ export class RunesComponent implements OnInit {
 	@Input("currentLevel") currentLevel: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-
-	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 	@Input('selectedPage') selectedPage: string;
 
+	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
+	@Output('selectedRunes') selectedRunesEmitter = new EventEmitter<any>();
+
+	emitSelectedRunes() {
+		this.selectedRunesEmitter.emit(this.selectedRunes);
+	}
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
 	}
@@ -54,12 +58,14 @@ export class RunesComponent implements OnInit {
 			keystone.active = keystone == rune;
 		});
 		this.selectedRunes.primaryTree.runes[0] = rune;
+		this.emitSelectedRunes();
 	}
 	setPrimarySlots(rune: any, runeSlotSection: any, index: number) {
 		runeSlotSection.forEach((runeSlot: any) => {
 			runeSlot.active = runeSlot == rune;
 		});
 		this.selectedRunes.primaryTree.runes[index] = rune;
+		this.emitSelectedRunes();
 	}
 	setSecondarySlots(rune: any, pathName: string) {
 		// only make the rune active if it's valid
@@ -97,7 +103,7 @@ export class RunesComponent implements OnInit {
 			this.selectedRunes.secondaryTree.runes[0] = JSON.parse(JSON.stringify(this.selectedRunes.secondaryTree.runes[1]));
 			this.selectedRunes.secondaryTree.runes[1] = rune;
 		}
-
+		this.emitSelectedRunes();
 	}
 	setRuneShards(runeShard: RuneShard, slotIndex: number) {
 		if (this.selectedRunes.runeShards[slotIndex] != runeShard) {
@@ -108,10 +114,11 @@ export class RunesComponent implements OnInit {
 			this.selectedRunes.runeShards[slotIndex] = runeShard;
 		}
 		// this.championService.adjustBaseStats(this.champion, this.currentLevel)
-		let results = this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-		let totalStatsFromItems = results[0];
-		let adaptiveType = results[1];
-		this.runesService.addRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType);
+		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
+		this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		this.emitSelectedRunes();
 		return;
 	}
 	activeClass(rune: any, def?: string) {
@@ -139,6 +146,7 @@ export class RunesComponent implements OnInit {
 				rune.active_primary = rune == runePath;
 			});
 		}
+		this.emitSelectedRunes();
 	}
 	chooseSecondaryPath(runePath: any, runes: any) {
 		// only allow selected a different secondary path
@@ -151,6 +159,7 @@ export class RunesComponent implements OnInit {
 				rune.active_secondary = rune == runePath;
 			});
 		}
+		this.emitSelectedRunes();
 	}
 	resetTree(keyname: string) {
 		// set the content of the runes and path as empty
@@ -170,5 +179,6 @@ export class RunesComponent implements OnInit {
 			}
 		}
 		this.selectedRunes[keyname + "Tree"].path = null;
+		this.emitSelectedRunes();
 	}
 }

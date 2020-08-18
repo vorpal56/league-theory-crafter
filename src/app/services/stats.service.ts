@@ -71,7 +71,8 @@ export class StatsService {
 		selectedChampion.stats.ap = selectedChampion.stats.ap_base ? selectedChampion.stats.ap_base : 0;
 		selectedChampion.stats.arm = selectedChampion.stats.arm_base ? this.statsGrowthFormula(selectedChampion.stats.arm_lvl, currentLevel, selectedChampion.stats.arm_base) : 0;
 		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
-		selectedChampion.stats.as = selectedChampion.stats.as_base ? selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel) / 100) : 0;
+		// attack speed is calculated in the adjustAttackSpeed method since it is dependant on items and runes which can be grabbed afterwards
+		// selectedChampion.stats.as = selectedChampion.stats.as_base ? selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel) / 100) : 0;
 		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
 		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
 		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
@@ -98,7 +99,7 @@ export class StatsService {
 			champion.stats.ap += (itemAdditions.hexCoreItem.ap * (currentLevel - 1));
 			champion.stats.mp += (itemAdditions.hexCoreItem.mp * (currentLevel - 1));
 		}
-		if (itemAdditions.aweItem) {
+		if (itemAdditions.aweItem && champion.resource.toUpperCase() == "MANA") {
 			if (itemAdditions.aweItem.apiname == "manamune" || itemAdditions.aweItem.apiname == "muramana") {
 				champion.stats.ad += (champion.stats.mp * 0.02);
 			} else if (itemAdditions.aweItem.apiname == "archangelsstaff") {
@@ -107,13 +108,24 @@ export class StatsService {
 				champion.stats.ap += (champion.stats.mp * 0.03);
 			}
 		}
-
-		if (champion.stats.cdr > 40) {
-			champion.stats.cdr -= (champion.stats.cdr - 40);
-		}
-		if (champion.stats.crit > 100) {
-			champion.stats.crit -= (champion.stats.crit - 100);
-		}
+		champion.stats.cdr -= champion.stats.cdr > 40 ? (champion.stats.cdr - 40) : 0;
+		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 	}
-
+	adjustAttackSpeed(champion: Champion, currentLevel: number, totalStatsFromItems: any, totalStatsFromRunes: any) {
+		// we can go backwards in the formula to add any additional attackspeed gained from items and runes
+		// the calulation is dependant on the stats growth formula which is calculated on adjustBaseStats function
+		// but does not include item or rune bonuses
+		// General Formula is:
+		// AS = AS_BASE * (1 + (SGF + items + runes) / 100 )
+		// 100 * (AS/AS_BASE - 1 - SGF/100) = items + runes
+		let statsGrowthIncrease = this.statsGrowthFormula(champion.stats.as_lvl, currentLevel) / 100;
+		let totalAttackSpeed = 0;
+		totalAttackSpeed += totalStatsFromItems["as"] ? totalStatsFromItems["as"] : 0;
+		totalAttackSpeed += totalStatsFromRunes["as"] ? totalStatsFromRunes["as"] : 0;
+		totalAttackSpeed *= 0.01; // divide by 100 on right side
+		totalAttackSpeed += (statsGrowthIncrease + 1); // add 1 and SGF/100
+		totalAttackSpeed *= champion.stats.as_base; // multiply by AS_BASE
+		champion.stats.as = totalAttackSpeed;
+		return totalAttackSpeed;
+	}
 }

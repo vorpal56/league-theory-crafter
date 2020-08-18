@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Champion } from '../models/champion';
-import { StatsService } from './stats.service';
 import { RuneShard } from '../models/rune';
+import { Item } from '../models/item';
 
 @Injectable({
 	providedIn: 'root'
@@ -9,12 +9,12 @@ import { RuneShard } from '../models/rune';
 export class RunesService {
 
 	constructor() { }
-	addRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, currentTime?: number) {
+	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, selectedElixir: Item, currentTime?: number) {
+		currentTime = 19;
+		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStatsFromRunes = {};
-		let legendTenacity = null;
-		let unflinching = null;
+		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
 		let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
-		console.log(currentTenacityRatio);
 		for (let runeTree in selectedRunes) {
 			if (runeTree == "runeShards") {
 				let selectedRuneShards = selectedRunes[runeTree];
@@ -37,68 +37,59 @@ export class RunesService {
 					}
 				});
 			} else {
-				// continue;
-				console.log(selectedRunes[runeTree], selectedRunes[runeTree].runes);
 				selectedRunes[runeTree].runes.forEach((rune: any) => {
 					if (rune != null) {
 						if (rune.name == "Gathering Storm") {
-							return;
 							let gatheringStormTotal = this.gatheringStormRune(adaptiveType, currentTime);
-							totalStatsFromRunes[adaptiveType] ? totalStatsFromRunes[adaptiveType] += gatheringStormTotal : totalStatsFromRunes = gatheringStormTotal;
-							// champion.stats[adaptiveType] += this.gatheringStormRune(adaptiveType, currentTime);
+							totalStatsFromRunes[adaptiveType] ? totalStatsFromRunes[adaptiveType] += gatheringStormTotal : totalStatsFromRunes[adaptiveType] = gatheringStormTotal;
 						} else if (rune.name == "Transcendence") {
-							return;
 							let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, totalStatsFromItems);
 							for (let bonus in transcendenceTotal) {
 								let bonusVal = transcendenceTotal[bonus];
 								totalStatsFromRunes[bonus] ? totalStatsFromRunes[bonus] += bonusVal : totalStatsFromRunes[bonus] = bonusVal;
 							}
-							// champion.stats[adaptiveType] += transcendenceTotal
-							// let additionalCdr: number = 0;
-							// if (currentLevel >= 10) {
-							// 	additionalCdr += 10;
-							// 	// champion.stats.cdr += 10
-							// 	totalStatsFromRunes["cdr"] ? totalStatsFromRunes["cdr"] += additionalCdr : totalStatsFromRunes = additionalCdr;
-							// }
-							// // let additionalCdr :number  = champion.stats.cdr > 40 ? champion.stats.cdr - 40 : 0;
-							// additionalCdr += totalStatsFromItems["cdr"] && totalStatsFromItems["cdr"] > 40 ? totalStatsFromItems["cdr"] - 40 : 0;
-							// champion.stats[adaptiveType] += adaptiveType == "ad" ? 1.2 * additionalCdr : 2 * additionalCdr;
-						} else if (rune.name == "Legend: Tenacity" || rune.name == "Unflinching") {
-							console.log(1 - rune.stats.tenacity / 100);
+						} else if (rune.name == "Legend: Tenacity") {
 							currentTenacityRatio *= (1 - rune.stats.tenacity / 100);
-							console.log("on calc", currentTenacityRatio);
+						} else if (rune.name == "Unflinching") {
+							let additiveTenacity = rune.stats.tenacity;
+							additiveTenacity += selectedElixir.apiname == "elixirofiron" ? selectedElixir.tenacity : 0;
+							currentTenacityRatio *= (1 - (additiveTenacity) / 100);
 						} else {
 							return;
 							for (let statKey in rune.stats) {
 								totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += rune.stats[statKey] : totalStatsFromRunes = rune.stats[statKey];
 							}
-
 						}
 					}
-
 				});
 			}
 		}
-		console.log(currentTenacityRatio);
+		console.log(totalStatsFromRunes);
 		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
-		console.log(totalTenacityRatio);
+		champion.stats.tenacity = totalTenacityRatio;
 		return totalStatsFromRunes;
 	}
 	gatheringStormRune(adaptiveType: string, currentTime: number) {
-		let x = 1 + 1 * currentTime;
+		let x = currentTime % 10 == 0 ? 1 + 0.1 * (currentTime) : 1 + 1 * Math.floor(currentTime / 10);
+		console.log(x);
 		return adaptiveType == "ad" ? 4.8 * x * (x - 1) * 0.5 : 8 * x * (x - 1) * 0.5;
 	}
 	transcendenceRune(adaptiveType: string, currentLevel: number, totalStatsFromItems: any): any {
-		let additionalCdr: number = 0;
+		let additionalTranscendenceCdr: number = 0;
 		if (currentLevel >= 10) {
-			additionalCdr += 10;
+			additionalTranscendenceCdr = 10;
 		}
-		additionalCdr += totalStatsFromItems["cdr"] && totalStatsFromItems["cdr"] > 40 ? totalStatsFromItems["cdr"] - 40 : 0;
-		return { "cdr": additionalCdr, adaptiveType: adaptiveType == "ad" ? 1.2 * additionalCdr : 2 * additionalCdr };
+		let totalAdditionalCdr: number = additionalTranscendenceCdr;
+		totalAdditionalCdr += totalStatsFromItems["cdr"] && totalStatsFromItems["cdr"] > 40 ? totalStatsFromItems["cdr"] - 40 : 0;
+		let results = { "cdr": additionalTranscendenceCdr };
+		results[adaptiveType] = adaptiveType == "ad" ? 1.2 * totalAdditionalCdr : 2 * totalAdditionalCdr;
+		return results;
 	}
-	adaptiveStatFromShards(adaptiveType: string, runeShard: RuneShard) {
-		if (runeShard.type == "adaptive") {
-			return runeShard.stats[adaptiveType];
+	addRuneStats(champion: Champion, totalStatsFromRunes: any) {
+		for (let key in totalStatsFromRunes) {
+			if (key != "tenacity" && key != "as") {
+				champion.stats[key] += totalStatsFromRunes[key];
+			}
 		}
 	}
 }
