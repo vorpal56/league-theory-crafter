@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item, ItemRestrictions } from '../models/item';
 import { EMPTY_ITEM, ITEMS } from '../items';
-import { ChampionService } from '../services/champion.service';
 import { Champion } from '../models/champion';
+import { ItemsService } from '../services/items.service';
+import { StatsService } from '../services/stats.service';
 
 @Component({
 	selector: 'inventory',
@@ -11,7 +12,7 @@ import { Champion } from '../models/champion';
 })
 export class InventoryComponent implements OnInit {
 
-	constructor(private championService: ChampionService) { }
+	constructor(private itemsService: ItemsService, private statsService: StatsService) { }
 
 	ngOnInit(): void {
 	}
@@ -38,7 +39,7 @@ export class InventoryComponent implements OnInit {
 	clearSelectedItems(): void {
 		this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 		this.selectedElixir = EMPTY_ITEM;
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
 	/**
@@ -60,7 +61,7 @@ export class InventoryComponent implements OnInit {
 	removeElixir() {
 		this.selectedElixir = EMPTY_ITEM;
 		this.emitSelectedItems();
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 	removeItem(itemDetails: Item, index?: number): void {
 		if (itemDetails.shared_item.name == "hexcore") {
@@ -95,7 +96,8 @@ export class InventoryComponent implements OnInit {
 		// console.log(this.selectedItems);
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
 	/**
@@ -133,7 +135,7 @@ export class InventoryComponent implements OnInit {
 			}
 		});
 		this.emitSelectedItems();
-		this.championService.adjustBaseAndItemStats(selectedChampion, currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
 	/**
@@ -156,7 +158,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedItems[index].stacked = isStacked;
 		}
 		// console.log("index to update", index, this.selectedItems, this.selectedItems[index], this.selectedItems[index].stacked, this.selectedItems[0].stacked);
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 	/**
 	 * Method that emits the selected items
@@ -167,7 +169,6 @@ export class InventoryComponent implements OnInit {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
 		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
-		// console.log("emitting number of equipped items on removal", this.selectedItems);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

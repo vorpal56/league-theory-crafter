@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Champion } from "../models/champion";
-import { ChampionService } from '../services/champion.service';
 import { CHAMPIONS, LEVELS } from '../data';
 
 @Component({
@@ -9,7 +8,7 @@ import { CHAMPIONS, LEVELS } from '../data';
 	styleUrls: ["./champion.component.css"],
 })
 export class ChampionComponent implements OnInit {
-	constructor(private championService: ChampionService) { }
+	constructor() { }
 
 	champions = CHAMPIONS;
 	levels = LEVELS;
@@ -19,7 +18,6 @@ export class ChampionComponent implements OnInit {
 
 	champion: Champion = this.champions[8];
 	currentLevel: number = LEVELS[9].levelValue;
-
 
 	ngOnInit(): void {
 		this.updateChampion();

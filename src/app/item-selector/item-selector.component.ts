@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ChampionService } from '../services/champion.service';
 import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
 import { GAMEMODES, ORDERBY, ORDERMODES } from ".././data";
 import { ITEMS, EMPTY_ITEM } from ".././items";
+import { ItemsService } from '../services/items.service';
+import { StatsService } from '../services/stats.service';
 
 @Component({
 	selector: 'item-selector',
@@ -12,7 +13,7 @@ import { ITEMS, EMPTY_ITEM } from ".././items";
 })
 export class ItemSelectorComponent implements OnInit {
 
-	constructor(private championService: ChampionService) { }
+	constructor(private itemsService: ItemsService, private statsService: StatsService) { }
 
 	ngOnInit(): void {
 		// this.addItem(ITEMS[83]);
@@ -91,7 +92,8 @@ export class ItemSelectorComponent implements OnInit {
 			this.selectedElixir = selectedElixir;
 			console.log("added elixir");
 			this.emitSelectedItems();
-			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+			this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+			this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		} else {
 			alert("need to be lvl 9 or more");
 		}
@@ -140,7 +142,8 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			this.numberOfEquippedItems += 1;
 			this.emitSelectedItems();
-			this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+			this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+			this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		}
 		return;
 	}

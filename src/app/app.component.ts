@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { Champion } from "./models/champion";
 import { Item, ItemRestrictions } from "./models/item";
-import { ChampionService } from './services/champion.service';
+import { StatsService } from './services/stats.service';
 import { InventoryComponent } from './inventory/inventory.component';
 import { EMPTY_ITEM } from './items';
+import { RunesService } from './services/runes.service';
+import { ItemsService } from './services/items.service';
 @Component({
 	selector: "app-root",
 	templateUrl: "./app.component.html",
@@ -27,6 +29,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 	currentLevel: number;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
+
+	constructor(private statsService: StatsService, private runesService: RunesService, private itemsService: ItemsService, private cdRef: ChangeDetectorRef) {
+	}
+	ngAfterViewInit() {
+		this.inventoryComponent.emitSelectedItems();
+		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.cdRef.detectChanges();
+	}
+	ngOnInit() {
+		// this.statsService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+	}
+
 	/**
 	 * Method that updates the champion details
 	 * Calls item-selector component methods
@@ -38,7 +53,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion, this.currentLevel);
 			this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
 		}
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
+		this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		return;
 	}
 	setChampion(selectedChampion: Champion) {
@@ -69,15 +85,5 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	setPage(selectedTabName: string) {
 		this.selectedTab = selectedTabName;
-	}
-	constructor(private championService: ChampionService, private cdRef: ChangeDetectorRef) {
-	}
-	ngAfterViewInit() {
-		this.inventoryComponent.emitSelectedItems();
-		this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-		this.cdRef.detectChanges();
-	}
-	ngOnInit() {
-		// this.championService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
 }

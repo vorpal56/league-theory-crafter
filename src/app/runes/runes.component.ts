@@ -1,7 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ChampionService } from '../services/champion.service';
+import { StatsService } from '../services/stats.service';
 import { RUNES, RUNE_SHARDS } from '../runes';
 import { RuneShard } from '../models/rune';
+import { RunesService } from '../services/runes.service';
+import { Champion } from '../models/champion';
+import { Item } from '../models/item';
+import { ItemsService } from '../services/items.service';
 
 
 
@@ -12,7 +16,7 @@ import { RuneShard } from '../models/rune';
 })
 export class RunesComponent implements OnInit {
 
-	constructor(private championService: ChampionService) { }
+	constructor(private runesService: RunesService, private itemsService: ItemsService) { }
 
 	runes: any = RUNES;
 	runeShards: any = RUNE_SHARDS;
@@ -33,6 +37,12 @@ export class RunesComponent implements OnInit {
 		// this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
 		// this.runes[1].active_secondary = true;
 	}
+
+	@Input("selectedChampion") champion: Champion;
+	@Input("currentLevel") currentLevel: number;
+	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
+	@Input("selectedElixir") selectedElixir: Item;
+
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 	@Input('selectedPage') selectedPage: string;
 
@@ -97,6 +107,11 @@ export class RunesComponent implements OnInit {
 			runeShard.active = true;
 			this.selectedRunes.runeShards[slotIndex] = runeShard;
 		}
+		// this.championService.adjustBaseStats(this.champion, this.currentLevel)
+		let results = this.itemsService.addItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		let totalStatsFromItems = results[0];
+		let adaptiveType = results[1];
+		this.runesService.addRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType);
 		return;
 	}
 	activeClass(rune: any, def?: string) {
