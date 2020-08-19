@@ -4,123 +4,112 @@
 </div>
 <div class="component-body">
 	<div class="champion-grid">
-		<div id="champion-selector">
-			<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+		<div id="selectors">
+			<div class="selector-container">
+				<ng-select [items]="champions" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+			</div>
+			<div class="selector-container">
+				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">
+				</ng-select>
+			</div>
+			<div class="selector-container">
+				<ng-select [items]="times" bindLabel="timeLabel" bindValue="timeValue" [clearable]="false" placeholder="In-game time" (change)="updateCurrentTime()" [(ngModel)]="currentTime">
+				</ng-select>
+			</div>
 		</div>
-		<div id="level-selector">
-			<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">
-			</ng-select>
+		<div id="champion-img" *ngIf="champion.img!= ''">
+			<img class="champion-portrait" [src]="champion.img" alt="" />
 		</div>
-		<div id="champion-details">
-			<div class="champion-details-grid" *ngIf="champion">
-				<div id="champion-img" *ngIf="champion.img!= '' else noChampionImg ">
-					<img class="champion-portrait img-fluid" [src]="champion.img" alt="" />
+		<div id="champion-abilities" class="center-margin" style="margin-right:15px">
+			<div id="passive" class="center-flex">
+				<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]">
+			</div>
+			<div id="q" class="center-flex">
+				<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]">
+			</div>
+			<div id="w" class="center-flex">
+				<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]">
+			</div>
+			<div id="e" class="center-flex">
+				<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]">
+			</div>
+			<div id="r" class="center-flex">
+				<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]">
+			</div>
+			<div id="hp-mp" class="center-margin">
+				<div class="center-flex hp">
+					{{champion.stats.hp | number: '1.0-2'}} / {{champion.stats.hp_lvl | number: '1.0-2'}} / {{champion.stats.hp5 | number: '1.0-2'}}
 				</div>
-				<ng-template #noChampionImg>
-					<span> No Champion Portrait found</span>
-				</ng-template>
-				<div id="champion-stats">
-					<!-- <ng-container *ngFor="let stat of champion.stats | keyvalue">
-						<div *ngIf="isValidStatName(stat.key)" [id]="stat.key" [title]="stat.key">
-							<ng-container [ngSwitch]="stat.key">
-								<ng-container *ngSwitchCase="'heal_shield'">
-									<img class="stat" [src]="assetStatUrl('healing')" [alt]="stat.value">
-									<img class="stat" [src]="assetStatUrl(stat.key)" [alt]="stat.value">
-								</ng-container>
-								<img *ngSwitchDefault class="stat" [src]="assetStatUrl(stat.key)" [alt]="stat.value">
-							</ng-container>
-							{{stat.value | number: '1.0-2'}}
-						</div>
-					</ng-container> -->
-					<div id="ad" [title]="champion.stats.ad">
-						<img class="stat" src="assets/images/icons/ad_icon.png" alt="" />
-						{{ champion.stats.ad | number: '1.0-2' }}
-					</div>
-					<div id="ap" [title]="champion.stats.ap">
-						<img class="stat" src="assets/images/icons/ap_icon.png" alt="" />
-						{{ champion.stats.ap | number: '1.0-2' }}
-					</div>
-					<div id="ls" [title]="champion.stats.ls">
-						<img class="stat" src="assets/images/icons/ls_icon.png" alt="" />
-						{{ champion.stats.ls | number: '1.0-2' }}%
-					</div>
-					<div id="spell_vamp" [title]="champion.stats.spell_vamp">
-						<img class="stat" src="assets/images/icons/spell_vamp_icon.png" alt="" />
-						{{ champion.stats.spell_vamp | number: '1.0-2' }}%
-					</div>
-					<div id="arm" [title]="champion.stats.arm">
-						<img class="stat" src="assets/images/icons/arm_icon.png" alt="" />
-						{{ champion.stats.arm | number: '1.0-2' }}
-					</div>
-					<div id="mr" [title]="champion.stats.mr">
-						<img class="stat" src="assets/images/icons/mr_icon.png" alt="" />
-						{{ champion.stats.mr | number: '1.0-2' }}
-					</div>
-					<div id="apen" [title]="champion.stats.apen +'|'+ champion.stats['apen%']">
-						<img class=" stat" src="assets/images/icons/apen_icon.png" alt="" />
-						{{ champion.stats.apen | number: '1.0-2' }} | {{ champion.stats["apen%"] | number: '1.0-2' }}%
-					</div>
-					<div id="mpen" [title]="champion.stats.mpen +'|' +champion.stats['mpen%']">
-						<img class="stat" src="assets/images/icons/mpen_icon.png" alt="" />
-						{{ champion.stats.mpen | number: '1.0-2' }} | {{ champion.stats["mpen%"] | number: '1.0-2' }}%
-					</div>
-					<div id="as" [title]="champion.stats.as">
-						<img class="stat" src="assets/images/icons/as_icon.png" alt="" />
-						{{ champion.stats.as | number: '1.0-2' }}
-					</div>
-					<div id="cdr" [title]="champion.stats.cdr">
-						<img class="stat" src="assets/images/icons/cdr_icon.png" alt="" />
-						{{ champion.stats.cdr | number: '1.0-2' }}%
-					</div>
-					<div id="range" [title]="champion.stats.range">
-						<img class="stat" src="assets/images/icons/range_icon.png" alt="" />
-						{{ champion.stats.range | number: '1.0-2' }}
-					</div>
-					<div id="critdmg" [title]="champion.stats.critdmg">
-						<img class="stat" src="assets/images/icons/critdmg_icon.png" alt="" />
-						{{ champion.stats.critdmg | number: '1.0-2' }}%
-					</div>
-					<div id="crit" [title]="champion.stats.crit">
-						<img class="stat" src="assets/images/icons/crit_icon.png" alt="" />
-						{{ champion.stats.crit | number: '1.0-2' }}%
-					</div>
-					<div id="ms" [title]="champion.stats.ms">
-						<img class="stat" src="assets/images/icons/ms_icon.png" alt="" />
-						{{ champion.stats.ms | number: '1.0-2' }}
-					</div>
-					<div id="tenacity" [title]="champion.stats.tenacity">
-						<img class="stat" src="assets/images/icons/tenacity_icon.png" alt="" />
-						{{ champion.stats.tenacity | number: '1.0-2' }}
-					</div>
-					<div id="heal_shield" [title]="champion.stats.heal_shield">
-						<img class="stat" src="assets/images/icons/healing_icon.png" alt="" />
-						<img class="stat" src="assets/images/icons/heal_shield_icon.png" alt="" />
-						{{ champion.stats.heal_shield | number: '1.0-2' }}
-					</div>
+				<div class="center-flex mp">
+					{{champion.stats.mp | number: '1.0-2'}} / {{champion.stats.mp_lvl | number: '1.0-2'}} / {{champion.stats.mp5 | number: '1.0-2'}}
 				</div>
-				<div id="champion-abilities">
-					<div id="passive" class="abilities">
-						<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]">
-					</div>
-					<div id="q" class="abilities">
-						<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]">
-					</div>
-					<div id="w" class="abilities">
-						<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]">
-					</div>
-					<div id="e" class="abilities">
-						<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]">
-					</div>
-					<div id="r" class="abilities">
-						<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]">
-					</div>
-					<div id="hp" class="center hp">
-						{{champion.stats.hp | number: '1.0-2'}} / {{champion.stats.hp_lvl | number: '1.0-2'}} / {{champion.stats.hp5 | number: '1.0-2'}}
-					</div>
-					<div id="mp" class="center mp">
-						{{champion.stats.mp | number: '1.0-2'}} / {{champion.stats.mp_lvl | number: '1.0-2'}} / {{champion.stats.mp5 | number: '1.0-2'}}
-					</div>
-				</div>
+			</div>
+		</div>
+		<div id="champion-stats" class="center-margin">
+			<div id="ad" [title]="'Attack Damage ' + champion.stats.ad">
+				<img class="stat" src="assets/images/icons/ad_icon.png" alt="Attack Damage" />
+				{{ champion.stats.ad | number: '1.0-0' }}
+			</div>
+			<div id="ap" [title]="'Ability Power ' + champion.stats.ap">
+				<img class="stat" src="assets/images/icons/ap_icon.png" alt="Ability Power" />
+				{{ champion.stats.ap | number: '1.0-0' }}
+			</div>
+			<div id="ls" [title]="'Lifesteal ' + champion.stats.ls">
+				<img class="stat" src="assets/images/icons/ls_icon.png" alt="Lifesteal" />
+				{{ champion.stats.ls | number: '1.0-0' }}%
+			</div>
+			<div id="spell_vamp" [title]="'Spell Vamp ' + champion.stats.spell_vamp">
+				<img class="stat" src="assets/images/icons/spell_vamp_icon.png" alt="Spell Vamp" />
+				{{ champion.stats.spell_vamp | number: '1.0-0' }}%
+			</div>
+			<div id="arm" [title]="'Armour ' + champion.stats.arm">
+				<img class="stat" src="assets/images/icons/arm_icon.png" alt="Armour" />
+				{{ champion.stats.arm | number: '1.0-0' }}
+			</div>
+			<div id="mr" [title]="'Magic Resistance ' + champion.stats.mr">
+				<img class="stat" src="assets/images/icons/mr_icon.png" alt="Magic Resistance" />
+				{{ champion.stats.mr | number: '1.0-0' }}
+			</div>
+			<div id="apen" [title]="'Lethality ' + champion.stats.leth + ' | Armor Penetration ' + champion.stats['apen%'] + '%'">
+				<img class=" stat" src="assets/images/icons/apen_icon.png" alt="Lethality|Armor Penetration %" />
+				{{ champion.stats.leth | number: '1.0-0' }}|{{ champion.stats["apen%"] | number: '1.0-0' }}%
+			</div>
+			<div id="mpen" [title]="'Magic Penetration ' + champion.stats.mpen + ' | Magic Penetration ' + champion.stats['mpen%'] + '%'">
+				<img class="stat" src="assets/images/icons/mpen_icon.png" alt="Magic Penetration | Magic Penetration %" />
+				{{ champion.stats.mpen | number: '1.0-0' }}|{{ champion.stats["mpen%"] | number: '1.0-0' }}%
+			</div>
+			<div id="as" [title]="'Attack Speed ' + champion.stats.as">
+				<img class="stat" src="assets/images/icons/as_icon.png" alt="Attack Speed" />
+				{{ champion.stats.as | number: '1.0-2' }}
+			</div>
+			<div id="cdr" [title]="'Cooldown Reduction ' + champion.stats.cdr">
+				<img class="stat" src="assets/images/icons/cdr_icon.png" alt="Cooldown Reduction" />
+				{{ champion.stats.cdr | number: '1.0-2' }}%
+			</div>
+			<div id="range" [title]="'Range ' + champion.stats.range">
+				<img class="stat" src="assets/images/icons/range_icon.png" alt="Range" />
+				{{ champion.stats.range | number: '1.0-0' }}
+			</div>
+			<div id="critdmg" [title]="'Critical Damage Bonus ' + champion.stats.critdmg">
+				<img class="stat" src="assets/images/icons/critdmg_icon.png" alt="Critical Damage Bonus" />
+				{{ champion.stats.critdmg | number: '1.0-0' }}%
+			</div>
+			<div id="crit" [title]="'Critical Hit Chance ' + champion.stats.crit">
+				<img class="stat" src="assets/images/icons/crit_icon.png" alt="Critical Hit Chance" />
+				{{ champion.stats.crit | number: '1.0-0' }}%
+			</div>
+			<div id="ms" [title]="'Movement Speed ' + champion.stats.ms">
+				<img class="stat" src="assets/images/icons/ms_icon.png" alt="Movement Speed" />
+				{{ champion.stats.ms | number: '1.0-0' }}
+			</div>
+			<div id="tenacity" [title]="'Tenacity ' + champion.stats.tenacity">
+				<img class="stat" src="assets/images/icons/tenacity_icon.png" alt="Tenacity" />
+				{{ champion.stats.tenacity | number: '1.0-0' }}%
+			</div>
+			<div id="heal_shield" [title]="'Healing and Shielding Power ' + champion.stats.heal_shield">
+				<img src="assets/images/icons/healing_icon.png" alt="Healing" />
+				<img class="stat" src="assets/images/icons/heal_shield_icon.png" alt="Shielding" />
+				{{ champion.stats.heal_shield | number: '1.0-0' }}%
 			</div>
 		</div>
 	</div>

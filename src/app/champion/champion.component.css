@@ -1,3 +1,15 @@
+.center-flex {
+	display:flex;
+	align-items:center;
+	justify-content: center;
+}
+.center-margin {
+	margin-top:auto;
+	margin-bottom:auto
+}
+.stat {
+	margin-right:4px;
+}
 .hp {
 	background-color: green;
 }
@@ -6,32 +18,55 @@
 }
 .champion-grid {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: minmax(50px, 80px) auto;
+	grid-template-columns: minmax(80px, 300px) var(--champion-img-height) 1.7fr 1fr;
+	grid-template-rows: auto;
 	grid-template-areas :
-	"champion-selector level-selector"
-	"champion-details champion-details"
+	"selectors champion-img champion-abilities champion-stats"
 }
 
-#champion-selector {
-	grid-area: champion-selector;
+#selectors {
+	grid-area: selectors;
+	display: flex;
+	flex-direction: column;
+	padding:5px 0px 5px 5px;
 }
-#level-selector {
-	grid-area: level-selector;
+.selector-container {
+	width:auto;
 }
 #champion-details {
 	grid-area: champion-details;
+	display:flex;
 }
-.champion-details-grid {
-	display: grid;
-	grid-template-columns: 2fr 1fr 3fr;
-	grid-template-rows: 1fr;
+@media only screen and (max-width: 767px) {
+	.champion-grid {
+		grid-template-columns: var(--champion-img-height) auto;
+		grid-template-rows: auto auto auto;
+		grid-template-areas :
+		"selectors selectors"
+		"champion-img champion-abilities"
+		"champion-stats champion-stats"
+	}
+	#selectors {
+		flex-direction: row;
+		padding: 5px 5px 0px 5px
+	}
+	.selector-container {
+		width:100%;
+	}
+	.champion-details-grid {
+	grid-template-columns: auto;
+	grid-template-rows: auto auto;
 	grid-template-areas:
-	"champion-stats champion-img champion-abilities"
+	"champion-stats"
+	"champion-abilities"
+	}
 }
 
 #champion-img {
-	grid-area : champion-img
+	grid-area : champion-img;
+	display:flex;
+	justify-content: center;
+	align-items: center;
 }
 #champion-stats {
 	grid-area : champion-stats;
@@ -48,11 +83,17 @@
 	grid-area : champion-abilities;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(3, auto);
+	grid-template-rows: repeat(2, auto);
 	grid-template-areas:
 	"passive q w e r"
-	"hp hp hp hp hp"
-	"mp mp mp mp mp"
+	"hp-mp hp-mp hp-mp hp-mp hp-mp";
+	height: var(--champion-img-height);
+}
+
+#ad, #ap, #ls, #spell_vamp, #arm, #mr, #apen, #mpen, #as, #cdr, #range, #critdmg, #crit, #ms, #tenacity, #heal_shield {
+	margin:5px;
+	display:flex;
+	align-items: center;
 }
 #ad {
 	grid-area:ad;
@@ -102,11 +143,6 @@
 #heal_shield {
 	grid-area:heal_shield;
 }
-.abilities {
-	display:flex;
-	align-items:center;
-	justify-content: center;
-}
 img.large-ability {
 	width: 56px;
 	height: 56px;
@@ -134,9 +170,6 @@ img.small-ability {
 #r {
 	grid-area: r;
 }
-#hp {
-	grid-area: hp;
-}
-#mp {
-	grid-area: mp;
+#hp-mp {
+	grid-area: hp-mp;
 }
