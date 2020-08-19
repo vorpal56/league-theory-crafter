@@ -78,7 +78,7 @@ export class StatsService {
 		selectedChampion.stats.critdmg = 0;
 		selectedChampion.stats.ls = 0;
 		selectedChampion.stats.spell_vamp = 0;
-		selectedChampion.stats.apen = 0;
+		selectedChampion.stats.leth = 0;
 		selectedChampion.stats["apen%"] = 0;
 		selectedChampion.stats.mpen = 0;
 		selectedChampion.stats["mpen%"] = 0;

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
-import { GAMEMODES, ORDERBY, ORDERMODES } from ".././data";
-import { ITEMS, EMPTY_ITEM } from ".././items";
+import { GAMEMODES, ORDERBY, ORDERMODES } from "../../data/data";
+import { ITEMS, EMPTY_ITEM } from "../../data/items";
 import { ChampionService } from '../services/champion.service';
 
 @Component({
@@ -11,12 +11,6 @@ import { ChampionService } from '../services/champion.service';
 	styleUrls: ['./item-selector.component.css']
 })
 export class ItemSelectorComponent implements OnInit {
-
-	constructor(private championService: ChampionService) { }
-
-	ngOnInit(): void {
-		// this.addItem(ITEMS[83]);
-	}
 
 	items = ITEMS;
 	gamemodes = GAMEMODES;
@@ -29,6 +23,7 @@ export class ItemSelectorComponent implements OnInit {
 
 	@Input('selectedChampion') champion: Champion;
 	@Input('currentLevel') currentLevel: number;
+	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
@@ -43,6 +38,10 @@ export class ItemSelectorComponent implements OnInit {
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 
+	constructor(private championService: ChampionService) { }
+	ngOnInit(): void {
+		// this.addItem(ITEMS[83]);
+	}
 
 	/**
 	 * Method that determines if the item is allowed given the champion and item restrictions
@@ -92,7 +91,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.currentLevel >= 9) {
 			this.selectedElixir = selectedElixir;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		} else {
 			alert("need to be lvl 9 or more");
 		}
@@ -141,7 +140,7 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			this.numberOfEquippedItems += 1;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 			// this.statsService.postCalculations(this.champion, this.currentLevel, itemAdditions);
 		}
 		return;
@@ -178,7 +177,6 @@ export class ItemSelectorComponent implements OnInit {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
 		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
-		// console.log("emitting number of equipped items on adding", this.selectedItems);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

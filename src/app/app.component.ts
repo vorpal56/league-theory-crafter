@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { Champion } from "./models/champion";
 import { Item, ItemRestrictions } from "./models/item";
-import { StatsService } from './services/stats.service';
 import { InventoryComponent } from './inventory/inventory.component';
-import { EMPTY_ITEM } from './items';
-import { RunesService } from './services/runes.service';
-import { ItemsService } from './services/items.service';
+import { EMPTY_ITEM } from '../data/items';
+import { ChampionService } from './services/champion.service';
 @Component({
 	selector: "app-root",
 	templateUrl: "./app.component.html",
@@ -27,71 +25,49 @@ export class AppComponent implements OnInit, AfterViewInit {
 	// champion and current level definition from the champion component
 	champion: Champion;
 	currentLevel: number;
+	currentTime: number;
 	selectedRunes: any;
 	stackAllRunes: boolean;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
-	constructor(private statsService: StatsService, private runesService: RunesService, private itemsService: ItemsService, private cdRef: ChangeDetectorRef) {
+	constructor(private championService: ChampionService, private cdRef: ChangeDetectorRef) {
 	}
 	ngAfterViewInit() {
-		this.inventoryComponent.emitSelectedItems();
-		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
-
-		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir, this.stackAllRunes);
-		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
-
-		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
+		// this.inventoryComponent.emitSelectedItems();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		this.cdRef.detectChanges();
 	}
 	ngOnInit() {
 		// this.statsService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 	}
-
-	/**
-	 * Method that updates the champion details
-	 * Calls item-selector component methods
-	 * @returns void
-	 */
-	updateChampion(): void {
-		if (this.inventoryComponent) {
-			this.inventoryComponent.emitSelectedItems();
-			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion, this.currentLevel);
-			this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
-		}
-		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
-
-		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir, this.stackAllRunes);
-		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
-
-		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
-		return;
-	}
 	setChampion(selectedChampion: Champion) {
-		if (selectedChampion != this.champion) {
-			this.champion = selectedChampion;
-			this.updateChampion();
+		this.champion = selectedChampion;
+		if (this.inventoryComponent) {
+			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
+			this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
 		}
 		return;
 	}
 	setCurrentLevel(selectedLevel: number) {
-		if (selectedLevel != this.currentLevel) {
-			this.currentLevel = selectedLevel;
-			this.updateChampion();
-		}
+		this.currentLevel = selectedLevel;
+		return;
+	}
+	setCurrentTime(selectedTime: number) {
+		this.currentTime = selectedTime;
+		return;
 	}
 	setSelectedItemRestrictions(selectedItemRestrictions: ItemRestrictions) {
 		this.selectedItemRestrictions = selectedItemRestrictions;
+		return;
 	};
 	setNumberOfEquippedItems(numberOfEquippedItems: number) {
 		this.numberOfEquippedItems = numberOfEquippedItems;
+		return;
 	}
 	setSelectedItems(selectedItems: [Item, Item, Item, Item, Item, Item]) {
 		this.selectedItems = selectedItems;
+		return;
 	}
 	setSelectedElixir(selectedElixir: Item): void {
 		this.selectedElixir = selectedElixir;
@@ -99,11 +75,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	setSelectedRunes(selectedRunes: any) {
 		this.selectedRunes = selectedRunes;
+		return;
 	}
 	setStackAllRunes(stackAllRunes: boolean) {
 		this.stackAllRunes = stackAllRunes;
+		return;
 	}
 	setPage(selectedTabName: string) {
 		this.selectedTab = selectedTabName;
+		return;
 	}
 }

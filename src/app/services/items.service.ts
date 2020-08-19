@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../models/item';
 import { Champion } from '../models/champion';
-import { EMPTY_ITEM } from '../items';
+import { EMPTY_ITEM } from '../../data/items';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +17,7 @@ export class ItemsService {
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns any
 	 */
-	calculateItemStats(champion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, currentTime?: number): any {
+	calculateItemStats(champion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): any {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 
@@ -152,11 +152,9 @@ export class ItemsService {
 							}
 						}
 					}
-				} else {
-					// console.log(itemIndex, selectedItem);
 				}
 			}
-			console.log(totalStatsFromItems, sharedItemCounts, champion.stats.tenacity);
+			console.log(totalStatsFromItems, sharedItemCounts);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
 				if (champion.resource.toLowerCase() != "mana" && key.includes("mp")) {
@@ -184,7 +182,7 @@ export class ItemsService {
 		}
 		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
 	}
-	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any, adaptiveType: string) {
+	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;
 		for (let key in multKeyValues) {
 			let additionalMultipliers = multKeyValues[key];
@@ -203,13 +201,22 @@ export class ItemsService {
 			}
 		}
 		// add all the stats that we've computed from items. this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with and without having to keep track of a post stat calculation
+
+		let flatMoveSpeedBonuses = 0;
 		for (let key in totalStatsFromItems) {
 			if (key == "boots_ms" || key == "flat_ms") {
-				champion.stats.ms += totalStatsFromItems[key];
+				flatMoveSpeedBonuses += totalStatsFromItems[key];
+				// champion.stats.ms += totalStatsFromItems[key];
+			} else if (key == "ms%") {
+				// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
+				champion.stats.ms += champion.stats.ms * (totalStatsFromItems[key] / 100);
 			} else if (key != "as") {
 				champion.stats[key] += totalStatsFromItems[key];
 			}
 		}
+		// the move speed multiplier is not applied on base and total very confusting
+		// champion.stats.ms += flatMoveSpeedBonuses;
+
 		// the order of applying total multipliers is significant -> comeback to this
 		// for example, do we apply the total multipliers before after or the same time as the overgrowth rune?
 		// the multipliers availble for items are ad ap and hp which is different than conditioning rune

@@ -1,20 +1,27 @@
 <div class="container">
 	<div class="container-grid-league">
 		<div id="navbar">
+			<div class="component-header">
+
+			</div>
+			<div class="component-body">
+
+			</div>
 		</div>
 		<div id="champion">
-			<champion (selectedChampion)="setChampion($event)" (selectedLevel)="setCurrentLevel($event)"></champion>
+			<champion (selectedChampion)="setChampion($event)" (selectedLevel)="setCurrentLevel($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes"
+								[stackAllRunes]="stackAllRunes"></champion>
 		</div>
 		<div id="item-selector-rune-selector">
 			<item-selector id="item-selector" [hidden]="selectedTab=='runes'" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
 										 (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes"></item-selector>
+										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes" [currentTime]="currentTime"></item-selector>
 			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" (stackAllRunes)="setStackAllRunes($event)" [hidden]="selectedTab=='item-selector'" [selectedPage]="selectedTab" [selectedChampion]="champion"
-						 [currentLevel]="currentLevel" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"></runes>
+						 [currentLevel]="currentLevel" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [currentTime]="currentTime"></runes>
 		</div>
 		<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
 							 [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"
-							 [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes">
+							 [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes" [currentTime]="currentTime">
 		</inventory>
 		<div id="damage-calc">
 			<div class="component-header">

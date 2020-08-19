@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item, ItemRestrictions } from '../models/item';
-import { EMPTY_ITEM, ITEMS } from '../items';
+import { EMPTY_ITEM, ITEMS } from '../../data/items';
 import { Champion } from '../models/champion';
 import { ChampionService } from '../services/champion.service';
 
@@ -11,18 +11,9 @@ import { ChampionService } from '../services/champion.service';
 })
 export class InventoryComponent implements OnInit {
 
-	constructor(private championService: ChampionService) { }
-
-	ngOnInit(): void {
-		// this.selectedItems[0] = ITEMS[134];
-		// this.selectedItems[1] = ITEMS[134];
-		// this.selectedItems[2] = ITEMS[70];
-		// this.selectedItems[3] = ITEMS[70];
-		// this.selectedItems[4] = ITEMS[70];
-		// this.selectedItems[5] = ITEMS[70];
-	}
 	@Input("selectedChampion") champion: Champion;
 	@Input("currentLevel") currentLevel: number;
+	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
@@ -34,6 +25,18 @@ export class InventoryComponent implements OnInit {
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
 	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
+
+	constructor(private championService: ChampionService) { }
+
+	ngOnInit(): void {
+		// this.selectedItems[0] = ITEMS[134];
+		// this.selectedItems[1] = ITEMS[134];
+		// this.selectedItems[2] = ITEMS[70];
+		// this.selectedItems[3] = ITEMS[70];
+		// this.selectedItems[4] = ITEMS[70];
+		// this.selectedItems[5] = ITEMS[70];
+		this.emitSelectedItems();
+	}
 
 	selectedSlotIsStackable(itemDetails: Item): boolean {
 		return itemDetails.stackable;
@@ -68,7 +71,7 @@ export class InventoryComponent implements OnInit {
 	removeElixir() {
 		this.selectedElixir = EMPTY_ITEM;
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 	removeItem(itemDetails: Item, index?: number): void {
 		if (itemDetails.shared_item.name == "hexcore") {
@@ -100,10 +103,9 @@ export class InventoryComponent implements OnInit {
 			}
 		}
 
-		// console.log(this.selectedItems);
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		return;
 	}
 	/**
@@ -113,7 +115,7 @@ export class InventoryComponent implements OnInit {
 	 * @param  {number} currentLevel the level that was changed into -> previous selected level is on this.currentLevel when called -> model doesn't update immediately?
 	 * @returns void
 	 */
-	removeInvalidItemsBasedOnChampion(selectedChampion: Champion, currentLevel: number): void {
+	removeInvalidItemsBasedOnChampion(selectedChampion: Champion): void {
 		this.selectedItems.forEach((item, index) => {
 			let championRangeType = selectedChampion["rangetype"].toLowerCase();
 			if (selectedChampion.name == "Cassiopeia" && item.boots_ms != 0) {
@@ -141,7 +143,6 @@ export class InventoryComponent implements OnInit {
 			}
 		});
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		return;
 	}
 	/**
@@ -163,8 +164,7 @@ export class InventoryComponent implements OnInit {
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}
-		// console.log("index to update", index, this.selectedItems, this.selectedItems[index], this.selectedItems[index].stacked, this.selectedItems[0].stacked);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 	/**
 	 * Method that emits the selected items

@@ -11,19 +11,19 @@
 </div>
 <div class="component-body">
 	<div class="item-selector-grid">
-		<div id="item-grid-orderby-sort" class="item-selector-filter">
+		<div id="item-grid-orderby-sort" class="selector-container">
 			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items" [(ngModel)]="orderBy">
 			</ng-select>
 		</div>
-		<div id="item-grid-orderby-sort" class="item-selector-filter">
+		<div id="item-grid-orderby-sort" class="selector-container">
 			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
 			</ng-select>
 		</div>
-		<div id="item-grid-gamemode-filter" class="item-selector-filter">
+		<div id="item-grid-gamemode-filter" class="selector-container">
 			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter by Gamemodes" [(ngModel)]="searchMode">
 			</ng-select>
 		</div>
-		<div id="item-grid-search-filter" class="item-selector-filter">
+		<div id="item-grid-search-filter" class="selector-container">
 			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
 				<input matInput type="text" [(ngModel)]="searchText" type="text" placeholder="eg. support, ornn.." id="item-grid-filter-search-field">

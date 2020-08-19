@@ -9,8 +9,8 @@ import { Item } from '../models/item';
 export class RunesService {
 
 	constructor() { }
-	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, selectedElixir: Item, stackAllRunes: boolean, currentTime?: number) {
-		currentTime = 19;
+	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, selectedElixir: Item, stackAllRunes: boolean, currentTime: number): any[] {
+		// currentTime = 19;
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStatsFromRunes = {};
 		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
@@ -74,10 +74,12 @@ export class RunesService {
 						} else if (runeApiname == "overgrowth") {
 							if (stackAllRunes) {
 								for (let statKey in rune.stackable) {
-									let statVal = rune.stats[statKey];
+									let statVal = rune.stackable[statKey];
 									totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += statVal : totalStatsFromRunes[statKey] = statVal;
 								}
 							}
+						} else if (runeApiname == "revitalize") {
+							totalStatsFromRunes["heal_shield"] = rune.stats.heal_shield;
 						} else if (runeApiname == "magicalfootwear") {
 							totalStatsFromRunes["ms"] = rune.stats["ms"];
 						} else if (runeApiname == "biscuitdelivery") {
@@ -124,7 +126,8 @@ export class RunesService {
 			}
 		}
 		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
-		totalStatsFromRunes['tenacity'] = totalTenacityRatio - champion.stats.tenacity;
+		let tenacityFromRunes = totalTenacityRatio - champion.stats.tenacity;
+		if (tenacityFromRunes > 0) { totalStatsFromRunes['tenacity'] = tenacityFromRunes; }
 		console.log(totalStatsFromRunes);
 		champion.stats.tenacity = totalTenacityRatio;
 		return [totalStatsFromRunes, cdrCap];
@@ -144,6 +147,7 @@ export class RunesService {
 		return 0;
 	}
 	gatheringStormRune(adaptiveType: string, currentTime: number) {
+		// gathering storm is dependant on time and it only increases on increments of 10 minutes
 		let x = currentTime % 10 == 0 ? 1 + 0.1 * (currentTime) : 1 + 1 * Math.floor(currentTime / 10);
 		return adaptiveType == "ad" ? 4.8 * x * (x - 1) * 0.5 : 8 * x * (x - 1) * 0.5;
 	}
@@ -165,15 +169,15 @@ export class RunesService {
 		// multipliers come from conditioning rune post 12 minutes
 		let armorMultiplier = totalStatsFromRunes["arm_mult"];
 		if ("arm_mult" in totalStatsFromRunes && armorMultiplier) {
-			champion.stats["arm"] *= armorMultiplier;
+			champion.stats["arm"] += champion.stats["arm"] * (armorMultiplier / 100);
 		}
 		let mrMultiplier = totalStatsFromRunes["mr_mult"];
 		if ("mr_mult" in totalStatsFromRunes && mrMultiplier) {
-			champion.stats["mr"] *= mrMultiplier;
+			champion.stats["mr"] += champion.stats["mr"] * (mrMultiplier / 100);
 		}
 		let hpMultiplier = totalStatsFromRunes["hp_mult"];
 		if ("hp_mult" in totalStatsFromRunes && hpMultiplier) {
-			champion.stats["hp"] *= hpMultiplier;
+			champion.stats["hp"] += champion.stats["hp"] * (hpMultiplier / 100);
 		}
 		return;
 	}

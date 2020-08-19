@@ -57,7 +57,7 @@ export interface Champion {
 		ls?: number,
 		spell_vamp?: number,
 
-		apen?: number,
+		leth?: number,
 		'apen%'?: number,
 
 		mpen?: number,

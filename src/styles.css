@@ -9,16 +9,17 @@
 	--background-alt: #17172e;
 	--background-alt-2: #222238;
 	--background-alt-3: #17172e;
-	--component-header-height : 54px; 
+	--champion-img-height: 120px;
+	--component-header-height : 54px;
 	/* --component-header-height : 70px;  */
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
 }
 /* Body changes */
-html, body { 
+html, body {
 	height: 100%;
 	/* background-color: var(--background-main); */
 	background-color: var(--background-main);
-	color:white !important;	
+	color:white !important;
 }
 img {
 	-khtml-user-select: none;
@@ -53,7 +54,7 @@ button:focus, :focus {
 	flex: 0 0 48px;
 	height: 48px;
 	margin-bottom: 6px;
-	padding: 0 24px;
+	padding: 0 10px;
 	background-color: var(--background-alt);
 	width:100%;
 }
@@ -63,7 +64,7 @@ button:focus, :focus {
 		margin-bottom: 6px;
 	grid-template-columns: auto 48px 48px;
 	grid-template-rows: 1fr;
-	grid-template-areas: 
+	grid-template-areas:
 	"component-title rune-tab inventory-tab";
 	grid-gap:10px;
 	/* You can switch the order of the tab switcher in the grid template area and columns */
@@ -106,7 +107,7 @@ img.tab-icon {
 	grid-area: inventory-tab;
 	background-color: var(--background);
 	/* background-color: var(--background-alt); */
-	
+
 	/* You can comment the height out to connect the tab switcher img to the component-body */
 }
 .component-body {
@@ -116,8 +117,8 @@ img.tab-icon {
 	flex-direction: column;
 	/* height:100%; */
 }
-.pad-top {
-	padding-top:10px;
+.selector-container {
+	padding:0px 5px
 }
 .container-grid-league {
 	display: grid;
@@ -155,6 +156,10 @@ img.tab-icon {
 #damage-calc {
 	grid-area: damage-calc;
 }
+.champion-portrait {
+	width:108px;
+	height:108px;
+}
 @media only screen and (max-width: 767px) {
 	.container-grid-league {
 	grid-template-columns: auto;
@@ -166,46 +171,13 @@ img.tab-icon {
 	"item-selector-rune-selector"
 	"damage-calc"
 	}
-}
-
-/* Bootstrap additions/changes */
-.col-xs-5ths,
-.col-sm-5ths,
-.col-md-5ths,
-.col-lg-5ths {
-		position: relative;
-		min-height: 1px;
-		padding-right: 10px;
-		padding-left: 10px;
-}
-.row {
-	margin-left:0px;
-	margin-right:0px;
-}
-.col-xs-5ths {
-		width: 20%;
-		float: left;
-}
-
-@media (min-width: 768px) {
-		.col-sm-5ths {
-				width: 20%;
-				float: left;
-		}
-}
-
-@media (min-width: 992px) {
-		.col-md-5ths {
-				width: 20%;
-				float: left;
-		}
-}
-
-@media (min-width: 1200px) {
-		.col-lg-5ths {
-				width: 20%;
-				float: left;
-		}
+	.champion-portrait {
+		width:120px;
+		height:120px;
+	}
+	:root {
+		--champion-img-height: 130px;
+	}
 }
 
 /* Inventory and Item Selector Components */
@@ -282,10 +254,10 @@ div.item-block {
 
 /* Track */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px grey; 
+	box-shadow: inset 0 0 5px grey;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: grey; 
+	background: grey;
 }
