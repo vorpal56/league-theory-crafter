@@ -4197,7 +4197,7 @@ export const ITEMS = [{
 	'stackable': False,
 	'stacked': false,
 	'tags': '',
-	'tenacity': 35,
+	'tenacity': 30,
 	'visible': true,
 },
 {

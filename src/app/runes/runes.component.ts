@@ -1,11 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { StatsService } from '../services/stats.service';
 import { RUNES, RUNE_SHARDS } from '../runes';
-import { RuneShard } from '../models/rune';
-import { RunesService } from '../services/runes.service';
+import { RuneShard, Rune } from '../models/rune';
 import { Champion } from '../models/champion';
 import { Item } from '../models/item';
-import { ItemsService } from '../services/items.service';
+import { ChampionService } from '../services/champion.service';
 
 
 
@@ -16,7 +14,7 @@ import { ItemsService } from '../services/items.service';
 })
 export class RunesComponent implements OnInit {
 
-	constructor(private runesService: RunesService, private itemsService: ItemsService, private statsService: StatsService) { }
+	constructor(private championService: ChampionService) { }
 
 	runes: any = RUNES;
 	runeShards: any = RUNE_SHARDS;
@@ -46,6 +44,9 @@ export class RunesComponent implements OnInit {
 
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 	@Output('selectedRunes') selectedRunesEmitter = new EventEmitter<any>();
+	@Output("stackAllRunes") stackAllRunesEmitter = new EventEmitter<boolean>();
+
+	stackAllRunes: boolean = false;
 
 	emitSelectedRunes() {
 		this.selectedRunesEmitter.emit(this.selectedRunes);
@@ -53,24 +54,26 @@ export class RunesComponent implements OnInit {
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
 	}
-	setKeystone(rune: any, keystones: any) {
-		keystones.forEach((keystone: any) => {
+	setKeystone(rune: Rune, keystones: any) {
+		keystones.forEach((keystone: Rune) => {
 			keystone.active = keystone == rune;
 		});
 		this.selectedRunes.primaryTree.runes[0] = rune;
 		this.emitSelectedRunes();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
-	setPrimarySlots(rune: any, runeSlotSection: any, index: number) {
-		runeSlotSection.forEach((runeSlot: any) => {
+	setPrimarySlots(rune: Rune, runeSlotSection: any, index: number) {
+		runeSlotSection.forEach((runeSlot: Rune) => {
 			runeSlot.active = runeSlot == rune;
 		});
 		this.selectedRunes.primaryTree.runes[index] = rune;
 		this.emitSelectedRunes();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
-	setSecondarySlots(rune: any, pathName: string) {
+	setSecondarySlots(rune: Rune, pathName: string) {
 		// only make the rune active if it's valid
 		// check if the rune there are no runes and add it to the beginning if there isnt
-		if (this.selectedRunes.secondaryTree.runes.length == 0) {
+		if (this.selectedRunes.secondaryTree.runes[0] == null) {
 			rune.active = true;
 			this.selectedRunes.secondaryTree.runes[0] = rune;
 		} else {
@@ -85,12 +88,16 @@ export class RunesComponent implements OnInit {
 					rune.active = true;
 					this.runes[this.pathIndices[pathName]].runes[0][selectedRune.keyslot][selectedRune.index].active = false;
 					this.selectedRunes.secondaryTree.runes[selectedRuneIndex] = rune;
+					this.emitSelectedRunes();
+					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 					return;
 				}
 				// check if the slot is empty otherwise it's occupied
 				if (selectedRune == null) {
 					rune.active = true;
 					this.selectedRunes.secondaryTree.runes[selectedRuneIndex] = rune;
+					this.emitSelectedRunes();
+					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 					return;
 				}
 			}
@@ -104,6 +111,7 @@ export class RunesComponent implements OnInit {
 			this.selectedRunes.secondaryTree.runes[1] = rune;
 		}
 		this.emitSelectedRunes();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 	setRuneShards(runeShard: RuneShard, slotIndex: number) {
 		if (this.selectedRunes.runeShards[slotIndex] != runeShard) {
@@ -114,14 +122,12 @@ export class RunesComponent implements OnInit {
 			this.selectedRunes.runeShards[slotIndex] = runeShard;
 		}
 		// this.championService.adjustBaseStats(this.champion, this.currentLevel)
-		this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
-		this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		this.emitSelectedRunes();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		return;
 	}
-	activeClass(rune: any, def?: string) {
+	activeClass(rune: Rune, def?: string) {
 		if (def == "primary" || def == "secondary") {
 			return rune["active_" + def] ? "active-rune" : "inactive-rune";
 		} else if (def == "shard") {
@@ -129,7 +135,7 @@ export class RunesComponent implements OnInit {
 		}
 		return rune.active ? "active-rune" : "inactive-rune";
 	}
-	choosePrimaryPath(runePath: any, runes: any) {
+	choosePrimaryPath(runePath: any) {
 		// only do something if the selected tree is different from the one that's active
 		if (runePath.path_name != this.selectedRunes.primaryTree.path) {
 			// reset the primary tree (make all rune options in this tree inactive)
@@ -142,24 +148,26 @@ export class RunesComponent implements OnInit {
 			// set the path as the tree name
 			this.selectedRunes.primaryTree.path = runePath.path_name;
 			// reset the images of the runes to be inactive
-			runes.forEach((rune: any) => {
-				rune.active_primary = rune == runePath;
+			this.runes.forEach((availableRunePath: any) => {
+				availableRunePath.active_primary = availableRunePath == runePath;
 			});
 		}
 		this.emitSelectedRunes();
+		// this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
-	chooseSecondaryPath(runePath: any, runes: any) {
+	chooseSecondaryPath(runePath: any) {
 		// only allow selected a different secondary path
 		if (this.selectedRunes.secondaryTree.path != runePath.path_name) {
 			// reset the secondary tree
 			this.resetTree("secondary");
 			this.selectedRunes.secondaryTree.path = runePath.path_name;
 			// reset the images of the runes to be inactive
-			runes.forEach((rune: any) => {
-				rune.active_secondary = rune == runePath;
+			this.runes.forEach((availableRunePath: any) => {
+				availableRunePath.active_secondary = availableRunePath == runePath;
 			});
 		}
 		this.emitSelectedRunes();
+		// this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 	resetTree(keyname: string) {
 		// set the content of the runes and path as empty
@@ -180,5 +188,11 @@ export class RunesComponent implements OnInit {
 		}
 		this.selectedRunes[keyname + "Tree"].path = null;
 		this.emitSelectedRunes();
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+	}
+	setStackAllRunes(stackAllRunes: boolean) {
+		this.stackAllRunes = stackAllRunes;
+		this.stackAllRunesEmitter.emit(this.stackAllRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 }

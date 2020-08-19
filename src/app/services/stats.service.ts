@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Champion } from "../models/champion";
-import { RunesService } from './runes.service';
 @Injectable({
 	providedIn: 'root'
 })
 export class StatsService {
 
-	constructor(private runesService: RunesService) { }
+	constructor() { }
 	/**
 	 * Method that formats the number to n places
 	 * Might not be as useful with DecimalPipe when interpolating
@@ -91,26 +90,7 @@ export class StatsService {
 		return;
 	}
 
-	postCalculations(champion: Champion, currentLevel: number, itemAdditions: any) {
-		if (champion.apiname == "yasuo") {
-			champion.stats.crit *= 2;
-		}
-		if (itemAdditions.hexCoreItem) {
-			champion.stats.ap += (itemAdditions.hexCoreItem.ap * (currentLevel - 1));
-			champion.stats.mp += (itemAdditions.hexCoreItem.mp * (currentLevel - 1));
-		}
-		if (itemAdditions.aweItem && champion.resource.toUpperCase() == "MANA") {
-			if (itemAdditions.aweItem.apiname == "manamune" || itemAdditions.aweItem.apiname == "muramana") {
-				champion.stats.ad += (champion.stats.mp * 0.02);
-			} else if (itemAdditions.aweItem.apiname == "archangelsstaff") {
-				champion.stats.ap += (champion.stats.mp * 0.01);
-			} else if (itemAdditions.aweItem.apiname == "seraphsembrace") {
-				champion.stats.ap += (champion.stats.mp * 0.03);
-			}
-		}
-		champion.stats.cdr -= champion.stats.cdr > 40 ? (champion.stats.cdr - 40) : 0;
-		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
-	}
+
 	adjustAttackSpeed(champion: Champion, currentLevel: number, totalStatsFromItems: any, totalStatsFromRunes: any) {
 		// we can go backwards in the formula to add any additional attackspeed gained from items and runes
 		// the calulation is dependant on the stats growth formula which is calculated on adjustBaseStats function

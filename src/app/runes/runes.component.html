@@ -15,7 +15,7 @@
 			<div class="flex-center">
 				<div class="path-runes">
 					<div class="rune-path">
-						<img class="option large-rune" *ngFor="let runePath of runes; index as i" [ngClass]="activeClass(runePath, 'primary')" [src]="runePath.img" [alt]="runePath.img" (click)="choosePrimaryPath(runePath, runes)" />
+						<img class="option large-rune" *ngFor="let runePath of runes; index as i" [ngClass]="activeClass(runePath, 'primary')" [src]="runePath.img" [alt]="runePath.img" (click)="choosePrimaryPath(runePath)" />
 					</div>
 					<div *ngFor="let runePath of runes; index as i">
 						<div [hidden]="selectedRunes.primaryTree.path != runePath.path_name">
@@ -27,17 +27,17 @@
 								</div>
 								<div class="primary-selection">
 									<ng-container *ngFor="let rune of runeType.slot1; index as i">
-										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot1,1)" [src]="rune.img">
+										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot1, 1)" [src]="rune.img">
 									</ng-container>
 								</div>
 								<div class="primary-selection">
 									<ng-container *ngFor="let rune of runeType.slot2; index as i">
-										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot2,2)" [src]="rune.img">
+										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot2, 2)" [src]="rune.img">
 									</ng-container>
 								</div>
 								<div class="primary-selection">
 									<ng-container *ngFor="let rune of runeType.slot3; index as i">
-										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot3,3)" [src]="rune.img">
+										<img class="option medium-rune" [ngClass]="activeClass(rune)" (click)="setPrimarySlots(rune, runeType.slot3, 3)" [src]="rune.img">
 									</ng-container>
 								</div>
 							</ng-container>
@@ -45,13 +45,16 @@
 					</div>
 				</div>
 			</div>
+			<div class="stack-runes">
+				<mat-checkbox (change)="setStackAllRunes($event.checked)">Stack All Rune Choices</mat-checkbox>
+			</div>
 		</div>
 		<div class="rune-tree">
 			<div class="flex-center">
 				<div class="path-runes secondary-tree">
 					<div class="rune-path">
 						<img class="option large-rune" [hidden]="runePath.active_primary" *ngFor="let runePath of runes; index as i" [ngClass]="activeClass(runePath, 'secondary')" [src]="runePath.img" [alt]="runePath.img"
-								 (click)="chooseSecondaryPath(runePath, runes)" />
+								 (click)="chooseSecondaryPath(runePath)" />
 					</div>
 					<div [hidden]="runePath.active_primary" *ngFor="let runePath of runes; index as i">
 						<div [hidden]="selectedRunes.secondaryTree.path != runePath.path_name">

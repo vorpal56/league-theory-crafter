@@ -159,7 +159,7 @@ export class ItemsService {
 			console.log(totalStatsFromItems, sharedItemCounts, champion.stats.tenacity);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
-				if (champion.resource.toUpperCase() != "MANA" && key.includes("mp")) {
+				if (champion.resource.toLowerCase() != "mana" && key.includes("mp")) {
 					totalStatsFromItems[key] = 0;
 				}
 			}
@@ -211,6 +211,9 @@ export class ItemsService {
 			}
 		}
 		// the order of applying total multipliers is significant -> comeback to this
+		// for example, do we apply the total multipliers before after or the same time as the overgrowth rune?
+		// the multipliers availble for items are ad ap and hp which is different than conditioning rune
+		// example item set is cinderhulk with overgrowth
 		if (hasTotalMultiplier) {
 			this.applyTotalMultipliers(champion, multKeyValues);
 		}

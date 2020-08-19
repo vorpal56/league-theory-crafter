@@ -8,13 +8,13 @@
 		<div id="item-selector-rune-selector">
 			<item-selector id="item-selector" [hidden]="selectedTab=='runes'" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
 										 (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes"></item-selector>
-			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="selectedTab=='item-selector'" [selectedPage]="selectedTab" [selectedChampion]="champion" [currentLevel]="currentLevel"
-						 [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"></runes>
+										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes"></item-selector>
+			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" (stackAllRunes)="setStackAllRunes($event)" [hidden]="selectedTab=='item-selector'" [selectedPage]="selectedTab" [selectedChampion]="champion"
+						 [currentLevel]="currentLevel" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"></runes>
 		</div>
 		<inventory id="inventory" [selectedChampion]="champion" [currentLevel]="currentLevel" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
 							 [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"
-							 [selectedRunes]="selectedRunes">
+							 [selectedRunes]="selectedRunes" [stackAllRunes]="stackAllRunes">
 		</inventory>
 		<div id="damage-calc">
 			<div class="component-header">

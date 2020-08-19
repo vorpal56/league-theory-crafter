@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	champion: Champion;
 	currentLevel: number;
 	selectedRunes: any;
+	stackAllRunes: boolean;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
 
-		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir, this.stackAllRunes);
 		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
 
 		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
@@ -64,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
 		this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
 
-		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
+		let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir, this.stackAllRunes);
 		this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
 
 		this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
@@ -98,6 +99,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	setSelectedRunes(selectedRunes: any) {
 		this.selectedRunes = selectedRunes;
+	}
+	setStackAllRunes(stackAllRunes: boolean) {
+		this.stackAllRunes = stackAllRunes;
 	}
 	setPage(selectedTabName: string) {
 		this.selectedTab = selectedTabName;

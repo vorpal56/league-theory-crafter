@@ -5,6 +5,7 @@
 *.zip
 *_test.ts
 *_test2.ts
+*_runes.ts
 ability-leveler/
 *.psd
 example_layout.png

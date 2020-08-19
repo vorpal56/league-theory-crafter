@@ -3,9 +3,7 @@ import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
 import { GAMEMODES, ORDERBY, ORDERMODES } from ".././data";
 import { ITEMS, EMPTY_ITEM } from ".././items";
-import { ItemsService } from '../services/items.service';
-import { StatsService } from '../services/stats.service';
-import { RunesService } from '../services/runes.service';
+import { ChampionService } from '../services/champion.service';
 
 @Component({
 	selector: 'item-selector',
@@ -14,7 +12,7 @@ import { RunesService } from '../services/runes.service';
 })
 export class ItemSelectorComponent implements OnInit {
 
-	constructor(private itemsService: ItemsService, private statsService: StatsService, private runesService: RunesService) { }
+	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
 		// this.addItem(ITEMS[83]);
@@ -34,6 +32,7 @@ export class ItemSelectorComponent implements OnInit {
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
+	@Input("stackAllRunes") stackAllRunes: boolean;
 	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 	@Input("selectedPage") selectedPage: string;
@@ -93,14 +92,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.currentLevel >= 9) {
 			this.selectedElixir = selectedElixir;
 			this.emitSelectedItems();
-			this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-			let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-			this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
-
-			let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
-			this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
-
-			this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 		} else {
 			alert("need to be lvl 9 or more");
 		}
@@ -149,14 +141,7 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			this.numberOfEquippedItems += 1;
 			this.emitSelectedItems();
-			this.statsService.adjustBaseStats(this.champion, this.currentLevel);
-			let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
-			this.itemsService.addItemStats(this.champion, totalStatsFromItems, multKeyValues, adaptiveType);
-
-			let totalStatsFromRunes = this.runesService.calculateRuneStats(this.selectedRunes, this.champion, this.currentLevel, totalStatsFromItems, adaptiveType, this.selectedElixir);
-			this.runesService.addRuneStats(this.champion, totalStatsFromRunes);
-
-			this.statsService.adjustAttackSpeed(this.champion, this.currentLevel, totalStatsFromItems, totalStatsFromRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 			// this.statsService.postCalculations(this.champion, this.currentLevel, itemAdditions);
 		}
 		return;
