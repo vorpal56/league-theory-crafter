@@ -37,19 +37,19 @@ export class InventoryComponent implements OnInit {
 		// this.selectedItems[5] = ITEMS[70];
 		this.emitSelectedItems();
 	}
-
-	selectedSlotIsStackable(itemDetails: Item): boolean {
-		return itemDetails.stackable;
-	}
 	/**
 	 * Method that clears all the selected items including potions (sets them to EMPTY_ITEM)
 	 * adjusts base and item stats afterwards
 	 * @returns void
 	 */
 	clearSelectedItems(): void {
-		this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
-		this.selectedElixir = EMPTY_ITEM;
-
+		if (this.numberOfEquippedItems != 0 || this.selectedElixir != EMPTY_ITEM) {
+			this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
+			this.selectedElixir = EMPTY_ITEM;
+			this.numberOfEquippedItems = 0;
+			this.emitSelectedItems();
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		}
 		return;
 	}
 	/**
@@ -60,20 +60,15 @@ export class InventoryComponent implements OnInit {
 	selectedSlotIsFree(itemDetails: Item): boolean {
 		return itemDetails == EMPTY_ITEM ? true : false;
 	}
-	/**
-	 * Method to check if the selected slot is free and apply certain returned class
-	 * @param  {Item} itemDetails item to test validity
-	 * @returns string
-	 */
-	selectedSlotIsFreeClass(itemDetails: Item): string {
-		return itemDetails == EMPTY_ITEM ? "empty-slot-padding" : "";
-	}
 	removeElixir() {
-		this.selectedElixir = EMPTY_ITEM;
-		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		if (this.selectedElixir != EMPTY_ITEM) {
+			this.selectedElixir = EMPTY_ITEM;
+			this.emitSelectedItems();
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		}
 	}
 	removeItem(itemDetails: Item, index?: number): void {
+		// we check if there exists an item directly on the template
 		if (itemDetails.shared_item.name == "hexcore") {
 			this.selectedItemRestrictions.hasHexcore = false;
 		}

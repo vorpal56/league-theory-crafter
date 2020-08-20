@@ -206,7 +206,7 @@ export class ItemsService {
 		for (let key in totalStatsFromItems) {
 			if (key == "boots_ms" || key == "flat_ms") {
 				flatMoveSpeedBonuses += totalStatsFromItems[key];
-				// champion.stats.ms += totalStatsFromItems[key];
+				champion.stats.ms += totalStatsFromItems[key];
 			} else if (key == "ms%") {
 				// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
 				champion.stats.ms += champion.stats.ms * (totalStatsFromItems[key] / 100);

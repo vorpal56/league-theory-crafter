@@ -2,6 +2,27 @@ div.item-block {
 	width:56px;
 	height:56px;
 	margin:2px;
+	background-color: var(--background-alt-3);
+	border:1px solid rgb(255,250, 250);
+}
+.center-flex {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+mat-icon.remove-item {
+	opacity: 0;
+	transition: ease 0.3s;
+	position: absolute;
+	width: 54px;
+	height: 54px;
+	font-size: 32px;
+	color: white;
+	background-color: rgba(5,5,5,0.7);
+}
+mat-icon.remove-item:hover {
+	opacity: 1;
+	transition: ease 0.3s;
 }
 img {
 	width:54px;
@@ -19,14 +40,14 @@ ul.item-grid {
 	padding:15px 0px;
 	grid-template-columns: 3fr 1fr;
 	grid-template-rows: repeat(2,1fr);
-	grid-template-areas: 
+	grid-template-areas:
 	"selected-items elixir"
 	"selected-items clear-selected-items";
 }
 #selected-items {
 	grid-area: selected-items;
 	margin:auto;
-    text-align: center;
+	text-align: center;
 }
 #elixir {
 	grid-area:elixir;
@@ -51,7 +72,7 @@ ul.item-grid {
 	display:grid;
 	grid-template-columns: repeat(3,1fr);
 	grid-template-rows: repeat(2,1fr);
-	grid-template-areas: 
+	grid-template-areas:
 	"slot1 slot2 slot3"
 	"slot4 slot5 slot6";
 

@@ -44,8 +44,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 	setChampion(selectedChampion: Champion) {
 		this.champion = selectedChampion;
 		if (this.inventoryComponent) {
-			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
 			this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
+			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
 		}
 		return;
 	}
