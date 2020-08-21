@@ -20,8 +20,8 @@ div.overflow {
 }
 .component-body {
 	height: -moz-calc(100% - var(--component-header-height));
-    height: -webkit-calc(100% - var(--component-header-height));
-    height: calc(100% - var(--component-header-height));
+	height: -webkit-calc(100% - var(--component-header-height));
+	height: calc(100% - var(--component-header-height));
 }
 .item-selector-grid {
 	padding: 5px 5px 0px 5px;
@@ -33,11 +33,11 @@ div.overflow {
 }
 @media only screen and (max-width: 767px) {
 	.item-selector-grid {
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows:  repeat(2, 1fr);
-	grid-template-areas:
-	"orderby-name orderby-mode"
-	"search-filter gamemode-filter"
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows:  repeat(2, 1fr);
+		grid-template-areas:
+		"orderby-name orderby-mode"
+		"gamemode-filter search-filter"
 	}
 }
 .item-selector-filter {
@@ -55,7 +55,6 @@ div.overflow {
 #item-grid-search-filter {
 	grid-area: search-filter;
 }
-
 .flex-wrapper {
 	display:flex;
 	flex-direction: column;

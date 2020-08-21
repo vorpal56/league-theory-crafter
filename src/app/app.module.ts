@@ -14,10 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RunesComponent } from './runes/runes.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { EpicMonstersComponent } from './epic-monsters/epic-monsters.component';
 
 
 @NgModule({
-	declarations: [AppComponent, ChampionComponent, ItemSelectorComponent, ItemFilterPipe, RunesComponent, InventoryComponent],
+	declarations: [AppComponent, ChampionComponent, ItemSelectorComponent, ItemFilterPipe, RunesComponent, InventoryComponent, EpicMonstersComponent],
 	imports: [BrowserModule, NgSelectModule, FormsModule, BrowserAnimationsModule, MatInputModule, MatIconModule, MatButtonModule, MatCheckboxModule],
 	providers: [],
 	bootstrap: [AppComponent],

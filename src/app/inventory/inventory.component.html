@@ -8,7 +8,7 @@
 				<ng-container *ngFor="let selectedItem of selectedItems; index as i">
 					<div class="item-block">
 						<ng-container *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot">
-							<mat-icon class="remove-item center-flex" aria-hidden="false" aria-label="Remove Item" (click)="removeItem(selectedItem, i)">clear</mat-icon>
+							<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Remove Item" (click)="removeItem(selectedItem, i)">clear</mat-icon>
 							<img [src]="selectedItem.img" draggable="false" />
 						</ng-container>
 						<ng-template #emptySlot>Item Slot {{i + 1}}</ng-template>
@@ -18,8 +18,8 @@
 		</div>
 		<div id="elixir">
 			<div class="item-block">
-				<ng-container *ngIf="!selectedSlotIsFree(selectedElixir) else emptyElixir">
-					<mat-icon class="remove-item center-flex" aria-hidden="false" aria-label="Remove Item" (click)="removeElixir()">clear</mat-icon>
+				<ng-container *ngIf="!selectedSlotIsFree(selectedElixir, 1) else emptyElixir">
+					<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Remove Item" (click)="removeElixir()">clear</mat-icon>
 					<img [src]="selectedElixir.img" draggable="false" />
 				</ng-container>
 				<ng-template #emptyElixir>Elixir Slot</ng-template>
@@ -27,7 +27,7 @@
 		</div>
 		<div id="clear-selected-items">
 			<div class="item-block">
-				<mat-icon class="remove-item center-flex" aria-hidden="false" aria-label="Clear Items" (click)="clearSelectedItems()">clear</mat-icon>
+				<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Clear Items" (click)="clearSelectedItems()">clear</mat-icon>
 				Clear Items
 			</div>
 		</div>

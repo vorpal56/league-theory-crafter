@@ -20,28 +20,28 @@
 		<div id="champion-img" *ngIf="champion.img!= ''">
 			<img class="champion-portrait" [src]="champion.img" alt="" />
 		</div>
-		<div id="champion-abilities" class="center-margin" style="margin-right:15px">
-			<div id="passive" class="center-flex">
+		<div id="champion-abilities" class="center-margin">
+			<div id="passive" class="flex-center">
 				<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]">
 			</div>
-			<div id="q" class="center-flex">
+			<div id="q" class="flex-center">
 				<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]">
 			</div>
-			<div id="w" class="center-flex">
+			<div id="w" class="flex-center">
 				<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]">
 			</div>
-			<div id="e" class="center-flex">
+			<div id="e" class="flex-center">
 				<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]">
 			</div>
-			<div id="r" class="center-flex">
+			<div id="r" class="flex-center">
 				<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]">
 			</div>
 			<div id="hp-mp" class="center-margin">
-				<div class="center-flex hp">
-					{{champion.stats.hp | number: '1.0-2'}} / {{champion.stats.hp_lvl | number: '1.0-2'}} / {{champion.stats.hp5 | number: '1.0-2'}}
+				<div class="flex-center hp">
+					{{champion.stats.hp | number: '1.0-2'}} | {{champion.stats.hp_lvl | number: '1.0-2'}} hp/lvl | {{champion.stats.hp5 | number: '1.0-2'}} hp5
 				</div>
-				<div class="center-flex mp">
-					{{champion.stats.mp | number: '1.0-2'}} / {{champion.stats.mp_lvl | number: '1.0-2'}} / {{champion.stats.mp5 | number: '1.0-2'}}
+				<div class="flex-center mp">
+					{{champion.stats.mp | number: '1.0-2'}} | {{champion.stats.mp_lvl | number: '1.0-2'}} mp/lvl | {{champion.stats.mp5 | number: '1.0-2'}} mp5
 				</div>
 			</div>
 		</div>

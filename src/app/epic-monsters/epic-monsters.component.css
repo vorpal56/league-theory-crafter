@@ -1,0 +1,17 @@
+.epic-monsters-container {
+	display:flex;
+	justify-content: space-around;
+	margin:10px 0px;
+}
+.dragons-container, .neutral-camps-container {
+	display:flex;
+	flex-direction:column;
+}
+.dragons-row {
+	display:flex;
+	justify-content: space-evenly;
+}
+img.medium-option{
+	width:48px;
+	height:48px;
+}

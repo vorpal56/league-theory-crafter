@@ -14,7 +14,7 @@
 	/* --component-header-height : 70px;  */
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
 }
-/* Body changes */
+/* --------------------------Body changes-------------------------- */
 html, body {
 	height: 100%;
 	/* background-color: var(--background-main); */
@@ -32,8 +32,8 @@ img {
 	-ms-user-select: none;
 	/* user-drag: none;  */
 }
-
-/* Material Changes */
+/* --------------------------End Body changes-------------------------- */
+/* --------------------------Material Changes-------------------------- */
 mat-label, input, .mat-checkbox-label {
 	font-family: 'Oxygen', sans-serif !important;
 }
@@ -47,37 +47,38 @@ mat-form-field {
 button:focus, :focus {
 	outline:none;
 }
-
-/* Grid layouts and configs/Component configs */
-.component-header {
-	display: flex;
-	justify-content: space-between;
+/* --------------------------End Material Changes-------------------------- */
+/* --------------------------Global Component Definitions-------------------------- */
+li.item {
+	display:inline-block
+}
+.bg-black {
+	background-color:#000;
+}
+div.item-block {
+	display:inline-block;
+	vertical-align: middle;
+	text-align:center;
+	color:white;
+	border:1px solid var(--background);
+	user-select: none;
+	transition: border-color 0.3s ease;
+}
+div.item-block:hover {
+	border-color: rgb(255, 255, 250);
+	transition: border-color 0.3s ease;
+}
+.flex-center {
+	display:flex !important;
+	justify-content: center;
 	align-items: center;
-	flex: 0 0 48px;
-	height: 48px;
-	margin-bottom: 6px;
-	padding: 0 10px;
-	background-color: var(--background-alt);
-	width:100%;
 }
-.component-header-grid {
-	display:grid;
-	height: 48px;
-		margin-bottom: 6px;
-	grid-template-columns: auto 48px 48px;
-	grid-template-rows: 1fr;
-	grid-template-areas:
-	"component-title rune-tab inventory-tab";
-	grid-gap:10px;
-	/* You can switch the order of the tab switcher in the grid template area and columns */
+.selector-container {
+	padding:0px 5px
 }
-span.component-title#component-title {
-	grid-area: component-title;
-	background-color: var(--background-alt);
-}
-.rune-tab {
-	grid-area: rune-tab;
-	background-color: var(--background);
+.champion-portrait {
+	width:108px;
+	height:108px;
 }
 .inactive-tab {
 	height:48px;
@@ -94,23 +95,39 @@ img.tab-icon {
 	width:48px;
 	height:48px;
 }
-
 .invisible-item {
 	transition: ease 0.1s;
 	opacity :0.27
 }
-
 .visible-item {
 	transition: ease 0.1s;
 	opacity: 1
 }
-
-.inventory-tab {
-	grid-area: inventory-tab;
-	background-color: var(--background);
-	/* background-color: var(--background-alt); */
-
-	/* You can comment the height out to connect the tab switcher img to the component-body */
+.component-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 0 0 48px;
+	height: 48px;
+	margin-bottom: 6px;
+	padding: 0 10px;
+	background-color: var(--background-alt);
+	width:100%;
+}
+.component-header-grid {
+	display:grid;
+	height: 48px;
+		margin-bottom: 6px;
+	grid-template-columns: auto 48px 48px 48px;
+	grid-template-rows: 1fr;
+	grid-template-areas:
+	"component-title epic-monsters-tab rune-tab item-selector-tab";
+	grid-gap:10px;
+	/* You can switch the order of the tab switcher in the grid template area and columns */
+}
+span.component-title#component-title {
+	grid-area: component-title;
+	background-color: var(--background-alt);
 }
 .component-body {
 	width:100%;
@@ -119,32 +136,49 @@ img.tab-icon {
 	flex-direction: column;
 	/* height:100%; */
 }
-.selector-container {
-	padding:0px 5px
-}
+/* --------------------------End Global Component Definitions-------------------------- */
+/* --------------------------Grid Container Definitions-------------------------- */
 .container-grid-league {
 	display: grid;
 	height: 100vh;
-	grid-template-columns: 2fr 0.7fr;
+	grid-template-columns: 2fr 1fr;
 	grid-template-rows: 0.2fr 0.3fr 0.5fr 2fr;
 	grid-template-areas:
 	"navbar navbar"
 	"champion champion"
-	"item-selector-rune-selector inventory"
-	"item-selector-rune-selector damage-calc";
+	"item-rune-epic-selector inventory"
+	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
 	background-color: var(--background-main);
 	padding: 15px 0px;
 }
-
+@media only screen and (max-width: 767px) {
+	.container-grid-league {
+	grid-template-columns: auto;
+	grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
+	grid-template-areas:
+	"navbar"
+	"champion"
+	"inventory"
+	"item-rune-epic-selector"
+	"damage-calc"
+	}
+	.champion-portrait {
+		width:120px;
+		height:120px;
+	}
+	:root {
+		--champion-img-height: 130px;
+	}
+}
 #champion {
 	grid-area: champion;
 }
 #navbar {
 	grid-area: navbar;
 }
-#item-selector-rune-selector {
-	grid-area: item-selector-rune-selector;
+#item-rune-epic-selector {
+	grid-area: item-rune-epic-selector;
 }
 #inventory {
 	grid-area: inventory;
@@ -158,59 +192,28 @@ img.tab-icon {
 #damage-calc {
 	grid-area: damage-calc;
 }
-.champion-portrait {
-	width:108px;
-	height:108px;
+.epic-monsters-tab {
+	grid-area: epic-monsters-tab;
+	background-color: var(--background);
 }
-@media only screen and (max-width: 767px) {
-	.container-grid-league {
-	grid-template-columns: auto;
-	grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
-	grid-template-areas:
-	"navbar"
-	"champion"
-	"inventory"
-	"item-selector-rune-selector"
-	"damage-calc"
-	}
-	.champion-portrait {
-		width:120px;
-		height:120px;
-	}
-	:root {
-		--champion-img-height: 130px;
-	}
+.rune-tab {
+	grid-area: rune-tab;
+	background-color: var(--background);
 }
-
-/* Inventory and Item Selector Components */
-li.item {
-	display:inline-block
+.item-selector-tab {
+	grid-area: item-selector-tab;
+	background-color: var(--background);
+	/* background-color: var(--background-alt); */
+	/* You can comment the height out to connect the tab switcher img to the component-body */
 }
-.bg-black {
-	background-color:#000;
-}
-div.item-block {
-	display:inline-block;
-	vertical-align: middle;
-	text-align:center;
-	color:white;
-	border:1px solid var(--background);
-	user-select: none;
-	transition: border-color 0.3s ease;
-}
-
-div.item-block:hover {
-	border-color: rgb(255, 255, 250);
-	transition: border-color 0.3s ease;
-}
-
+/* --------------------------End Grid Container Definitions-------------------------- */
+/* --------------------------Tooltips-------------------------- */
 .tooltip {
 	display:inline-block;
 	position:relative;
 	border-bottom:1px dotted #666;
 	text-align:left;
 }
-
 .tooltip .top {
 	max-width:200px;
 	top:-20px;
@@ -228,11 +231,9 @@ div.item-block:hover {
 	box-shadow:0 1px 8px rgba(0,0,0,0.5);
 	visibility:hidden; opacity:0; transition:opacity 0.8s;
 }
-
 .tooltip:hover .top {
 	visibility:visible; opacity:1;
 }
-
 .tooltip .top i {
 	position:absolute;
 	top:100%;
@@ -242,7 +243,6 @@ div.item-block:hover {
 	height:12px;
 	overflow:hidden;
 }
-
 .tooltip .top i::after {
 	content:'';
 	position:absolute;
@@ -253,18 +253,15 @@ div.item-block:hover {
 	background-color:#EEEEEE;
 	box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
-
-/* width */
+/* --------------------------End Tooltips-------------------------- */
+/* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {
 	width: 10px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 5px grey;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
 	background: grey;
 }
+/* --------------------------Scrollbar-------------------------- */

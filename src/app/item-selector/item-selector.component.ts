@@ -194,7 +194,9 @@ export class ItemSelectorComponent implements OnInit {
 	switchToRunesPage() {
 		this.selectedPageEmitter.emit("runes");
 	}
-
+	switchToEpicMonsterPage() {
+		this.selectedPageEmitter.emit("epic-monsters");
+	}
 	isVisible(itemDetails: Item) {
 		return itemDetails.visible ? 'visible-item' : 'invisible-item';
 	}

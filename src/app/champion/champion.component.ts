@@ -25,7 +25,7 @@ export class ChampionComponent implements OnInit {
 	@Output('selectedTime') currentTimeEventEmitter = new EventEmitter<number>();
 
 	champion: Champion = this.champions[8];
-	currentLevel: number = this.levels[4].levelValue;
+	currentLevel: number = this.levels[9].levelValue;
 	currentTime: number = this.times[0].timeValue;
 
 	constructor(private championService: ChampionService) { }

@@ -128,7 +128,7 @@ export class ItemsService {
 						} else if (itemStatName == "shared_item" && itemStatVal != null) {
 							// do something
 						} else if (itemStatName == "stackable") {
-							// check if its a stackable item
+							// check if its a stackable item -> need to relook at this very confusing
 							if (selectedItem.stackable != false && selectedItem.stacked == true) {
 								let passNames = selectedItem.shared_item.name.split(",");
 								let counts = 0;

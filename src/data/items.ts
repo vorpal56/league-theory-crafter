@@ -5825,12 +5825,16 @@ export const ITEMS = [{
 	'name': "Seeker's Armguard",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "seekers"
 	},
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': {
+		'name': "Seeker's Armguard",
+		'arm': 15,
+		'ap': 15,
+	},
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,

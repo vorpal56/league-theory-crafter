@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	selectedItemRestrictions: ItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
 	numberOfEquippedItems: number = 0;
 
-	// rune/item-selector definition to show which page first
+	// rune/item-selector/epic-monsters buff definition to show which page first
 	selectedTab: string = "runes";
 
 	// champion and current level definition from the champion component
@@ -40,6 +40,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	ngOnInit() {
 		// this.statsService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+	}
+	hideTabsFor(tabName: string): boolean {
+		if (tabName == "item-selector") { return this.selectedTab == 'runes' || this.selectedTab == 'epic-monsters'; }
+		else if (tabName == "runes") { return this.selectedTab == 'item-selector' || this.selectedTab == 'epic-monsters'; }
+		else if (tabName == "epic-monsters") { return this.selectedTab == 'runes' || this.selectedTab == 'item-selector'; }
 	}
 	setChampion(selectedChampion: Champion) {
 		this.champion = selectedChampion;

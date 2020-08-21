@@ -57,7 +57,8 @@ export class InventoryComponent implements OnInit {
 	 * @param  {Item} itemDetails item to test validity
 	 * @returns boolean
 	 */
-	selectedSlotIsFree(itemDetails: Item): boolean {
+	selectedSlotIsFree(itemDetails: Item, a?: number): boolean {
+		if (a) { console.log(itemDetails, itemDetails == EMPTY_ITEM); }
 		return itemDetails == EMPTY_ITEM ? true : false;
 	}
 	removeElixir() {

@@ -26,6 +26,7 @@ export class RunesService {
 						let runeApiname = rune.apiname;
 						if (runeApiname == "presenceofmind") {
 							let presenceOfMindTotal = this.presenceOfMindRune(rune, champion.resource.toLowerCase(), stackAllRunes);
+							console.log(presenceOfMindTotal);
 							totalStatsFromRunes["mp"] ? totalStatsFromRunes["mp"] += presenceOfMindTotal : totalStatsFromRunes["mp"] = presenceOfMindTotal;
 						} else if (runeApiname == "legendalacrity") {
 							let statKey = "as";
@@ -55,7 +56,9 @@ export class RunesService {
 								}
 							}
 						} else if (runeApiname == "manaflowband") {
-							totalStatsFromRunes[adaptiveType] = stackAllRunes ? rune.stackable[adaptiveType] : 0;
+							if (stackAllRunes) {
+								totalStatsFromRunes["mp"] ? totalStatsFromRunes["mp"] += rune.stackable["mp"] : totalStatsFromRunes["mp"] = rune.stackable["mp"];
+							}
 						} else if (runeApiname == "absolutefocus") {
 							let bonusAdaptive = rune.stats[adaptiveType] + (rune.stats[adaptiveType + "_lvl"] * (currentLevel - 1));
 							totalStatsFromRunes[adaptiveType] ? totalStatsFromRunes[adaptiveType] += bonusAdaptive : totalStatsFromRunes[adaptiveType] = bonusAdaptive;

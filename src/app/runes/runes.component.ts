@@ -30,7 +30,6 @@ export class RunesComponent implements OnInit {
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input('selectedPage') selectedPage: string;
 
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 	@Output('selectedRunes') selectedRunesEmitter = new EventEmitter<any>();
@@ -53,6 +52,9 @@ export class RunesComponent implements OnInit {
 	}
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
+	}
+	switchToEpicMonsterPage() {
+		this.selectedPageEmitter.emit("epic-monsters");
 	}
 	setKeystone(rune: Rune, keystones: any) {
 		keystones.forEach((keystone: Rune) => {
