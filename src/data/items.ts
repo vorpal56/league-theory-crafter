@@ -334,7 +334,6 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
-		"name": "Archangel's Staff",
 		"mp": 749,
 	},
 	'stacked': false,
@@ -3413,7 +3412,9 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': {
+		'hp': 100,
+	},
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3996,7 +3997,6 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
-		"name": "Manamune",
 		"mp": 749,
 	},
 	'stacked': false,
@@ -4095,7 +4095,6 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
-		'name': "Mejai's Soulstealer",
 		'ap': 125,
 		'ms%': 10,
 	},
@@ -5542,7 +5541,11 @@ export const ITEMS = [{
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': {
+		'hp': 200,
+		'mp': 100,
+		'ap': 40,
+	},
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5831,7 +5834,6 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
-		'name': "Seeker's Armguard",
 		'arm': 15,
 		'ap': 15,
 	},
@@ -6749,7 +6751,6 @@ export const ITEMS = [{
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
 	'stackable': {
-		'name': 'Tear of the Goddess',
 		'mp': 750,
 	},
 	'stacked': false,

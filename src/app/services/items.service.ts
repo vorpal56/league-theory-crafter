@@ -130,14 +130,19 @@ export class ItemsService {
 						} else if (itemStatName == "stackable") {
 							// check if its a stackable item -> need to relook at this very confusing
 							if (selectedItem.stackable != false && selectedItem.stacked == true) {
-								let passNames = selectedItem.shared_item.name.split(",");
 								let counts = 0;
-								passNames.forEach((passName: string) => {
-									if (sharedItemCounts[passName] <= 1) {
-										counts += 1;
-									}
-								});
-								if (counts <= passNames.length) {
+								// firstly why are stackable items and shared items related?
+								if (selectedItem.shared_item.name) {
+									let passNames = selectedItem.shared_item.name.split(",");
+									passNames.forEach((passName: string) => {
+										if (sharedItemCounts[passName] <= 1) {
+											counts += 1;
+										}
+									});
+								}
+								// if there is an item that is stackable and is about to be stacked, only stack one of them unless its ROA
+								// the stack option only applies to the first one and not the other ones. reason is because the sharedItemCounts +=1 on iterative look at the inventory so the first one found is allowed. if there are 6 of them, the first checkbox is allowed to be stacked
+								if (selectedItem.apiname == 'rodofages' || counts != 0) {
 									// add the stackable stats. this is is the incremental value since we have the toggle option which switches from adding and decrementing.
 									for (let stackedItemStatKey in selectedItem.stackable) {
 										if (stackedItemStatKey != "name") {

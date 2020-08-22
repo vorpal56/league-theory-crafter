@@ -16,11 +16,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 	// item definition from the item-selector component to the inventory component
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
+	// we can limit the items by adding it here
 	selectedItemRestrictions: ItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
 	numberOfEquippedItems: number = 0;
 
-	// rune/item-selector/epic-monsters buff definition to show which page first
-	selectedTab: string = "runes";
+	// runes/item-selector/epic-monsters buff definition to show which page first
+	selectedTab: string = "item-selector";
 
 	// champion and current level definition from the champion component
 	champion: Champion;

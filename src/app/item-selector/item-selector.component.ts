@@ -124,7 +124,8 @@ export class ItemSelectorComponent implements OnInit {
 			// go through the items and change the first empty item to the selected item -> break afterwards
 			for (let itemIndex in this.selectedItems) {
 				if (this.selectedItems[itemIndex] == EMPTY_ITEM) {
-					this.selectedItems[itemIndex] = itemDetails;
+					// deep copy the object so it doesn't reference the same object. This is important because some objects allow multiple stacking (eg. rod of ages)
+					this.selectedItems[itemIndex] = JSON.parse(JSON.stringify(itemDetails));
 					// check if the item we're adding is an ornn item and there's an open space -> break after finding
 					if (itemDetails.apiname.includes("masterwork")) {
 						for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
