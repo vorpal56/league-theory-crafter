@@ -96,11 +96,11 @@ img.tab-icon {
 	height:48px;
 }
 .invisible-item {
-	transition: ease 0.1s;
+	transition: ease 0.15s;
 	opacity :0.27
 }
 .visible-item {
-	transition: ease 0.1s;
+	transition: ease 0.15s;
 	opacity: 1
 }
 .component-header {

@@ -1,10 +1,7 @@
-let None = null;
-let True = true;
-let False = false;
 export const EMPTY_ITEM = {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -22,6 +19,7 @@ export const EMPTY_ITEM = {
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': '',
 	'index': 0,
@@ -31,6 +29,7 @@ export const EMPTY_ITEM = {
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -38,12 +37,15 @@ export const EMPTY_ITEM = {
 	'name': 'Empty',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -52,7 +54,7 @@ export const EMPTY_ITEM = {
 export const ITEMS = [{
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -70,6 +72,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 350,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Abyssal Mask.png',
 	'index': 0,
@@ -79,6 +82,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 55,
@@ -89,10 +93,13 @@ export const ITEMS = [{
 		'name': 'aura',
 		'ap_mult': { 'type': 'total', 'value': 0 },
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -101,7 +108,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -118,7 +125,8 @@ export const ITEMS = [{
 	'gold': 2800,
 	'heal_shield': 0,
 	'hp': 350,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Adaptive Helm.png',
 	'index': 1,
@@ -128,6 +136,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 55,
@@ -135,12 +144,15 @@ export const ITEMS = [{
 	'name': 'Adaptive Helm',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -149,7 +161,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -167,6 +179,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Aegis of the Legion.png',
 	'index': 2,
@@ -176,6 +189,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -183,12 +197,15 @@ export const ITEMS = [{
 	'name': 'Aegis of the Legion',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -197,7 +214,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 30,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -215,6 +232,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Aether Wisp.png',
 	'index': 3,
@@ -224,6 +242,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -231,12 +250,15 @@ export const ITEMS = [{
 	'name': 'Aether Wisp',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'aetherwisp'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -245,7 +267,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -263,6 +285,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Amplifying Tome.png',
 	'index': 4,
@@ -272,6 +295,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -279,12 +303,15 @@ export const ITEMS = [{
 	'name': 'Amplifying Tome',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -293,7 +320,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -311,6 +338,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Archangel's Staff.png",
 	'index': 5,
@@ -320,6 +348,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 650,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -328,8 +357,11 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": "awe,haste",
-		"cdr": True
+		"cdr": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -344,7 +376,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -362,6 +394,7 @@ export const ITEMS = [{
 	'heal_shield': 10,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ardent Censer.png',
 	'index': 6,
@@ -370,7 +403,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 50,
+	'mp5': 0,
+	'mp5%': 50,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -378,12 +412,17 @@ export const ITEMS = [{
 	'name': 'Ardent Censer',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'forbiddenidol,aetherwisp',
+		'heal_shield': true,
+		'ms%': true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -392,7 +431,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 30,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -410,6 +449,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Athene's Unholy Grail.png",
 	'index': 7,
@@ -418,7 +458,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 100,
+	'mp5': 0,
+	'mp5%': 100,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -428,10 +469,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'dissonance'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -440,7 +484,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -458,6 +502,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/BF Sword.png',
 	'index': 8,
@@ -467,6 +512,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -474,12 +520,15 @@ export const ITEMS = [{
 	'name': 'BF Sword',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -488,7 +537,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -506,6 +555,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Bami's Cinder.png",
 	'index': 9,
@@ -515,6 +565,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -522,12 +573,15 @@ export const ITEMS = [{
 	'name': "Bami's Cinder",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -536,7 +590,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -554,6 +608,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Banshee's Veil.png",
 	'index': 10,
@@ -563,6 +618,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 60,
@@ -570,12 +626,15 @@ export const ITEMS = [{
 	'name': "Banshee's Veil",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -584,7 +643,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -602,6 +661,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Berserker's Greaves.png",
 	'index': 11,
@@ -611,6 +671,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -618,12 +679,15 @@ export const ITEMS = [{
 	'name': "Berserker's Greaves",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -632,7 +696,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -650,6 +714,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bilgewater Cutlass.png',
 	'index': 12,
@@ -659,6 +724,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -666,12 +732,15 @@ export const ITEMS = [{
 	'name': 'Bilgewater Cutlass',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -680,7 +749,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -698,6 +767,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Blasting Wand.png',
 	'index': 13,
@@ -707,6 +777,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -714,12 +785,15 @@ export const ITEMS = [{
 	'name': 'Blasting Wand',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -728,7 +802,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -746,6 +820,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 100,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Black Mist Scythe.png',
 	'index': 14,
@@ -754,7 +829,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 100,
+	'mp5': 0,
+	'mp5%': 100,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -764,10 +840,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -776,7 +855,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -794,6 +873,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Blade of the Ruined King.png',
 	'index': 15,
@@ -803,6 +883,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -810,12 +891,15 @@ export const ITEMS = [{
 	'name': 'Blade of the Ruined King',
 	'phys_on_hit': 15,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -824,7 +908,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -842,6 +926,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Mobility.png',
 	'index': 16,
@@ -851,6 +936,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -858,12 +944,15 @@ export const ITEMS = [{
 	'name': 'Boots of Mobility',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -872,7 +961,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -890,6 +979,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Speed.png',
 	'index': 17,
@@ -899,6 +989,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -906,12 +997,15 @@ export const ITEMS = [{
 	'name': 'Boots of Speed',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -920,7 +1014,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -938,6 +1032,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Boots of Swiftness.png',
 	'index': 18,
@@ -947,6 +1042,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -954,12 +1050,15 @@ export const ITEMS = [{
 	'name': 'Boots of Swiftness',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -968,7 +1067,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -986,6 +1085,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bramble Vest.png',
 	'index': 19,
@@ -995,6 +1095,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1002,12 +1103,15 @@ export const ITEMS = [{
 	'name': 'Bramble Vest',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'thorns'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1016,7 +1120,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 25,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1033,7 +1137,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 300,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bulwark of the Mountain.png',
 	'index': 20,
@@ -1043,6 +1148,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1052,10 +1158,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -1064,7 +1173,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1082,6 +1191,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 400,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Black Cleaver.png',
 	'index': 21,
@@ -1091,6 +1201,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1098,12 +1209,15 @@ export const ITEMS = [{
 	'name': 'Black Cleaver',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1112,7 +1226,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1130,6 +1244,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Bloodthirster.png',
 	'index': 22,
@@ -1139,6 +1254,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1146,12 +1262,15 @@ export const ITEMS = [{
 	'name': 'Bloodthirster',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 50,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1160,7 +1279,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1178,6 +1297,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 225,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Catalyst of Aeons.png',
 	'index': 23,
@@ -1187,6 +1307,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1194,12 +1315,15 @@ export const ITEMS = [{
 	'name': 'Catalyst of Aeons',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1208,7 +1332,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1226,6 +1350,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Caulfield's Warhammer.png",
 	'index': 24,
@@ -1235,6 +1360,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1242,12 +1368,15 @@ export const ITEMS = [{
 	'name': "Caulfield's Warhammer",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1256,7 +1385,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1274,6 +1403,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Chain Vest.png',
 	'index': 25,
@@ -1283,6 +1413,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1290,12 +1421,15 @@ export const ITEMS = [{
 	'name': 'Chain Vest',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1304,7 +1438,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1322,6 +1456,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Chalice of Harmony.png',
 	'index': 26,
@@ -1330,7 +1465,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 50,
+	'mp5': 0,
+	'mp5%': 50,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -1340,10 +1476,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'harmony'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1352,7 +1491,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1370,6 +1509,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cloak of Agility.png',
 	'index': 27,
@@ -1379,6 +1519,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1386,12 +1527,15 @@ export const ITEMS = [{
 	'name': 'Cloak of Agility',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1400,7 +1544,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1418,6 +1562,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cloth Armor.png',
 	'index': 28,
@@ -1427,6 +1572,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1434,12 +1580,15 @@ export const ITEMS = [{
 	'name': 'Cloth Armor',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1448,7 +1597,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1465,7 +1614,8 @@ export const ITEMS = [{
 	'gold': 650,
 	'heal_shield': 0,
 	'hp': 200,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Crystalline Bracer.png',
 	'index': 29,
@@ -1475,6 +1625,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1482,12 +1633,15 @@ export const ITEMS = [{
 	'name': 'Crystalline Bracer',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1496,7 +1650,7 @@ export const ITEMS = [{
 {
 	'ad': 7,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1514,6 +1668,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Cull.png',
 	'index': 30,
@@ -1523,6 +1678,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1530,12 +1686,15 @@ export const ITEMS = [{
 	'name': 'Cull',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -1544,7 +1703,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1562,6 +1721,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Dagger.png',
 	'index': 31,
@@ -1571,6 +1731,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1578,12 +1739,15 @@ export const ITEMS = [{
 	'name': 'Dagger',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1592,7 +1756,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1610,6 +1774,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Dark Seal.png',
 	'index': 32,
@@ -1619,6 +1784,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 100,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1628,10 +1794,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "dread"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': True,
+	'stackable': true,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -1640,7 +1809,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1658,6 +1827,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 425,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Dead Man's Plate.png",
 	'index': 33,
@@ -1667,6 +1837,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1674,12 +1845,15 @@ export const ITEMS = [{
 	'name': "Dead Man's Plate",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1688,7 +1862,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1706,6 +1880,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Death's Dance.png",
 	'index': 34,
@@ -1715,6 +1890,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -1722,12 +1898,15 @@ export const ITEMS = [{
 	'name': "Death's Dance",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1736,7 +1915,7 @@ export const ITEMS = [{
 {
 	'ad': 8,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1754,6 +1933,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 80,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Blade.png",
 	'index': 35,
@@ -1763,6 +1943,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1770,12 +1951,15 @@ export const ITEMS = [{
 	'name': "Doran's Blade",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -1784,7 +1968,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1801,7 +1985,8 @@ export const ITEMS = [{
 	'gold': 450,
 	'heal_shield': 0,
 	'hp': 80,
-	'hp5': 0,
+	'hp5': 5,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Shield.png",
 	'index': 36,
@@ -1811,6 +1996,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1818,12 +2004,15 @@ export const ITEMS = [{
 	'name': "Doran's Shield",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -1832,7 +2021,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 15,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1850,6 +2039,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 60,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Doran's Ring.png",
 	'index': 37,
@@ -1858,7 +2048,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 0,
+	'mp5': 5,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1866,12 +2057,15 @@ export const ITEMS = [{
 	'name': "Doran's Ring",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -1880,7 +2074,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1898,6 +2092,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Duskblade of Draktharr.png',
 	'index': 38,
@@ -1907,6 +2102,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1914,12 +2110,15 @@ export const ITEMS = [{
 	'name': 'Duskblade of Draktharr',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1928,7 +2127,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1946,6 +2145,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 325,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Edge of Night.png',
 	'index': 39,
@@ -1955,6 +2155,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -1962,12 +2163,15 @@ export const ITEMS = [{
 	'name': 'Edge of Night',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -1976,7 +2180,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -1994,6 +2198,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Bloodrazor.png',
 	'index': 40,
@@ -2003,6 +2208,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2012,10 +2218,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0,
@@ -2024,7 +2233,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2042,6 +2251,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 15 },
 	'img': 'assets/images/items/Enchantment Cinderhulk.png',
 	'index': 41,
@@ -2051,6 +2261,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2060,10 +2271,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0,
@@ -2072,7 +2286,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2090,6 +2304,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Echoes.png',
 	'index': 42,
@@ -2099,6 +2314,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2109,10 +2325,13 @@ export const ITEMS = [{
 		"name": 'goldjg,echo',
 		"spell_m_proc": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 60,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0,
@@ -2121,7 +2340,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2139,6 +2358,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Enchantment Warrior.png',
 	'index': 43,
@@ -2148,6 +2368,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2157,10 +2378,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0,
@@ -2169,7 +2393,7 @@ export const ITEMS = [{
 {
 	'ad': 70,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2187,6 +2411,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Essence Reaver.png',
 	'index': 44,
@@ -2196,6 +2421,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2203,12 +2429,15 @@ export const ITEMS = [{
 	'name': 'Essence Reaver',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2217,7 +2446,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2235,6 +2464,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Executioner's Calling.png",
 	'index': 45,
@@ -2244,6 +2474,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2251,12 +2482,15 @@ export const ITEMS = [{
 	'name': "Executioner's Calling",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2265,7 +2499,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2283,6 +2517,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Faerie Charm.png',
 	'index': 46,
@@ -2291,7 +2526,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 25,
+	'mp5': 0,
+	'mp5%': 25,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2299,12 +2535,15 @@ export const ITEMS = [{
 	'name': 'Faerie Charm',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2313,7 +2552,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 35,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2331,6 +2570,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Fiendish Codex.png',
 	'index': 47,
@@ -2340,6 +2580,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2347,12 +2588,16 @@ export const ITEMS = [{
 	'name': 'Fiendish Codex',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'fiendish',
+		'cdr': true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2361,7 +2606,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2379,6 +2624,7 @@ export const ITEMS = [{
 	'heal_shield': 5,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Forbidden Idol.png',
 	'index': 48,
@@ -2387,7 +2633,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 50,
+	'mp5': 0,
+	'mp5%': 50,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2395,12 +2642,15 @@ export const ITEMS = [{
 	'name': 'Forbidden Idol',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'forbiddenidol'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2409,7 +2659,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 15,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2427,6 +2677,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 70,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frostfang.png',
 	'index': 49,
@@ -2435,7 +2686,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 75,
+	'mp5': 0,
+	'mp5%': 75,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2445,10 +2697,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -2457,7 +2712,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2475,6 +2730,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Heart.png',
 	'index': 50,
@@ -2484,6 +2740,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 400,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2491,12 +2748,15 @@ export const ITEMS = [{
 	'name': 'Frozen Heart',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'coldsteel'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2505,7 +2765,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2523,6 +2783,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 700,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Mallet.png',
 	'index': 51,
@@ -2532,6 +2793,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2539,12 +2801,15 @@ export const ITEMS = [{
 	'name': 'Frozen Mallet',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2553,7 +2818,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2571,6 +2836,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Gargoyle Stoneplate.png',
 	'index': 52,
@@ -2580,6 +2846,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 50,
@@ -2587,12 +2854,15 @@ export const ITEMS = [{
 	'name': 'Gargoyle Stoneplate',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2601,7 +2871,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2619,6 +2889,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 380,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Giant's Belt.png",
 	'index': 53,
@@ -2628,6 +2899,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2635,12 +2907,15 @@ export const ITEMS = [{
 	'name': "Giant's Belt",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2649,7 +2924,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2667,6 +2942,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Glacial Shroud.png',
 	'index': 54,
@@ -2676,6 +2952,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2683,12 +2960,16 @@ export const ITEMS = [{
 	'name': 'Glacial Shroud',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'glacialshroud',
+		"cdr": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2697,7 +2978,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2715,6 +2996,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Guardian Angel.png',
 	'index': 55,
@@ -2724,6 +3006,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2731,12 +3014,15 @@ export const ITEMS = [{
 	'name': 'Guardian Angel',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2745,7 +3031,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 25,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 15,
@@ -2763,6 +3049,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Guinsoo's Rageblade.png",
 	'index': 56,
@@ -2772,6 +3059,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 15,
 	'mr': 0,
@@ -2780,13 +3068,16 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'dissolve,lastwhisper',
-		"apen%": True,
-		"mpen%": True,
+		"apen%": true,
+		"mpen%": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2795,7 +3086,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 10 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 35,
 	'ap_mult': { 'type': 'total', 'value': 10 },
 	'apen%': 0,
@@ -2813,6 +3104,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Haunting Guise.png',
 	'index': 57,
@@ -2822,6 +3114,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2831,10 +3124,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "madness"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2843,7 +3139,7 @@ export const ITEMS = [{
 {
 	'ad': 10,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2861,6 +3157,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 70,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Harrowing Crescent.png',
 	'index': 58,
@@ -2869,7 +3166,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 50,
+	'mp5': 0,
+	'mp5%': 50,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2879,10 +3177,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -2891,7 +3192,7 @@ export const ITEMS = [{
 {
 	'ad': 20,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2909,6 +3210,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hexdrinker.png',
 	'index': 59,
@@ -2918,6 +3220,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 35,
@@ -2925,12 +3228,15 @@ export const ITEMS = [{
 	'name': 'Hexdrinker',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2939,7 +3245,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -2957,6 +3263,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech GLP.png',
 	'index': 60,
@@ -2966,6 +3273,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 600,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -2974,12 +3282,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": "haste",
-		"cdr": True,
+		"cdr": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -2988,7 +3299,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3006,6 +3317,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Gunblade.png',
 	'index': 61,
@@ -3015,6 +3327,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3022,12 +3335,15 @@ export const ITEMS = [{
 	'name': 'Hextech Gunblade',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 175,
 	'spell_vamp': 15,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3036,7 +3352,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3054,6 +3370,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Protobelt.png',
 	'index': 62,
@@ -3063,6 +3380,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3070,12 +3388,15 @@ export const ITEMS = [{
 	'name': 'Hextech Protobelt-01',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': '127,5',
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3084,7 +3405,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3102,6 +3423,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hextech Revolver.png',
 	'index': 63,
@@ -3111,6 +3433,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3118,12 +3441,15 @@ export const ITEMS = [{
 	'name': 'Hextech Revolver',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 50,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3132,7 +3458,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 3,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3150,6 +3476,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hex Core mk1.png',
 	'index': 64,
@@ -3159,6 +3486,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 15,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3168,10 +3496,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "hexcore"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3180,7 +3511,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 6,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3198,6 +3529,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Hex Core mk2.png',
 	'index': 65,
@@ -3207,6 +3539,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 20,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3216,10 +3549,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "hexcore"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3228,7 +3564,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3246,6 +3582,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Iceborn Gauntlet.png',
 	'index': 66,
@@ -3255,6 +3592,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 500,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3262,12 +3600,15 @@ export const ITEMS = [{
 	'name': 'Iceborn Gauntlet',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3276,7 +3617,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3294,6 +3635,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Infinity Edge.png',
 	'index': 67,
@@ -3303,6 +3645,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3311,12 +3654,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'ie',
-		"critdmg": True
+		"critdmg": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ie',
 	'tenacity': 0,
@@ -3325,7 +3671,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3343,6 +3689,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ionian Boots of Lucidity.png',
 	'index': 68,
@@ -3352,6 +3699,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3359,12 +3707,15 @@ export const ITEMS = [{
 	'name': 'Ionian Boots of Lucidity',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3373,7 +3724,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3391,6 +3742,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Jaurim's Fist.png",
 	'index': 69,
@@ -3400,6 +3752,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3407,8 +3760,11 @@ export const ITEMS = [{
 	'name': "Jaurim's Fist",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3423,7 +3779,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3441,6 +3797,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Kindlegem.png',
 	'index': 70,
@@ -3450,6 +3807,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3457,12 +3815,16 @@ export const ITEMS = [{
 	'name': 'Kindlegem',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'kindlegem',
+		'cdr': true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3471,7 +3833,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3489,6 +3851,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Kircheis Shard.png',
 	'index': 71,
@@ -3498,6 +3861,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3505,12 +3869,15 @@ export const ITEMS = [{
 	'name': 'Kircheis Shard',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3519,7 +3886,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3537,6 +3904,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 250,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Knight's Vow.png",
 	'index': 72,
@@ -3546,6 +3914,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3553,12 +3922,15 @@ export const ITEMS = [{
 	'name': "Knight's Vow",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3567,7 +3939,7 @@ export const ITEMS = [{
 {
 	'ad': 20,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 20,
@@ -3585,6 +3957,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Last Whisper.png',
 	'index': 73,
@@ -3594,6 +3967,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3604,10 +3978,13 @@ export const ITEMS = [{
 		"name": "lastwhisper",
 		"apen%": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3616,7 +3993,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 10 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 75,
 	'ap_mult': { 'type': 'total', 'value': 10 },
 	'apen%': 0,
@@ -3634,6 +4011,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Liandry's Torment.png",
 	'index': 74,
@@ -3643,6 +4021,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3652,10 +4031,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "madness"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3664,7 +4046,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3682,6 +4064,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Lich Bane.png',
 	'index': 75,
@@ -3691,6 +4074,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3698,12 +4082,15 @@ export const ITEMS = [{
 	'name': 'Lich Bane',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'aetherwisp'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3712,7 +4099,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3730,6 +4117,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Locket of the Iron Solari.png',
 	'index': 76,
@@ -3739,6 +4127,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 60,
@@ -3746,12 +4135,15 @@ export const ITEMS = [{
 	'name': 'Locket of the Iron Solari',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3760,7 +4152,7 @@ export const ITEMS = [{
 {
 	'ad': 10,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3778,6 +4170,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Long Sword.png',
 	'index': 77,
@@ -3787,6 +4180,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3794,12 +4188,15 @@ export const ITEMS = [{
 	'name': 'Long Sword',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -3808,7 +4205,7 @@ export const ITEMS = [{
 {
 	'ad': 45,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 35,
@@ -3826,6 +4223,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Lord Dominik's Regards.png",
 	'index': 78,
@@ -3835,6 +4233,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3843,12 +4242,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'lastwhisper',
-		"apen%": True
+		"apen%": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ldr',
 	'tenacity': 0,
@@ -3857,7 +4259,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 40,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3875,6 +4277,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Lost Chapter.png',
 	'index': 79,
@@ -3884,6 +4287,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3892,12 +4296,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'haste',
-		"cdr": True,
+		"cdr": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3906,7 +4313,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 90,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3924,6 +4331,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Luden's Echo.png",
 	'index': 80,
@@ -3933,6 +4341,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 600,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3941,13 +4350,16 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'echo,haste',
-		"cdr": True,
+		"cdr": true,
 		"spell_m_proc": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -3956,7 +4368,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -3974,6 +4386,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Manamune.png',
 	'index': 81,
@@ -3983,6 +4396,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -3993,6 +4407,9 @@ export const ITEMS = [{
 		"name": "awe",
 
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4007,7 +4424,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4025,6 +4442,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Maw of Malmortius.png',
 	'index': 82,
@@ -4034,6 +4452,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 50,
@@ -4041,12 +4460,15 @@ export const ITEMS = [{
 	'name': 'Maw of Malmortius',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4055,7 +4477,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4073,6 +4495,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mejai's Soulstealer.png",
 	'index': 83,
@@ -4082,6 +4505,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 200,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4091,6 +4515,9 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "dread"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4106,7 +4533,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4124,6 +4551,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Mercurial Scimitar.png',
 	'index': 84,
@@ -4133,6 +4561,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 35,
@@ -4140,12 +4569,15 @@ export const ITEMS = [{
 	'name': 'Mercurial Scimitar',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4154,7 +4586,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4172,6 +4604,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mercury's Treads.png",
 	'index': 85,
@@ -4181,6 +4614,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 25,
@@ -4188,12 +4622,15 @@ export const ITEMS = [{
 	'name': "Mercury's Treads",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 30,
@@ -4202,7 +4639,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4220,6 +4657,7 @@ export const ITEMS = [{
 	'heal_shield': 20,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Mikael's Crucible.png",
 	'index': 86,
@@ -4228,7 +4666,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 100,
+	'mp5': 0,
+	'mp5%': 100,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 40,
@@ -4236,12 +4675,16 @@ export const ITEMS = [{
 	'name': "Mikael's Crucible",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": 'harmony'
+		"name": 'forbiddenidol,harmony',
+		"heal_shield": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4250,7 +4693,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4268,6 +4711,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Morellonomicon.png',
 	'index': 87,
@@ -4277,6 +4721,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 15,
 	'mpen%': 0,
 	'mr': 0,
@@ -4285,12 +4730,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		'name': 'morellonomicon',
-		'mpen': True,
+		'mpen': true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4299,7 +4747,7 @@ export const ITEMS = [{
 {
 	'ad': 45,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 25,
@@ -4317,6 +4765,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Mortal Reminder.png',
 	'index': 88,
@@ -4326,6 +4775,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4334,12 +4784,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": "lastwhisper",
-		"apen%": True,
+		"apen%": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4348,7 +4801,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4366,6 +4819,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Muramana.png',
 	'index': 89,
@@ -4375,6 +4829,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 1000,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4385,10 +4840,13 @@ export const ITEMS = [{
 		"name": "awe",
 
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0,
@@ -4397,7 +4855,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 80,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4415,6 +4873,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Nashor's Tooth.png",
 	'index': 90,
@@ -4424,6 +4883,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4431,12 +4891,16 @@ export const ITEMS = [{
 	'name': "Nashor's Tooth",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'fiendish,stinger',
+		"cdr": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4445,7 +4909,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4463,6 +4927,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Needlessly Large Rod.png',
 	'index': 91,
@@ -4472,6 +4937,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4479,12 +4945,15 @@ export const ITEMS = [{
 	'name': 'Needlessly Large Rod',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4493,7 +4962,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4511,6 +4980,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Negatron Cloak.png',
 	'index': 92,
@@ -4520,6 +4990,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 40,
@@ -4527,12 +4998,15 @@ export const ITEMS = [{
 	'name': 'Negatron Cloak',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4541,7 +5015,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4559,6 +5033,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ninja Tabi.png',
 	'index': 93,
@@ -4568,6 +5043,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4575,12 +5051,15 @@ export const ITEMS = [{
 	'name': 'Ninja Tabi',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4589,7 +5068,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4607,6 +5086,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Null-Magic Mantle.png',
 	'index': 94,
@@ -4616,6 +5096,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 25,
@@ -4623,12 +5104,15 @@ export const ITEMS = [{
 	'name': 'Null-Magic Mantle',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -4637,7 +5121,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4655,6 +5139,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Oblivion Orb.png',
 	'index': 95,
@@ -4664,6 +5149,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 15,
 	'mpen%': 0,
 	'mr': 0,
@@ -4672,12 +5158,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		'name': 'morellonomicon',
-		'mpen': True,
+		'mpen': true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4686,7 +5175,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4704,6 +5193,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Perfect Hex Core.png',
 	'index': 96,
@@ -4713,6 +5203,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 25,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4722,10 +5213,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "hexcore"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4734,7 +5228,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4752,6 +5246,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 200,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Phage.png',
 	'index': 97,
@@ -4761,6 +5256,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4768,12 +5264,15 @@ export const ITEMS = [{
 	'name': 'Phage',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4782,7 +5281,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4800,6 +5299,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Phantom Dancer.png',
 	'index': 98,
@@ -4809,6 +5309,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4816,12 +5317,15 @@ export const ITEMS = [{
 	'name': 'Phantom Dancer',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4830,7 +5334,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4848,6 +5352,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Pickaxe.png',
 	'index': 99,
@@ -4857,6 +5362,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4864,12 +5370,15 @@ export const ITEMS = [{
 	'name': 'Pickaxe',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4878,7 +5387,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 1,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4896,6 +5405,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Prototype Hex Core.png',
 	'index': 100,
@@ -4905,6 +5415,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 10,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4914,10 +5425,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "hexcore"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -4926,7 +5440,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4943,7 +5457,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 300,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Pauldrons of Whiterock.png',
 	'index': 101,
@@ -4953,6 +5468,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -4962,10 +5478,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -4974,7 +5493,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -4992,6 +5511,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Quicksilver Sash.png',
 	'index': 102,
@@ -5001,6 +5521,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -5008,12 +5529,15 @@ export const ITEMS = [{
 	'name': 'Quicksilver Sash',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5022,7 +5546,7 @@ export const ITEMS = [{
 {
 	'ad': 6,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5039,7 +5563,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 100,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Runesteel Spaulders.png',
 	'index': 103,
@@ -5049,6 +5574,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5058,10 +5584,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -5070,7 +5599,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5088,6 +5617,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rabadon's Deathcap.png",
 	'index': 104,
@@ -5097,6 +5627,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5104,12 +5635,15 @@ export const ITEMS = [{
 	'name': "Rabadon's Deathcap",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5118,7 +5652,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5136,6 +5670,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 400,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Randuin's Omen.png",
 	'index': 105,
@@ -5145,6 +5680,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5152,12 +5688,15 @@ export const ITEMS = [{
 	'name': "Randuin's Omen",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": "cripple"
+		"name": "coldsteel"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5166,7 +5705,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5184,6 +5723,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rapid Firecannon.png',
 	'index': 106,
@@ -5193,6 +5733,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5200,12 +5741,15 @@ export const ITEMS = [{
 	'name': 'Rapid Firecannon',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5214,7 +5758,7 @@ export const ITEMS = [{
 {
 	'ad': 80,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': False },
+	'allowed_to': { 'melee': true, 'ranged': false },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5231,7 +5775,8 @@ export const ITEMS = [{
 	'gold': 3500,
 	'heal_shield': 0,
 	'hp': 0,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ravenous Hydra.png',
 	'index': 107,
@@ -5241,6 +5786,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5248,12 +5794,15 @@ export const ITEMS = [{
 	'name': 'Ravenous Hydra',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5262,7 +5811,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5280,6 +5829,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Recurve Bow.png',
 	'index': 108,
@@ -5289,6 +5839,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5296,12 +5847,15 @@ export const ITEMS = [{
 	'name': 'Recurve Bow',
 	'phys_on_hit': 15,
 	'shared_item': {
-		"name": None
+		"name": 'recurve'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5310,7 +5864,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5327,7 +5881,8 @@ export const ITEMS = [{
 	'gold': 2100,
 	'heal_shield': 10,
 	'hp': 200,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Redemption.png',
 	'index': 109,
@@ -5336,7 +5891,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 150,
+	'mp5': 0,
+	'mp5%': 150,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5344,12 +5900,16 @@ export const ITEMS = [{
 	'name': 'Redemption',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "forbiddenidol,redemption",
+		"heal_shield": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5358,7 +5918,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5375,7 +5935,8 @@ export const ITEMS = [{
 	'gold': 150,
 	'heal_shield': 0,
 	'hp': 0,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rejuvenation Bead.png',
 	'index': 110,
@@ -5385,6 +5946,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5392,12 +5954,15 @@ export const ITEMS = [{
 	'name': 'Rejuvenation Bead',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5406,7 +5971,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 5,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5423,7 +5988,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 30,
-	'hp5': 25,
+	'hp5': 0,
+	'hp5%': 25,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Relic Shield.png',
 	'index': 111,
@@ -5433,6 +5999,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5442,10 +6009,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0,
@@ -5454,7 +6024,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5471,7 +6041,8 @@ export const ITEMS = [{
 	'gold': 2650,
 	'heal_shield': 0,
 	'hp': 400,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Righteous Glory.png',
 	'index': 112,
@@ -5481,6 +6052,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5488,12 +6060,15 @@ export const ITEMS = [{
 	'name': 'Righteous Glory',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5502,7 +6077,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 60,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5520,6 +6095,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Rod of Ages.png',
 	'index': 113,
@@ -5529,6 +6105,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5536,8 +6113,11 @@ export const ITEMS = [{
 	'name': 'Rod of Ages',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5554,7 +6134,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5572,6 +6152,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 150,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Ruby Crystal.png',
 	'index': 114,
@@ -5581,6 +6162,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5588,12 +6170,15 @@ export const ITEMS = [{
 	'name': 'Ruby Crystal',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'starter,starting',
 	'tenacity': 0,
@@ -5602,7 +6187,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': False, 'ranged': True },
+	'allowed_to': { 'melee': false, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5620,6 +6205,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Runaan's Hurricane.png",
 	'index': 115,
@@ -5629,6 +6215,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5636,12 +6223,15 @@ export const ITEMS = [{
 	'name': "Runaan's Hurricane",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5650,7 +6240,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 90,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5668,6 +6258,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rylai's Crystal Scepter.png",
 	'index': 116,
@@ -5677,6 +6268,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5684,12 +6276,15 @@ export const ITEMS = [{
 	'name': "Rylai's Crystal Scepter",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5698,7 +6293,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5716,6 +6311,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sanguine Blade.png',
 	'index': 117,
@@ -5725,6 +6321,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5732,12 +6329,15 @@ export const ITEMS = [{
 	'name': 'Sanguine Blade',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5746,7 +6346,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5764,6 +6364,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sapphire Crystal.png',
 	'index': 118,
@@ -5773,6 +6374,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5780,12 +6382,15 @@ export const ITEMS = [{
 	'name': 'Sapphire Crystal',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5794,7 +6399,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 20,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5812,6 +6417,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Seeker's Armguard.png",
 	'index': 119,
@@ -5821,6 +6427,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5830,6 +6437,9 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "seekers"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5845,7 +6455,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5863,6 +6473,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Seraph's Embrace.png",
 	'index': 120,
@@ -5872,6 +6483,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 1400,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5880,12 +6492,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": "awe,haste",
-		"cdr": True
+		"cdr": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'tear',
 	'tenacity': 0,
@@ -5894,7 +6509,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5912,6 +6527,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Serrated Dirk.png',
 	'index': 121,
@@ -5921,6 +6537,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5928,12 +6545,15 @@ export const ITEMS = [{
 	'name': 'Serrated Dirk',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5942,7 +6562,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -5960,6 +6580,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sheen.png',
 	'index': 122,
@@ -5969,6 +6590,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -5976,12 +6598,15 @@ export const ITEMS = [{
 	'name': 'Sheen',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -5990,7 +6615,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6007,7 +6632,8 @@ export const ITEMS = [{
 	'gold': 2050,
 	'heal_shield': 10,
 	'hp': 300,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Shurelya's Reverie.png",
 	'index': 123,
@@ -6016,7 +6642,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 100,
+	'mp5': 0,
+	'mp5%': 100,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6024,12 +6651,16 @@ export const ITEMS = [{
 	'name': "Shurelya's Reverie",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": "forbiddenidol",
+		"heal_shield": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6038,7 +6669,7 @@ export const ITEMS = [{
 {
 	'ad': 3,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6055,7 +6686,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 30,
-	'hp5': 25,
+	'hp5': 0,
+	'hp5%': 25,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Steel Shoulderguards.png',
 	'index': 124,
@@ -6065,6 +6697,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6074,10 +6707,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0,
@@ -6086,7 +6722,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6104,6 +6740,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 100,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Shard of True Ice.png',
 	'index': 125,
@@ -6112,20 +6749,24 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 100,
+	'mp5': 0,
+	'mp5%': 100,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
 	'ms%': 0,
-	'name': 'Shard of True Ice',
+	'name': 'Shard of true Ice',
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -6134,7 +6775,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6152,6 +6793,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Sorcerer's Shoes.png",
 	'index': 126,
@@ -6161,6 +6803,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 18,
 	'mpen%': 0,
 	'mr': 0,
@@ -6168,12 +6811,15 @@ export const ITEMS = [{
 	'name': "Sorcerer's Shoes",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6182,7 +6828,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6200,6 +6846,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 250,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Spectre's Cowl.png",
 	'index': 127,
@@ -6209,6 +6856,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 25,
@@ -6216,12 +6864,15 @@ export const ITEMS = [{
 	'name': "Spectre's Cowl",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6230,7 +6881,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6248,6 +6899,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spellbinder.png',
 	'index': 128,
@@ -6257,6 +6909,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6264,12 +6917,15 @@ export const ITEMS = [{
 	'name': 'Spellbinder',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'aetherwisp'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6278,7 +6934,7 @@ export const ITEMS = [{
 {
 	'ad': 5,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6296,6 +6952,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 10,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spectral Sickle.png',
 	'index': 129,
@@ -6304,7 +6961,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 25,
+	'mp5': 0,
+	'mp5%': 25,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6314,10 +6972,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0,
@@ -6326,7 +6987,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 8,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6344,6 +7005,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 10,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Spellthief's Edge.png",
 	'index': 130,
@@ -6352,7 +7014,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 50,
+	'mp5': 0,
+	'mp5%': 50,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6362,10 +7025,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold,starter,starting',
 	'tenacity': 0,
@@ -6374,7 +7040,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6391,7 +7057,8 @@ export const ITEMS = [{
 	'gold': 2800,
 	'heal_shield': 0,
 	'hp': 450,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Spirit Visage.png',
 	'index': 131,
@@ -6401,6 +7068,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 55,
@@ -6408,12 +7076,15 @@ export const ITEMS = [{
 	'name': 'Spirit Visage',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6422,7 +7093,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6440,6 +7111,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Statikk Shiv.png',
 	'index': 132,
@@ -6449,6 +7121,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6456,12 +7129,15 @@ export const ITEMS = [{
 	'name': 'Statikk Shiv',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6470,7 +7146,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': False },
+	'allowed_to': { 'melee': true, 'ranged': false },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6488,6 +7164,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 450,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Sterak's Gage.png",
 	'index': 133,
@@ -6497,6 +7174,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6504,12 +7182,15 @@ export const ITEMS = [{
 	'name': "Sterak's Gage",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6518,7 +7199,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6536,6 +7217,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Stinger.png',
 	'index': 134,
@@ -6545,6 +7227,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6552,12 +7235,16 @@ export const ITEMS = [{
 	'name': 'Stinger',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'stinger',
+		"cdr": true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6566,7 +7253,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6584,6 +7271,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Stormrazor.png',
 	'index': 135,
@@ -6593,6 +7281,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6600,12 +7289,15 @@ export const ITEMS = [{
 	'name': 'Stormrazor',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6614,7 +7306,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6632,6 +7324,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 425,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Sunfire Cape.png',
 	'index': 136,
@@ -6641,6 +7334,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6648,12 +7342,15 @@ export const ITEMS = [{
 	'name': 'Sunfire Cape',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6662,7 +7359,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 10,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6679,7 +7376,8 @@ export const ITEMS = [{
 	'gold': 400,
 	'heal_shield': 0,
 	'hp': 100,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Targon's Buckler.png",
 	'index': 137,
@@ -6689,6 +7387,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6698,10 +7397,13 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'goldjg'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'support,gold',
 	'tenacity': 0,
@@ -6710,7 +7412,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6728,6 +7430,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Tear of the Goddess.png',
 	'index': 138,
@@ -6737,6 +7440,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6747,6 +7451,9 @@ export const ITEMS = [{
 		"name": "awe"
 
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6761,7 +7468,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6779,6 +7486,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 250,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Thornmail.png',
 	'index': 139,
@@ -6788,6 +7496,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6795,12 +7504,15 @@ export const ITEMS = [{
 	'name': 'Thornmail',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": "cripple"
+		"name": "coldsteel"
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6809,7 +7521,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': False },
+	'allowed_to': { 'melee': true, 'ranged': false },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6826,7 +7538,8 @@ export const ITEMS = [{
 	'gold': 1325,
 	'heal_shield': 0,
 	'hp': 0,
-	'hp5': 50,
+	'hp5': 0,
+	'hp5%': 50,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Tiamat.png',
 	'index': 140,
@@ -6836,6 +7549,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6843,12 +7557,15 @@ export const ITEMS = [{
 	'name': 'Tiamat',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6857,7 +7574,7 @@ export const ITEMS = [{
 {
 	'ad': 40,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': False },
+	'allowed_to': { 'melee': true, 'ranged': false },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6874,7 +7591,8 @@ export const ITEMS = [{
 	'gold': 3500,
 	'heal_shield': 0,
 	'hp': 450,
-	'hp5': 100,
+	'hp5': 0,
+	'hp5%': 100,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Titanic Hydra.png',
 	'index': 141,
@@ -6884,6 +7602,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6891,12 +7610,15 @@ export const ITEMS = [{
 	'name': 'Titanic Hydra',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6905,7 +7627,7 @@ export const ITEMS = [{
 {
 	'ad': 25,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6923,6 +7645,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 250,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Trinity Force.png',
 	'index': 142,
@@ -6932,6 +7655,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6939,12 +7663,15 @@ export const ITEMS = [{
 	'name': 'Trinity Force',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -6953,7 +7680,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -6971,6 +7698,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Twin Shadows.png',
 	'index': 143,
@@ -6980,6 +7708,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -6987,12 +7716,15 @@ export const ITEMS = [{
 	'name': 'Twin Shadows',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'aetherwisp'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7001,7 +7733,7 @@ export const ITEMS = [{
 {
 	'ad': 50,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7019,6 +7751,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Umbral Glaive.png',
 	'index': 144,
@@ -7028,6 +7761,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7035,12 +7769,15 @@ export const ITEMS = [{
 	'name': 'Umbral Glaive',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7049,7 +7786,7 @@ export const ITEMS = [{
 {
 	'ad': 15,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7067,6 +7804,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Vampiric Scepter.png',
 	'index': 145,
@@ -7076,6 +7814,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7083,12 +7822,15 @@ export const ITEMS = [{
 	'name': 'Vampiric Scepter',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7097,7 +7839,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7115,6 +7857,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Void Staff.png',
 	'index': 146,
@@ -7124,6 +7867,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 40,
 	'mr': 0,
@@ -7132,12 +7876,15 @@ export const ITEMS = [{
 	'phys_on_hit': 0,
 	'shared_item': {
 		"name": "dissolve",
-		"mpen%": True
+		"mpen%": true
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7146,7 +7893,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7164,6 +7911,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Warden's Mail.png",
 	'index': 147,
@@ -7173,6 +7921,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7180,13 +7929,16 @@ export const ITEMS = [{
 	'name': "Warden's Mail",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": "cripple",
+		"name": "coldsteel",
 
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7195,7 +7947,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7212,7 +7964,8 @@ export const ITEMS = [{
 	'gold': 2850,
 	'heal_shield': 0,
 	'hp': 800,
-	'hp5': 200,
+	'hp5': 0,
+	'hp5%': 200,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Warmog's Armor.png",
 	'index': 148,
@@ -7222,6 +7975,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7229,12 +7983,15 @@ export const ITEMS = [{
 	'name': "Warmog's Armor",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": 'kindlegem'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7243,7 +8000,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7261,6 +8018,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Wit's End.png",
 	'index': 149,
@@ -7270,6 +8028,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 50,
@@ -7277,12 +8036,15 @@ export const ITEMS = [{
 	'name': "Wit's End",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7291,7 +8053,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7309,6 +8071,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Youmuu's Ghostblade.png",
 	'index': 150,
@@ -7318,6 +8081,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7325,12 +8089,15 @@ export const ITEMS = [{
 	'name': "Youmuu's Ghostblade",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7339,7 +8106,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7357,6 +8124,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Zeal.png',
 	'index': 151,
@@ -7366,6 +8134,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7373,12 +8142,15 @@ export const ITEMS = [{
 	'name': 'Zeal',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7387,7 +8159,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7405,6 +8177,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zeke's Convergence.png",
 	'index': 152,
@@ -7414,6 +8187,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 250,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 30,
@@ -7421,12 +8195,15 @@ export const ITEMS = [{
 	'name': "Zeke's Convergence",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7435,7 +8212,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 70,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7453,6 +8230,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zhonya's Hourglass.png",
 	'index': 153,
@@ -7462,6 +8240,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7469,12 +8248,15 @@ export const ITEMS = [{
 	'name': "Zhonya's Hourglass",
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
@@ -7483,7 +8265,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7501,6 +8283,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Circlet of the Iron Solari.png',
 	'index': 154,
@@ -7510,6 +8293,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 75,
@@ -7517,12 +8301,15 @@ export const ITEMS = [{
 	'name': 'Circlet of the Iron Solari',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7531,7 +8318,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7549,6 +8336,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 750,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Forgefire Cape.png',
 	'index': 155,
@@ -7558,6 +8346,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7565,12 +8354,15 @@ export const ITEMS = [{
 	'name': 'Forgefire Cape',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7579,7 +8371,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7597,6 +8389,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Frozen Fist.png',
 	'index': 156,
@@ -7606,6 +8399,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 700,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7613,12 +8407,15 @@ export const ITEMS = [{
 	'name': 'Frozen Fist',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7627,7 +8424,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7645,6 +8442,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 750,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Infernal Mask.png',
 	'index': 157,
@@ -7654,6 +8452,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 300,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 100,
@@ -7664,10 +8463,13 @@ export const ITEMS = [{
 		'name': 'aura',
 		'ap_mult': { 'type': 'total', 'value': 0 },
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7676,7 +8478,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 120,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7694,6 +8496,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Luden's Pulse.png",
 	'index': 158,
@@ -7703,6 +8506,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 850,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7712,12 +8516,15 @@ export const ITEMS = [{
 	'shared_item': {
 		'name': 'echo,haste',
 		'cdr': true,
-		'spell_m_proc': True,
+		'spell_m_proc': true,
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 100,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7726,7 +8533,7 @@ export const ITEMS = [{
 {
 	'ad': 60,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7744,6 +8551,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 550,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Obsidian Cleaver.png',
 	'index': 159,
@@ -7753,6 +8561,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7760,12 +8569,15 @@ export const ITEMS = [{
 	'name': 'Obsidian Cleaver',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7774,7 +8586,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7791,7 +8603,8 @@ export const ITEMS = [{
 	'gold': 2100,
 	'heal_shield': 10,
 	'hp': 300,
-	'hp5': 150,
+	'hp5': 0,
+	'hp5%': 150,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Salvation.png',
 	'index': 160,
@@ -7800,7 +8613,8 @@ export const ITEMS = [{
 	'magic_on_hit': 0,
 	'modes': 'all,sr',
 	'mp': 0,
-	'mp5': 200,
+	'mp5': 0,
+	'mp5%': 200,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7808,12 +8622,15 @@ export const ITEMS = [{
 	'name': 'Salvation',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': 'redemption'
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7822,7 +8639,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 175,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7840,6 +8657,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Rabadon's Deathcrown.png",
 	'index': 161,
@@ -7849,6 +8667,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7856,12 +8675,15 @@ export const ITEMS = [{
 	'name': "Rabadon's Deathcrown",
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7870,7 +8692,7 @@ export const ITEMS = [{
 {
 	'ad': 110,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7888,6 +8710,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Molten Edge.png',
 	'index': 162,
@@ -7897,6 +8720,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7904,12 +8728,15 @@ export const ITEMS = [{
 	'name': 'Molten Edge',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7918,7 +8745,7 @@ export const ITEMS = [{
 {
 	'ad': 55,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7936,6 +8763,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Might of the Ruined King.png',
 	'index': 163,
@@ -7945,6 +8773,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -7952,12 +8781,15 @@ export const ITEMS = [{
 	'name': 'Might of the Ruined King',
 	'phys_on_hit': 15,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -7966,7 +8798,7 @@ export const ITEMS = [{
 {
 	'ad': 35,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -7984,6 +8816,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 350,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Trinity Fusion.png',
 	'index': 164,
@@ -7993,6 +8826,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 350,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8000,12 +8834,15 @@ export const ITEMS = [{
 	'name': 'Trinity Fusion',
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -8014,7 +8851,7 @@ export const ITEMS = [{
 {
 	'ad': 75,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -8032,6 +8869,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Youmuu's Wraithblade.png",
 	'index': 165,
@@ -8041,6 +8879,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8048,12 +8887,15 @@ export const ITEMS = [{
 	'name': "Youmuu's Wraithblade",
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -8062,7 +8904,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 100,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -8080,6 +8922,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': "assets/images/items/Zhonya's Paradox.png",
 	'index': 166,
@@ -8089,6 +8932,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8096,12 +8940,15 @@ export const ITEMS = [{
 	'name': "Zhonya's Paradox",
 	'phys_on_hit': 0,
 	'shared_item': {
-		'name': None
+		'name': null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
@@ -8110,7 +8957,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -8128,6 +8975,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 300,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Iron.png',
 	'index': 167,
@@ -8137,6 +8985,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8144,12 +8993,15 @@ export const ITEMS = [{
 	'name': 'Elixir of Iron',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 25,
@@ -8158,7 +9010,7 @@ export const ITEMS = [{
 {
 	'ad': 0,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 50,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -8176,6 +9028,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Sorcery.png',
 	'index': 168,
@@ -8185,6 +9038,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8192,12 +9046,15 @@ export const ITEMS = [{
 	'name': 'Elixir of Sorcery',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 0,
@@ -8206,7 +9063,7 @@ export const ITEMS = [{
 {
 	'ad': 30,
 	'ad_mult': { 'type': 'total', 'value': 0 },
-	'allowed_to': { 'melee': True, 'ranged': True },
+	'allowed_to': { 'melee': true, 'ranged': true },
 	'ap': 0,
 	'ap_mult': { 'type': 'total', 'value': 0 },
 	'apen%': 0,
@@ -8224,6 +9081,7 @@ export const ITEMS = [{
 	'heal_shield': 0,
 	'hp': 0,
 	'hp5': 0,
+	'hp5%': 0,
 	'hp_mult': { 'type': 'total', 'value': 0 },
 	'img': 'assets/images/items/Elixir of Wrath.png',
 	'index': 169,
@@ -8233,6 +9091,7 @@ export const ITEMS = [{
 	'modes': 'all,sr',
 	'mp': 0,
 	'mp5': 0,
+	'mp5%': 0,
 	'mpen': 0,
 	'mpen%': 0,
 	'mr': 0,
@@ -8240,12 +9099,15 @@ export const ITEMS = [{
 	'name': 'Elixir of Wrath',
 	'phys_on_hit': 0,
 	'shared_item': {
-		"name": None
+		"name": null
 	},
+	'shared_passives': [{
+
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
-	'stackable': False,
+	'stackable': false,
 	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 0,

@@ -45,9 +45,6 @@ export class ItemsService {
 					if (selectedItem.apiname == "mercurystreads") {
 						champion.stats.tenacity = selectedItem.tenacity;
 					}
-					// look at the shared items -> this generally means the passives that it shares or a unique item that doesn't add the shared item's stats
-					// for example stinger shares attack speed i.e. multiple stingers stack attackspeed but not cdr
-					// lost chapter items share cdr but can stack all other stats. the shared item has a boolean representing which stats are shared and which ones are not -> maybe in the future I can take a look at this and see what structure better suits this
 					if (selectedItem.shared_item.name != null) {
 						var passiveNames = selectedItem.shared_item.name.split(",");
 						passiveNames.forEach((passiveName: string) => {
@@ -74,14 +71,9 @@ export class ItemsService {
 							if (hasMultType && itemStatVal.value != 0) {
 								let counts = 0;
 								if (selectedItem.shared_item.name != null) {
-									passiveNames = selectedItem.shared_item.name.split(",");
-									passiveNames.forEach((passiveName: string) => {
-										if (sharedItemCounts[passiveName] <= 1) {
-											counts += 1;
-										}
-									});
+									counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
 									// limit the number of total bonuses on additional items eg. stacking abyssal mask or liandrys
-									if (counts <= passiveNames.length) {
+									if (counts == 1) {
 										if (itemStatVal["type"] == "total") {
 											multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
 										} else if (itemStatVal["type"] == "bonus") {
@@ -101,6 +93,10 @@ export class ItemsService {
 										if (totalStatsFromItems[itemStatName] < itemStatVal) {
 											totalStatsFromItems[itemStatName] = itemStatVal;
 										} else {
+											let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
+											if (counts == 1 || totalStatsFromItems[itemStatName] < itemStatVal) {
+												totalStatsFromItems[itemStatName] += itemStatVal;
+											}
 											console.log(selectedItem, itemStatName, itemStatVal);
 										}
 									}
@@ -109,16 +105,10 @@ export class ItemsService {
 										// if the stats is a shared item stat and it's new, set it to the value
 										totalStatsFromItems[itemStatName] = itemStatVal;
 									} else {
-										let counts = 0;
-										passiveNames = selectedItem.shared_item.name.split(",");
-										passiveNames.forEach((passiveName: string) => {
-											if (sharedItemCounts[passiveName] <= 1) {
-												counts += 1;
-											}
-										});
+										let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
 										// ????? changed from counts == to <=
 										// I actually have no clue how to go about those stats
-										if (counts <= passiveNames.length) {
+										if (counts == 1 || totalStatsFromItems[itemStatName] == 0) {
 											totalStatsFromItems[itemStatName] = itemStatVal;
 										}
 
@@ -133,16 +123,11 @@ export class ItemsService {
 								let counts = 0;
 								// firstly why are stackable items and shared items related?
 								if (selectedItem.shared_item.name) {
-									let passNames = selectedItem.shared_item.name.split(",");
-									passNames.forEach((passName: string) => {
-										if (sharedItemCounts[passName] <= 1) {
-											counts += 1;
-										}
-									});
+									counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
 								}
 								// if there is an item that is stackable and is about to be stacked, only stack one of them unless its ROA
-								// the stack option only applies to the first one and not the other ones. reason is because the sharedItemCounts +=1 on iterative look at the inventory so the first one found is allowed. if there are 6 of them, the first checkbox is allowed to be stacked
-								if (selectedItem.apiname == 'rodofages' || counts != 0) {
+								// the stack option only applies to the first one and not the other ones. reason is because the sharedItemCounts +=1 on sharedItemCounts at the inventory so the first one found is allowed. if there are 6 of them, the first checkbox is allowed to be stacked
+								if (selectedItem.apiname == 'rodofages' || counts == 1) {
 									// add the stackable stats. this is is the incremental value since we have the toggle option which switches from adding and decrementing.
 									for (let stackedItemStatKey in selectedItem.stackable) {
 										if (stackedItemStatKey != "name") {
@@ -187,6 +172,17 @@ export class ItemsService {
 		}
 		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
 	}
+
+	sharedItemLimiter(sharedItemProp: any, sharedItemCounts: any) {
+		let counts = 0;
+		let passiveNames = sharedItemProp.name.split(",");
+		passiveNames.forEach((passiveName: string) => {
+			if (sharedItemCounts[passiveName] <= 1) {
+				counts += 1;
+			}
+		});
+		return counts / passiveNames.length;
+	}
 	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;
 		for (let key in multKeyValues) {
@@ -208,17 +204,31 @@ export class ItemsService {
 		// add all the stats that we've computed from items. this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with and without having to keep track of a post stat calculation
 
 		let flatMoveSpeedBonuses = 0;
+		let baseBonuses = {};
 		for (let key in totalStatsFromItems) {
+			let statVal = totalStatsFromItems[key];
 			if (key == "boots_ms" || key == "flat_ms") {
-				flatMoveSpeedBonuses += totalStatsFromItems[key];
-				champion.stats.ms += totalStatsFromItems[key];
+				flatMoveSpeedBonuses += statVal;
+				champion.stats.ms += statVal;
 			} else if (key == "ms%") {
 				// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
-				champion.stats.ms += champion.stats.ms * (totalStatsFromItems[key] / 100);
+				champion.stats.ms += champion.stats.ms * (statVal / 100);
+			} else if (key == "mp5%" || key == "hp5%") {
+				// hp5 and mp5 are only % on champion base (after SGF)
+				let flatKey = key.replace("%", "");
+				let bonusVal = champion.stats[flatKey] * (statVal / 100);
+				baseBonuses[flatKey] ? baseBonuses[flatKey] += bonusVal : baseBonuses[flatKey] = bonusVal;
+			} else if (key == "mp5" || key == "hp5") {
+				// flat comes from dorans ring/shield
+				baseBonuses[key] ? baseBonuses[key] += statVal : baseBonuses[key] = statVal;
 			} else if (key != "as") {
-				champion.stats[key] += totalStatsFromItems[key];
+				champion.stats[key] += statVal;
 			}
 		}
+		for (let key in baseBonuses) {
+			champion.stats[key] += baseBonuses[key];
+		}
+		// console.log(baseBonuses);
 		// the move speed multiplier is not applied on base and total very confusting
 		// champion.stats.ms += flatMoveSpeedBonuses;
 
@@ -230,7 +240,6 @@ export class ItemsService {
 			this.applyTotalMultipliers(champion, multKeyValues);
 		}
 	}
-
 	allSelectedItemsIsEmpty(selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item) {
 		for (let index in selectedItems) {
 			if (selectedItems[index] != EMPTY_ITEM) {
