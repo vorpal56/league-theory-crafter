@@ -6033,10 +6033,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Seeker's Armguard",
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": "seekers"
-	},
-	'shared_passives': [],
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6482,10 +6482,11 @@ export const ITEMS = [{
 	'ms%': 10,
 	'name': 'Spellbinder',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'aetherwisp'
-	},
-	'shared_passives': [],
+	'shared_item': null,
+	'shared_passives': [{
+		"name": 'aetherwisp',
+		"ms%": true,
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6778,11 +6779,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Stinger',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": 'stinger',
 		"cdr": true,
-	},
-	'shared_passives': [],
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7028,10 +7029,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Thornmail',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": "coldsteel"
-	},
-	'shared_passives': [],
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7226,10 +7227,11 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Twin Shadows',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'aetherwisp'
-	},
-	'shared_passives': [],
+	'shared_item': null,
+	'shared_passives': [{
+		"name": 'aetherwisp',
+		'ms%': true,
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7375,11 +7377,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Void Staff',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": "dissolve",
 		"mpen%": true
-	},
-	'shared_passives': [],
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7427,11 +7429,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Warden's Mail",
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": "coldsteel",
-
-	},
-	'shared_passives': [],
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7479,10 +7480,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Warmog's Armor",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'kindlegem'
-	},
-	'shared_passives': [],
+	'shared_item': null,
+	'shared_passives': [{
+		"name": 'kindlegem',
+		'cdr': true,
+	}],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,

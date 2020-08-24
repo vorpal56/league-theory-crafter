@@ -18,8 +18,8 @@ export class ItemSelectorComponent implements OnInit {
 	orderModes = ORDERMODES;
 	searchText: string = "";
 	searchMode: string = "all";
-	orderBy: string = this.ordersBy[0].orderByValue;
-	orderMode: string = this.orderModes[0].orderModeValue;
+	orderBy: string = this.ordersBy[1].orderByValue;
+	orderMode: string = this.orderModes[1].orderModeValue;
 
 	@Input('selectedChampion') champion: Champion;
 	@Input('currentLevel') currentLevel: number;
