@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	selectedItems: [Item, Item, Item, Item, Item, Item] = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 	selectedElixir: Item = EMPTY_ITEM;
 	// we can limit the items by adding it here
-	selectedItemRestrictions: ItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "hasSealOrMejais": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
+	selectedItemRestrictions: ItemRestrictions = { "hasGoldOrJg": false, "hasBoots": false, "hasTear": false, "masterworkItems": [EMPTY_ITEM, EMPTY_ITEM], "hasHexcore": false };
 	numberOfEquippedItems: number = 0;
 
 	// runes/item-selector/epic-monsters buff definition to show which page first

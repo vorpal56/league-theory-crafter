@@ -35,6 +35,8 @@ export class ItemsService {
 			};
 
 			let sharedItemCounts: object = {};
+			// stackedItemCounts relates to the stackable items that have been stacked. This is to allow stacking of only 1 or multiple items when the stacakble checkbox is checked. If we only reference the sharedItemCounts, we can only select the first option instead of any other option
+			let stackedItemCounts: object = {};
 			let aweItem: Item = EMPTY_ITEM;
 			let hexCoreItem: Item = EMPTY_ITEM;
 			for (let itemIndex in selectedItemsIncludingElixir) {
@@ -57,28 +59,38 @@ export class ItemsService {
 							sharedItemCounts[sharedPassiveObj.name] ? sharedItemCounts[sharedPassiveObj.name] += 1 : sharedItemCounts[sharedPassiveObj.name] = 1;
 							for (let sharedKey in sharedPassiveObj) {
 								if (sharedKey != "name") {
-									sharedStatKeys[sharedKey] ? sharedStatKeys[sharedKey] += 1 : sharedStatKeys[sharedKey] = 1;
+									sharedStatKeys[sharedKey] = sharedPassiveObj.name;
 								}
 							}
 						});
 					}
 					for (let itemStatName in selectedItem) {
 						let itemStatVal = selectedItem[itemStatName];
+						let numSharedPassives = selectedItem.shared_passives.length;
 						// skip any of irrelevant stat related items
 						if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "shared_passives" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
 							// check if it has any multipliers
 							let hasMultType = itemStatName.includes("mult");
-							let numSharedPassives = selectedItem.shared_passives.length;
-							if (hasMultType && itemStatVal.value != 0) {
-								let counts;
-								if (numSharedPassives > 0) {
-									counts = this.sharedItemLimiter(selectedItem.shared_passives, sharedItemCounts);
-									// limit the number of total bonuses on additional items eg. stacking abyssal mask or liandrys
-									if (counts == 1) {
+							if (hasMultType) {
+								if (numSharedPassives == 0 || numSharedPassives > 1) {
+									if (itemStatVal["type"] == "total") {
+										multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
+									} else if (itemStatVal["type"] == "bonus") {
+										multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+									}
+								} else if (numSharedPassives == 1) {
+									let sharedPassiveName = selectedItem.shared_passives[0]["name"];
+									if (itemStatName in sharedStatKeys == false || sharedItemCounts[sharedPassiveName] <= 1) {
 										if (itemStatVal["type"] == "total") {
 											multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
 										} else if (itemStatVal["type"] == "bonus") {
 											multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
+										}
+									} else if (itemStatName in sharedStatKeys && itemStatVal >= totalStatsFromItems[itemStatName]) {
+										if (itemStatVal["type"] == "total") {
+											multKeyValues[itemStatName][0]["value"] = (itemStatVal["value"] / 100);
+										} else if (itemStatVal["type"] == "bonus") {
+											multKeyValues[itemStatName][1]["value"] = (itemStatVal["value"] / 100);
 										}
 									}
 								}
@@ -102,31 +114,30 @@ export class ItemsService {
 										}
 									} else if (numSharedPassives > 1) {
 										for (let sharedPassiveIndex in selectedItem.shared_passives) {
-											let sharedPassiveObj = selectedItem.shared_passives[sharedPassiveIndex];
 											let statInKey = itemStatName in sharedStatKeys;
-											// let sharedPassiveInSharedItems = sharedPassiveObj.name in sharedItemCounts
-											if (!statInKey || sharedItemCounts[sharedPassiveObj.name] <= 1) {
+											if (!statInKey || sharedItemCounts[sharedStatKeys[itemStatName]] <= 1) {
 												totalStatsFromItems[itemStatName] += itemStatVal;
 												break;
 											} else if (statInKey && itemStatVal >= totalStatsFromItems[itemStatName]) {
 												totalStatsFromItems[itemStatName] = itemStatVal;
 												break;
 											}
-											// } else if (!statInKey || sharedPassiveInSharedItems <=1 ) {
-											// 	totalStatsFromItems[itemStatName] += itemStatVal;
-											// 	break;
-											// }
 										}
 									}
 								} else if (itemStatName in totalStatsFromItems === false) {
-									if (selectedItem.shared_passives.length == 0) {
+									if (numSharedPassives == 0) {
 										totalStatsFromItems[itemStatName] = itemStatVal;
-									} else {
+									} else if (numSharedPassives == 1) {
+										let sharedPassiveName = selectedItem.shared_passives[0]["name"];
+										if (itemStatName in sharedStatKeys == false || sharedItemCounts[sharedPassiveName] <= 1) {
+											totalStatsFromItems[itemStatName] = itemStatVal;
+										}
+									} else if (numSharedPassives > 1) {
 										selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
-											let a = sharedPassiveObj['name'];
+											let sharedPassiveName = sharedPassiveObj.name;
 											for (let sharedPassiveStat in sharedPassiveObj) {
-												if (sharedPassiveStat != "name" && sharedItemCounts[a]) {
-													if (sharedPassiveStat == itemStatName && sharedItemCounts[a].length <= 1) {
+												if (sharedPassiveStat != "name" && sharedItemCounts[sharedPassiveName]) {
+													if (sharedPassiveStat == itemStatName && sharedItemCounts[sharedPassiveName].length <= 1) {
 														totalStatsFromItems[itemStatName] = itemStatVal;
 														break;
 													} else if (sharedPassiveStat != 'name') {
@@ -139,19 +150,13 @@ export class ItemsService {
 									}
 								}
 							}
-						} else if (itemStatName == "shared_item" && itemStatVal != null) {
-							// do something
 						} else if (itemStatName == "stackable") {
-							// check if its a stackable item -> need to relook at this very confusing
 							if (selectedItem.stackable != false && selectedItem.stacked == true) {
-								let counts;
-								// firstly why are stackable items and shared items related?
-								if (selectedItem.shared_item.name) {
-									counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
-								}
-								// if there is an item that is stackable and is about to be stacked, only stack one of them unless its ROA
-								// the stack option only applies to the first one and not the other ones. reason is because the sharedItemCounts +=1 on sharedItemCounts at the inventory so the first one found is allowed. if there are 6 of them, the first checkbox is allowed to be stacked
-								if (selectedItem.apiname == 'rodofages' || counts == 1) {
+								// stackable items only share the first object and can be purchased multiple times.
+								let sharedItemName = selectedItem.shared_item;
+								if (numSharedPassives != 0) { sharedItemName = selectedItem.shared_passives[0].name; }
+								sharedItemName != null && stackedItemCounts[sharedItemName] ? stackedItemCounts[sharedItemName] += 1 : stackedItemCounts[sharedItemName] = 1;
+								if (selectedItem.apiname == 'rodofages' || stackedItemCounts[sharedItemName] <= 1) {
 									// add the stackable stats. this is is the incremental value since we have the toggle option which switches from adding and decrementing.
 									for (let stackedItemStatKey in selectedItem.stackable) {
 										if (stackedItemStatKey != "name") {
@@ -168,7 +173,7 @@ export class ItemsService {
 					}
 				}
 			}
-			console.log(totalStatsFromItems, sharedItemCounts);
+			console.log(totalStatsFromItems, sharedItemCounts, multKeyValues);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
 				if (champion.resource.toLowerCase() != "mana" && key.includes("mp")) {

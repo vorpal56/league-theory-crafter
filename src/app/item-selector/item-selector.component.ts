@@ -16,10 +16,10 @@ export class ItemSelectorComponent implements OnInit {
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
-	searchText: string = "";
+	orderBy: string = this.ordersBy[0].orderByValue;
+	orderMode: string = this.orderModes[0].orderModeValue;
 	searchMode: string = "all";
-	orderBy: string = this.ordersBy[1].orderByValue;
-	orderMode: string = this.orderModes[1].orderModeValue;
+	searchText: string = "";
 
 	@Input('selectedChampion') champion: Champion;
 	@Input('currentLevel') currentLevel: number;
@@ -57,9 +57,6 @@ export class ItemSelectorComponent implements OnInit {
 			return false;
 		}
 		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item == "goldjg") {
-			return false;
-		}
-		if (this.selectedItemRestrictions.hasSealOrMejais == true && itemDetails.shared_item == "dread") {
 			return false;
 		}
 		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.boots_ms) {
@@ -111,9 +108,6 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			if (itemDetails.shared_item == "goldjg") {
 				this.selectedItemRestrictions.hasGoldOrJg = true;
-			}
-			if (itemDetails.shared_item == "dread") {
-				this.selectedItemRestrictions.hasSealOrMejais = true;
 			}
 			if (itemDetails.boots_ms != 0) {
 				this.selectedItemRestrictions.hasBoots = true;

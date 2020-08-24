@@ -52,7 +52,6 @@ export interface ItemRestrictions {
 	"hasGoldOrJg": boolean,
 	"hasBoots": boolean,
 	"hasTear": boolean,
-	"hasSealOrMejais": boolean,
 	"masterworkItems": [Item, Item],
 	"hasHexcore": boolean;
 }

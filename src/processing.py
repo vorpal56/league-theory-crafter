@@ -107,7 +107,7 @@ def dumpItems():
 		else:
 			itemStats[key] = ""
 	file.close()
-	file = open(os.path.join(FILES_PATH, "app", "items_test2.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(FILES_PATH, "data", "items_test2.ts"), "w", encoding="utf-8")
 	result = pp.pformat(totalItems)
 	file.write("let None = null;\nlet True = true;\nlet False = False;\nexport const EMPTY_ITEM = " + pp.pformat(itemStats) + ";\nexport const ITEMS = " + result )
 	file.close()
@@ -119,7 +119,7 @@ def countChamps():
 		item["index"] = i
 		new_list.append(item)
 
-	file = open(os.path.join(FILES_PATH, "app", "data_test.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(FILES_PATH, "data", "data_test.ts"), "w", encoding="utf-8")
 	file.write("export const CHAMPIONS = " + pp.pformat(new_list))
 	file.close()
 
@@ -169,7 +169,7 @@ def scrape_op():
 		champion["index"] = int(ci)
 		champion["apiname"] = champion["apiname"].lower()
 		champs.append(champion)
-	file = open(os.path.join(FILES_PATH, "app", "new_data.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(FILES_PATH, "data", "new_data.ts"), "w", encoding="utf-8")
 	file.write(pp.pformat(champs))
 	file.close()
 	print("Finished")
@@ -966,7 +966,6 @@ RUNES = [{
 	"active_primary": False,
 	"active_secondary": False,
 }]
-
 def add_apiname_field_runes():
 	for obj in RUNES:
 		for slot in obj["runes"]:
@@ -976,13 +975,22 @@ def add_apiname_field_runes():
 					val = re.sub(r"[\:\'\-\ ]", '', rune_obj["name"]).lower()
 					# print(val, re.sub(r"[\:\'\-\ ]", '', rune_obj["name"]), re.sub(r"", '', rune_obj["name"]))
 					rune_obj["apiname"] = val
-	file = open(os.path.join(FILES_PATH, "app", "new_runes.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(FILES_PATH, "data", "new_runes.ts"), "w", encoding="utf-8")
 	file.write(pp.pformat(RUNES))
 	file.close()
 	return
-
+def fix_order():
+	sorted_items_by_name = sorted(items, key=lambda item:item["name"])
+	for i, item in enumerate(sorted_items_by_name):
+		item["index"] = i
+	file = open(os.path.join(FILES_PATH, "data", "sorted_items.ts"), "w", encoding="utf-8")
+	file.write(pp.pformat(sorted_items_by_name))
+	file.close()
+	# print(pp.pformat(b))
+	return
 if __name__ == '__main__':
-	add_apiname_field_runes()
+	# fix_order()
+	# add_apiname_field_runes()
 	# scrape_op()
 	# items = dumpItems()
 	# countChamps()

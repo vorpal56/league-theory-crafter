@@ -76,10 +76,6 @@ export class InventoryComponent implements OnInit {
 		if (itemDetails.shared_item == "goldjg") {
 			this.selectedItemRestrictions.hasGoldOrJg = false;
 		}
-		if (itemDetails.shared_item == "dread") {
-			this.selectedItemRestrictions.hasSealOrMejais = false;
-			itemDetails.stacked = false;
-		}
 		if (itemDetails.boots_ms != 0) {
 			this.selectedItemRestrictions.hasBoots = false;
 		}
@@ -154,9 +150,9 @@ export class InventoryComponent implements OnInit {
 	}
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
-			this.selectedItems[index] = ITEMS[89];
+			this.selectedItems[index] = ITEMS[99];
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
-			this.selectedItems[index] = ITEMS[120];
+			this.selectedItems[index] = ITEMS[133];
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}
