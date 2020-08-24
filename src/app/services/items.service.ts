@@ -38,40 +38,34 @@ export class ItemsService {
 			let aweItem: Item = EMPTY_ITEM;
 			let hexCoreItem: Item = EMPTY_ITEM;
 			for (let itemIndex in selectedItemsIncludingElixir) {
-				let selectedItem = selectedItemsIncludingElixir[itemIndex];
+				let selectedItem: Item = selectedItemsIncludingElixir[itemIndex];
 				if (selectedItem.name != "Empty") {
 					// add the tenacity directly (we're not gonna add steraks since its due to lifeline active items. This allows us to separate the tenacity formula dynamically into the rune/elixir calculation in the runesService and the items calc here).
 					//maybe in the future i'll take a look at adding in active items -> checkbox to see what stats on all activation? individual items might be too difficult
 					if (selectedItem.apiname == "mercurystreads") {
 						champion.stats.tenacity = selectedItem.tenacity;
 					}
-					if (selectedItem.shared_item.name != null) {
-						var passiveNames = selectedItem.shared_item.name.split(",");
-						passiveNames.forEach((passiveName: string) => {
-							if (passiveName in sharedItemCounts === false) {
-								sharedItemCounts[passiveName] = 1;
-							} else {
-								sharedItemCounts[passiveName] += 1;
-							}
-							// some specific items have post calculations like manamune, seraphs, hexcore items, etc
-							if (passiveName == "awe" && selectedItem.name.includes("tear") === false) {
-								aweItem = selectedItem;
-							}
-							if (passiveName == "hexcore") {
-								hexCoreItem = selectedItem;
-							}
+					if (selectedItem.shared_item == "awe" && selectedItem.name.includes('tear') == false) {
+						aweItem = selectedItem;
+					}
+					if (selectedItem.shared_item == "hexcore") {
+						hexCoreItem = selectedItem;
+					}
+					if (selectedItem.shared_passives.length != 0) {
+						selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
+							sharedItemCounts[sharedPassiveObj.name] ? sharedItemCounts[sharedPassiveObj.name] += 1 : sharedItemCounts[sharedPassiveObj.name] = 1;
 						});
 					}
 					for (let itemStatName in selectedItem) {
 						let itemStatVal = selectedItem[itemStatName];
 						// skip any of irrelevant stat related items
-						if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
+						if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "shared_passives" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
 							// check if it has any multipliers
 							let hasMultType = itemStatName.includes("mult");
 							if (hasMultType && itemStatVal.value != 0) {
-								let counts = 0;
-								if (selectedItem.shared_item.name != null) {
-									counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
+								let counts;
+								if (selectedItem.shared_passives.length != 0) {
+									counts = this.sharedItemLimiter(selectedItem.shared_passives, sharedItemCounts);
 									// limit the number of total bonuses on additional items eg. stacking abyssal mask or liandrys
 									if (counts == 1) {
 										if (itemStatVal["type"] == "total") {
@@ -84,35 +78,86 @@ export class ItemsService {
 								// on other stats that are not tenacity, add them since the tenacity calculation happens on the rune additions (tenacity only exists on mercs)
 							} else if (hasMultType === false && itemStatName != "tenacity") {
 								if (itemStatName in totalStatsFromItems) {
-									// check if the item stat is new or not
-									if (itemStatName in selectedItem.shared_item === false) {
+									if (selectedItem.shared_passives.length == 0) {
 										totalStatsFromItems[itemStatName] += itemStatVal;
 									} else {
-										// if the stats is a shared item stats and the new stat is bigger, assign the larger one
-										// eg. voidstaff and guinsoos, lastwhipser, LDR, mortal reminder, etc.
-										if (totalStatsFromItems[itemStatName] < itemStatVal) {
-											totalStatsFromItems[itemStatName] = itemStatVal;
-										} else {
-											let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
-											if (counts == 1 || totalStatsFromItems[itemStatName] < itemStatVal) {
-												totalStatsFromItems[itemStatName] += itemStatVal;
+										let addedStat = {};
+										selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
+											let dissolve = sharedPassiveObj;
+											if (itemStatName in dissolve) {
+												console.log(itemStatName, itemStatVal, dissolve);
+											} else {
+												if (addedStat[itemStatName]) {
+													totalStatsFromItems[itemStatName] += itemStatVal;
+												}
 											}
-											console.log(selectedItem, itemStatName, itemStatVal);
-										}
+											// for (let sharedPassiveStat in sharedPassiveObj) {
+											// 	if (sharedPassiveStat != "name" && sharedItemCounts[a]) {
+											// 		if (sharedPassiveStat == itemStatName && sharedItemCounts[a].length <= 1) {
+											// 			if (totalStatsFromItems[itemStatName] < itemStatVal) {
+											// 				totalStatsFromItems[itemStatName] = itemStatVal;
+											// 			}
+											// 			// console.log("added stat", sharedPassiveStat, itemStatVal);
+											// 		} else if (sharedPassiveStat != 'name') {
+											// 			totalStatsFromItems[itemStatName] += itemStatVal;
+											// 			// console.log("this is a stat we didn't deal with", sharedPassiveStat, itemStatName, itemStatVal);
+											// 		}
+											// 	} else {
+											// 		// console.log(sharedPassiveStat, itemStatName, itemStatVal);
+											// 	}
+											// }
+										});
 									}
+									// let allowedPassives = this.sharedItemLimiter(selectedItem.shared_passives, sharedItemCounts)
+									// for
+									// // check if the item stat is new or not
+									// if (itemStatName in selectedItem.shared_item === false) {
+									// 	totalStatsFromItems[itemStatName] += itemStatVal;
+									// } else {
+									// 	// if the stats is a shared item stats and the new stat is bigger, assign the larger one
+									// 	// eg. voidstaff and guinsoos, lastwhipser, LDR, mortal reminder, etc.
+									// 	if (totalStatsFromItems[itemStatName] < itemStatVal) {
+									// 		totalStatsFromItems[itemStatName] = itemStatVal;
+									// 	} else {
+									// 		let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
+									// 		if (counts == 1 || totalStatsFromItems[itemStatName] < itemStatVal) {
+									// 			totalStatsFromItems[itemStatName] += itemStatVal;
+									// 		}
+									// 		console.log(selectedItem, itemStatName, itemStatVal);
+									// 	}
+									// }
 								} else if (itemStatName in totalStatsFromItems === false) {
-									if (itemStatName in selectedItem.shared_item === false) {
-										// if the stats is a shared item stat and it's new, set it to the value
+									if (selectedItem.shared_passives.length == 0) {
 										totalStatsFromItems[itemStatName] = itemStatVal;
 									} else {
-										let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
-										// ????? changed from counts == to <=
-										// I actually have no clue how to go about those stats
-										if (counts == 1 || totalStatsFromItems[itemStatName] == 0) {
-											totalStatsFromItems[itemStatName] = itemStatVal;
-										}
-
+										selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
+											let a = sharedPassiveObj['name'];
+											for (let sharedPassiveStat in sharedPassiveObj) {
+												if (sharedPassiveStat != "name" && sharedItemCounts[a]) {
+													if (sharedPassiveStat == itemStatName && sharedItemCounts[a].length <= 1) {
+														totalStatsFromItems[itemStatName] = itemStatVal;
+														// console.log("added stat", sharedPassiveStat, itemStatVal);
+													} else if (sharedPassiveStat != 'name') {
+														totalStatsFromItems[itemStatName] = itemStatVal;
+														// console.log("this is a stat we didn't deal with", sharedPassiveStat, itemStatName, itemStatVal);
+													}
+												} else {
+													// console.log(sharedPassiveStat, itemStatName, itemStatVal);
+												}
+											}
+										});
 									}
+									// if (itemStatName in selectedItem.shared_item === false) {
+									// 	// if the stats is a shared item stat and it's new, set it to the value
+									// 	totalStatsFromItems[itemStatName] = itemStatVal;
+									// } else {
+									// 	let counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
+									// 	// ????? changed from counts == to <=
+									// 	// I actually have no clue how to go about those stats
+									// 	if (counts == 1 || totalStatsFromItems[itemStatName] == 0) {
+									// 		totalStatsFromItems[itemStatName] = itemStatVal;
+									// 	}
+									// }
 								}
 							}
 						} else if (itemStatName == "shared_item" && itemStatVal != null) {
@@ -120,7 +165,7 @@ export class ItemsService {
 						} else if (itemStatName == "stackable") {
 							// check if its a stackable item -> need to relook at this very confusing
 							if (selectedItem.stackable != false && selectedItem.stacked == true) {
-								let counts = 0;
+								let counts;
 								// firstly why are stackable items and shared items related?
 								if (selectedItem.shared_item.name) {
 									counts = this.sharedItemLimiter(selectedItem.shared_item, sharedItemCounts);
@@ -173,15 +218,19 @@ export class ItemsService {
 		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
 	}
 
-	sharedItemLimiter(sharedItemProp: any, sharedItemCounts: any) {
-		let counts = 0;
-		let passiveNames = sharedItemProp.name.split(",");
-		passiveNames.forEach((passiveName: string) => {
-			if (sharedItemCounts[passiveName] <= 1) {
-				counts += 1;
+	sharedItemLimiter(sharedPassivesProperty: any, sharedItemCounts: any) {
+		let allowed = {};
+		for (let sharedPassiveIndex in sharedPassivesProperty) {
+			let sharedPassiveObj = sharedPassivesProperty[sharedPassiveIndex];
+			for (let statKey in sharedPassiveObj) {
+
 			}
-		});
-		return counts / passiveNames.length;
+			if (sharedItemCounts[sharedPassiveObj.name] <= 1 || sharedPassiveObj) {
+				allowed[sharedPassiveIndex] = sharedPassiveObj;
+			}
+		}
+		return 0;
+		return allowed;
 	}
 	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;

@@ -37,6 +37,7 @@ export interface Item {
 	'name': string,
 	'phys_on_hit': number,
 	'shared_item': any,
+	'shared_passives': any,
 	'shield': number,
 	'spell_m_proc': any, // type string is not assignable to number?
 	'spell_vamp': number,

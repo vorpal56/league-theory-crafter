@@ -70,13 +70,13 @@ export class InventoryComponent implements OnInit {
 	}
 	removeItem(itemDetails: Item, index?: number): void {
 		// we check if there exists an item directly on the template
-		if (itemDetails.shared_item.name == "hexcore") {
+		if (itemDetails.shared_item == "hexcore") {
 			this.selectedItemRestrictions.hasHexcore = false;
 		}
-		if (itemDetails.shared_item.name == "goldjg") {
+		if (itemDetails.shared_item == "goldjg") {
 			this.selectedItemRestrictions.hasGoldOrJg = false;
 		}
-		if (itemDetails.shared_item.name == "dread") {
+		if (itemDetails.shared_item == "dread") {
 			this.selectedItemRestrictions.hasSealOrMejais = false;
 			itemDetails.stacked = false;
 		}

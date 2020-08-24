@@ -53,13 +53,13 @@ export class ItemSelectorComponent implements OnInit {
 			// can't add items that are 'invisible'
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasHexcore == true && itemDetails.shared_item.name == "hexcore") {
+		if (this.selectedItemRestrictions.hasHexcore == true && itemDetails.shared_item == "hexcore") {
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item.name == "goldjg") {
+		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item == "goldjg") {
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasSealOrMejais == true && itemDetails.shared_item.name == "dread") {
+		if (this.selectedItemRestrictions.hasSealOrMejais == true && itemDetails.shared_item == "dread") {
 			return false;
 		}
 		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.boots_ms) {
@@ -106,13 +106,13 @@ export class ItemSelectorComponent implements OnInit {
 		if (itemDetails.name.toLowerCase().includes("elixir") && itemDetails != this.selectedElixir) {
 			this.addElixir(itemDetails);
 		} else if (this.isItemAllowed(itemDetails) && itemDetails != this.selectedElixir) {
-			if (itemDetails.shared_item.name == "hexcore") {
+			if (itemDetails.shared_item == "hexcore") {
 				this.selectedItemRestrictions.hasHexcore = true;
 			}
-			if (itemDetails.shared_item.name == "goldjg") {
+			if (itemDetails.shared_item == "goldjg") {
 				this.selectedItemRestrictions.hasGoldOrJg = true;
 			}
-			if (itemDetails.shared_item.name == "dread") {
+			if (itemDetails.shared_item == "dread") {
 				this.selectedItemRestrictions.hasSealOrMejais = true;
 			}
 			if (itemDetails.boots_ms != 0) {

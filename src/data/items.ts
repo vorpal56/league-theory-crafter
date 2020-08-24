@@ -36,12 +36,8 @@ export const EMPTY_ITEM = {
 	'ms%': 0,
 	'name': 'Empty',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -89,12 +85,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Abyssal Mask',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': 'aura',
-		'ap_mult': { 'type': 'total', 'value': 0 },
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': "abyssalmask",
+		'ap_mult': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -143,12 +137,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Adaptive Helm',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -196,12 +186,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Aegis of the Legion',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -249,11 +235,10 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': 'Aether Wisp',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'aetherwisp'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'aetherwisp',
+		'ms%': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -302,12 +287,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Amplifying Tome',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -355,12 +336,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Archangel's Staff",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "awe,haste",
-		"cdr": true
-	},
+	'shared_item': "awe",
 	'shared_passives': [{
-
+		'name': 'haste',
+		'cdr': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -411,14 +390,14 @@ export const ITEMS = [{
 	'ms%': 8,
 	'name': 'Ardent Censer',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'forbiddenidol,aetherwisp',
+	'shared_item': [{
+		'name': 'forbiddenidol',
 		'heal_shield': true,
+	}, {
+		'name': 'aetherwisp',
 		'ms%': true,
-	},
-	'shared_passives': [{
-
 	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -466,11 +445,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Athene's Unholy Grail",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'dissonance'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'dissonance',
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -519,12 +496,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'BF Sword',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -572,12 +545,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Bami's Cinder",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -625,11 +594,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Banshee's Veil",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'fiendish',
+		'cdr': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -678,12 +646,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Berserker's Greaves",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -731,12 +695,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bilgewater Cutlass',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -784,12 +744,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Blasting Wand',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -837,12 +793,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Black Mist Scythe',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -890,12 +842,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Blade of the Ruined King',
 	'phys_on_hit': 15,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -943,12 +891,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Mobility',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -996,12 +940,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Speed',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1049,12 +989,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Boots of Swiftness',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1102,11 +1038,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bramble Vest',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'thorns'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'thorns'
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -1155,12 +1089,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bulwark of the Mountain',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1208,12 +1138,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Black Cleaver',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1261,12 +1187,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Bloodthirster',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 50,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1314,12 +1236,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Catalyst of Aeons',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1367,12 +1285,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Caulfield's Warhammer",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1420,12 +1334,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Chain Vest',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1473,11 +1383,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Chalice of Harmony',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'harmony'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'harmony'
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -1526,12 +1434,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cloak of Agility',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1579,12 +1483,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cloth Armor',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1632,12 +1532,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Crystalline Bracer',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1685,12 +1581,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Cull',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1738,12 +1630,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Dagger',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1791,12 +1679,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Dark Seal',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "dread"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'dread',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1844,12 +1728,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Dead Man's Plate",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -1897,12 +1777,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Death's Dance",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
@@ -1950,12 +1826,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Blade",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2003,12 +1875,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Shield",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2056,12 +1924,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Doran's Ring",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2109,12 +1973,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Duskblade of Draktharr',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2162,12 +2022,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Edge of Night',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2215,12 +2071,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Bloodrazor',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2268,12 +2120,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Cinderhulk',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2321,13 +2169,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Echoes',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg,echo',
+	'shared_item': [{
+		"name": 'echo',
 		"spell_m_proc": true,
-	},
-	'shared_passives': [{
-
 	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 60,
 	'spell_vamp': 0,
@@ -2375,12 +2221,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Enchantment: Warrior',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2428,12 +2270,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Essence Reaver',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2481,12 +2319,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Executioner's Calling",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2534,12 +2368,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Faerie Charm',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2587,12 +2417,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Fiendish Codex',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'fiendish',
-		'cdr': true
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'fiendish',
+		'cdr': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -2641,11 +2469,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Forbidden Idol',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'forbiddenidol'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'forbiddenidol',
+		'cdr': true,
+		'heal_shield': true
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -2694,12 +2522,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frostfang',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2747,11 +2571,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Heart',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'coldsteel'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'coldsteel'
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -2800,12 +2622,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Mallet',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2853,12 +2671,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Gargoyle Stoneplate',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2906,12 +2720,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Giant's Belt",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -2959,13 +2769,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Glacial Shroud',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": 'glacialshroud',
 		"cdr": true,
-	},
-	'shared_passives': [{
-
-	}],
+	},],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3013,12 +2821,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Guardian Angel',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3066,13 +2870,13 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Guinsoo's Rageblade",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'dissolve,lastwhisper',
-		"apen%": true,
-		"mpen%": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'dissolve',
+		'mpen%': true,
+	}, {
+		'name': 'lastwhisper',
+		'apen%': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3121,11 +2925,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Haunting Guise',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "madness"
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'madness'
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3174,12 +2976,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Harrowing Crescent',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3227,12 +3025,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hexdrinker',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3280,12 +3074,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech GLP-800',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "haste",
-		"cdr": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'haste',
+		'cdr': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 100,
@@ -3334,12 +3126,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Gunblade',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 175,
 	'spell_vamp': 15,
@@ -3387,12 +3175,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Protobelt-01',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': '127,5',
 	'spell_vamp': 0,
@@ -3440,12 +3224,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hextech Revolver',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 50,
 	'spell_vamp': 0,
@@ -3493,12 +3273,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hex Core mk-1',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "hexcore"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'hexcore',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3546,12 +3322,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Hex Core mk-2',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "hexcore"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'hexcore',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3599,12 +3371,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Iceborn Gauntlet',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3652,12 +3420,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Infinity Edge',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'ie',
-		"critdmg": true
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'ie',
+		'critdmg': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -3706,12 +3472,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ionian Boots of Lucidity',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3759,12 +3521,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Jaurim's Fist",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3814,13 +3572,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Kindlegem',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": 'kindlegem',
 		'cdr': true,
-	},
-	'shared_passives': [{
-
-	}],
+	},],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3868,12 +3624,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Kircheis Shard',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3921,12 +3673,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Knight's Vow",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -3974,13 +3722,11 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Last Whisper',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "lastwhisper",
-		"apen%": true
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
-	}],
+		'name': 'lastwhisper',
+		'apen%': true
+	},],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4028,11 +3774,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Liandry's Torment",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "madness"
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		"name": "madness"
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4081,11 +3825,10 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Lich Bane',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'aetherwisp'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'aetherwisp',
+		'ms%': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4134,12 +3877,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Locket of the Iron Solari',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4187,12 +3926,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Long Sword',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4240,12 +3975,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Lord Dominik's Regards",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'lastwhisper',
-		"apen%": true
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'lastwhisper',
+		'apen%': true
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4294,12 +4027,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Lost Chapter',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'haste',
-		"cdr": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'haste',
+		'cdr': true
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4348,13 +4079,13 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Luden's Echo",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'echo,haste',
-		"cdr": true,
-		"spell_m_proc": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'haste',
+		'cdr': true,
+	}, {
+		'name': 'echo',
+		'spell_m_proc': true
 	}],
 	'shield': 0,
 	'spell_m_proc': 100,
@@ -4403,13 +4134,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Manamune',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "awe",
-
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'awe',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4459,12 +4185,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Maw of Malmortius',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4512,12 +4234,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mejai's Soulstealer",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "dread"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': "dread",
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4568,12 +4286,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Mercurial Scimitar',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4621,12 +4335,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mercury's Treads",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4674,12 +4384,12 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Mikael's Crucible",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'forbiddenidol,harmony',
-		"heal_shield": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'forbiddenidol',
+		'heal_shield': true,
+	}, {
+		'name': 'harmony',
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4728,12 +4438,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Morellonomicon',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		'name': 'morellonomicon',
 		'mpen': true,
-	},
-	'shared_passives': [{
-
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4782,12 +4490,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Mortal Reminder',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		"name": "lastwhisper",
 		"apen%": true,
-	},
-	'shared_passives': [{
-
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4836,13 +4542,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Muramana',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "awe",
-
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'awe',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4890,12 +4591,14 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Nashor's Tooth",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'fiendish,stinger',
+	'shared_item': null,
+	'shared_passives': [{
+		"name": 'fiendish',
 		"cdr": true,
 	},
-	'shared_passives': [{
-
+	{
+		"name": 'stinger',
+		"cdr": true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -4944,12 +4647,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Needlessly Large Rod',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -4997,12 +4696,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Negatron Cloak',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5050,12 +4745,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ninja Tabi',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5103,12 +4794,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Null-Magic Mantle',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5156,12 +4843,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Oblivion Orb',
 	'phys_on_hit': 0,
-	'shared_item': {
+	'shared_item': null,
+	'shared_passives': [{
 		'name': 'morellonomicon',
 		'mpen': true,
-	},
-	'shared_passives': [{
-
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5210,12 +4895,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Perfect Hex Core',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "hexcore"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'hexcore',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5263,12 +4944,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Phage',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5316,12 +4993,8 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Phantom Dancer',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5369,12 +5042,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Pickaxe',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5422,12 +5091,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Prototype Hex Core',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "hexcore"
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'hexcore',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5475,12 +5140,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Pauldrons of Whiterock',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5528,12 +5189,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Quicksilver Sash',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5581,12 +5238,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Runesteel Spaulders',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5634,12 +5287,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rabadon's Deathcap",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5687,11 +5336,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Randuin's Omen",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "coldsteel"
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		"name": "coldsteel"
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5740,12 +5387,8 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Rapid Firecannon',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5793,12 +5436,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ravenous Hydra',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -5846,11 +5485,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Recurve Bow',
 	'phys_on_hit': 15,
-	'shared_item': {
-		"name": 'recurve'
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		"name": 'recurve'
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5899,12 +5536,10 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Redemption',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "forbiddenidol,redemption",
-		"heal_shield": true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		"name": "forbiddenidol",
+		"heal_shield": true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -5953,12 +5588,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Rejuvenation Bead',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6006,12 +5637,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Relic Shield',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6059,12 +5686,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Righteous Glory',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6112,12 +5735,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Rod of Ages',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6169,12 +5788,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Ruby Crystal',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6222,12 +5837,8 @@ export const ITEMS = [{
 	'ms%': 9,
 	'name': "Runaan's Hurricane",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6275,12 +5886,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rylai's Crystal Scepter",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6328,12 +5935,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sanguine Blade',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6381,12 +5984,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sapphire Crystal',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6437,9 +6036,7 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "seekers"
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6490,13 +6087,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Seraph's Embrace",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "awe,haste",
-		"cdr": true
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'awe',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6544,12 +6136,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Serrated Dirk',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6597,12 +6185,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sheen',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6654,9 +6238,7 @@ export const ITEMS = [{
 		"name": "forbiddenidol",
 		"heal_shield": true,
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6704,12 +6286,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Steel Shoulderguards',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6757,12 +6335,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Shard of true Ice',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6810,12 +6384,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Sorcerer's Shoes",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6863,12 +6433,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Spectre's Cowl",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6919,9 +6485,7 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'aetherwisp'
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -6969,12 +6533,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Spectral Sickle',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7022,12 +6582,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Spellthief's Edge",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7075,12 +6631,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Spirit Visage',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7128,12 +6680,8 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Statikk Shiv',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7181,12 +6729,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Sterak's Gage",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7238,9 +6782,7 @@ export const ITEMS = [{
 		"name": 'stinger',
 		"cdr": true,
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7288,12 +6830,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Stormrazor',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7341,12 +6879,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Sunfire Cape',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7394,12 +6928,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Targon's Buckler",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": 'goldjg'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'goldjg',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7447,13 +6977,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Tear of the Goddess',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": "awe"
-
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': 'awe',
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7506,9 +7031,7 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": "coldsteel"
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7556,12 +7079,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Tiamat',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7609,12 +7128,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Titanic Hydra',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7662,12 +7177,8 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': 'Trinity Force',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7718,9 +7229,7 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'aetherwisp'
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7768,12 +7277,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Umbral Glaive',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7821,12 +7326,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Vampiric Scepter',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7878,9 +7379,7 @@ export const ITEMS = [{
 		"name": "dissolve",
 		"mpen%": true
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7932,9 +7431,7 @@ export const ITEMS = [{
 		"name": "coldsteel",
 
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -7985,9 +7482,7 @@ export const ITEMS = [{
 	'shared_item': {
 		"name": 'kindlegem'
 	},
-	'shared_passives': [{
-
-	}],
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8035,12 +7530,8 @@ export const ITEMS = [{
 	'ms%': 5,
 	'name': "Wit's End",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8088,12 +7579,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Youmuu's Ghostblade",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8141,12 +7628,8 @@ export const ITEMS = [{
 	'ms%': 7,
 	'name': 'Zeal',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8194,12 +7677,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zeke's Convergence",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8247,12 +7726,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zhonya's Hourglass",
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8300,12 +7775,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Circlet of the Iron Solari',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8353,12 +7824,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Forgefire Cape',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8406,12 +7873,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Frozen Fist',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8459,12 +7922,9 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Infernal Mask',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': 'aura',
-		'ap_mult': { 'type': 'total', 'value': 0 },
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'aura',
 	}],
 	'shield': 0,
 	'spell_m_proc': 0,
@@ -8513,13 +7973,13 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Luden's Pulse",
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': 'echo,haste',
-		'cdr': true,
-		'spell_m_proc': true,
-	},
+	'shared_item': null,
 	'shared_passives': [{
-
+		'name': 'haste',
+		'cdr': true,
+	}, {
+		'name': 'echo',
+		'spell_m_proc': true,
 	}],
 	'shield': 0,
 	'spell_m_proc': 100,
@@ -8568,12 +8028,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Obsidian Cleaver',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8621,12 +8077,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Salvation',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': 'redemption'
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8674,12 +8126,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Rabadon's Deathcrown",
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8727,12 +8175,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Molten Edge',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8780,12 +8224,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Might of the Ruined King',
 	'phys_on_hit': 15,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8833,12 +8273,8 @@ export const ITEMS = [{
 	'ms%': 8,
 	'name': 'Trinity Fusion',
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8886,12 +8322,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Youmuu's Wraithblade",
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8939,12 +8371,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': "Zhonya's Paradox",
 	'phys_on_hit': 0,
-	'shared_item': {
-		'name': null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -8992,12 +8420,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Iron',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -9045,12 +8469,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Sorcery',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
@@ -9098,12 +8518,8 @@ export const ITEMS = [{
 	'ms%': 0,
 	'name': 'Elixir of Wrath',
 	'phys_on_hit': 0,
-	'shared_item': {
-		"name": null
-	},
-	'shared_passives': [{
-
-	}],
+	'shared_item': null,
+	'shared_passives': [],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 15,
