@@ -19,6 +19,7 @@ html, body {
 	height: 100%;
 	/* background-color: var(--background-main); */
 	background-color: var(--background-main);
+	/* background: linear-gradient(180deg, var(--background-main),#292e49); */
 	color:white !important;
 	font-family: 'Oxygen', sans-serif;
 }
@@ -149,7 +150,7 @@ span.component-title#component-title {
 	"item-rune-epic-selector inventory"
 	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
-	background-color: var(--background-main);
+	/* background-color: var(--background-main); */
 	padding: 15px 0px;
 }
 @media only screen and (max-width: 767px) {

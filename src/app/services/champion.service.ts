@@ -44,4 +44,26 @@ export class ChampionService {
 		champion.stats.cdr -= champion.stats.cdr > cdrCap ? (champion.stats.cdr - cdrCap) : 0;
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 	}
+	damageReduction(champion: Champion, statName: string) {
+		let championDef = champion.stats[statName];
+		if (championDef >= 0) {
+			return 100 / (100 + championDef);
+		} else {
+			return 2 - (100 / (100 - championDef));
+		}
+	}
+	effectiveHealth(champion: Champion, statName: string) {
+		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
+	}
+	magicPenetration(champion: Champion) {
+		// Magic resistance reduction, flat. (Wit's End, Baron Debuff while fighting it) -> wits end passive was removed and baron is interesting... maybe we can add that as a target
+		// Magic resistance reduction, percentage. (Insert Champion Abilities here) eg. trundle subjugate
+		// Magic penetration, percentage. (Void Staff)
+		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
+	}
+	armorPenetration(champion: Champion, targetLevel: number, targetArmour: number) {
+		// lethality scales depending on the targets level. the higher the targets level, the more vaulable lethality is
+		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + targetLevel / 18);
+		if (currentFlatArmorPenetration < 0) { currentFlatArmorPenetration = 0; }
+	}
 }

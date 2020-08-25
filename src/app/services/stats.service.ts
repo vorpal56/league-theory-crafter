@@ -29,31 +29,9 @@ export class StatsService {
 	 * @returns number
 	 */
 	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number): number {
-		var value =
-			growthStatistic *
-			(championLevel - 1) *
-			(0.7025 + 0.0175 * (championLevel - 1));
-		if (base) {
-			value = this.formatNPlaces(base + value, 3);
-		}
+		var value = growthStatistic * (championLevel - 1) * (0.7025 + 0.0175 * (championLevel - 1));
+		if (base) { value += base; }
 		return value;
-	}
-	damageReduction(champion: Champion, statName: string) {
-		let championDef = champion.stats[statName];
-		if (championDef >= 0) {
-			return 100 / (100 + championDef);
-		} else {
-			return 2 - (100 / (100 - championDef));
-		}
-	}
-	effectiveHealth(champion: Champion, statName: string) {
-		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
-	}
-	magicPenetration(champion: Champion) {
-		// Magic resistance reduction, flat. (Wit's End, Baron Debuff while fighting it) -> wits end passive was removed and baron is interesting... maybe we can add that as a target
-		// Magic resistance reduction, percentage. (Insert Champion Abilities here) eg. trundle subjugate
-		// Magic penetration, percentage. (Void Staff)
-		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
 	}
 	/**
 	 * Method that adjusts the base stats given the champion stats
