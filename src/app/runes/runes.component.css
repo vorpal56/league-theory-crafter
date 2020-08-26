@@ -1,6 +1,7 @@
 img.option {
 	border-radius: 50%;
-	background-color: var(--background-alt-3)
+	background-color: var(--background-alt-3);
+	cursor:pointer;
 }
 img.large-rune {
 	width: 40px;

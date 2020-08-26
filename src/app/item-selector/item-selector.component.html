@@ -42,7 +42,7 @@
 				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 					<div class="item-block">
 						<div class="bg-black" [ngClass]="isVisible(item)">
-							<img [src]="item.img" [title]="item.name" draggable="false" />
+							<img class="item-img" [src]="item.img" [title]="item.name" draggable="false" />
 						</div>
 					</div>
 				</li>

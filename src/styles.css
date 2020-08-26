@@ -82,10 +82,11 @@ div.item-block:hover {
 	height:108px;
 }
 .inactive-tab {
-	height:48px;
+	cursor:pointer;
+	height:42px;
 	filter: grayscale(100%);
 	opacity: .27;
-	transition: ease 0.3s
+	transition: ease 0.3s;
 }
 .inactive-tab:hover {
 	transition: ease 0.3s;
@@ -93,8 +94,8 @@ div.item-block:hover {
 	opacity: 1;
 }
 img.tab-icon {
-	width:48px;
-	height:48px;
+	width:42px;
+	height:42px;
 }
 .invisible-item {
 	transition: ease 0.15s;
@@ -108,8 +109,8 @@ img.tab-icon {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	flex: 0 0 48px;
-	height: 48px;
+	flex: 0 0 42px;
+	height: 42px;
 	margin-bottom: 6px;
 	padding: 0 10px;
 	background-color: var(--background-alt);
@@ -117,9 +118,9 @@ img.tab-icon {
 }
 .component-header-grid {
 	display:grid;
-	height: 48px;
+	height: 42px;
 		margin-bottom: 6px;
-	grid-template-columns: auto 48px 48px 48px;
+	grid-template-columns: auto 42px 42px 42px;
 	grid-template-rows: 1fr;
 	grid-template-areas:
 	"component-title epic-monsters-tab rune-tab item-selector-tab";

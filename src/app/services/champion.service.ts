@@ -62,8 +62,17 @@ export class ChampionService {
 		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
 	}
 	armorPenetration(champion: Champion, targetLevel: number, targetArmour: number) {
+
+		// 1. Armor reduction, flat (baron)
+		// 2. Armor reduction, percentage (subjugate)
+		// 3. Armor penetration, percentage
+		// 4. Lethality
+
+		let percentAPen = targetArmour * champion.stats["apen%"];
 		// lethality scales depending on the targets level. the higher the targets level, the more vaulable lethality is
 		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + targetLevel / 18);
-		if (currentFlatArmorPenetration < 0) { currentFlatArmorPenetration = 0; }
+		console.log(currentFlatArmorPenetration);
+		return targetArmour - currentFlatArmorPenetration - percentAPen;
+
 	}
 }

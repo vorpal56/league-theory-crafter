@@ -11,9 +11,19 @@ export class CalculationsComponent implements OnInit {
 
 	@Input('champion') champion: Champion;
 
+	resistanceStat: number;
+	max = 300;
+	min = 30;
+	step = 10;
+	tickInterval = 1;
+	armourNegated = 0;
+
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
 	}
-
+	setResistanceStat(statVal: number) {
+		this.resistanceStat = statVal;
+		this.armourNegated = this.championService.armorPenetration(this.champion, 18, statVal);
+	}
 }

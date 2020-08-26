@@ -2,10 +2,9 @@
 	<span>Damage Calculations</span>
 </div>
 <div class="component-body">
-	<span>some content here</span>
-	<!-- <div class="orbit-spinner" style="margin: auto; width: 300px; height: 300px;">
-		<div class="orbit" style="border-color: rgb(66, 104, 146);"></div>
-		<div class="orbit" style="border-color: rgb(66, 104, 146);"></div>
-		<div class="orbit" style="border-color: rgb(66, 104, 146);"></div>
-	</div> -->
+	<div class="target-resistance">
+		<input style='width:90%' type="range" min="30" max="300" step="10" #resistanceStat (input)="setResistanceStat(resistanceStat.value)">
+	</div>
+	<label for="resistanceStat">{{ resistanceStat.value }} Armor/MR</label>
+	<label for="resistanceStat">{{ armourNegated }} Armor Negated</label>
 </div>

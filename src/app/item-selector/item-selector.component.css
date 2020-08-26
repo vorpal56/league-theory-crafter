@@ -6,9 +6,10 @@ div.item-block {
 ul.item-grid {
 	padding-inline-start: 20px;
 }
-img {
+img.item-img {
 	width:48px;
 	height:48px;
+	cursor:pointer;
 }
 mat-form-field.full-width {
 	width:100%;
