@@ -4,7 +4,7 @@ import { RunesService } from './runes.service';
 import { StatsService } from './stats.service';
 import { Item } from '../models/item';
 import { Champion } from '../models/champion';
-import { EMPTY_ITEM } from 'src/data/items';
+import { EMPTY_ITEM } from '../../../server/data/items';
 
 @Injectable({
 	providedIn: 'root'
@@ -68,11 +68,12 @@ export class ChampionService {
 		// 3. Armor penetration, percentage
 		// 4. Lethality
 
-		let percentAPen = targetArmour * champion.stats["apen%"];
+		let percentAPen = targetArmour * champion.stats["apen%"] / 100;
 		// lethality scales depending on the targets level. the higher the targets level, the more vaulable lethality is
-		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + targetLevel / 18);
-		console.log(currentFlatArmorPenetration);
-		return targetArmour - currentFlatArmorPenetration - percentAPen;
+		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + 0.4 * targetLevel / 18);
+		let total = currentFlatArmorPenetration + percentAPen;
+		// total = total > targetArmour ? targetArmour : total;
+		return total;
 
 	}
 }

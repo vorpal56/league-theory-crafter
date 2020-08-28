@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
-import { GAMEMODES, ORDERBY, ORDERMODES } from "../../data/data";
-import { ITEMS, EMPTY_ITEM } from "../../data/items";
+import { GAMEMODES, ORDERBY, ORDERMODES } from "../../../server/data/data";
+import { EMPTY_ITEM } from "../../../server/data/items";
 import { ChampionService } from '../services/champion.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
 	selector: 'item-selector',
@@ -12,7 +15,7 @@ import { ChampionService } from '../services/champion.service';
 })
 export class ItemSelectorComponent implements OnInit {
 
-	items = ITEMS;
+	items$: Observable<Item[]>;
 	gamemodes = GAMEMODES;
 	ordersBy = ORDERBY;
 	orderModes = ORDERMODES;
@@ -38,8 +41,11 @@ export class ItemSelectorComponent implements OnInit {
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 
-	constructor(private championService: ChampionService) { }
+	constructor(private championService: ChampionService, private http: HttpClient) { }
 	ngOnInit(): void {
+		this.items$ = this.http.get<Item[]>("/api/items").pipe(
+			shareReplay({ refCount: true, bufferSize: 1 })
+		);
 		// this.addItem(ITEMS[83]);
 	}
 

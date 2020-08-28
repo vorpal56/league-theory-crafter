@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { RUNES, RUNE_SHARDS } from '../../data/runes';
+import { RUNES, RUNE_SHARDS } from '../../../server/data/runes';
 import { RuneShard, Rune } from '../models/rune';
 import { Champion } from '../models/champion';
 import { Item } from '../models/item';
@@ -109,7 +109,7 @@ export class RunesComponent implements OnInit {
 			// set the previous rune as inactive
 			this.runes[this.pathIndices[pathName]].runes[0][slotName][runeIndex].active = false;
 			rune.active = true;
-			this.selectedRunes.secondaryTree.runes[0] = JSON.parse(JSON.stringify(this.selectedRunes.secondaryTree.runes[1]));
+			this.selectedRunes.secondaryTree.runes[0] = { ...this.selectedRunes.secondaryTree.runes[1] };
 			this.selectedRunes.secondaryTree.runes[1] = rune;
 		}
 		this.emitSelectedRunes();

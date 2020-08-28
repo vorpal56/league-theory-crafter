@@ -1,9 +1,9 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { Item } from '../models/item';
-import { Champion } from '../models/champion';
+import { Pipe, PipeTransform } from "@angular/core";
+import { Item } from "../models/item";
+import { Champion } from "../models/champion";
 
 @Pipe({
-	name: 'itemFilter'
+	name: "itemFilter",
 })
 export class ItemFilterPipe implements PipeTransform {
 	/**
@@ -33,16 +33,18 @@ export class ItemFilterPipe implements PipeTransform {
 	}
 	/**
 	 * Item filter pipe that is called on search input
-	 * @param  {any[]} items the list of all items
+	 * @param  {Item[]} items the list of all items
 	 * @param  {Champion} selectedChampion the selected champion to filter items that are unobtainable
 	 * @param  {string} searchText search input when typed in
 	 * @param  {string} searchMode search by gamemode
 	 * @param  {string} orderBy orders results by name or gold/price
 	 * @param  {string} orderMode orders in ascending or descending order
-	 * @returns Item
+	 * @returns Item[]
 	 */
 	transform(items: Item[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
 		if (!items) return [];
+		// check if there is a selected champion from oninit in champion component
+		if (!selectedChampion) return items;
 		let championName = selectedChampion.name;
 		let championRangeType = selectedChampion["rangetype"].toLowerCase();
 		searchText = searchText.toLowerCase();
@@ -51,7 +53,7 @@ export class ItemFilterPipe implements PipeTransform {
 		// if we want to remove items from the list that do not match the details, we can use the filter function
 		// and change the return value from nothing to the conditional expression and call the sort on the results array
 		// let results = items.filter(item => {
-		items.forEach(item => {
+		items.forEach((item: Item) => {
 			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
 			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
@@ -61,7 +63,7 @@ export class ItemFilterPipe implements PipeTransform {
 			let finalCondition: boolean;
 
 			// for example, check if it has tags, include it as a possible search term
-			intermediaryCondition1 = itemsSearchedByTag ? (itemsSearchedByName || itemsSearchedByTag) : itemsSearchedByName;
+			intermediaryCondition1 = itemsSearchedByTag ? itemsSearchedByName || itemsSearchedByTag : itemsSearchedByName;
 			// fixed the logic, much more straight forward and actually makes sense
 			// check if there are any restrictions on the item given the champion
 			if (item.allowed_to.melee && item.allowed_to.ranged) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../models/item';
 import { Champion } from '../models/champion';
-import { EMPTY_ITEM } from '../../data/items';
+import { EMPTY_ITEM } from '../../../server/data/items';
 
 @Injectable({
 	providedIn: 'root'

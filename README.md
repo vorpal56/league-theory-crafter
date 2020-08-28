@@ -1,5 +1,16 @@
 # LeagueTheoryCrafter
 
+For UI Dev
+```
+yarn serve
+```
+
+For Backend dev
+```
+cd server/
+yarn watch-dev
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
 ## Development server

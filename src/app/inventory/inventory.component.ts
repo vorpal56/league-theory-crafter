@@ -1,13 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Item, ItemRestrictions } from '../models/item';
-import { EMPTY_ITEM, ITEMS } from '../../data/items';
+import { EMPTY_ITEM } from '../../../server/data/items';
 import { Champion } from '../models/champion';
 import { ChampionService } from '../services/champion.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
 	selector: 'inventory',
 	templateUrl: './inventory.component.html',
-	styleUrls: ['./inventory.component.css']
+	styleUrls: ['./inventory.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InventoryComponent implements OnInit {
 
@@ -26,7 +29,10 @@ export class InventoryComponent implements OnInit {
 	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 
-	constructor(private championService: ChampionService) { }
+	muramana: Item;
+	seraphs: Item;
+
+	constructor(private championService: ChampionService, private http: HttpClient, private cd: ChangeDetectorRef) { }
 
 	ngOnInit(): void {
 		// this.selectedItems[0] = ITEMS[134];
@@ -35,6 +41,9 @@ export class InventoryComponent implements OnInit {
 		// this.selectedItems[3] = ITEMS[70];
 		// this.selectedItems[4] = ITEMS[70];
 		// this.selectedItems[5] = ITEMS[70];
+		// there must be a better way of doing it instead of subscribing on init
+		this.http.get<Item>("/api/items/99").subscribe((item: Item) => this.muramana = item[0]);
+		this.http.get<Item>("/api/items/133").subscribe((item: Item) => this.seraphs = item[0]);
 		this.emitSelectedItems();
 	}
 	/**
@@ -60,13 +69,6 @@ export class InventoryComponent implements OnInit {
 	selectedSlotIsFree(itemDetails: Item, a?: number): boolean {
 		// if (a) { console.log(itemDetails, itemDetails == EMPTY_ITEM); }
 		return itemDetails == EMPTY_ITEM ? true : false;
-	}
-	removeElixir() {
-		if (this.selectedElixir != EMPTY_ITEM) {
-			this.selectedElixir = EMPTY_ITEM;
-			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
-		}
 	}
 	removeItem(itemDetails: Item, index?: number): void {
 		// we check if there exists an item directly on the template
@@ -134,8 +136,19 @@ export class InventoryComponent implements OnInit {
 				}
 			}
 		});
-		this.emitSelectedItems();
+		// this.emitSelectedItems();
 		return;
+	}
+	removeElixir(currentLevel?: number) {
+		if (!currentLevel) {
+			currentLevel = this.currentLevel;
+		}
+		if (this.selectedElixir != EMPTY_ITEM || currentLevel < 9) {
+			this.selectedElixir = EMPTY_ITEM;
+			this.selectedElixirEmitter.emit(this.selectedElixir);
+			// this.emitSelectedItems();
+			this.championService.applyAllComponentChanges(this.champion, currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		}
 	}
 	/**
 	 * Method that removes elixir slot if the champion level is below the required level
@@ -143,19 +156,20 @@ export class InventoryComponent implements OnInit {
 	 * @param  {number} currentLevel the level that was changed into -> previous selected level is on this.currentLevel when called -> model doesn't update immediately?
 	 * @returns void
 	 */
-	removeInvalidElixirBasedOnLevel(currentLevel: number): void {
-		if (currentLevel < 9) {
-			this.selectedElixir = EMPTY_ITEM;
-		}
-	}
+	// removeInvalidElixirBasedOnLevel(currentLevel: number): void {
+	// 	if (currentLevel < 9) {
+	// 		this.removeElixir();
+	// 	}
+	// }
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
-			this.selectedItems[index] = ITEMS[99];
+			this.selectedItems[index] = this.muramana;
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
-			this.selectedItems[index] = ITEMS[133];
+			this.selectedItems[index] = this.seraphs;
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}
+		this.emitSelectedItems();
 		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
 	}
 	/**

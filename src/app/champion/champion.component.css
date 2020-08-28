@@ -1,9 +1,9 @@
 .center-margin {
-	margin-top:auto;
-	margin-bottom:auto
+	margin-top: auto;
+	margin-bottom: auto;
 }
 .stat {
-	margin-right:4px;
+	margin-right: 4px;
 }
 .hp {
 	background-color: green;
@@ -13,134 +13,149 @@
 }
 .champion-grid {
 	display: grid;
-	grid-template-columns: minmax(80px, 300px) var(--champion-img-height) 1.7fr 1fr;
+	grid-template-columns: minmax(120px, 300px) auto;
 	grid-template-rows: auto;
-	grid-template-areas :
-	"selectors champion-img champion-abilities champion-stats"
+	grid-template-areas: "selectors champion-details";
 }
-
+#champion-details {
+	grid-area: champion-details;
+	display:grid;
+	grid-template-rows: auto;
+	grid-template-columns: var(--champion-img-height) 1.7fr 1fr;
+	grid-template-areas: "champion-img champion-abilities champion-stats";
+}
 #selectors {
 	grid-area: selectors;
 	display: flex;
 	flex-direction: column;
-	padding:5px 0px 5px 5px;
+	padding: 5px 0px 5px 5px;
 }
 .selector-container {
-	width:auto;
-}
-#champion-details {
-	grid-area: champion-details;
-	display:flex;
+	width: auto;
 }
 @media only screen and (max-width: 767px) {
 	.champion-grid {
-		grid-template-columns: var(--champion-img-height) auto;
-		grid-template-rows: auto auto auto;
-		grid-template-areas :
-		"selectors selectors"
-		"champion-img champion-abilities"
-		"champion-stats champion-stats"
-	}
-	#selectors {
-		flex-direction: row;
-		padding: 5px 5px 0px 5px
-	}
-	.selector-container {
-		width:100%;
-	}
-	.champion-details-grid {
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
 		grid-template-areas:
-		"champion-stats"
-		"champion-abilities"
+			"selectors"
+			"champion-details";
+	}
+	#champion-details {
+		grid-template-columns: var(--champion-img-height) auto;
+		grid-template-rows: auto auto;
+		grid-template-areas:
+			"champion-img champion-abilities"
+			"champion-stats champion-stats";
+	}
+	#selectors {
+		flex-direction: row;
+		padding: 5px 5px 0px 5px;
+	}
+	.selector-container {
+		width: 100%;
 	}
 	#champion-stats {
-		padding-left:30px;
+		padding-left: 30px;
 	}
 }
 
 #champion-img {
-	grid-area : champion-img;
-	display:flex;
+	grid-area: champion-img;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 #champion-stats {
-	grid-area : champion-stats;
+	grid-area: champion-stats;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
 	grid-template-areas:
-	"ad ap ls spell_vamp"
-	"arm mr apen mpen"
-	"as cdr range critdmg"
-	"crit ms tenacity heal_shield"
+		"ad ap ls spell_vamp"
+		"arm mr apen mpen"
+		"as cdr range critdmg"
+		"crit ms tenacity heal_shield";
 }
 #champion-abilities {
-	grid-area : champion-abilities;
+	grid-area: champion-abilities;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(2, auto);
 	grid-template-areas:
-	"passive q w e r"
-	"hp-mp hp-mp hp-mp hp-mp hp-mp";
+		"passive q w e r"
+		"hp-mp hp-mp hp-mp hp-mp hp-mp";
 	height: var(--champion-img-height);
-	margin-right:5px;
+	margin-right: 5px;
 }
 
-#ad, #ap, #ls, #spell_vamp, #arm, #mr, #apen, #mpen, #as, #cdr, #range, #critdmg, #crit, #ms, #tenacity, #heal_shield {
-	margin:5px;
-	display:flex;
+#ad,
+#ap,
+#ls,
+#spell_vamp,
+#arm,
+#mr,
+#apen,
+#mpen,
+#as,
+#cdr,
+#range,
+#critdmg,
+#crit,
+#ms,
+#tenacity,
+#heal_shield {
+	margin: 5px;
+	display: flex;
 	align-items: center;
 }
 #ad {
-	grid-area:ad;
+	grid-area: ad;
 }
 #ap {
-	grid-area:ap;
+	grid-area: ap;
 }
 #ls {
-	grid-area:ls;
+	grid-area: ls;
 }
 #spell_vamp {
-	grid-area:spell_vamp;
+	grid-area: spell_vamp;
 }
 #arm {
-	grid-area:arm;
+	grid-area: arm;
 }
 #mr {
-	grid-area:mr;
+	grid-area: mr;
 }
 #apen {
-	grid-area:apen;
+	grid-area: apen;
 }
 #mpen {
-	grid-area:mpen;
+	grid-area: mpen;
 }
 #as {
-	grid-area:as;
+	grid-area: as;
 }
 #cdr {
-	grid-area:cdr;
+	grid-area: cdr;
 }
 #range {
-	grid-area:range;
+	grid-area: range;
 }
 #critdmg {
-	grid-area:critdmg;
+	grid-area: critdmg;
 }
 #crit {
-	grid-area:crit;
+	grid-area: crit;
 }
 #ms {
-	grid-area:ms;
+	grid-area: ms;
 }
 #tenacity {
-	grid-area:tenacity;
+	grid-area: tenacity;
 }
 #heal_shield {
-	grid-area:heal_shield;
+	grid-area: heal_shield;
 }
 img.large-ability {
 	width: 56px;
@@ -148,27 +163,95 @@ img.large-ability {
 }
 img.medium-ability {
 	width: 48px;
-	height:48px
+	height: 48px;
 }
 img.small-ability {
 	width: 40px;
-	height:40px
+	height: 40px;
 }
 #passive {
-	grid-area:passive;
+	grid-area: passive;
 }
 #q {
 	grid-area: q;
 }
 #w {
-	grid-area:w ;
+	grid-area: w;
 }
 #e {
-	grid-area:e ;
+	grid-area: e;
 }
 #r {
 	grid-area: r;
 }
 #hp-mp {
 	grid-area: hp-mp;
+}
+
+.orbit-spinner,
+.orbit-spinner * {
+	box-sizing: border-box;
+}
+
+.orbit-spinner {
+	height: 55px;
+	width: 55px;
+	border-radius: 50%;
+	perspective: 800px;
+}
+
+.orbit-spinner .orbit {
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.orbit-spinner .orbit:nth-child(1) {
+	left: 0%;
+	top: 0%;
+	animation: orbit-spinner-orbit-one-animation 1200ms linear infinite;
+	border-bottom: 3px solid #ff1d5e;
+}
+
+.orbit-spinner .orbit:nth-child(2) {
+	right: 0%;
+	top: 0%;
+	animation: orbit-spinner-orbit-two-animation 1200ms linear infinite;
+	border-right: 3px solid #ff1d5e;
+}
+
+.orbit-spinner .orbit:nth-child(3) {
+	right: 0%;
+	bottom: 0%;
+	animation: orbit-spinner-orbit-three-animation 1200ms linear infinite;
+	border-top: 3px solid #ff1d5e;
+}
+
+@keyframes orbit-spinner-orbit-one-animation {
+	0% {
+		transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@keyframes orbit-spinner-orbit-two-animation {
+	0% {
+		transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@keyframes orbit-spinner-orbit-three-animation {
+	0% {
+		transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
 }
