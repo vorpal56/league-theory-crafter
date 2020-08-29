@@ -62,10 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 		if (tabName == "item-selector") {
 			return this.selectedTab == "runes" || this.selectedTab == "epic-monsters";
 		} else if (tabName == "runes") {
-			return (
-				this.selectedTab == "item-selector" ||
-				this.selectedTab == "epic-monsters"
-			);
+			return this.selectedTab == "item-selector" || this.selectedTab == "epic-monsters";
 		} else if (tabName == "epic-monsters") {
 			return this.selectedTab == "runes" || this.selectedTab == "item-selector";
 		}
@@ -73,7 +70,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 	setChampion(selectedChampion: Champion) {
 		this.champion = selectedChampion;
 		if (this.inventoryComponent) {
-			// this.inventoryComponent.removeInvalidElixirBasedOnLevel(this.currentLevel);
 			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
 		}
 		return;

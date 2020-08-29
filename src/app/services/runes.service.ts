@@ -9,8 +9,18 @@ import { Item } from '../models/item';
 export class RunesService {
 
 	constructor() { }
+	/**
+	 * @param  {any} selectedRunes the selected runes to calculate stats with
+	 * @param  {Champion} champion the selected champion to apply the calculations towards
+	 * @param  {number} currentLevel the current level for level dependant runes such as transcendance and abs focus.
+	 * @param  {any} totalStatsFromItems the total stats from items to calculate adaptive bonus from transcendence
+	 * @param  {string} adaptiveType the adaptive type to switch the calculation based on the item
+	 * @param  {Item} selectedElixir the selected elixir for tenacity calulation (if neccessary)
+	 * @param  {boolean} stackAllRunes to stack or not stack dependant runes such as pom, legend runes, etc.
+	 * @param  {number} currentTime the current time for time dependant runes such as gatherin storm
+	 * @returns any the stats from runes
+	 */
 	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, selectedElixir: Item, stackAllRunes: boolean, currentTime: number): any[] {
-		// currentTime = 19;
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStatsFromRunes = {};
 		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
@@ -26,20 +36,15 @@ export class RunesService {
 						let runeApiname = rune.apiname;
 						if (runeApiname == "presenceofmind") {
 							let presenceOfMindTotal = this.presenceOfMindRune(rune, champion.resource.toLowerCase(), stackAllRunes);
-							console.log(presenceOfMindTotal);
 							totalStatsFromRunes["mp"] ? totalStatsFromRunes["mp"] += presenceOfMindTotal : totalStatsFromRunes["mp"] = presenceOfMindTotal;
-						} else if (runeApiname == "legendalacrity") {
-							let statKey = "as";
-							let bonusAttackSpeed = this.legendRune(rune, statKey, stackAllRunes);
-							totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += bonusAttackSpeed : totalStatsFromRunes[statKey] = bonusAttackSpeed;
+						} else if (runeApiname == "legendalacrity" || runeApiname == "legendbloodline") {
+							let statKey = runeApiname == "legendalacrity" ? "as" : "ls";
+							let bonus = this.legendRune(rune, statKey, stackAllRunes);
+							totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += bonus : totalStatsFromRunes[statKey] = bonus;
 						} else if (runeApiname == "legendtenacity") {
 							let additiveTenacity = rune.stats.tenacity;
 							additiveTenacity += stackAllRunes ? rune.stackable.tenacity : 0;
 							currentTenacityRatio *= (1 - additiveTenacity / 100);
-						} else if (runeApiname == "legendbloodline") {
-							let statKey = "ls";
-							let bonusLifeSteal = this.legendRune(rune, statKey, stackAllRunes);
-							totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += bonusLifeSteal : totalStatsFromRunes[statKey] = bonusLifeSteal;
 						} else if (runeApiname == "unflinching") {
 							let additiveTenacity = rune.stats.tenacity;
 							additiveTenacity += selectedElixir.apiname == "elixirofiron" ? selectedElixir.tenacity : 0;
@@ -92,15 +97,11 @@ export class RunesService {
 						} else if (runeApiname == "cosmicinsight") {
 							cdrCap += 5;
 							totalStatsFromRunes["cdr"] = rune.stats.cdr; // reason we can add directly is because we need to know the cdr cap before applying transcendance and no other rune provides cdr
-						} else {
-							return;
-							for (let statKey in rune.stats) {
-								totalStatsFromRunes[statKey] ? totalStatsFromRunes[statKey] += rune.stats[statKey] : totalStatsFromRunes = rune.stats[statKey];
-							}
 						}
 					}
 				});
 			} else {
+				// do the rune shard calculation
 				let selectedRuneShards = selectedRunes[runeTree];
 				selectedRuneShards.forEach((runeShard: RuneShard) => {
 					if (runeShard) {
@@ -131,7 +132,9 @@ export class RunesService {
 		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
 		let tenacityFromRunes = totalTenacityRatio - champion.stats.tenacity;
 		if (tenacityFromRunes > 0) { totalStatsFromRunes['tenacity'] = tenacityFromRunes; }
-		console.log(totalStatsFromRunes);
+		if (totalStatsFromRunes != {}) {
+			console.log(totalStatsFromRunes);
+		}
 		champion.stats.tenacity = totalTenacityRatio;
 		return [totalStatsFromRunes, cdrCap];
 	}

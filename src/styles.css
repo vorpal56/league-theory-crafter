@@ -9,6 +9,10 @@
 	--background-alt: #17172e;
 	--background-alt-2: #222238;
 	--background-alt-3: #17172e;
+	--border-color-grey: #2c2c40;
+	--border-color-blue-grey :rgb(66, 104, 146);
+	--light-yellow :rgb(225, 205, 146);
+	--dark-amber: rgb(154, 123, 67);
 	--champion-img-height: 120px;
 	--component-header-height : 54px;
 	/* --component-header-height : 70px;  */
@@ -117,6 +121,7 @@ img.tab-icon {
 	margin-bottom: 6px;
 	padding: 0 10px;
 	background-color: var(--background-alt);
+	border: 1px solid var(--border-color-grey);
 	width:100%;
 }
 .component-header-grid {
@@ -147,22 +152,20 @@ span.component-title#component-title {
 	display: grid;
 	height: 100vh;
 	grid-template-columns: 2fr 1fr;
-	grid-template-rows: 0.2fr 0.3fr 0.5fr 2fr;
+	grid-template-rows: 0.3fr 0.5fr 2fr;
 	grid-template-areas:
-	"navbar navbar"
 	"champion champion"
 	"item-rune-epic-selector inventory"
 	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
 	/* background-color: var(--background-main); */
-	padding: 15px 0px;
+	padding: 60px 0px 15px 0px;
 }
 @media only screen and (max-width: 767px) {
 	.container-grid-league {
 	grid-template-columns: auto;
 	grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
 	grid-template-areas:
-	"navbar"
 	"champion"
 	"inventory"
 	"item-rune-epic-selector"
@@ -179,9 +182,9 @@ span.component-title#component-title {
 #champion {
 	grid-area: champion;
 }
-#navbar {
+/* #navbar {
 	grid-area: navbar;
-}
+} */
 #item-rune-epic-selector {
 	grid-area: item-rune-epic-selector;
 }
@@ -192,6 +195,7 @@ span.component-title#component-title {
 	flex-direction: column;
 }
 #inventory .component-body {
+	border: 1px solid var(--border-color-grey);
 	height:100%;
 }
 #damage-calc {
@@ -269,4 +273,68 @@ span.component-title#component-title {
 ::-webkit-scrollbar-thumb {
 	background: grey;
 }
-/* --------------------------Scrollbar-------------------------- */
+/* --------------------------End Scrollbar-------------------------- */
+/* --------------------------Orbit Spinner-------------------------- */
+.orbit-spinner, .orbit-spinner * {
+  box-sizing: border-box;
+}
+.orbit-spinner {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+.orbit-spinner .orbit-line {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.orbit-line {
+	border-color: var(--border-color-blue-grey) !important;
+	/* border-color: var(--light-yellow) !important; */
+}
+.orbit-spinner .orbit-line:nth-child(1) {
+  left: 0%;
+  top: 0%;
+  animation: orbit-spinner-orbit-one-animation 1200ms linear infinite;
+  border-bottom: 3px solid;
+}
+.orbit-spinner .orbit-line:nth-child(2) {
+  right: 0%;
+  top: 0%;
+  animation: orbit-spinner-orbit-two-animation 1200ms linear infinite;
+  border-right: 3px solid;
+}
+.orbit-spinner .orbit-line:nth-child(3) {
+  right: 0%;
+  bottom: 0%;
+  animation: orbit-spinner-orbit-three-animation 1200ms linear infinite;
+  border-top: 3px solid ;
+}
+@keyframes orbit-spinner-orbit-one-animation {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+@keyframes orbit-spinner-orbit-two-animation {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+@keyframes orbit-spinner-orbit-three-animation {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}
+/* --------------------------End Orbit Spinner-------------------------- */

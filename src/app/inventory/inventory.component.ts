@@ -70,7 +70,7 @@ export class InventoryComponent implements OnInit {
 		// if (a) { console.log(itemDetails, itemDetails == EMPTY_ITEM); }
 		return itemDetails == EMPTY_ITEM ? true : false;
 	}
-	removeItem(itemDetails: Item, index?: number): void {
+	removeItem(itemDetails: Item, index?: number, runService: boolean = true): void {
 		// we check if there exists an item directly on the template
 		if (itemDetails.shared_item == "hexcore") {
 			this.selectedItemRestrictions.hasHexcore = false;
@@ -99,7 +99,9 @@ export class InventoryComponent implements OnInit {
 
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		if (runService) {
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		}
 		return;
 	}
 	/**
@@ -110,16 +112,17 @@ export class InventoryComponent implements OnInit {
 	 * @returns void
 	 */
 	removeInvalidItemsBasedOnChampion(selectedChampion: Champion): void {
+		let runService = false;
 		this.selectedItems.forEach((item, index) => {
 			let championRangeType = selectedChampion["rangetype"].toLowerCase();
 			if (selectedChampion.name == "Cassiopeia" && item.boots_ms != 0) {
-				this.removeItem(item, index);
+				this.removeItem(item, index, runService);
 			} else if (selectedChampion.name != "Viktor" && item.apiname.includes("hexcore")) {
-				this.removeItem(item, index);
+				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.melee && !item.allowed_to.ranged && championRangeType == "ranged") {
-				this.removeItem(item, index);
+				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.ranged && !item.allowed_to.melee && championRangeType == "melee") {
-				this.removeItem(item, index);
+				this.removeItem(item, index, runService);
 			} else if (item.apiname.includes("masterwork") && selectedChampion.name != "Ornn") {
 				let occupiedSlots = 0;
 				// look at this logic again and see if there is a logically better way of doing this
@@ -132,7 +135,7 @@ export class InventoryComponent implements OnInit {
 					}
 				}
 				if (occupiedSlots > 1) {
-					this.removeItem(item, index);
+					this.removeItem(item, index, runService);
 				}
 			}
 		});

@@ -1,13 +1,17 @@
+<nav id="navbar">
+	<a class="logo-icon" href="#">
+		<img src="assets/images/icons/asiconwhite.png" height="40" width="40">
+	</a>
+	<label for="toggle">&#9776;</label>
+	<input type="checkbox" id="toggle" />
+	<div class="menu">
+		<a href="#">Items</a>
+		<a href="#">Champions</a>
+		<a href="#">Login</a>
+	</div>
+</nav>
 <div class="container">
 	<div class="container-grid-league">
-		<div id="navbar">
-			<div class="component-header">
-
-			</div>
-			<div class="component-body">
-
-			</div>
-		</div>
 		<div id="champion">
 			<champion (selectedChampion)="setChampion($event)" (selectedLevel)="setCurrentLevel($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes"
 								[stackAllRunes]="stackAllRunes"></champion>

@@ -13,9 +13,19 @@ export class ChampionService {
 
 	constructor(private statsService: StatsService, private itemsService: ItemsService, private runesService: RunesService) { }
 
+	/**
+	 * Method that performs all the calculations for changes in all components. This invokes calls to the stats, items and runes service
+	 * @param  {Champion} selectedChampion the champion to apply the calculations to
+	 * @param  {number} currentLevel the current level selected
+	 * @param  {number} currentTime the current time in game for time dependant runes and items
+	 * @param  {[Item*6]} selectedItems the selected items to calculate stats
+	 * @param  {Item} selectedElixir the selected elixir to calculate stats
+	 * @param  {any} selectedRunes the selected runes to calculate stats
+	 * @param  {boolean} stackAllRunes boolean to stack all the rune choices or not (eg. legend runes)
+	 */
 	applyAllComponentChanges(selectedChampion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, stackAllRunes: boolean) {
 		this.statsService.adjustBaseStats(selectedChampion, currentLevel);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(selectedChampion, currentLevel, selectedItems, selectedElixir);
+		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(selectedChampion, selectedItems, selectedElixir);
 		this.itemsService.addItemStats(selectedChampion, totalStatsFromItems, multKeyValues);
 
 		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(selectedRunes, selectedChampion, currentLevel, totalStatsFromItems, adaptiveType, selectedElixir, stackAllRunes, currentTime);
@@ -23,7 +33,14 @@ export class ChampionService {
 
 		this.statsService.adjustAttackSpeed(selectedChampion, currentLevel, totalStatsFromItems, totalStatsFromRunes);
 		this.postCalculations(selectedChampion, currentLevel, itemAdditions, cdrCap);
+		return;
 	}
+	/**
+	 * @param  {Champion} champion the champion to apply post calculations towards
+	 * @param  {number} currentLevel the current level to apply post calculations of items or runes
+	 * @param  {any} itemAdditions any additional items that are calculated post like tear items
+	 * @param  {number} cdrCap cdr cap to limit the champions cdr if the cosmic insight option in runes is selected
+	 */
 	postCalculations(champion: Champion, currentLevel: number, itemAdditions: any, cdrCap: number) {
 		if (champion.apiname == "yasuo") {
 			champion.stats.crit *= 2;
@@ -43,8 +60,9 @@ export class ChampionService {
 		}
 		champion.stats.cdr -= champion.stats.cdr > cdrCap ? (champion.stats.cdr - cdrCap) : 0;
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
+		return;
 	}
-	damageReduction(champion: Champion, statName: string) {
+	damageReduction(champion: Champion, statName: string): number {
 		let championDef = champion.stats[statName];
 		if (championDef >= 0) {
 			return 100 / (100 + championDef);
@@ -52,7 +70,7 @@ export class ChampionService {
 			return 2 - (100 / (100 - championDef));
 		}
 	}
-	effectiveHealth(champion: Champion, statName: string) {
+	effectiveHealth(champion: Champion, statName: string): number {
 		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
 	}
 	magicPenetration(champion: Champion) {

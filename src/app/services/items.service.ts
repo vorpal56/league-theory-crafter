@@ -9,15 +9,14 @@ import { EMPTY_ITEM } from '../../../server/data/items';
 export class ItemsService {
 
 	constructor() { }
-
 	/**
 	 * Method that adds the items stats to the champion stats after adjustBaseStats is applied
+	 * This looks at stackable item stats such as tear items, mejais, dark seal, seekers and unique passives such as fiendish, kindlegem, stinger, etc. so long as the data in the model is presented correctly (see the server/data/items.ts for the complete item set)
 	 * @param  {Champion} champion the champion to adjust stats by
-	 * @param  {number} currentLevel the current level for level dependant items
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
-	 * @returns any
+	 * @returns [object, object, string, object] total calculated stats from items, any multipliers on items, the adaptive type for runes, and item additions for post calculations
 	 */
-	calculateItemStats(champion: Champion, currentLevel: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): any {
+	calculateItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): [object, object, string, object] {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 
@@ -173,7 +172,7 @@ export class ItemsService {
 					}
 				}
 			}
-			console.log(totalStatsFromItems, sharedItemCounts, multKeyValues);
+			console.log("Stats from items: ", totalStatsFromItems, "Shared Item Passives: ", sharedItemCounts);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
 				if (champion.resource.toLowerCase() != "mana" && key.includes("mp")) {
@@ -200,21 +199,6 @@ export class ItemsService {
 			return [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions];
 		}
 		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
-	}
-
-	sharedItemLimiter(sharedPassivesProperty: any, sharedItemCounts: any) {
-		let allowed = {};
-		for (let sharedPassiveIndex in sharedPassivesProperty) {
-			let sharedPassiveObj = sharedPassivesProperty[sharedPassiveIndex];
-			for (let statKey in sharedPassiveObj) {
-
-			}
-			if (sharedItemCounts[sharedPassiveObj.name] <= 1 || sharedPassiveObj) {
-				allowed[sharedPassiveIndex] = sharedPassiveObj;
-			}
-		}
-		return 0;
-		return allowed;
 	}
 	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;
@@ -273,15 +257,16 @@ export class ItemsService {
 			this.applyTotalMultipliers(champion, multKeyValues);
 		}
 	}
-	allSelectedItemsIsEmpty(selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item) {
+	/**
+	 * @param  {[Item*6]} selectedItems the selected items
+	 * @param  {Item} selectedElixir the selected elixir
+	 * @returns boolean whether its empty or not
+	 */
+	allSelectedItemsIsEmpty(selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): boolean {
 		for (let index in selectedItems) {
-			if (selectedItems[index] != EMPTY_ITEM) {
-				return false;
-			}
+			if (selectedItems[index] != EMPTY_ITEM) { return false; }
 		}
-		if (selectedElixir != EMPTY_ITEM) {
-			return false;
-		}
+		if (selectedElixir != EMPTY_ITEM) { return false; }
 		return true;
 	}
 	/**
