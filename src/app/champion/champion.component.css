@@ -36,7 +36,7 @@
 @media only screen and (max-width: 767px) {
 	.champion-grid {
 		grid-template-columns: auto;
-		grid-template-rows: auto auto;
+		grid-template-rows: var(--selector-grid-height) auto;
 		grid-template-areas:
 			"selectors"
 			"champion-details";

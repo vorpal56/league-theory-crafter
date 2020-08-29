@@ -28,7 +28,7 @@ div.overflow {
 	padding: 5px 5px 0px 5px;
 	display:grid;
 	grid-template-columns: repeat(4,1fr);
-	grid-template-rows: 72px;
+	grid-template-rows: var(--selector-grid-height);
 	grid-template-areas:
 	"orderby-name orderby-mode gamemode-filter search-filter";
 }

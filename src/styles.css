@@ -15,6 +15,7 @@
 	--dark-amber: rgb(154, 123, 67);
 	--champion-img-height: 120px;
 	--component-header-height : 54px;
+	--selector-grid-height: 64px;
 	/* --component-header-height : 70px;  */
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
 }
@@ -159,7 +160,7 @@ span.component-title#component-title {
 	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
 	/* background-color: var(--background-main); */
-	padding: 60px 0px 15px 0px;
+	padding: 75px 0px 15px 0px;
 }
 @media only screen and (max-width: 767px) {
 	.container-grid-league {
@@ -279,11 +280,18 @@ span.component-title#component-title {
   box-sizing: border-box;
 }
 .orbit-spinner {
-  height: 150px;
-  width: 150px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
-  perspective: 800px;
+	perspective: 800px;
 }
+
+@media only screen and (max-width: 767px) {
+	.orbit-spinner {
+		margin: 10px auto;
+	}
+}
+
 .orbit-spinner .orbit-line {
   position: absolute;
   box-sizing: border-box;
