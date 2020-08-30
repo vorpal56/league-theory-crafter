@@ -7,7 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+// import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { NgSelectModule } from "@ng-select/ng-select";
 import { TooltipModule } from 'ng2-tooltip-directive';
@@ -22,6 +22,8 @@ import { RunesComponent } from "./runes/runes.component";
 import { InventoryComponent } from "./inventory/inventory.component";
 import { EpicMonstersComponent } from "./epic-monsters/epic-monsters.component";
 import { CalculationsComponent } from "./calculations/calculations.component";
+import { FooterComponent } from './shared/footer/footer.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
 	declarations: [
@@ -33,6 +35,8 @@ import { CalculationsComponent } from "./calculations/calculations.component";
 		InventoryComponent,
 		EpicMonstersComponent,
 		CalculationsComponent,
+		FooterComponent,
+		NavbarComponent,
 	],
 	imports: [
 		FormsModule,
@@ -43,7 +47,7 @@ import { CalculationsComponent } from "./calculations/calculations.component";
 		MatIconModule,
 		MatButtonModule,
 		MatCheckboxModule,
-		MatProgressSpinnerModule,
+		// MatProgressSpinnerModule,
 		NgSelectModule,
 		TooltipModule,
 		TooltipModule.forRoot(DefaultTooltipOptions as TooltipOptions)

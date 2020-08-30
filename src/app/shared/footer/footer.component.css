@@ -1,0 +1,7 @@
+footer {
+	width:100%;
+	background-color:var(--background-alt-3);
+	border-top: 1px solid var(--border-color-grey);
+	text-align:center;
+	font-size: 12px;
+}

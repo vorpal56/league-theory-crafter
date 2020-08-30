@@ -15,7 +15,7 @@
 	--light-yellow :rgb(225, 205, 146);
 	--dark-amber: rgb(154, 123, 67);
 	--champion-img-height: 120px;
-	--component-header-height : 54px;
+	--component-header-height : 44px;
 	--selector-grid-height: 64px;
 	/* --component-header-height : 70px;  */
 	/* this is the height of the rune img on the switcher. otherwise it's 52px */
@@ -146,7 +146,6 @@ span.component-title#component-title {
 	background-color:var(--background);
 	display:flex;
 	flex-direction: column;
-	/* height:100%; */
 }
 /* --------------------------End Global Component Definitions-------------------------- */
 /* --------------------------Grid Container Definitions-------------------------- */
@@ -161,17 +160,18 @@ span.component-title#component-title {
 	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
 	/* background-color: var(--background-main); */
-	padding: 75px 0px 15px 0px;
+	padding: 65px 0px 15px 0px;
 }
 @media only screen and (max-width: 767px) {
 	.container-grid-league {
-	grid-template-columns: auto;
-	grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
-	grid-template-areas:
-	"champion"
-	"inventory"
-	"item-rune-epic-selector"
-	"damage-calc"
+		height:auto;
+		grid-template-columns: auto;
+		grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
+		grid-template-areas:
+		"champion"
+		"inventory"
+		"item-rune-epic-selector"
+		"damage-calc"
 	}
 	.champion-portrait {
 		width:120px;
@@ -226,6 +226,7 @@ span.component-title#component-title {
 	font-size: 14px;
 	line-height: 1.1;
 }
+/* Kudos for tooltip border styling https://codepen.io/valerie-roske/pen/XmXPbB?editors=0110 */
 .tooltip:before {
 	border-style: solid;
 	content: "";
@@ -272,7 +273,6 @@ span.component-title#component-title {
 .tooltip-left:after {
 	border-color: transparent transparent transparent var(--background-alt) !important;
 }
-
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {
