@@ -235,6 +235,7 @@ def replace_placeholder(tooltip, placeholder, value):
 	return tooltip.replace(placeholder, value)
 
 def compile_champion_data_from_meraki(patch_num="10.16"):
+	# champion data from meraki analytics are simplified and have correct values
 	return
 
 def compile_champion_data_from_ddragon(patch_num="10.16"):

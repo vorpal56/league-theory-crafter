@@ -11,7 +11,7 @@ import { Item, ItemRestrictions } from "./models/item";
 import { InventoryComponent } from "./inventory/inventory.component";
 import { EMPTY_ITEM } from "../../server/data/items";
 @Component({
-	selector: "app-root",
+	selector: "league-theory-crafter",
 	templateUrl: "./app.component.html",
 	styleUrls: ["./app.component.css"],
 	changeDetection: ChangeDetectionStrategy.OnPush,

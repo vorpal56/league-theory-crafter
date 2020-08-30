@@ -10,6 +10,7 @@
 	--background-alt-2: #222238;
 	--background-alt-3: #17172e;
 	--border-color-grey: #2c2c40;
+	--border-color-light-grey: #4f4f60;;
 	--border-color-blue-grey :rgb(66, 104, 146);
 	--light-yellow :rgb(225, 205, 146);
 	--dark-amber: rgb(154, 123, 67);
@@ -219,54 +220,59 @@ span.component-title#component-title {
 /* --------------------------End Grid Container Definitions-------------------------- */
 /* --------------------------Tooltips-------------------------- */
 .tooltips {
+	background-color: var(--background-alt) !important;
+	padding: 8px !important;
+	border: 1px solid var(--border-color-light-grey);
 	font-size: 14px;
-	line-height: 1;
+	line-height: 1.1;
 }
-.tooltip {
-	display:inline-block;
-	position:relative;
-	border-bottom:1px dotted #666;
-	text-align:left;
+.tooltip:before {
+	border-style: solid;
+	content: "";
+	position: absolute;
+	border-width: 5px;
 }
-.tooltip .top {
-	max-width:200px;
-	top:-20px;
-	left:50%;
-	transform:translate(-50%, -100%);
-	padding:10px 20px;
-	color:#444444;
-	background-color:#EEEEEE;
-	font-weight:normal;
-	font-size:13px;
-	border-radius:8px;
-	position:absolute;
-	z-index:99999999;
-	box-sizing:border-box;
-	box-shadow:0 1px 8px rgba(0,0,0,0.5);
-	visibility:hidden; opacity:0; transition:opacity 0.8s;
+.tooltip-top:before {
+	border-color: var(--border-color-light-grey) transparent transparent !important;
+  top: 100%;
+  left: 50%;
+	margin-left: -5px;
+	margin-top:1px;
 }
-.tooltip:hover .top {
-	visibility:visible; opacity:1;
+.tooltip-right:before {
+	border-color: transparent var(--border-color-light-grey) transparent transparent !important;
+	right: 100%;
+	top: 50%;
+	margin-top: -5px;
+	margin-right:1px;
 }
-.tooltip .top i {
-	position:absolute;
-	top:100%;
-	left:50%;
-	margin-left:-12px;
-	width:24px;
-	height:12px;
-	overflow:hidden;
+.tooltip-bottom:before {
+	border-color: transparent transparent var(--border-color-light-grey) !important;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	margin-bottom:1px;
 }
-.tooltip .top i::after {
-	content:'';
-	position:absolute;
-	width:12px;
-	height:12px;
-	left:50%;
-	transform:translate(-50%,-50%) rotate(45deg);
-	background-color:#EEEEEE;
-	box-shadow:0 1px 8px rgba(0,0,0,0.5);
+.tooltip-left:before {
+	border-color: transparent transparent transparent var(--border-color-light-grey) !important;
+	left:100%;
+	top:50%;
+	margin-top:-5px;
+	margin-left: 1px;
 }
+.tooltip-top:after {
+	border-color: var(--background-alt) transparent transparent !important;
+}
+.tooltip-right:after {
+	border-color: transparent var(--background-alt) transparent transparent!important;
+}
+.tooltip-bottom:after {
+	border-color: transparent transparent var(--background-alt) !important;
+}
+.tooltip-left:after {
+	border-color: transparent transparent transparent var(--background-alt) !important;
+}
+
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {

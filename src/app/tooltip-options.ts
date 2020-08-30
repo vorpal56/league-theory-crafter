@@ -5,5 +5,5 @@ export const DefaultTooltipOptions: TooltipOptions = {
 	"placement": "bottom",
 	"tooltip-class": "tooltips",
 	"hide-delay": 0,
-	"max-width": 400,
+	"max-width": 300,
 };
