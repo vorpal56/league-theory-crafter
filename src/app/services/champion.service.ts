@@ -43,7 +43,7 @@ export class ChampionService {
 	 * @param  {number} cdrCap cdr cap to limit the champions cdr if the cosmic insight option in runes is selected
 	 */
 	postCalculations(champion: Champion, currentLevel: number, itemAdditions: any, cdrCap: number) {
-		if (champion.apiname == "yasuo") {
+		if (champion.apiname.toLowerCase() == "yasuo") {
 			champion.stats.crit *= 2;
 		}
 		if (itemAdditions.hexcoreItem && itemAdditions.hexcoreItem != EMPTY_ITEM) {

@@ -62,7 +62,7 @@ export class StatsService {
 		selectedChampion.stats["mpen%"] = 0;
 		selectedChampion.stats.tenacity = 0;
 		selectedChampion.stats.heal_shield = 0;
-		if (selectedChampion.apiname == "tristana") {
+		if (selectedChampion.apiname.toLowerCase() == "tristana") {
 			selectedChampion.stats.range = 525 + 8 * (currentLevel - 1);
 		}
 		return;

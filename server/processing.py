@@ -6,8 +6,9 @@ DATA_PATH = os.path.join(FILES_PATH, "data")
 
 
 runes_width = 100
-champion_width = 770
-pp = PrettyPrinter(indent=2, width=runes_width)
+champion_width = 770 # tooltipping
+champion_width = 250 # other
+pp = PrettyPrinter(indent=2, width=champion_width)
 
 def separateToList(line):
 	return next(csv.reader([line], delimiter=',', quotechar='"'))
@@ -234,18 +235,51 @@ def find_var_key(var_array, var_key):
 def replace_placeholder(tooltip, placeholder, value):
 	return tooltip.replace(placeholder, value)
 
-def compile_champion_data_from_meraki(patch_num="10.16"):
+def compile_champion_data(using="meraki"):
 	# champion data from meraki analytics are simplified and have correct values
-	return
-
-def compile_champion_data_from_ddragon(patch_num="10.16"):
-	file = open(os.path.join(DATA_PATH, "updated_champions.pkl"), "rb")
+	# champion data from ddragon has many values that are unprovided leaving multiple "?" and is convoluted
+	file = open(os.path.join(DATA_PATH, "champions.pkl"), "rb")
 	champions = pickle.load(file)
 	file.close()
 	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	for champion_obj in champions:
-		champion_name = champion_obj["ddragon_apiname"]
-		response = requests.get("https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name))
+		champion_name = champion_obj["apiname"]
+		url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
+		if (using == "ddragon"):
+			patch_num = "10.16"
+			url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
+		response = requests.get(url)
+		if (response.status_code == 200):
+			response_body = response.json()
+			if (using=="ddragon"):
+				champion_data = response_body["data"][champion_name]
+				champion_tooltips =  parse_relevant_champion_data_from_ddragon(champion_name, champion_data)
+			else:
+				champion_tooltips = parse_tooltips_meraki(response_body)
+			for i, skill_key in enumerate(skill_keys):
+				champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
+			file = open(os.path.join(DATA_PATH, "updated_champion_cache", "{}.pkl".format(champion_name)), "wb")
+			pickle.dump(champion_obj, file)
+			file.close()
+		else:
+			print("Failed to get: ", champion_name)
+	file = open(os.path.join(DATA_PATH, "champions.pkl"), "wb")
+	pickle.dump(champions, file)
+	file.close()
+	file = open(os.path.join(DATA_PATH, "updated_champions_ddragon.ts"), "w")
+	file.write('export const CHAMPIONS = ' + pp.pformat(champions))
+	file.close()
+	return
+
+def compile_champion_data_from_ddragon(patch_num="10.16"):
+	file = open(os.path.join(DATA_PATH, "champions.pkl"), "rb")
+	champions = pickle.load(file)
+	file.close()
+	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	for champion_obj in champions:
+		url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
+		champion_name = champion_obj["apiname"]
+		response = requests.get(url)
 		if response.status_code == 200:
 			response_body = response.json()
 			file = open(os.path.join(DATA_PATH, "champion_cache", "{}.pkl".format(champion_name)), "wb")
@@ -258,17 +292,18 @@ def compile_champion_data_from_ddragon(patch_num="10.16"):
 			file = open(os.path.join(DATA_PATH, "updated_champion_cache", "{}.pkl".format(champion_name)), "wb")
 			pickle.dump(champion_obj, file)
 			file.close()
-			# champion_obj["ddragon_apiname"] = champion_name
+			# champion_obj["apiname"] = champion_name
 		else:
 			# if champion_name == "Wukong":
-			# 	champion_obj["ddragon_apiname"] = "MonkeyKing"
+			# 	champion_obj["apiname"] = "MonkeyKing"
 			# else:
-			# 	champion_obj["ddragon_apiname"] = champion_name.capitalize()
+			# 	champion_obj["apiname"] = champion_name.capitalize()
 			print("Failed to get: " , champion_name)
-	file = open(os.path.join(DATA_PATH, "updated_champions.pkl"), "wb")
+
+	file = open(os.path.join(DATA_PATH, "champions.pkl"), "wb")
 	pickle.dump(champions, file)
 	file.close()
-	file = open(os.path.join(DATA_PATH, "updated_champions.ts"), "w")
+	file = open(os.path.join(DATA_PATH, "updated_champions_ddragon.ts"), "w")
 	file.write('export const CHAMPIONS = ' + pp.pformat(champions))
 	file.close()
 	return
@@ -293,7 +328,7 @@ def parse_relevant_champion_data_from_ddragon(champion_name, champion_data=None)
 				if value is not None:
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, value)
 				else:
-					print(champion_spell["id"], champion_name, key)
+					# print(champion_spell["id"], champion_name, key)
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
 			elif (look_in == "vars"):
 				obj = find_var_key(champion_spell[look_in], key)
@@ -308,7 +343,8 @@ def parse_relevant_champion_data_from_ddragon(champion_name, champion_data=None)
 	return champion_tooltips
 
 if __name__ == '__main__':
-	compile_champion_data_from_ddragon()
+
+	# compile_champion_data_from_ddragon()
 	# fix_order()
 	# add_apiname_field_runes()
 	# scrape_op()
