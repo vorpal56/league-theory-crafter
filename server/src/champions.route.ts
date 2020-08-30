@@ -1,5 +1,5 @@
 import * as express from "express";
-import { CHAMPIONS } from "../data/champions";
+import { CHAMPIONS } from "../data/updated_champions";
 var router = express.Router();
 
 router.get("/", (req, res) => {

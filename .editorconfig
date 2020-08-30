@@ -11,8 +11,11 @@ trim_trailing_whitespace = true
 [*.{html,css}]
 indent_size = 2
 
-[*.py,*.ts]
+[*.{py,ts}]
 quote_type = double
+
+[*.py]
+indent_size = 4
 
 [*.md]
 max_line_length = off

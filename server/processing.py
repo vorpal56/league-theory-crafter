@@ -1,8 +1,13 @@
-import re, csv, os
+import re, csv, os, json, pickle, requests
 from pprint import PrettyPrinter
 APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES_PATH = os.path.join(APP_PATH, "src")
-pp = PrettyPrinter(indent=2, width=100)
+FILES_PATH = os.path.join(APP_PATH, "server")
+DATA_PATH = os.path.join(FILES_PATH, "data")
+
+
+runes_width = 100
+champion_width = 770
+pp = PrettyPrinter(indent=2, width=runes_width)
 
 def separateToList(line):
 	return next(csv.reader([line], delimiter=',', quotechar='"'))
@@ -107,7 +112,7 @@ def dumpItems():
 		else:
 			itemStats[key] = ""
 	file.close()
-	file = open(os.path.join(FILES_PATH, "data", "items_test2.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(DATA_PATH, "items_test2.ts"), "w", encoding="utf-8")
 	result = pp.pformat(totalItems)
 	file.write("let None = null;\nlet True = true;\nlet False = False;\nexport const EMPTY_ITEM = " + pp.pformat(itemStats) + ";\nexport const ITEMS = " + result )
 	file.close()
@@ -119,7 +124,7 @@ def countChamps():
 		item["index"] = i
 		new_list.append(item)
 
-	file = open(os.path.join(FILES_PATH, "data", "data_test.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(DATA_PATH, "data_test.ts"), "w", encoding="utf-8")
 	file.write("export const CHAMPIONS = " + pp.pformat(new_list))
 	file.close()
 
@@ -169,7 +174,7 @@ def scrape_op():
 		champion["index"] = int(ci)
 		champion["apiname"] = champion["apiname"].lower()
 		champs.append(champion)
-	file = open(os.path.join(FILES_PATH, "data", "new_data.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(DATA_PATH, "new_data.ts"), "w", encoding="utf-8")
 	file.write(pp.pformat(champs))
 	file.close()
 	print("Finished")
@@ -183,7 +188,7 @@ def add_apiname_field_runes():
 					val = re.sub(r"[\:\'\-\ ]", '', rune_obj["name"]).lower()
 					# print(val, re.sub(r"[\:\'\-\ ]", '', rune_obj["name"]), re.sub(r"", '', rune_obj["name"]))
 					rune_obj["apiname"] = val
-	file = open(os.path.join(FILES_PATH, "data", "new_runes.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(DATA_PATH, "new_runes.ts"), "w", encoding="utf-8")
 	file.write(pp.pformat(RUNES))
 	file.close()
 	return
@@ -191,7 +196,7 @@ def fix_order():
 	sorted_items_by_name = sorted(items, key=lambda item:item["name"])
 	for i, item in enumerate(sorted_items_by_name):
 		item["index"] = i
-	file = open(os.path.join(FILES_PATH, "data", "sorted_items.ts"), "w", encoding="utf-8")
+	file = open(os.path.join(DATA_PATH, "sorted_items.ts"), "w", encoding="utf-8")
 	file.write(pp.pformat(sorted_items_by_name))
 	file.close()
 	# print(pp.pformat(b))
@@ -199,9 +204,110 @@ def fix_order():
 
 def remove_html_tags(text):
 	# useful for parsing the tooltips from ddragon cdn
-	return re.sub('<[^<]+?>', '', text)
+	replace_br_with_newline = re.sub('<br\s?\/>|<br>', r'\n', text)
+	replaced_tags = re.sub('<[^<]+?>', '', replace_br_with_newline)
+	return re.sub(r'\n', '<br>', replaced_tags)
+
+def find_all_placeholders(tooltip):
+	expression_pattern = r'({{.*?}})'
+	return re.findall(expression_pattern, tooltip)
+
+def placeholder_type(placeholder_var):
+	expression_pattern = r'{{(.*?)}}'
+	variable_name = re.sub(r' ', '', re.search(expression_pattern, placeholder_var).group(1))
+	# variable_name = re.sub(expression_pattern, '', placeholder_var)
+	# print(variable_name, placeholder_var)
+	variable_length = len(variable_name)
+	if (variable_name[0] == "e" and variable_length <=3):
+		return "effectBurn", int(re.sub(r'[a-z]', '', variable_name))
+	elif ((variable_name[0] == "a" or variable_name[0] == "f") and variable_length <=3):
+		return "vars", variable_name
+	else:
+		return "?", 0
+
+def find_var_key(var_array, var_key):
+	for obj in var_array:
+		if (obj["key"] == var_key):
+			return obj
+	return None
+
+def replace_placeholder(tooltip, placeholder, value):
+	return tooltip.replace(placeholder, value)
+
+def compile_champion_data_from_meraki(patch_num="10.16"):
+	return
+
+def compile_champion_data_from_ddragon(patch_num="10.16"):
+	file = open(os.path.join(DATA_PATH, "updated_champions.pkl"), "rb")
+	champions = pickle.load(file)
+	file.close()
+	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	for champion_obj in champions:
+		champion_name = champion_obj["ddragon_apiname"]
+		response = requests.get("https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name))
+		if response.status_code == 200:
+			response_body = response.json()
+			file = open(os.path.join(DATA_PATH, "champion_cache", "{}.pkl".format(champion_name)), "wb")
+			pickle.dump(response_body, file)
+			file.close()
+			champion_data = response_body["data"][champion_name]
+			champion_tooltips = parse_relevant_champion_data_from_ddragon(champion_name, champion_data)
+			for i, skill_key in enumerate(skill_keys):
+				champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
+			file = open(os.path.join(DATA_PATH, "updated_champion_cache", "{}.pkl".format(champion_name)), "wb")
+			pickle.dump(champion_obj, file)
+			file.close()
+			# champion_obj["ddragon_apiname"] = champion_name
+		else:
+			# if champion_name == "Wukong":
+			# 	champion_obj["ddragon_apiname"] = "MonkeyKing"
+			# else:
+			# 	champion_obj["ddragon_apiname"] = champion_name.capitalize()
+			print("Failed to get: " , champion_name)
+	file = open(os.path.join(DATA_PATH, "updated_champions.pkl"), "wb")
+	pickle.dump(champions, file)
+	file.close()
+	file = open(os.path.join(DATA_PATH, "updated_champions.ts"), "w")
+	file.write('export const CHAMPIONS = ' + pp.pformat(champions))
+	file.close()
+	return
+
+def parse_relevant_champion_data_from_ddragon(champion_name, champion_data=None):
+	if (champion_data is None):
+		file = open(os.path.join(DATA_PATH, "champion_cache", "{}.pkl".format(champion_name)), "rb")
+		champion_data = pickle.load(file)["data"][champion_name]
+		file.close()
+	champion_stats = champion_data["stats"]
+	champion_spells = champion_data["spells"]
+	champion_passive = champion_data["passive"]
+	champion_tooltips = [remove_html_tags(champion_passive["description"])]
+	for champion_spell in champion_spells:
+		tooltip = remove_html_tags(champion_spell["tooltip"])
+		placeholders = find_all_placeholders(tooltip)
+		parsed_tooltip = tooltip
+		for placeholder in placeholders:
+			look_in, key = placeholder_type(placeholder)
+			if (look_in == "effectBurn"):
+				value = champion_spell[look_in][key]
+				if value is not None:
+					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, value)
+				else:
+					print(champion_spell["id"], champion_name, key)
+					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
+			elif (look_in == "vars"):
+				obj = find_var_key(champion_spell[look_in], key)
+				if obj is None:
+					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
+				else:
+					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, str(obj["coeff"]))
+			elif (look_in == "?"):
+				parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, look_in)
+		champion_tooltips.append(parsed_tooltip)
+	# print(champion_tooltips)
+	return champion_tooltips
 
 if __name__ == '__main__':
+	compile_champion_data_from_ddragon()
 	# fix_order()
 	# add_apiname_field_runes()
 	# scrape_op()

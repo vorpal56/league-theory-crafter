@@ -5646,6 +5646,13 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ng2-tooltip-directive@^2.9.22:
+  version "2.9.22"
+  resolved "https://registry.yarnpkg.com/ng2-tooltip-directive/-/ng2-tooltip-directive-2.9.22.tgz#742ad1f8c670c890b1ea3dead5f20feecbe98b78"
+  integrity sha512-y54rP/AHKkcS/+lZPGil9uirbfWrbhS8vE1GWswB08sVfT4ztu2h6SmIf7cJM1YenTaWYvYfKth9oZQJljXV5Q==
+  dependencies:
+    tslib "^2.0.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

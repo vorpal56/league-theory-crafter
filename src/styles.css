@@ -218,6 +218,10 @@ span.component-title#component-title {
 }
 /* --------------------------End Grid Container Definitions-------------------------- */
 /* --------------------------Tooltips-------------------------- */
+.tooltips {
+	font-size: 14px;
+	line-height: 1;
+}
 .tooltip {
 	display:inline-block;
 	position:relative;

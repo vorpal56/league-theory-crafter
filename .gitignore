@@ -9,6 +9,7 @@
 ability-leveler/
 *.psd
 example_layout.png
+*champion_cache/
 # src/assets/images/champions/*
 
 # compiled output
