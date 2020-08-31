@@ -90,7 +90,7 @@ export class InventoryComponent implements OnInit {
 		if (itemDetails.apiname.includes("masterwork")) {
 			for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
 				let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-				if (masterworkItem == itemDetails) {
+				if (masterworkItem.apiname == itemDetails.apiname) {
 					this.selectedItemRestrictions.masterworkItems.splice(Number(masterworkIndex), 1, EMPTY_ITEM);
 					break;
 				}
@@ -130,7 +130,7 @@ export class InventoryComponent implements OnInit {
 				// ornn can hold 2, others can hold only 1
 				for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
 					let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-					if (masterworkItem != EMPTY_ITEM) {
+					if (masterworkItem.apiname != '') {
 						occupiedSlots += 1;
 					}
 				}

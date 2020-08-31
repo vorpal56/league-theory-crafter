@@ -75,9 +75,9 @@ export class ItemSelectorComponent implements OnInit {
 			let occupiedSlots = 0;
 			for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
 				let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-				if (masterworkItem == itemDetails) {
+				if (masterworkItem.apiname == itemDetails.apiname) {
 					return false;
-				} else if (masterworkItem != EMPTY_ITEM) {
+				} else if (masterworkItem.apiname != "") {
 					occupiedSlots += 1;
 				}
 			}
@@ -130,7 +130,7 @@ export class ItemSelectorComponent implements OnInit {
 					if (itemDetails.apiname.includes("masterwork")) {
 						for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
 							let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-							if (masterworkItem == EMPTY_ITEM) {
+							if (masterworkItem.apiname == '') {
 								this.selectedItemRestrictions.masterworkItems[masterworkIndex] = itemDetails;
 								break;
 							}
