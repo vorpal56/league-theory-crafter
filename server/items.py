@@ -3,7 +3,9 @@ from pprint import PrettyPrinter
 APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_PATH = os.path.join(APP_PATH, "server")
 DATA_PATH = os.path.join(FILES_PATH, "data")
-
+true = True
+false = False
+null = None
 stat_keys = {
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
@@ -140,7 +142,6 @@ def parse_item_data_meraki(response_data, item):
 def base_item_stats_tooltip(item):
 	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + stat_keys[stat_name] for stat_name, stat_val in item.items() if (stat_val != 0 and stat_name in stat_keys)])
 
-
 def read_items():
 	width = 900
 	pp = PrettyPrinter(indent=2, width=width)
@@ -150,7 +151,21 @@ def read_items():
 	file = open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8")
 	file.write("export const ITEMS = " + pp.pformat(items))
 	file.close()
+	return
+
+def update_items():
+	# need to copy the updated data into this file and make the changes
+	file = open(os.path.join(DATA_PATH, "pkl", "items.pkl"), "wb")
+	pickle.dump(items, file)
+	file.close()
+	width = 900
+	pp = PrettyPrinter(indent=2, width=width)
+	file = open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8")
+	file.write("export const ITEMS = " + pp.pformat(items))
+	file.close()
+	return
 
 if __name__ == "__main__":
-	compile_item_data(use="cache")
+	# update_items()
+	# compile_item_data(use="cache")
 	pass

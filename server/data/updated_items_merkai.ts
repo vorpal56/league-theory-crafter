@@ -555,7 +555,7 @@ export const ITEMS = [{
 	'spell_vamp': 0,
 	'stackable': false,
 	'stacked': false,
-	'tags': '',
+	'tags': 'boots',
 	'tenacity': 0,
 	'tooltip': "Berserker's Greaves<br><br>Cost: 1100<br>+35% Attack Speed<br>+45 Move Speed<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed",
 	'visible': true
@@ -4487,7 +4487,7 @@ export const ITEMS = [{
 	'spell_vamp': 0,
 	'stackable': false,
 	'stacked': false,
-	'tags': '',
+	'tags': 'boots',
 	'tenacity': 30,
 	'tooltip': "Mercury's Treads<br><br>Cost: 1100<br>+45 Move Speed<br>+25 Magic Resistance<br>+30% Tenacity<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed<br><br>UNIQUE Passive - Tenacity: Reduces the duration of all crowd control effects by 30% (except for Displacements, Drowsy, Nearsight, Stasis, and Suppression).",
 	'visible': true
@@ -4997,7 +4997,7 @@ export const ITEMS = [{
 	'spell_vamp': 0,
 	'stackable': false,
 	'stacked': false,
-	'tags': '',
+	'tags': 'boots',
 	'tenacity': 0,
 	'tooltip': 'Ninja Tabi<br><br>Cost: 1100<br>+20 Armor<br>+45 Move Speed<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed<br><br>UNIQUE Passive - Reduces incoming damage from all basic attacks by 12% (excluding turret shots).',
 	'visible': true
@@ -6732,7 +6732,7 @@ export const ITEMS = [{
 	'spell_vamp': 0,
 	'stackable': false,
 	'stacked': false,
-	'tags': '',
+	'tags': 'boots',
 	'tenacity': 0,
 	'tooltip': "Sorcerer's Shoes<br><br>Cost: 1100<br>+45 Move Speed<br>+18 Magic Penetration<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed",
 	'visible': true
