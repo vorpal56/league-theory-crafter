@@ -41,9 +41,16 @@
 			<ul class="item-grid">
 				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 					<div class="item-block">
-						<div class="bg-black" [ngClass]="isVisible(item)">
-							<img class="item-img" [src]="item.img" [title]="item.name" draggable="false" />
-						</div>
+						<ng-container *ngIf="isVisible(item) else noTooltip">
+							<div class="bg-black" [ngClass]="isVisibleClass(item)">
+								<img class="item-img" [src]="item.img" draggable="false" [tooltip]="item.tooltip" tooltip-class="item-tooltips" />
+							</div>
+						</ng-container>
+						<ng-template #noTooltip>
+							<div class="bg-black" [ngClass]="isVisibleClass(item)">
+								<img class="item-img" [src]="item.img" draggable="false" />
+							</div>
+						</ng-template>
 					</div>
 				</li>
 			</ul>

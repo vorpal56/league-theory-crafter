@@ -45,6 +45,7 @@ export interface Item {
 	'stackable': any,
 	'tags': string,
 	'tenacity': number,
+	'tooltip'?: string,
 	'visible': boolean,
 }
 

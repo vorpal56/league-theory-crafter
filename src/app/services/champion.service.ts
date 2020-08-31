@@ -33,6 +33,9 @@ export class ChampionService {
 
 		this.statsService.adjustAttackSpeed(selectedChampion, currentLevel, totalStatsFromItems, totalStatsFromRunes);
 		this.postCalculations(selectedChampion, currentLevel, itemAdditions, cdrCap);
+
+		selectedChampion.item_stats = totalStatsFromItems;
+		selectedChampion.rune_stats = totalStatsFromRunes;
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
 	}

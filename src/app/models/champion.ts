@@ -67,6 +67,8 @@ export interface Champion {
 		heal_shield?: number;
 
 	};
+	item_stats?: any;
+	rune_stats?: any;
 	skill_i?: any;
 	skill_q?: any;
 	skill_w?: any;

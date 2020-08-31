@@ -219,12 +219,15 @@ span.component-title#component-title {
 }
 /* --------------------------End Grid Container Definitions-------------------------- */
 /* --------------------------Tooltips-------------------------- */
-.tooltips {
+.tooltip {
 	background-color: var(--background-alt) !important;
 	padding: 8px !important;
 	border: 1px solid var(--border-color-light-grey);
 	font-size: 14px;
 	line-height: 1.1;
+}
+.item-tooltips {
+	text-align:left !important;
 }
 /* Kudos for tooltip border styling https://codepen.io/valerie-roske/pen/XmXPbB?editors=0110 */
 .tooltip:before {
