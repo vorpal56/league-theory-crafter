@@ -3,5 +3,41 @@ footer {
 	background-color:var(--background-alt-3);
 	border-top: 1px solid var(--border-color-grey);
 	text-align:center;
+	line-height:1.1;
+}
+span {
 	font-size: 12px;
+}
+.credits {
+	padding: 0.8em 0 0.4em 0;
+}
+.credits-last{
+	padding-bottom: 0.8em;
+}
+.footer-name {
+	padding: 0.8em 0em;
+}
+.footer-links {
+	margin-left:1em;
+}
+.footer-link {
+	margin-right: 1.2em;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+.footer-link:hover {
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	filter: invert(40%) sepia(11%) saturate(2177%) hue-rotate(171deg) brightness(90%) contrast(84%);
+}
+.footer-img {
+	width: 40px;
+	height: 40px;
+	cursor:pointer;
+}
+.footer-img.linkedin {
+	width: 48px;
+}
+.footer-link.linkedin {
+	margin-right:0.9em;
 }
