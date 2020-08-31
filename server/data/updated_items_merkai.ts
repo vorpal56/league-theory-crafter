@@ -352,7 +352,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Ardent Censer<br><br>Cost: 2300<br>+60 Ability Power<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+50% Mana per 5<br>+8% Move Speed<br><br>UNIQUE Passive - Outgoing healing and shielding (excluding yourself) enhances you and affected allies with Frenzy for 6 seconds.Frenzy: Grants 10% − 30% (based on target's level) bonus attack speed and 5 − 20 (based on target's level) bonus magic damage on-hit.",
+	'tooltip': "Ardent Censer<br><br>Cost: 2300<br>+60 Ability Power<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+50% Mana per 5<br>+8% Move Speed<br><br>UNIQUE Passive - Outgoing healing and shielding (excluding yourself) enhances you and affected allies with Frenzy for 6 seconds. Frenzy: Grants 10% − 30% (based on target's level) bonus attack speed and 5 − 20 (based on target's level) bonus magic damage on-hit.",
 	'visible': true
 },
 {
@@ -455,7 +455,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Bami's Cinder<br><br>Cost: 900<br>+200 Health<br><br>UNIQUE Passive - Immolate: Deals 6 − 23 (based on level) magic damage per second to nearby enemies (325 range).Hitting an enemy with an immobilizing ability deals 6 − 23 (based on level) (+ 1% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown).Immolate's damage is increased by 100% against minions and monsters.",
+	'tooltip': "Bami's Cinder<br><br>Cost: 900<br>+200 Health<br><br>UNIQUE Passive - Immolate: Deals 6 − 23 (based on level) magic damage per second to nearby enemies (325 range). Hitting an enemy with an immobilizing ability deals 6 − 23 (based on level) (+ 1% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown). Immolate's damage is increased by 100% against minions and monsters.",
 	'visible': true
 },
 {
@@ -1220,7 +1220,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Caulfield's Warhammer<br><br>Cost: 1100<br>+25 Attack Damage<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10.0% cooldown reduction",
+	'tooltip': "Caulfield's Warhammer<br><br>Cost: 1100<br>+25 Attack Damage<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10% cooldown reduction",
 	'visible': true
 },
 { 'ad': 0, 'ad_mult': { 'type': 'total', 'value': 0 }, 'allowed_to': { 'melee': true, 'ranged': true }, 'ap': 0, 'ap_mult': { 'type': 'total', 'value': 0 }, 'apen%': 0, 'apiname': 'chainvest', 'arm': 40, 'as': 0, 'att_m_proc': 0, 'att_phys_proc': 0, 'boots_ms': 0, 'cdr': 0, 'crit': 0, 'critdmg': 0, 'flat_ms': 0, 'gold': 800, 'heal_shield': 0, 'hp': 0, 'hp5': 0, 'hp5%': 0, 'hp_mult': { 'type': 'total', 'value': 0 }, 'id': '1031', 'img': 'assets/images/items/Chain Vest.png', 'index': 25, 'leth': 0, 'ls': 0, 'magic_on_hit': 0, 'modes': 'all,sr', 'mp': 0, 'mp5': 0, 'mp5%': 0, 'mpen': 0, 'mpen%': 0, 'mr': 0, 'ms%': 0, 'name': 'Chain Vest', 'phys_on_hit': 0, 'shared_item': null, 'shared_passives': [], 'shield': 0, 'spell_m_proc': 0, 'spell_vamp': 0, 'stackable': false, 'stacked': false, 'tags': '', 'tenacity': 0, 'tooltip': 'Chain Vest<br><br>Cost: 800<br>+40 Armor', 'visible': true },
@@ -1323,7 +1323,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Circlet of the Iron Solari<br><br>Cost: 2200<br>+45 Armor<br>+75 Magic Resistance<br><br>UNIQUE Active - Grants a decaying shield to nearby allied champions and yourself for up to 2.5 seconds, absorbing up to 130 − 300 (based on highest level between target and caster) (+ 20% of caster's bonus health) damage ( 650 radius) (120 second cooldown). Shielded targets are Eclipsed for 20 seconds.",
+	'tooltip': "Circlet of the Iron Solari<br><br>Cost: 2200<br>+45 Armor<br>+75 Magic Resistance<br><br>UNIQUE Active - Grants a decaying shield to nearby allied champions and yourself for up to 2. 5 seconds, absorbing up to 130 − 300 (based on highest level between target and caster) (+ 20% of caster's bonus health) damage ( 650 radius) (120 second cooldown). Shielded targets are Eclipsed for 20 seconds.",
 	'visible': true
 },
 {
@@ -1374,7 +1374,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Cloak of Agility<br><br>Cost: 800<br>+20 Critical Hit Chance',
+	'tooltip': 'Cloak of Agility<br><br>Cost: 800<br>+20% Critical Hit Chance',
 	'visible': true
 },
 { 'ad': 0, 'ad_mult': { 'type': 'total', 'value': 0 }, 'allowed_to': { 'melee': true, 'ranged': true }, 'ap': 0, 'ap_mult': { 'type': 'total', 'value': 0 }, 'apen%': 0, 'apiname': 'clotharmor', 'arm': 15, 'as': 0, 'att_m_proc': 0, 'att_phys_proc': 0, 'boots_ms': 0, 'cdr': 0, 'crit': 0, 'critdmg': 0, 'flat_ms': 0, 'gold': 300, 'heal_shield': 0, 'hp': 0, 'hp5': 0, 'hp5%': 0, 'hp_mult': { 'type': 'total', 'value': 0 }, 'id': '1029', 'img': 'assets/images/items/Cloth Armor.png', 'index': 29, 'leth': 0, 'ls': 0, 'magic_on_hit': 0, 'modes': 'all,sr', 'mp': 0, 'mp5': 0, 'mp5%': 0, 'mpen': 0, 'mpen%': 0, 'mr': 0, 'ms%': 0, 'name': 'Cloth Armor', 'phys_on_hit': 0, 'shared_item': null, 'shared_passives': [], 'shield': 0, 'spell_m_proc': 0, 'spell_vamp': 0, 'stackable': false, 'stacked': false, 'tags': '', 'tenacity': 0, 'tooltip': 'Cloth Armor<br><br>Cost: 300<br>+15 Armor', 'visible': true },
@@ -1631,7 +1631,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Death's Dance<br><br>Cost: 3500<br>+50 Attack Damage<br>+30 Armor<br>+10% Cooldown Reduction<br>+15% Lifesteal<br>+30 Magic Resistance<br>+15 Spell Vamp<br><br>UNIQUE Passive - Instantly heal for 15% of all damage dealt. Area damage and pet damage only heal 5% for every unit affected.<br><br>UNIQUE Passive - Stores 30% of all post-mitigation physical and magic damage received, which is successively taken as damage over time true damage instead, dealing one-third of the stored damage every second.",
+	'tooltip': "Death's Dance<br><br>Cost: 3500<br>+50 Attack Damage<br>+30 Armor<br>+10% Cooldown Reduction<br>+15% Lifesteal<br>+30 Magic Resistance<br>+15% Spell Vamp<br><br>UNIQUE Passive - Instantly heal for 15% of all damage dealt. Area damage and pet damage only heal 5% for every unit affected.<br><br>UNIQUE Passive - Stores 30% of all post-mitigation physical and magic damage received, which is successively taken as damage over time true damage instead, dealing one-third of the stored damage every second.",
 	'visible': true
 },
 {
@@ -1835,7 +1835,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Duskblade of Draktharr<br><br>Cost: 2900<br>+60 Attack Damage<br>+10% Cooldown Reduction<br>+21 Lethality<br><br>UNIQUE Passive - +21 Lethality (13.07 − 21 (based on level) armor penetration)<br><br>UNIQUE Passive - Nightstalker: After being not visible to enemies for at least 1 second, your next basic attack against an enemy champion deals 30 − 150 (based on level) bonus physical damage on-hit and, after a 0.25-second delay, slows them by 99% for 0.5 seconds. The enhanced attack lasts 5 seconds after being seen by an enemy champion.',
+	'tooltip': 'Duskblade of Draktharr<br><br>Cost: 2900<br>+60 Attack Damage<br>+10% Cooldown Reduction<br>+21 Lethality<br><br>UNIQUE Passive - +21 Lethality (13. 07 − 21 (based on level) armor penetration)<br><br>UNIQUE Passive - Nightstalker: After being not visible to enemies for at least 1 second, your next basic attack against an enemy champion deals 30 − 150 (based on level) bonus physical damage on-hit and, after a 0. 25-second delay, slows them by 99% for 0. 5 seconds. The enhanced attack lasts 5 seconds after being seen by an enemy champion.',
 	'visible': true
 },
 {
@@ -1886,7 +1886,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Edge of Night<br><br>Cost: 2900<br>+55 Attack Damage<br>+325 Health<br>+10 Lethality<br><br>UNIQUE Passive - +10 Lethality (6.22 − 10 (based on level) armor penetration)<br><br>UNIQUE Passive - Spell Shield: Grants a spell shield that blocks the next enemy ability. This shield refreshes after no damage is taken from enemy champions for 40 seconds.',
+	'tooltip': 'Edge of Night<br><br>Cost: 2900<br>+55 Attack Damage<br>+325 Health<br>+10 Lethality<br><br>UNIQUE Passive - +10 Lethality (6. 22 − 10 (based on level) armor penetration)<br><br>UNIQUE Passive - Spell Shield: Grants a spell shield that blocks the next enemy ability. This shield refreshes after no damage is taken from enemy champions for 40 seconds.',
 	'visible': true
 },
 {
@@ -2039,7 +2039,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'pots,potions',
 	'tenacity': 0,
-	'tooltip': 'Elixir of Wrath<br><br>Cost: 500<br>+30 Attack Damage<br>+15% Lifesteal<br>+15 Spell Vamp<br><br>UNIQUE Passive - Bloodlust: Dealing physical damage to champions heals for 15% of the damage dealt. Area of effect physical damage only heals 5% for every unit affected.',
+	'tooltip': 'Elixir of Wrath<br><br>Cost: 500<br>+30 Attack Damage<br>+15% Lifesteal<br>+15% Spell Vamp<br><br>UNIQUE Passive - Bloodlust: Dealing physical damage to champions heals for 15% of the damage dealt. Area of effect physical damage only heals 5% for every unit affected.',
 	'visible': true
 },
 {
@@ -2141,7 +2141,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'jungle,jg',
 	'tenacity': 0,
-	'tooltip': "Enchantment: Cinderhulk<br><br>Cost: 2500<br>+300 Health<br><br>Increases health by 15% bonus health.<br><br>UNIQUE Passive - Immolate: Deals 12 − 29 (based on level) magic damage per second to nearby enemies (325 range).Hitting an enemy with an immobilizing ability deals 12 − 29 (based on level) (+ 3% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown).Immolate's damage is increased by 300% against minions and monsters.",
+	'tooltip': "Enchantment: Cinderhulk<br><br>Cost: 2500<br>+300 Health<br><br>Increases health by 15% bonus health.<br><br>UNIQUE Passive - Immolate: Deals 12 − 29 (based on level) magic damage per second to nearby enemies (325 range). Hitting an enemy with an immobilizing ability deals 12 − 29 (based on level) (+ 3% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown). Immolate's damage is increased by 300% against minions and monsters.",
 	'visible': true
 },
 {
@@ -2294,7 +2294,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Essence Reaver<br><br>Cost: 3300<br>+70 Attack Damage<br>+20% Cooldown Reduction<br>+25 Critical Hit Chance<br><br>UNIQUE Passive - 20.0% cooldown reduction<br><br>UNIQUE Passive - Basic attacks refund 1.5% of missing mana on-hit.',
+	'tooltip': 'Essence Reaver<br><br>Cost: 3300<br>+70 Attack Damage<br>+20% Cooldown Reduction<br>+25% Critical Hit Chance<br><br>UNIQUE Passive - 20% cooldown reduction<br><br>UNIQUE Passive - Basic attacks refund 1. 5% of missing mana on-hit.',
 	'visible': true
 },
 {
@@ -2397,7 +2397,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Fiendish Codex<br><br>Cost: 900<br>+35 Ability Power<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10.0% cooldown reduction',
+	'tooltip': 'Fiendish Codex<br><br>Cost: 900<br>+35 Ability Power<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10% cooldown reduction',
 	'visible': true
 },
 {
@@ -2448,7 +2448,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Forbidden Idol<br><br>Cost: 800<br>+10% Cooldown Reduction<br>+5% Bonus Healing or Shielding<br>+50% Mana per 5<br><br>UNIQUE Passive - 10.0% cooldown reduction',
+	'tooltip': 'Forbidden Idol<br><br>Cost: 800<br>+10% Cooldown Reduction<br>+5% Bonus Healing or Shielding<br>+50% Mana per 5<br><br>UNIQUE Passive - 10% cooldown reduction',
 	'visible': true
 },
 {
@@ -2499,7 +2499,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Forgefire Cape<br><br>Cost: 2900<br>+100 Armor<br>+750 Health<br><br>UNIQUE Passive - Immolate: Deals 26 − 43 (based on level) magic damage per second to nearby enemies (325 range).Hitting an enemy with an immobilizing ability deals 26 − 43 (based on level) (+ 4% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown).Immolate's damage is increased by 50% against minions and monsters.",
+	'tooltip': "Forgefire Cape<br><br>Cost: 2900<br>+100 Armor<br>+750 Health<br><br>UNIQUE Passive - Immolate: Deals 26 − 43 (based on level) magic damage per second to nearby enemies (325 range). Hitting an enemy with an immobilizing ability deals 26 − 43 (based on level) (+ 4% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown). Immolate's damage is increased by 50% against minions and monsters.",
 	'visible': true
 },
 {
@@ -2601,7 +2601,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': 'Frozen Fist<br><br>Cost: 2700<br>+125 Armor<br>+20% Cooldown Reduction<br>+700 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1.5 second cooldown).<br><br>UNIQUE Passive - Icy Zone: Triggering Spellblade also deals 100% base AD physical damage to enemies surrounding the target and creates a icy zone for 2 seconds, which slows enemies within by 30%. The zone has a radius of 180 (+ 55% bonus armor) units.',
+	'tooltip': 'Frozen Fist<br><br>Cost: 2700<br>+125 Armor<br>+20% Cooldown Reduction<br>+700 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1. 5 second cooldown).<br><br>UNIQUE Passive - Icy Zone: Triggering Spellblade also deals 100% base AD physical damage to enemies surrounding the target and creates a icy zone for 2 seconds, which slows enemies within by 30%. The zone has a radius of 180 (+ 55% bonus armor) units.',
 	'visible': true
 },
 {
@@ -2703,7 +2703,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Frozen Mallet<br><br>Cost: 3100<br>+30 Attack Damage<br>+700 Health<br><br>UNIQUE Passive - Icy: Basic attacks (on-hit) apply a 40% slow to your target for 1.5 seconds, refreshing with every hit.',
+	'tooltip': 'Frozen Mallet<br><br>Cost: 3100<br>+30 Attack Damage<br>+700 Health<br><br>UNIQUE Passive - Icy: Basic attacks (on-hit) apply a 40% slow to your target for 1. 5 seconds, refreshing with every hit.',
 	'visible': true
 },
 {
@@ -2806,7 +2806,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Glacial Shroud<br><br>Cost: 900<br>+20 Armor<br>+250 Mana<br><br>UNIQUE Passive - 10.0% cooldown reduction',
+	'tooltip': 'Glacial Shroud<br><br>Cost: 900<br>+20 Armor<br>+250 Mana<br><br>UNIQUE Passive - 10% cooldown reduction',
 	'visible': true
 },
 {
@@ -2908,7 +2908,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Guinsoo's Rageblade<br><br>Cost: 3100<br>+25 Attack Damage<br>+25 Ability Power<br>+15% Armor Penetration<br>+25% Attack Speed<br>+15% Magic Penetration<br><br>Basic attacks deal 15 bonus magic damage on-hit.<br><br>UNIQUE Passive - Last Whisper: Grants 15% total armor penetration.<br><br>UNIQUE Passive - Dissolve: Grants 15% magic penetration.<br><br>UNIQUE Passive - Basic attacks grant 8% bonus attack speed on-attack, after a 0.15 second delay, for 5 seconds, stacking up to 6 times for a maximum of 48% bonus attack speed. Melee champions can fully stack it with their fourth basic attack. While at 6 stacks gain Guinsoo's Rage. Guinsoo's Rage: Every third basic attack triggers a Phantom Hit on-attack that applies on-hit effects to the target unit after a 0.15 second delay.",
+	'tooltip': "Guinsoo's Rageblade<br><br>Cost: 3100<br>+25 Attack Damage<br>+25 Ability Power<br>+15% Armor Penetration<br>+25% Attack Speed<br>+15% Magic Penetration<br><br>Basic attacks deal 15 bonus magic damage on-hit.<br><br>UNIQUE Passive - Last Whisper: Grants 15% total armor penetration.<br><br>UNIQUE Passive - Dissolve: Grants 15% magic penetration.<br><br>UNIQUE Passive - Basic attacks grant 8% bonus attack speed on-attack, after a 0. 15 second delay, for 5 seconds, stacking up to 6 times for a maximum of 48% bonus attack speed. Melee champions can fully stack it with their fourth basic attack. While at 6 stacks gain Guinsoo's Rage. Guinsoo's Rage: Every third basic attack triggers a Phantom Hit on-attack that applies on-hit effects to the target unit after a 0. 15 second delay.",
 	'visible': true
 },
 {
@@ -3214,7 +3214,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Hextech GLP-800<br><br>Cost: 2800<br>+80 Ability Power<br>+10% Cooldown Reduction<br>+600 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Active - Frost Bolt: After a 0.25-second delay, fires over 0.2 seconds a spray of five icy bolts in a cone, which each bolt dealing 100 − 200 (based on level) (+ 20% AP) magic damage and slowing by 65%, decaying over 2 second, the first units hit (40 second cooldown, shared with other Hextech items).',
+	'tooltip': 'Hextech GLP-800<br><br>Cost: 2800<br>+80 Ability Power<br>+10% Cooldown Reduction<br>+600 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Active - Frost Bolt: After a 0. 25-second delay, fires over 0. 2 seconds a spray of five icy bolts in a cone, which each bolt dealing 100 − 200 (based on level) (+ 20% AP) magic damage and slowing by 65%, decaying over 2 second, the first units hit (40 second cooldown, shared with other Hextech items).',
 	'visible': true
 },
 {
@@ -3265,7 +3265,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Hextech Gunblade<br><br>Cost: 3400<br>+40 Attack Damage<br>+80 Ability Power<br>+15% Lifesteal<br>+15 Spell Vamp<br><br>UNIQUE Passive - Heals for 15% of all damage dealt. Area damage and pet damage only heals 5% for every unit affected.<br><br>UNIQUE Active - Lightning Bolt: Instantly deal 175 − 253 (based on level) (+ 30% AP) magic damage and slow the target enemy champion by 40% for 2 seconds ( 700 radius) (40 second cooldown, shared with other Hextech items).',
+	'tooltip': 'Hextech Gunblade<br><br>Cost: 3400<br>+40 Attack Damage<br>+80 Ability Power<br>+15% Lifesteal<br>+15% Spell Vamp<br><br>UNIQUE Passive - Heals for 15% of all damage dealt. Area damage and pet damage only heals 5% for every unit affected.<br><br>UNIQUE Active - Lightning Bolt: Instantly deal 175 − 253 (based on level) (+ 30% AP) magic damage and slow the target enemy champion by 40% for 2 seconds ( 700 radius) (40 second cooldown, shared with other Hextech items).',
 	'visible': true
 },
 {
@@ -3418,7 +3418,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Iceborn Gauntlet<br><br>Cost: 2700<br>+65 Armor<br>+20% Cooldown Reduction<br>+500 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1.5 second cooldown).<br><br>UNIQUE Passive - Icy Zone: Triggering Spellblade also deals 100% base AD physical damage to enemies surrounding the target and creates a icy zone for 2 seconds, which slows enemies within by 30%. The zone has a radius of 180 (+ 55% bonus armor) units.',
+	'tooltip': 'Iceborn Gauntlet<br><br>Cost: 2700<br>+65 Armor<br>+20% Cooldown Reduction<br>+500 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1. 5 second cooldown).<br><br>UNIQUE Passive - Icy Zone: Triggering Spellblade also deals 100% base AD physical damage to enemies surrounding the target and creates a icy zone for 2 seconds, which slows enemies within by 30%. The zone has a radius of 180 (+ 55% bonus armor) units.',
 	'visible': true
 },
 {
@@ -3520,7 +3520,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ie',
 	'tenacity': 0,
-	'tooltip': 'Infinity Edge<br><br>Cost: 3400<br>+80 Attack Damage<br>+25 Critical Hit Chance<br>+25 Critical Damage Bonus<br><br>UNIQUE Passive - Critical strikes deal 225% damage instead of 200%.',
+	'tooltip': 'Infinity Edge<br><br>Cost: 3400<br>+80 Attack Damage<br>+25% Critical Hit Chance<br>+25% Bonus Critical Damage<br><br>UNIQUE Passive - Critical strikes deal 225% damage instead of 200%.',
 	'visible': true
 },
 {
@@ -3571,7 +3571,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Ionian Boots of Lucidity<br><br>Cost: 900<br>+45 Move Speed<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10.0% cooldown reduction<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed<br><br>UNIQUE Passive - Reduces summoner spell cooldowns by 10%.',
+	'tooltip': 'Ionian Boots of Lucidity<br><br>Cost: 900<br>+45 Move Speed<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10% cooldown reduction<br><br>UNIQUE Passive - Enhanced Movement: +45 flat movement speed<br><br>UNIQUE Passive - Reduces summoner spell cooldowns by 10%.',
 	'visible': true
 },
 {
@@ -3673,7 +3673,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Kindlegem<br><br>Cost: 800<br>+10% Cooldown Reduction<br>+200 Health<br><br>UNIQUE Passive - 10.0% cooldown reduction',
+	'tooltip': 'Kindlegem<br><br>Cost: 800<br>+10% Cooldown Reduction<br>+200 Health<br><br>UNIQUE Passive - 10% cooldown reduction',
 	'visible': true
 },
 {
@@ -3877,7 +3877,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Liandry's Torment<br><br>Cost: 3100<br>+75 Ability Power<br>+300 Health<br><br>UNIQUE Passive - Madness: Damaging an enemy champion generates one stack every second for the next 4 seconds. Deal 2% increased damage for each stack, up to a maximum of 10%.<br><br>UNIQUE Passive - Torment: Dealing ability damage applies a damage over time effect for 3 seconds that[ deals 0.75% of the target's maximum health bonus magic damage every 0.5 seconds. This is increased to 1.25% of the target's maximum health bonus magic damage ][ deals a total of 4.5% of target's maximum health bonus magic damage, with each tick of damage occurring every 0.5 seconds. This total damage is increased to 7.5% of target's maximum health ]against slowed or immobilized units, and is capped at 100 damage per second against monsters.",
+	'tooltip': "Liandry's Torment<br><br>Cost: 3100<br>+75 Ability Power<br>+300 Health<br><br>UNIQUE Passive - Madness: Damaging an enemy champion generates one stack every second for the next 4 seconds. Deal 2% increased damage for each stack, up to a maximum of 10%.<br><br>UNIQUE Passive - Torment: Dealing ability damage applies a damage over time effect for 3 seconds that[ deals 0. 75% of the target's maximum health bonus magic damage every 0. 5 seconds. This is increased to 1. 25% of the target's maximum health bonus magic damage ][ deals a total of 4. 5% of target's maximum health bonus magic damage, with each tick of damage occurring every 0. 5 seconds. This total damage is increased to 7. 5% of target's maximum health ]against slowed or immobilized units, and is capped at 100 damage per second against monsters.",
 	'visible': true
 },
 {
@@ -3928,7 +3928,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Lich Bane<br><br>Cost: 3200<br>+80 Ability Power<br>+10% Cooldown Reduction<br>+250 Mana<br>+7% Move Speed<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 75% base AD (+ 50% AP) bonus magic damage on-hit (1.5 second cooldown).',
+	'tooltip': 'Lich Bane<br><br>Cost: 3200<br>+80 Ability Power<br>+10% Cooldown Reduction<br>+250 Mana<br>+7% Move Speed<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 75% base AD (+ 50% AP) bonus magic damage on-hit (1. 5 second cooldown).',
 	'visible': true
 },
 {
@@ -3979,7 +3979,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Locket of the Iron Solari<br><br>Cost: 2200<br>+30 Armor<br>+60 Magic Resistance<br><br>UNIQUE Active - Grants a decaying shield to nearby allied champions and yourself for up to 2.5 seconds, absorbing up to 130 − 300 (based on highest level between target and caster) (+ 20% of caster's bonus health) damage ( 650 radius) (120 second cooldown). Shielded targets are Eclipsed for 20 seconds.",
+	'tooltip': "Locket of the Iron Solari<br><br>Cost: 2200<br>+30 Armor<br>+60 Magic Resistance<br><br>UNIQUE Active - Grants a decaying shield to nearby allied champions and yourself for up to 2. 5 seconds, absorbing up to 130 − 300 (based on highest level between target and caster) (+ 20% of caster's bonus health) damage ( 650 radius) (120 second cooldown). Shielded targets are Eclipsed for 20 seconds.",
 	'visible': true
 },
 {
@@ -4183,7 +4183,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Luden's Echo<br><br>Cost: 3200<br>+90 Ability Power<br>+10% Cooldown Reduction<br>+600 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Passive - Echo: Gains charges upon moving or casting. At 100 charges, the next instance of ability damage you deal will expend all charges to deal 100 (+ 10% AP) bonus magic damage to the first enemy hit and to 3 nearby enemies, prioritizing enemies damaged by the ability and champions over minions.Echo grants vision around you to the enemies.",
+	'tooltip': "Luden's Echo<br><br>Cost: 3200<br>+90 Ability Power<br>+10% Cooldown Reduction<br>+600 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Passive - Echo: Gains charges upon moving or casting. At 100 charges, the next instance of ability damage you deal will expend all charges to deal 100 (+ 10% AP) bonus magic damage to the first enemy hit and to 3 nearby enemies, prioritizing enemies damaged by the ability and champions over minions. Echo grants vision around you to the enemies.",
 	'visible': true
 },
 {
@@ -4234,7 +4234,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Luden's Pulse<br><br>Cost: 3200<br>+120 Ability Power<br>+10% Cooldown Reduction<br>+850 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Passive - Echo: Gains charges upon moving or casting. At 100 charges, the next instance of ability damage you deal will expend all charges to deal 100 (+ 10% AP) bonus magic damage to the first enemy hit and to 3 nearby enemies, prioritizing enemies damaged by the ability and champions over minions.Echo grants vision around you to the enemies.",
+	'tooltip': "Luden's Pulse<br><br>Cost: 3200<br>+120 Ability Power<br>+10% Cooldown Reduction<br>+850 Mana<br><br>UNIQUE Passive - Haste: Grants an additional 10% cooldown reduction.<br><br>UNIQUE Passive - Echo: Gains charges upon moving or casting. At 100 charges, the next instance of ability damage you deal will expend all charges to deal 100 (+ 10% AP) bonus magic damage to the first enemy hit and to 3 nearby enemies, prioritizing enemies damaged by the ability and champions over minions. Echo grants vision around you to the enemies.",
 	'visible': true
 },
 {
@@ -4642,7 +4642,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': 'Molten Edge<br><br>Cost: 3400<br>+110 Attack Damage<br>+25 Critical Hit Chance<br>+25 Critical Damage Bonus<br><br>UNIQUE Passive - Critical strikes deal 225% damage instead of 200%.',
+	'tooltip': 'Molten Edge<br><br>Cost: 3400<br>+110 Attack Damage<br>+25% Critical Hit Chance<br>+25% Bonus Critical Damage<br><br>UNIQUE Passive - Critical strikes deal 225% damage instead of 200%.',
 	'visible': true
 },
 {
@@ -4846,7 +4846,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Nashor's Tooth<br><br>Cost: 3000<br>+80 Ability Power<br>+50% Attack Speed<br>+20% Cooldown Reduction<br><br>UNIQUE Passive - 20.0% cooldown reduction<br><br>UNIQUE Passive - Basic attacks deal 15 (+ 15% AP) bonus magic damage on-hit.",
+	'tooltip': "Nashor's Tooth<br><br>Cost: 3000<br>+80 Ability Power<br>+50% Attack Speed<br>+20% Cooldown Reduction<br><br>UNIQUE Passive - 20% cooldown reduction<br><br>UNIQUE Passive - Basic attacks deal 15 (+ 15% AP) bonus magic damage on-hit.",
 	'visible': true
 },
 {
@@ -5356,7 +5356,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Phantom Dancer<br><br>Cost: 2600<br>+30% Attack Speed<br>+25 Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Spectral Waltz: Basic attacking a champion grants ghosting and 7% bonus movement speed for 2 seconds.<br><br>UNIQUE Passive - Lifeline: If you would take damage that would reduce maximum health below 30%, you first gain a shield that absorbs 240 − 600 (based on level) damage decaying over 2 seconds (90 second cooldown).',
+	'tooltip': 'Phantom Dancer<br><br>Cost: 2600<br>+30% Attack Speed<br>+25% Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Spectral Waltz: Basic attacking a champion grants ghosting and 7% bonus movement speed for 2 seconds.<br><br>UNIQUE Passive - Lifeline: If you would take damage that would reduce maximum health below 30%, you first gain a shield that absorbs 240 − 600 (based on level) damage decaying over 2 seconds (90 second cooldown).',
 	'visible': true
 },
 { 'ad': 25, 'ad_mult': { 'type': 'total', 'value': 0 }, 'allowed_to': { 'melee': true, 'ranged': true }, 'ap': 0, 'ap_mult': { 'type': 'total', 'value': 0 }, 'apen%': 0, 'apiname': 'pickaxe', 'arm': 0, 'as': 0, 'att_m_proc': 0, 'att_phys_proc': 0, 'boots_ms': 0, 'cdr': 0, 'crit': 0, 'critdmg': 0, 'flat_ms': 0, 'gold': 875, 'heal_shield': 0, 'hp': 0, 'hp5': 0, 'hp5%': 0, 'hp_mult': { 'type': 'total', 'value': 0 }, 'id': '1037', 'img': 'assets/images/items/Pickaxe.png', 'index': 111, 'leth': 0, 'ls': 0, 'magic_on_hit': 0, 'modes': 'all,sr', 'mp': 0, 'mp5': 0, 'mp5%': 0, 'mpen': 0, 'mpen%': 0, 'mr': 0, 'ms%': 0, 'name': 'Pickaxe', 'phys_on_hit': 0, 'shared_item': null, 'shared_passives': [], 'shield': 0, 'spell_m_proc': 0, 'spell_vamp': 0, 'stackable': false, 'stacked': false, 'tags': '', 'tenacity': 0, 'tooltip': 'Pickaxe<br><br>Cost: 875<br>+25 Attack Damage', 'visible': true },
@@ -5663,7 +5663,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Rapid Firecannon<br><br>Cost: 2600<br>+30% Attack Speed<br>+25 Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Sharpshooter: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized attacks gain 35% bonus range (+150 range maximum).',
+	'tooltip': 'Rapid Firecannon<br><br>Cost: 2600<br>+30% Attack Speed<br>+25% Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Sharpshooter: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized attacks gain 35% bonus range (+150 range maximum).',
 	'visible': true
 },
 {
@@ -5816,7 +5816,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Redemption<br><br>Cost: 2100<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+200 Health<br>+50% Heatlh per 5<br>+150% Mana per 5<br><br>UNIQUE Active - You reveal the target area for 3 seconds. After a 2.5 second delay, a beam of light strikes the ground. Allies within the area are healed for 30 − 370 (based on target's level), which is increased by 3 × your Heal Power, while enemy champions take 10% of target's maximum health true damage and enemy minions take 250 true damage (120 second cooldown). Can be used while dead.",
+	'tooltip': "Redemption<br><br>Cost: 2100<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+200 Health<br>+50% Heatlh per 5<br>+150% Mana per 5<br><br>UNIQUE Active - You reveal the target area for 3 seconds. After a 2. 5 second delay, a beam of light strikes the ground. Allies within the area are healed for 30 − 370 (based on target's level), which is increased by 3 × your Heal Power, while enemy champions take 10% of target's maximum health true damage and enemy minions take 250 true damage (120 second cooldown). Can be used while dead.",
 	'visible': true
 },
 {
@@ -6122,7 +6122,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Runaan's Hurricane<br><br>Cost: 2600<br>+40% Attack Speed<br>+25 Critical Hit Chance<br>+9% Move Speed<br><br>UNIQUE Passive - Wind's Fury: Basic attacks on-attack fire additional bolts at up to 2 enemies in front of you, each dealing 40% AD physical damage. Bolts apply on-hit effects and are affected by critical strike modifiers.The bolts will target the closest enemies to you that are not the main target.",
+	'tooltip': "Runaan's Hurricane<br><br>Cost: 2600<br>+40% Attack Speed<br>+25% Critical Hit Chance<br>+9% Move Speed<br><br>UNIQUE Passive - Wind's Fury: Basic attacks on-attack fire additional bolts at up to 2 enemies in front of you, each dealing 40% AD physical damage. Bolts apply on-hit effects and are affected by critical strike modifiers. The bolts will target the closest enemies to you that are not the main target.",
 	'visible': true
 },
 {
@@ -6275,7 +6275,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Salvation<br><br>Cost: 2100<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+300 Health<br>+150% Heatlh per 5<br>+200% Mana per 5<br><br>UNIQUE Active - You reveal the target area for 3 seconds. After a 2.5 second delay, a beam of light strikes the ground. Allies within the area are healed for 30 − 370 (based on target's level), which is increased by 3 × your Heal Power, while enemy champions take 10% of target's maximum health true damage and enemy minions take 250 true damage (120 second cooldown). Can be used while dead.",
+	'tooltip': "Salvation<br><br>Cost: 2100<br>+10% Cooldown Reduction<br>+10% Bonus Healing or Shielding<br>+300 Health<br>+150% Heatlh per 5<br>+200% Mana per 5<br><br>UNIQUE Active - You reveal the target area for 3 seconds. After a 2. 5 second delay, a beam of light strikes the ground. Allies within the area are healed for 30 − 370 (based on target's level), which is increased by 3 × your Heal Power, while enemy champions take 10% of target's maximum health true damage and enemy minions take 250 true damage (120 second cooldown). Can be used while dead.",
 	'visible': true
 },
 {
@@ -6326,7 +6326,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Sanguine Blade<br><br>Cost: 3000<br>+55 Attack Damage<br>+10 Lethality<br>+15% Lifesteal<br><br>UNIQUE Passive - +10 Lethality (6.22 − 10 (based on level) armor penetration)<br><br>UNIQUE Passive - Blood Pursuit: While near one or fewer visible enemy champions gain 8 lethality and 20% − 80% (based on level) bonus attack speed, decaying over 3 seconds if other enemy champions get too close (1350 radius).',
+	'tooltip': 'Sanguine Blade<br><br>Cost: 3000<br>+55 Attack Damage<br>+10 Lethality<br>+15% Lifesteal<br><br>UNIQUE Passive - +10 Lethality (6. 22 − 10 (based on level) armor penetration)<br><br>UNIQUE Passive - Blood Pursuit: While near one or fewer visible enemy champions gain 8 lethality and 20% − 80% (based on level) bonus attack speed, decaying over 3 seconds if other enemy champions get too close (1350 radius).',
 	'visible': true
 },
 {
@@ -6428,7 +6428,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Seeker's Armguard<br><br>Cost: 1100<br>+20 Ability Power<br>+30 Armor<br><br>UNIQUE Passive - Killing a unit grants 0.5 bonus ability power and armor, stacking up to 30 times for a maximum of 15 bonus ability power and armor.",
+	'tooltip': "Seeker's Armguard<br><br>Cost: 1100<br>+20 Ability Power<br>+30 Armor<br><br>UNIQUE Passive - Killing a unit grants 0. 5 bonus ability power and armor, stacking up to 30 times for a maximum of 15 bonus ability power and armor.",
 	'visible': true
 },
 {
@@ -6530,7 +6530,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Serrated Dirk<br><br>Cost: 1100<br>+30 Attack Damage<br>+10 Lethality<br><br>UNIQUE Passive - +10 Lethality (6.22 − 10 (based on level) armor penetration)',
+	'tooltip': 'Serrated Dirk<br><br>Cost: 1100<br>+30 Attack Damage<br>+10 Lethality<br><br>UNIQUE Passive - +10 Lethality (6. 22 − 10 (based on level) armor penetration)',
 	'visible': true
 },
 {
@@ -6632,7 +6632,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Sheen<br><br>Cost: 1050<br>+10% Cooldown Reduction<br>+250 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1.5 second cooldown, begins after using the empowered attack).',
+	'tooltip': 'Sheen<br><br>Cost: 1050<br>+10% Cooldown Reduction<br>+250 Mana<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus physical damage on-hit (1. 5 second cooldown, begins after using the empowered attack).',
 	'visible': true
 },
 {
@@ -7040,7 +7040,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Statikk Shiv<br><br>Cost: 2600<br>+40% Attack Speed<br>+25 Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Electroshock: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized attacks bounce to 7 targets.',
+	'tooltip': 'Statikk Shiv<br><br>Cost: 2600<br>+40% Attack Speed<br>+25% Critical Hit Chance<br>+7% Move Speed<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Electroshock: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized attacks bounce to 7 targets.',
 	'visible': true
 },
 {
@@ -7142,7 +7142,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Sterak's Gage<br><br>Cost: 3200<br>+450 Health<br><br>UNIQUE Passive - Giant Strength: Gain 50% of base attack damage as bonus attack damage.<br><br>UNIQUE Passive - Lifeline: If you take 400 − 1800 (based on level) damage within 5 seconds, you gain a shield for up to 3.75 seconds equal to 75% of your bonus health, which starts decaying after 0.75 seconds (60 second cooldown).<br><br>Triggering Lifeline grants Sterak's Fury.<br><br>UNIQUE Passive - Sterak's Fury: Grants +25% increased size and +30% Tenacity for 8 seconds.",
+	'tooltip': "Sterak's Gage<br><br>Cost: 3200<br>+450 Health<br><br>UNIQUE Passive - Giant Strength: Gain 50% of base attack damage as bonus attack damage.<br><br>UNIQUE Passive - Lifeline: If you take 400 − 1800 (based on level) damage within 5 seconds, you gain a shield for up to 3. 75 seconds equal to 75% of your bonus health, which starts decaying after 0. 75 seconds (60 second cooldown).<br><br>Triggering Lifeline grants Sterak's Fury.<br><br>UNIQUE Passive - Sterak's Fury: Grants +25% increased size and +30% Tenacity for 8 seconds.",
 	'visible': true
 },
 {
@@ -7193,7 +7193,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Stinger<br><br>Cost: 1100<br>+35% Attack Speed<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10.0% cooldown reduction',
+	'tooltip': 'Stinger<br><br>Cost: 1100<br>+35% Attack Speed<br>+10% Cooldown Reduction<br><br>UNIQUE Passive - 10% cooldown reduction',
 	'visible': true
 },
 {
@@ -7244,7 +7244,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Stormrazor<br><br>Cost: 3200<br>+50 Attack Damage<br>+15% Attack Speed<br>+25 Critical Hit Chance<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Paralyze: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized effects slow by 75% for 0.5 seconds.',
+	'tooltip': 'Stormrazor<br><br>Cost: 3200<br>+50 Attack Damage<br>+15% Attack Speed<br>+25% Critical Hit Chance<br><br>UNIQUE Passive - Energized: Moving and basic attacking generates Energize stacks, up to 100.<br><br>UNIQUE Passive - Paralyze: When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized effects slow by 75% for 0. 5 seconds.',
 	'visible': true
 },
 {
@@ -7295,7 +7295,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Sunfire Cape<br><br>Cost: 2750<br>+60 Armor<br>+425 Health<br><br>UNIQUE Passive - Immolate: Deals 26 − 43 (based on level) magic damage per second to nearby enemies (325 range).Hitting an enemy with an immobilizing ability deals 26 − 43 (based on level) (+ 4% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown).Immolate's damage is increased by 50% against minions and monsters.",
+	'tooltip': "Sunfire Cape<br><br>Cost: 2750<br>+60 Armor<br>+425 Health<br><br>UNIQUE Passive - Immolate: Deals 26 − 43 (based on level) magic damage per second to nearby enemies (325 range). Hitting an enemy with an immobilizing ability deals 26 − 43 (based on level) (+ 4% bonus health) bonus magic damage and releases a fire nova that also deals that bonus damage to nearby enemies (12 second cooldown). Immolate's damage is increased by 50% against minions and monsters.",
 	'visible': true
 },
 {
@@ -7550,7 +7550,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Titanic Hydra<br><br>Cost: 3500<br>+40 Attack Damage<br>+450 Health<br>+100% Heatlh per 5<br><br>UNIQUE Passive - Cleave: Basic attacks deal 5 (+ 1.5% maximum health) bonus physical damage on-hit. Additionally, basic attacks also deal 40 (+ 3% maximum health) physical damage in a cone to units behind the target.<br><br>UNIQUE Active - Crescent: On your next basic attack, Cleave will instead deal 40 (+ 10% maximum health) physical damage to all targets and has a larger cone (20 second cooldown). Crescent resets your basic attack timer.',
+	'tooltip': 'Titanic Hydra<br><br>Cost: 3500<br>+40 Attack Damage<br>+450 Health<br>+100% Heatlh per 5<br><br>UNIQUE Passive - Cleave: Basic attacks deal 5 (+ 1. 5% maximum health) bonus physical damage on-hit. Additionally, basic attacks also deal 40 (+ 3% maximum health) physical damage in a cone to units behind the target.<br><br>UNIQUE Active - Crescent: On your next basic attack, Cleave will instead deal 40 (+ 10% maximum health) physical damage to all targets and has a larger cone (20 second cooldown). Crescent resets your basic attack timer.',
 	'visible': true
 },
 {
@@ -7601,7 +7601,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Trinity Force<br><br>Cost: 3733<br>+25 Attack Damage<br>+40% Attack Speed<br>+20% Cooldown Reduction<br>+250 Health<br>+250 Mana<br>+5% Move Speed<br><br>UNIQUE Passive - Rage: Basic attacks (on-hit) grant +20 flat movement speed for 2 seconds. Killing a unit grants +60 flat movement speed instead. Bonus movement speed is halved on ranged champions.<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit (1.5 second cooldown).',
+	'tooltip': 'Trinity Force<br><br>Cost: 3733<br>+25 Attack Damage<br>+40% Attack Speed<br>+20% Cooldown Reduction<br>+250 Health<br>+250 Mana<br>+5% Move Speed<br><br>UNIQUE Passive - Rage: Basic attacks (on-hit) grant +20 flat movement speed for 2 seconds. Killing a unit grants +60 flat movement speed instead. Bonus movement speed is halved on ranged champions.<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit (1. 5 second cooldown).',
 	'visible': true
 },
 {
@@ -7652,7 +7652,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': 'Trinity Fusion<br><br>Cost: 3733<br>+35 Attack Damage<br>+50% Attack Speed<br>+20% Cooldown Reduction<br>+350 Health<br>+350 Mana<br>+8% Move Speed<br><br>UNIQUE Passive - Rage: Basic attacks (on-hit) grant +20 flat movement speed for 2 seconds. Killing a unit grants +60 flat movement speed instead. Bonus movement speed is halved on ranged champions.<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit (1.5 second cooldown).',
+	'tooltip': 'Trinity Fusion<br><br>Cost: 3733<br>+35 Attack Damage<br>+50% Attack Speed<br>+20% Cooldown Reduction<br>+350 Health<br>+350 Mana<br>+8% Move Speed<br><br>UNIQUE Passive - Rage: Basic attacks (on-hit) grant +20 flat movement speed for 2 seconds. Killing a unit grants +60 flat movement speed instead. Bonus movement speed is halved on ranged champions.<br><br>UNIQUE Passive - Spellblade: After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit (1. 5 second cooldown).',
 	'visible': true
 },
 {
@@ -7754,7 +7754,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Umbral Glaive<br><br>Cost: 2400<br>+50 Attack Damage<br>+10% Cooldown Reduction<br>+12 Lethality<br><br>UNIQUE Passive - +12 Lethality (7.47 − 12 (based on level) armor penetration)<br><br>UNIQUE Passive - Blackout: When spotted by enemy wards or traps, gain Blackout over a 400-unit radius for 8 seconds (45 second cooldown). You disable surrounding wards, as well as expose and reveal stealthed wards and traps. The effects linger for 2 seconds after you walk away.<br><br>UNIQUE Passive - Your basic attacks instantly kill revealed traps and deal triple damage to wards.',
+	'tooltip': 'Umbral Glaive<br><br>Cost: 2400<br>+50 Attack Damage<br>+10% Cooldown Reduction<br>+12 Lethality<br><br>UNIQUE Passive - +12 Lethality (7. 47 − 12 (based on level) armor penetration)<br><br>UNIQUE Passive - Blackout: When spotted by enemy wards or traps, gain Blackout over a 400-unit radius for 8 seconds (45 second cooldown). You disable surrounding wards, as well as expose and reveal stealthed wards and traps. The effects linger for 2 seconds after you walk away.<br><br>UNIQUE Passive - Your basic attacks instantly kill revealed traps and deal triple damage to wards.',
 	'visible': true
 },
 {
@@ -7958,7 +7958,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Warmog's Armor<br><br>Cost: 2850<br>+20% Cooldown Reduction<br>+800 Health<br>+200% Heatlh per 5<br><br>UNIQUE Passive - 10.0% cooldown reduction<br><br>Grants Warmog's Heart if you have at least 3000 maximum health.<br><br>UNIQUE Passive - Warmog's Heart: Regenerate [ 2.5% maximum health every half-second ][ 25% maximum health every 5 seconds ]if damage has not been taken in the last 6 seconds (3 seconds for damage from minions).",
+	'tooltip': "Warmog's Armor<br><br>Cost: 2850<br>+20% Cooldown Reduction<br>+800 Health<br>+200% Heatlh per 5<br><br>UNIQUE Passive - 10% cooldown reduction<br><br>Grants Warmog's Heart if you have at least 3000 maximum health.<br><br>UNIQUE Passive - Warmog's Heart: Regenerate [ 2. 5% maximum health every half-second ][ 25% maximum health every 5 seconds ]if damage has not been taken in the last 6 seconds (3 seconds for damage from minions).",
 	'visible': true
 },
 {
@@ -8060,7 +8060,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Youmuu's Ghostblade<br><br>Cost: 2900<br>+55 Attack Damage<br>+10% Cooldown Reduction<br>+40 Move Speed<br>+18 Lethality<br><br>UNIQUE Passive - +18 Lethality (11.2 − 18 (based on level) armor penetration)<br><br>UNIQUE Passive - +40 movement speed out-of-combat.<br><br>UNIQUE Active - Gain +20% movement speed and ghosting for 6 seconds (45 second cooldown).",
+	'tooltip': "Youmuu's Ghostblade<br><br>Cost: 2900<br>+55 Attack Damage<br>+10% Cooldown Reduction<br>+40 Move Speed<br>+18 Lethality<br><br>UNIQUE Passive - +18 Lethality (11. 2 − 18 (based on level) armor penetration)<br><br>UNIQUE Passive - +40 movement speed out-of-combat.<br><br>UNIQUE Active - Gain +20% movement speed and ghosting for 6 seconds (45 second cooldown).",
 	'visible': true
 },
 {
@@ -8111,7 +8111,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Youmuu's Wraithblade<br><br>Cost: 2900<br>+75 Attack Damage<br>+10% Cooldown Reduction<br>+40 Move Speed<br>+25 Lethality<br><br>UNIQUE Passive - +18 Lethality (11.2 − 18 (based on level) armor penetration)<br><br>UNIQUE Passive - +40 movement speed out-of-combat.<br><br>UNIQUE Active - Gain +20% movement speed and ghosting for 6 seconds (45 second cooldown).",
+	'tooltip': "Youmuu's Wraithblade<br><br>Cost: 2900<br>+75 Attack Damage<br>+10% Cooldown Reduction<br>+40 Move Speed<br>+25 Lethality<br><br>UNIQUE Passive - +18 Lethality (11. 2 − 18 (based on level) armor penetration)<br><br>UNIQUE Passive - +40 movement speed out-of-combat.<br><br>UNIQUE Active - Gain +20% movement speed and ghosting for 6 seconds (45 second cooldown).",
 	'visible': true
 },
 {
@@ -8162,7 +8162,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': 'Zeal<br><br>Cost: 1400<br>+12% Attack Speed<br>+25 Critical Hit Chance<br>+7% Move Speed',
+	'tooltip': 'Zeal<br><br>Cost: 1400<br>+12% Attack Speed<br>+25% Critical Hit Chance<br>+7% Move Speed',
 	'visible': true
 },
 {
@@ -8213,7 +8213,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Zeke's Convergence<br><br>Cost: 2250<br>+60 Armor<br>+10% Cooldown Reduction<br>+250 Mana<br>+30 Magic Resistance<br><br>UNIQUE Passive - Casting your ultimate ability within range of your Conduit grant both of you bonus effects for 10 seconds. You are surrounded with a 300 range Frost storm which slows enemies within it by 20%, and your Conduit's basic attacks burn their target with Fire dealing 30% bonus magic damage over 2 seconds (45 second cooldown).<br><br>UNIQUE Passive - Frostfire Covenant: If an enemy is both struck by Frost and Fire, your Frost storm ignites and becomes Frostfire. A Frostfire storm, deals 40 magic damage per second to nearby enemies and slows by 40% instead for 3 seconds.<br><br>UNIQUE Active - Conduit: Designate an allied champion within 1000 range as your Conduit and form a link with them (0.5 second cooldown).",
+	'tooltip': "Zeke's Convergence<br><br>Cost: 2250<br>+60 Armor<br>+10% Cooldown Reduction<br>+250 Mana<br>+30 Magic Resistance<br><br>UNIQUE Passive - Casting your ultimate ability within range of your Conduit grant both of you bonus effects for 10 seconds. You are surrounded with a 300 range Frost storm which slows enemies within it by 20%, and your Conduit's basic attacks burn their target with Fire dealing 30% bonus magic damage over 2 seconds (45 second cooldown).<br><br>UNIQUE Passive - Frostfire Covenant: If an enemy is both struck by Frost and Fire, your Frost storm ignites and becomes Frostfire. A Frostfire storm, deals 40 magic damage per second to nearby enemies and slows by 40% instead for 3 seconds.<br><br>UNIQUE Active - Conduit: Designate an allied champion within 1000 range as your Conduit and form a link with them (0. 5 second cooldown).",
 	'visible': true
 },
 {
@@ -8264,7 +8264,7 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': '',
 	'tenacity': 0,
-	'tooltip': "Zhonya's Hourglass<br><br>Cost: 2900<br>+70 Ability Power<br>+45 Armor<br>+10% Cooldown Reduction<br><br>UNIQUE Active - Stasis: Put yourself in stasis for 2.5 seconds, rendering yourself untargetable and invulnerable for the duration but becoming unable to move, declare basic attacks, cast abilities or item actives, or use any summoner spells during this time (120 second cooldown).",
+	'tooltip': "Zhonya's Hourglass<br><br>Cost: 2900<br>+70 Ability Power<br>+45 Armor<br>+10% Cooldown Reduction<br><br>UNIQUE Active - Stasis: Put yourself in stasis for 2. 5 seconds, rendering yourself untargetable and invulnerable for the duration but becoming unable to move, declare basic attacks, cast abilities or item actives, or use any summoner spells during this time (120 second cooldown).",
 	'visible': true
 },
 {
@@ -8315,6 +8315,6 @@ export const ITEMS = [{
 	'stacked': false,
 	'tags': 'ornn,masterwork',
 	'tenacity': 0,
-	'tooltip': "Zhonya's Paradox<br><br>Cost: 2900<br>+100 Ability Power<br>+60 Armor<br>+10% Cooldown Reduction<br><br>UNIQUE Active - Stasis: Put yourself in stasis for 2.5 seconds, rendering yourself untargetable and invulnerable for the duration but becoming unable to move, declare basic attacks, cast abilities or item actives, or use any summoner spells during this time (120 second cooldown).",
+	'tooltip': "Zhonya's Paradox<br><br>Cost: 2900<br>+100 Ability Power<br>+60 Armor<br>+10% Cooldown Reduction<br><br>UNIQUE Active - Stasis: Put yourself in stasis for 2. 5 seconds, rendering yourself untargetable and invulnerable for the duration but becoming unable to move, declare basic attacks, cast abilities or item actives, or use any summoner spells during this time (120 second cooldown).",
 	'visible': true
 }]
