@@ -1,4 +1,4 @@
-import re, os, pickle, requests
+import re, os, json, requests
 from pprint import PrettyPrinter
 APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_PATH = os.path.join(APP_PATH, "server")
@@ -35,49 +35,56 @@ def find_var_key(var_array, var_key):
 def replace_placeholder(tooltip, placeholder, value):
 	return tooltip.replace(placeholder, value)
 
-def compile_champion_data(using="ddragon"):
+def compile_champion_data(using="ddragon", use="live"):
 	# champion data from meraki analytics use the lol wiki which is the full item descriptions, this is actually way to indepth. it might be interesting to apply both definitions, but this is difficult to actually get the numbers. I would need a way to combine the values compiled from merkai with ddragon
 	# champion data from ddragon has many values that are unprovided leaving multiple "?" and is the ingame tooltip
 
 	champion_width = 770 # tooltipping (pretty print on prettify)
 	pp = PrettyPrinter(indent=2, width=champion_width)
-
-	file = open(os.path.join(DATA_PATH, "pkl", "champions.pkl"), "rb")
-	champions = pickle.load(file)
-	file.close()
 	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
-	for champion_obj in champions:
-		champion_name = champion_obj["apiname"]
-		if (using == "ddragon"):
-			patch_num = "10.16"
-			url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
-		else:
-			url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
-		response = requests.get(url)
-		if (response.status_code == 200):
-			pickle_filename = "{}.pkl".format(champion_name)
-			response_body = response.json()
-			file = open(os.path.join(DATA_PATH, "champion_cache_{}".format(using), pickle_filename), "wb")
-			pickle.dump(response_body, file)
-			file.close()
-			if (using=="ddragon"):
-				champion_data = response_body["data"][champion_name]
-				champion_tooltips =  parse_champion_data_ddragon(champion_name, champion_data)
+
+	champion_cache_path = os.path.join(DATA_PATH, "json_{}_champion_cache".format(using))
+	if (not os.path.exists(champion_cache_path)):
+		os.mkdir(champion_cache_path)
+
+	updated_champion_cache_path = os.path.join(DATA_PATH, "json_{}_champion_cache_updated".format(using))
+	if (not os.path.exists(updated_champion_cache_path)):
+		os.mkdir(updated_champion_cache_path)
+
+	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
+		open(os.path.join(DATA_PATH, "updated_champions_{}.ts".format(using)), "w", encoding="utf-8") as ts_file:
+		champions = json.load(file)
+		file.seek(0)
+		for champion_obj in champions:
+			champion_name = champion_obj["apiname"]
+			if (using == "ddragon"):
+				# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
+				patch_num = "10.16"
+				url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
 			else:
-				champion_tooltips = parse_champion_data_meraki(response_body)
-			for i, skill_key in enumerate(skill_keys):
-				champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
-			# file = open(os.path.join(DATA_PATH, "updated_champion_cache_".format(using), pickle_filename), "wb")
-			# pickle.dump(champion_obj, file)
-			# file.close()
-		else:
-			print("Failed to get: ", champion_name)
-	file = open(os.path.join(DATA_PATH, "pkl", "champions.pkl"), "wb")
-	pickle.dump(champions, file)
-	file.close()
-	file = open(os.path.join(DATA_PATH, "updated_champions_{}.ts".format(using)), "w")
-	file.write('export const CHAMPIONS = ' + pp.pformat(champions))
-	file.close()
+				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
+			response = requests.get(url)
+			if (response.status_code == 200):
+				response_body = response.json()
+				champion_file_name = "{}.json".format(champion_name)
+				json_file = open(os.path.join(champion_cache_path, champion_file_name), "w")
+				json.dump(response_body, json_file)
+				json_file.close()
+				if (using=="ddragon"):
+					champion_data = response_body["data"][champion_name]
+					champion_tooltips =  parse_champion_data_ddragon(champion_name, champion_data)
+				else:
+					champion_tooltips = parse_champion_data_meraki(response_body)
+				for i, skill_key in enumerate(skill_keys):
+					champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
+				json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
+				json.dump(champion_obj, json_file)
+				json_file.close()
+			else:
+				print("Failed to get: ", champion_name)
+		file.truncate()
+		json.dump(champions, file)
+		ts_file.write('export const CHAMPIONS = ' + pp.pformat(champions))
 	return
 
 def parse_champion_data_meraki(champion_data):
@@ -95,8 +102,8 @@ def parse_champion_data_meraki(champion_data):
 
 def parse_champion_data_ddragon(champion_name, champion_data=None):
 	if (champion_data is None):
-		file = open(os.path.join(DATA_PATH, "champion_cache_ddragon", "{}.pkl".format(champion_name)), "rb")
-		champion_data = pickle.load(file)["data"][champion_name]
+		file = open(os.path.join(DATA_PATH, "json_ddragon_champion_cache", "{}.json".format(champion_name)), "r")
+		champion_data = json.load(file)["data"][champion_name]
 		file.close()
 	champion_stats = champion_data["stats"]
 	champion_spells = champion_data["spells"]

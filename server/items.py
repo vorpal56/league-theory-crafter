@@ -1,4 +1,4 @@
-import re,  os,  pickle, requests
+import re,  os,  pickle, requests, json
 from pprint import PrettyPrinter
 APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_PATH = os.path.join(APP_PATH, "server")
@@ -64,39 +64,43 @@ def get_item_codes():
 				item["id"] = "1412"
 			else:
 				print("Cant get ", item_name)
-	file = open(os.path.join(DATA_PATH, "items.ts"), "w", encoding="utf-8")
-	file.write("export const ITEMS = " + pp.pformat(items))
-	file.close()
+	with open(os.path.join(DATA_PATH, "items.ts"), "w", encoding="utf-8") as file:
+		file.write("export const ITEMS = " + pp.pformat(items))
 	return
 
 def compile_item_data(using="meraki", use="live"):
-	file = open(os.path.join(DATA_PATH, "pkl", "items.pkl"), "rb")
-	items = pickle.load(file)
-	file.close()
-	for item in items:
-		item_code = item["id"]
-		if use == "live":
-			url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items/{}.json".format(item_code)
-			response = requests.get(url)
-			if response.status_code == 200:
-				response_body = response.json()
-				file = open(os.path.join(DATA_PATH, "item_cache", "{}_{}.pkl".format(item["apiname"], item_code)), "wb")
-				pickle.dump(response_body, file)
-				file.close()
+	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache")
+	if not os.path.exists(item_cache_path):
+		os.mkdir(item_cache_path)
 
-			else:
-				print("cant get", item["apiname"], item_code)
-				continue
-		elif use =="cache":
-			file = open(os.path.join(DATA_PATH, "item_cache", "{}_{}.pkl".format(item["apiname"], item_code)), "rb")
-			response_body = pickle.load(file)
-			file.close()
-		tooltip = parse_item_data_meraki(response_body, item)
-		item["tooltip"] = tooltip
-	file = open(os.path.join(DATA_PATH, "pkl", "items.pkl"), "wb")
-	pickle.dump(items, file)
-	file.close()
-	read_items()
+	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file, \
+		open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
+		items = json.load(file)
+		file.seek(0)
+		for item in items:
+			item_code = item["id"]
+			json_file_name = "{}_{}.json".format(item["apiname"], item_code)
+			if use == "live":
+				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items/{}.json".format(item_code)
+				response = requests.get(url)
+				if response.status_code == 200:
+					response_body = response.json()
+					item_json_file = open(os.path.join(item_cache_path, json_file_name), "w")
+					json.dump(response_body, item_json_file)
+					item_json_file.close()
+				else:
+					print("cant get", item["apiname"], item_code)
+					continue
+			elif use =="cache":
+				item_json_file = open(os.path.join(item_cache_path, json_file_name), "r")
+				response_body = json.load(item_json_file)
+				item_json_file.close()
+			tooltip = parse_item_data_meraki(response_body, item)
+			item["tooltip"] = tooltip
+		file.truncate()
+		json.dump(items, file)
+		pp = PrettyPrinter(indent=2, width=900)
+		ts_file.write("export const ITEMS = " + pp.pformat(items))
 	return
 
 def fix_punctuation(text):
@@ -111,10 +115,9 @@ def parse_item_data_meraki(response_data, item):
 	meraki_tooltip = base_item_stats_tooltip(item)
 	passives_string_iter = []
 	for passive in passives:
-		is_unique = passive["unique"]
 		passive_name = passive["name"]
 		passive_str = ""
-		if (is_unique):
+		if (passive["unique"]):
 			passive_str += "UNIQUE Passive - "
 		if (passive_name is not None):
 			passive_str += passive_name + ": "
@@ -123,10 +126,9 @@ def parse_item_data_meraki(response_data, item):
 	actives = response_data["active"]
 	active_string_iter = []
 	for active in actives:
-		is_unique = active["unique"]
 		active_name = active["name"]
 		active_str = ""
-		if (is_unique):
+		if (active["unique"]):
 			active_str += "UNIQUE Active - "
 		if (active_name is not None):
 			active_str += active_name + ": "
@@ -142,30 +144,6 @@ def parse_item_data_meraki(response_data, item):
 def base_item_stats_tooltip(item):
 	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + stat_keys[stat_name] for stat_name, stat_val in item.items() if (stat_val != 0 and stat_name in stat_keys)])
 
-def read_items():
-	width = 900
-	pp = PrettyPrinter(indent=2, width=width)
-	file = open(os.path.join(DATA_PATH, "pkl", "items.pkl"), "rb")
-	items = pickle.load(file)
-	file.close()
-	file = open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8")
-	file.write("export const ITEMS = " + pp.pformat(items))
-	file.close()
-	return
-
-def update_items():
-	# need to copy the updated data into this file and make the changes
-	file = open(os.path.join(DATA_PATH, "pkl", "items.pkl"), "wb")
-	pickle.dump(items, file)
-	file.close()
-	width = 900
-	pp = PrettyPrinter(indent=2, width=width)
-	file = open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8")
-	file.write("export const ITEMS = " + pp.pformat(items))
-	file.close()
-	return
-
 if __name__ == "__main__":
-	# update_items()
-	# compile_item_data(use="cache")
+	compile_item_data(use="cache")
 	pass
