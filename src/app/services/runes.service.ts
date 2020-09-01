@@ -27,6 +27,7 @@ export class RunesService {
 		let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
 		let hasTranscendance: boolean = false;
 		let cdrCap = 40;
+		let addedTenacityElixir: boolean = false;
 		for (let runeTree in selectedRunes) {
 			if (runeTree != "runeShards") {
 				// some of the rune calculations are done directly in the condition instead of a separate method depending on complexity and extensibility
@@ -47,7 +48,10 @@ export class RunesService {
 							currentTenacityRatio *= (1 - additiveTenacity / 100);
 						} else if (runeApiname == "unflinching") {
 							let additiveTenacity = rune.stats.tenacity;
-							additiveTenacity += selectedElixir.apiname == "elixirofiron" ? selectedElixir.tenacity : 0;
+							if (selectedElixir.apiname == "elixirofiron") {
+								addedTenacityElixir = true;
+								additiveTenacity += selectedElixir.tenacity;
+							}
 							currentTenacityRatio *= (1 - (additiveTenacity) / 100);
 						} else if (runeApiname == "zombieward" || runeApiname == "ghostporo" || runeApiname == "eyeballcollection") {
 							let stackedBonus = stackAllRunes ? rune.stackable[adaptiveType] : 0;
@@ -128,6 +132,9 @@ export class RunesService {
 				let bonusVal = transcendenceTotal[bonus];
 				totalStatsFromRunes[bonus] ? totalStatsFromRunes[bonus] += bonusVal : totalStatsFromRunes[bonus] = bonusVal;
 			}
+		}
+		if (!addedTenacityElixir && selectedElixir.apiname == "elixirofiron") {
+			currentTenacityRatio *= (1 - (selectedElixir.tenacity) / 100);
 		}
 		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
 		let tenacityFromRunes = totalTenacityRatio - champion.stats.tenacity;

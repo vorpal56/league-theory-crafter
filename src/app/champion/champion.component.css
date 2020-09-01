@@ -3,7 +3,7 @@
 	margin-bottom: auto;
 }
 .stat {
-	margin-right: 4px;
+	margin-right: 3px;
 }
 .hp {
 	background-color: green;
@@ -86,7 +86,7 @@
 		"passive q w e r"
 		"hp-mp hp-mp hp-mp hp-mp hp-mp";
 	height: var(--champion-img-height);
-	margin-right: 5px;
+	margin-right: 3px;
 }
 
 #ad,
@@ -157,17 +157,30 @@
 #heal_shield {
 	grid-area: heal_shield;
 }
-img.large-ability {
-	width: 56px;
-	height: 56px;
+div.ability {
+	margin: 1px;
 }
 img.medium-ability {
 	width: 48px;
 	height: 48px;
 }
-img.small-ability {
-	width: 40px;
-	height: 40px;
+@media(min-width: 768px) {
+	img.medium-ability {
+		width: 40px;
+		height: 40px;
+	}
+}
+@media (min-width: 880px) {
+	img.medium-ability {
+		width: 48px;
+		height: 48px;
+	}
+}
+@media (min-width: 1200px) {
+	img.medium-ability {
+		width: 56px;
+		height: 56px;
+	}
 }
 #passive {
 	grid-area: passive;

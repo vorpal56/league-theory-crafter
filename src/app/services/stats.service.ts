@@ -7,21 +7,6 @@ export class StatsService {
 
 	constructor() { }
 	/**
-	 * Method that formats the number to n places
-	 * Might not be as useful with DecimalPipe when interpolating
-	 * @param  {number} num the number to format
-	 * @param  {number} n? the number of places to format to
-	 * @returns number
-	 */
-	formatNPlaces(num: number, n?: number): number {
-		let exponent: number = n ? 10 ** n : 100;
-		var value = Number(
-			Math.round((num + Number.EPSILON) * exponent) /
-			Number(exponent.toFixed(n))
-		);
-		return value;
-	}
-	/**
 	 * Method that applies the stats growth formula since per level stats do not grow linearly
 	 * @param  {number} growthStatistic the growth statistic per level
 	 * @param  {number} championLevel the champion level
@@ -67,7 +52,6 @@ export class StatsService {
 		}
 		return;
 	}
-
 
 	adjustAttackSpeed(champion: Champion, currentLevel: number, totalStatsFromItems: any, totalStatsFromRunes: any) {
 		// we can go backwards in the formula to add any additional attackspeed gained from items and runes

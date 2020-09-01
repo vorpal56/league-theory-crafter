@@ -1,5 +1,7 @@
 import * as express from "express";
-var champions = require("./champions.route");
+var championsModule = require("./champions.route");
+var champions = championsModule.router;
+var championRequests = championsModule.championRequests;
 var items = require("./items.route");
 var runes = require("./runes.route");
 const app = express();

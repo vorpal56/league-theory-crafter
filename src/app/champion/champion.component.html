@@ -6,7 +6,7 @@
 	<div class="champion-grid">
 		<div id="selectors">
 			<div class="selector-container">
-				<ng-select [items]="champions$ | async" bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion()" [(ngModel)]="champion"></ng-select>
+				<ng-select [items]="basicChampions$ |async " bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion($event)" [(ngModel)]="basicChampion"></ng-select>
 			</div>
 			<div class="selector-container">
 				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">
@@ -22,112 +22,96 @@
 				<img class="champion-portrait" [src]="champion.img" alt="" />
 			</div>
 			<div id="champion-abilities" class="center-margin">
-				<div id="passive" class="flex-center">
-					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" [tooltip]="champion.skill_i.tooltip" />
+				<div id="passive" class="flex-center ability" [tooltip]="champion.skill_i.tooltip">
+					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" />
 				</div>
-				<div id="q" class="flex-center">
-					<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]" [tooltip]="champion.skill_q.tooltip" />
+				<div id="q" class="flex-center ability" [tooltip]="champion.skill_q.tooltip">
+					<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]" />
 				</div>
-				<div id="w" class="flex-center">
-					<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]" [tooltip]="champion.skill_w.tooltip" />
+				<div id="w" class="flex-center ability" [tooltip]="champion.skill_w.tooltip">
+					<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]" />
 				</div>
-				<div id="e" class="flex-center">
-					<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]" [tooltip]="champion.skill_e.tooltip" />
+				<div id="e" class="flex-center ability" [tooltip]="champion.skill_e.tooltip">
+					<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]" />
 				</div>
-				<div id="r" class="flex-center">
-					<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]" [tooltip]="champion.skill_r.tooltip" />
+				<div id="r" class="flex-center ability" [tooltip]="champion.skill_r.tooltip">
+					<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]" />
 				</div>
 				<div id="hp-mp" class="center-margin">
-					<div class="flex-center hp">
-						{{ champion.stats.hp | number: "1.0-2" }} |
-						{{ champion.stats.hp_lvl | number: "1.0-2" }} hp/lvl |
-						{{ champion.stats.hp5 | number: "1.0-2" }} hp5
+					<div class="flex-center hp" [tooltip]="resourceTooltip(champion, 'hp')">
+						{{ champion.stats.hp | number: "1.0-2" }} hp
 					</div>
-					<div class="flex-center mp">
-						{{ champion.stats.mp | number: "1.0-2" }} |
-						{{ champion.stats.mp_lvl | number: "1.0-2" }} mp/lvl |
-						{{ champion.stats.mp5 | number: "1.0-2" }} mp5
+					<div class="flex-center mp" [tooltip]="resourceTooltip(champion, 'mp')">
+						{{ champion.stats.mp | number: "1.0-2" }} mp
 					</div>
 				</div>
 			</div>
 			<div id="champion-stats" class="center-margin">
-				<div id="ad" [title]="'Attack Damage ' + champion.stats.ad">
+				<div id="ad" [tooltip]="statTooltip(champion, 'ad')">
 					<img class="stat" src="assets/images/icons/ad_icon.png" alt="Attack Damage" />
 					{{ champion.stats.ad | number: "1.0-0" }}
 				</div>
-				<div id="ap" [title]="'Ability Power ' + champion.stats.ap">
+				<div id="ap" [tooltip]="statTooltip(champion, 'ap')">
 					<img class="stat" src="assets/images/icons/ap_icon.png" alt="Ability Power" />
 					{{ champion.stats.ap | number: "1.0-0" }}
 				</div>
-				<div id="ls" [title]="'Lifesteal ' + champion.stats.ls">
+				<div id="ls" [tooltip]="statTooltip(champion, 'ls')">
 					<img class="stat" src="assets/images/icons/ls_icon.png" alt="Lifesteal" />
 					{{ champion.stats.ls | number: "1.0-0" }}%
 				</div>
-				<div id="spell_vamp" [title]="'Spell Vamp ' + champion.stats.spell_vamp">
+				<div id="spell_vamp" [tooltip]="statTooltip(champion, 'spell_vamp')">
 					<img class="stat" src="assets/images/icons/spell_vamp_icon.png" alt="Spell Vamp" />
 					{{ champion.stats.spell_vamp | number: "1.0-0" }}%
 				</div>
-				<div id="arm" [title]="'Armour ' + champion.stats.arm">
+				<div id="arm" [tooltip]="statTooltip(champion, 'arm')">
 					<img class="stat" src="assets/images/icons/arm_icon.png" alt="Armour" />
 					{{ champion.stats.arm | number: "1.0-0" }}
 				</div>
-				<div id="mr" [title]="'Magic Resistance ' + champion.stats.mr">
+				<div id="mr" [tooltip]="statTooltip(champion, 'mr')">
 					<img class="stat" src="assets/images/icons/mr_icon.png" alt="Magic Resistance" />
 					{{ champion.stats.mr | number: "1.0-0" }}
 				</div>
-				<div id="apen" [title]="
-						'Lethality ' +
-						champion.stats.leth +
-						' | Armor Penetration ' +
-						champion.stats['apen%'] +
-						'%'
-					">
+				<div id="apen" [tooltip]="statTooltip(champion, 'apen')">
 					<img class="stat" src="assets/images/icons/apen_icon.png" alt="Lethality|Armor Penetration %" />
 					{{ champion.stats.leth | number: "1.0-0" }}|{{
 						champion.stats["apen%"] | number: "1.0-0"
 					}}%
 				</div>
-				<div id="mpen" [title]="
-						'Magic Penetration ' +
-						champion.stats.mpen +
-						' | Magic Penetration ' +
-						champion.stats['mpen%'] +
-						'%'
-					">
+				<div id="mpen" [tooltip]="statTooltip(champion, 'mpen')">
 					<img class="stat" src="assets/images/icons/mpen_icon.png" alt="Magic Penetration | Magic Penetration %" />
 					{{ champion.stats.mpen | number: "1.0-0" }}|{{
 						champion.stats["mpen%"] | number: "1.0-0"
 					}}%
 				</div>
-				<div id="as" [title]="'Attack Speed ' + champion.stats.as">
+				<div id="as" [tooltip]="statTooltip(champion, 'as')">
 					<img class="stat" src="assets/images/icons/as_icon.png" alt="Attack Speed" />
 					{{ champion.stats.as | number: "1.0-2" }}
 				</div>
-				<div id="cdr" [title]="'Cooldown Reduction ' + champion.stats.cdr">
+				<div id="cdr" [tooltip]="statTooltip(champion, 'cdr')">
 					<img class="stat" src="assets/images/icons/cdr_icon.png" alt="Cooldown Reduction" />
 					{{ champion.stats.cdr | number: "1.0-2" }}%
 				</div>
-				<div id="range" [title]="'Range ' + champion.stats.range">
+				<div id="range" [tooltip]="statTooltip(champion, 'range')">
 					<img class="stat" src="assets/images/icons/range_icon.png" alt="Range" />
 					{{ champion.stats.range | number: "1.0-0" }}
 				</div>
-				<div id="critdmg" [title]="'Critical Damage Bonus ' + champion.stats.critdmg">
+				<div id="critdmg" [tooltip]="statTooltip(champion, 'critdmg')">
 					<img class="stat" src="assets/images/icons/critdmg_icon.png" alt="Critical Damage Bonus" />
 					{{ champion.stats.critdmg | number: "1.0-0" }}%
 				</div>
-				<div id="crit" [title]="'Critical Hit Chance ' + champion.stats.crit">
+				<div id="crit" [tooltip]="statTooltip(champion, 'crit')">
 					<img class="stat" src="assets/images/icons/crit_icon.png" alt="Critical Hit Chance" />
 					{{ champion.stats.crit | number: "1.0-0" }}%
 				</div>
-				<div id="ms" [title]="'Movement Speed ' + champion.stats.ms">
+				<div id="ms" [tooltip]="statTooltip(champion, 'ms')">
 					<img class="stat" src="assets/images/icons/ms_icon.png" alt="Movement Speed" />
 					{{ champion.stats.ms | number: "1.0-0" }}
 				</div>
-				<div id="tenacity" [title]="'Tenacity ' + champion.stats.tenacity">
+				<div id="tenacity" [tooltip]="statTooltip(champion, 'tenacity')">
 					<img class="stat" src="assets/images/icons/tenacity_icon.png" alt="Tenacity" />
 					{{ champion.stats.tenacity | number: "1.0-0" }}%
 				</div>
-				<div id="heal_shield" [title]="'Healing and Shielding Power ' + champion.stats.heal_shield">
+				<div id="heal_shield" [tooltip]="statTooltip(champion, 'heal_shield')">
 					<img src="assets/images/icons/healing_icon.png" alt="Healing" />
 					<img class="stat" src="assets/images/icons/heal_shield_icon.png" alt="Shielding" />
 					{{ champion.stats.heal_shield | number: "1.0-0" }}%

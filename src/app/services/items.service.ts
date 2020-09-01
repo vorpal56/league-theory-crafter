@@ -175,7 +175,7 @@ export class ItemsService {
 			console.log("Stats from items: ", totalStatsFromItems, "Shared Item Passives: ", sharedItemCounts);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
-				if (champion.resource.toLowerCase() != "mana" && key.includes("mp")) {
+				if (champion.resource.toLowerCase() != "mana" && (key == "mp" || key == "mp5" || key == "mp5%")) {
 					totalStatsFromItems[key] = 0;
 				}
 			}

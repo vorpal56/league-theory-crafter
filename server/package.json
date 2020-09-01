@@ -9,6 +9,7 @@
 		"watch-dev": "concurrently \"tsc -w\" \"nodemon dist/src/server.js\"",
 		"start": "node dist/src/server.js",
 		"start-ts": "ts-node src/server.ts",
+		"ts-dev": "ts-node-dev src/server.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",

@@ -75,3 +75,9 @@ export interface Champion {
 	skill_e?: any;
 	skill_r?: any;
 }
+export interface BasicChampion {
+	'apiname': string,
+	'id': number,
+	'index': number,
+	'name': string,
+}

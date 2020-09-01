@@ -166,12 +166,12 @@ span.component-title#component-title {
 	.container-grid-league {
 		height:auto;
 		grid-template-columns: auto;
-		grid-template-rows: 0.3fr 0.2fr 1.2fr 0.4fr;
+		grid-template-rows: 0.3fr 0.4fr 0.2fr 1.2fr;
 		grid-template-areas:
 		"champion"
+		"damage-calc"
 		"inventory"
 		"item-rune-epic-selector"
-		"damage-calc"
 	}
 	.champion-portrait {
 		width:120px;

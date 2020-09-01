@@ -96,6 +96,20 @@ export class ChampionService {
 		let total = currentFlatArmorPenetration + percentAPen;
 		// total = total > targetArmour ? targetArmour : total;
 		return total;
-
+	}
+	/**
+	 * Method that formats the number to n places
+	 * Might not be as useful with DecimalPipe when interpolating
+	 * @param  {number} num the number to format
+	 * @param  {number} n? the number of places to format to
+	 * @returns number
+	 */
+	formatNPlaces(num: number, n?: number): number {
+		let exponent: number = n ? 10 ** n : 100;
+		var value = Number(
+			Math.round((num + Number.EPSILON) * exponent) /
+			Number(exponent.toFixed(n))
+		);
+		return value;
 	}
 }

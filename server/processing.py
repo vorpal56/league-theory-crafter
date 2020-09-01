@@ -205,7 +205,23 @@ def fix_order():
 	# print(pp.pformat(b))
 	return
 
+def main_key():
+	return
+	main_keys = {"name":True, 'apiname': 'Zyra',
+	'id': 143,
+	'img': 'assets/images/champions/Zyra/Zyra.png',
+	'index': 149,
+	'name': 'Zyra',}
+	for champion in champions:
+		pop_keys = []
+		for champ_key in champion:
+			if champ_key not in main_keys:
+				pop_keys.append(champ_key)
+		for pop_key in pop_keys:
+			del champion[pop_key]
+	file = open(os.path.join(DATA_PATH, "a.ts"), "w")
+	file.write("export const CHAMPIONS = " + pp.pformat(champions))
+	file.close()
 
 if __name__ == '__main__':
-	# fix_order()
 	pass

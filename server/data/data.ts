@@ -1,6 +1,47 @@
-export const GAMEMODES = [{ "gamemodeLabel": "All", "gamemodeValue": "all" }, { "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" }, { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" }, { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }];
-export const ORDERBY = [{ "orderByLabel": "A-Z", "orderByValue": "alpha" }, { "orderByLabel": "Gold", "orderByValue": "gold" }];
-export const ORDERMODES = [{ "orderModeLabel": "Ascending", "orderModeValue": "asc" }, { "orderModeLabel": "Descending", "orderModeValue": "desc" }];
+export const GAMEMODES = [
+	{ "gamemodeLabel": "All", "gamemodeValue": "all" },
+	{ "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" },
+	// { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" },
+	// { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }
+];
+export const STAT_KEYS = {
+	'ad': ' Attack Damage',
+	'ap': ' Ability Power',
+	'apen%': '% Armor Penetration',
+	'arm': ' Armor',
+	'as': ' Attack Speed',
+	'boots_ms': ' Move Speed',
+	'cdr': '% Cooldown Reduction',
+	'crit': '% Critical Hit Chance',
+	'critdmg': '% Bonus Critical Damage',
+	'flat_ms': ' Move Speed',
+	'heal_shield': '% Bonus Healing or Shielding',
+	'hp': ' Health',
+	'hp5': ' Health per 5',
+	'hp5%': '% Heatlh per 5',
+	'leth': ' Lethality',
+	'ls': '% Lifesteal',
+	'mp': ' Mana',
+	'mp5': ' Mana per 5',
+	'mp5%': '% Mana per 5',
+	'mpen': ' Magic Penetration',
+	'mpen%': '% Magic Penetration',
+	'mr': ' Magic Resistance',
+	'ms': ' Move Speed',
+	'ms%': '% Move Speed',
+	'range': ' Range',
+	'shield': ' Shield',
+	'spell_vamp': '% Spell Vamp',
+	'tenacity': '% Tenacity',
+};
+export const ORDERBY = [
+	{ "orderByLabel": "A-Z", "orderByValue": "alpha" },
+	{ "orderByLabel": "Gold", "orderByValue": "gold" }
+];
+export const ORDERMODES = [
+	{ "orderModeLabel": "Ascending", "orderModeValue": "asc" },
+	{ "orderModeLabel": "Descending", "orderModeValue": "desc" }
+];
 export const LEVELS = [
 	{ "levelLabel": "Level 1", "levelValue": 1 },
 	{ "levelLabel": "Level 2", "levelValue": 2 },

@@ -6,9 +6,9 @@ router.get("/", (req, res) => {
 	res.send(ITEMS);
 });
 
-router.get("/:item", (req, res) => {
+router.get("/:id", (req, res) => {
 	// something related to json hijacking that we wrap as with an array
-	res.send([ITEMS[Number(req.params.item)]]);
+	res.send([ITEMS[Number(req.params.id)]]);
 });
 
 module.exports = router;
