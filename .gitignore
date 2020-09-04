@@ -12,6 +12,7 @@ ability-leveler/
 example_layout.png
 *cache*/
 !json_ddragon_champion_cache_updated/
+!json_combined_champion_cache/
 # src/assets/images/champions/*
 
 # compiled output

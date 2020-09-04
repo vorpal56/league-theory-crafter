@@ -91,6 +91,9 @@ export class ChampionComponent implements OnInit {
 	assetStatUrl(statName: string) {
 		return "assets/images/icons/" + statName + "_icon.png";
 	}
+	abilityTooltip(champion: Champion, abilityKey: string) {
+		return champion[abilityKey]["1"] + "<br><br>" + champion[abilityKey].tooltip;
+	}
 	resourceTooltip(champion: Champion, statName: string) {
 		let baseString = "";
 		if (champion.resource.toLowerCase() != "mana" && statName == "mp") {

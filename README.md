@@ -1,38 +1,24 @@
 # LeagueTheoryCrafter
 
-For UI Dev
+Used for theory crafting item builds and rune configurations as an approximation of the practice tool. This allows quick switching of champions and items without having to go on the client for every champion.
+
+## Built with 
+* [MongoDB](https://www.mongodb.com/) - Storing data for items, champions, and runes used through in the application.
+* [Express](https://expressjs.com/) - Serving the API endpoints used for schedulers and data.
+* [Angular 9.1.1](https://angular.io/) - Frontend framework for user flow.
+* [Node.js](https://nodejs.org/en/) - JavaScript Runtime environment for Express and Angular.
+* [nginx](https://nginx.org/en/#basic_http_features) -  Web server for delivering application content.
+* [Python 3](https://docs.python.org/3/) - Scripting and web scraping for up to date data.
+
+## Development Server
+### Frontend
 ```
 yarn serve
 ```
-
-For Backend dev
+### Backend
 ```
 cd server/
-yarn watch-dev
+yarn ts-dev
 ```
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

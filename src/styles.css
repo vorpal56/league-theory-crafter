@@ -221,6 +221,7 @@ span.component-title#component-title {
 /* --------------------------Tooltips-------------------------- */
 .tooltip {
 	background-color: var(--background-alt) !important;
+	text-align:left !important;
 	padding: 8px !important;
 	border: 1px solid var(--border-color-light-grey);
 	font-size: 14px;

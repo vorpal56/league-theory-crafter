@@ -31,4 +31,5 @@ export class EpicMonstersComponent implements OnInit {
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
 	}
+	// need a button to clear the buff selections since the toggling effect will have large overhead. different effect than runes where champions enter with runes
 }

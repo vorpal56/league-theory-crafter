@@ -35,70 +35,163 @@ def find_var_key(var_array, var_key):
 def replace_placeholder(tooltip, placeholder, value):
 	return tooltip.replace(placeholder, value)
 
-def compile_champion_data(using="ddragon", use="live"):
+def compile_champion_data(using="meraki", use="live"):
 	# champion data from meraki analytics use the lol wiki which is the full item descriptions, this is actually way to indepth. it might be interesting to apply both definitions, but this is difficult to actually get the numbers. I would need a way to combine the values compiled from merkai with ddragon
 	# champion data from ddragon has many values that are unprovided leaving multiple "?" and is the ingame tooltip
+
+	# we are going to be using both data points. Some of the data in league wiki is incomplete or organized differently than the expectation.
+	# we will use a combination of the
 
 	champion_width = 770 # tooltipping (pretty print on prettify)
 	pp = PrettyPrinter(indent=2, width=champion_width)
 	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
-	champion_cache_path = os.path.join(DATA_PATH, "json_{}_champion_cache".format(using))
-	if (not os.path.exists(champion_cache_path)):
-		os.mkdir(champion_cache_path)
+	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
+	if (not os.path.exists(meraki_champion_cache_path)):
+		os.mkdir(meraki_champion_cache_path)
 
-	updated_champion_cache_path = os.path.join(DATA_PATH, "json_{}_champion_cache_updated".format(using))
+	ddragon_champion_cache_path = os.path.join(DATA_PATH, "json_ddragon_champion_cache")
+	if (not os.path.exists(ddragon_champion_cache_path)):
+		os.mkdir(ddragon_champion_cache_path)
+
+	# the updated champion cache is a combination of using the ddragon cdn and meraki cdn
+	# ddragon will be used to get the tooltips, meraki will be used to get damage values
+	updated_champion_cache_path = os.path.join(DATA_PATH, "json_combined_champion_cache")
 	if (not os.path.exists(updated_champion_cache_path)):
 		os.mkdir(updated_champion_cache_path)
 
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
-		open(os.path.join(DATA_PATH, "updated_champions_{}.ts".format(using)), "w", encoding="utf-8") as ts_file:
+		open(os.path.join(DATA_PATH, "updated_champions_combined.ts"), "w", encoding="utf-8") as ts_file, \
+		open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
 		champions = json.load(file)
+		fixed_tooltips = json.load(fixed_tooltips_file)
 		file.seek(0)
 		for champion_obj in champions:
 			champion_name = champion_obj["apiname"]
-			if (using == "ddragon"):
-				# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
-				patch_num = "10.16"
-				url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
-			else:
+			champion_file_name = "{}.json".format(champion_name)
+			if using == "ddragon":
+				if (use == "cache"):
+					json_file = open(os.path.join(ddragon_champion_cache_path, champion_file_name), "r")
+					response_body = json.load(json_file)
+					json_file.close()
+				elif use == "live":
+					# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
+					patch_num = "10.16"
+					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
+					response = requests.get(url)
+					response_body = response.json()
+
+				champion_data = response_body["data"][champion_name]
+				champion_tooltips, max_ranks =  parse_champion_data_ddragon(champion_name, champion_data)
+
+			if (use == "cache"):
+				json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "r")
+				response_body = json.load(json_file)
+				json_file.close()
+			elif use == "live":
 				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
-			response = requests.get(url)
-			if (response.status_code == 200):
+				response = requests.get(url)
 				response_body = response.json()
-				champion_file_name = "{}.json".format(champion_name)
-				json_file = open(os.path.join(champion_cache_path, champion_file_name), "w")
-				json.dump(response_body, json_file)
-				json_file.close()
-				if (using=="ddragon"):
-					champion_data = response_body["data"][champion_name]
-					champion_tooltips =  parse_champion_data_ddragon(champion_name, champion_data)
+			if using=="meraki":
+				champion_tooltips, ability_breakdown = parse_champion_data_meraki(response_body)
+			for i, skill_key in enumerate(skill_keys):
+				if champion_tooltips[i] == "":
+					fixed_tooltip = fixed_tooltips["_".join([champion_name, skill_key])]
+					if (fixed_tooltip is not None):
+						champion_obj[skill_key]["tooltip"] = fixed_tooltip
+					else:
+						print(champion_name, skill_key)
 				else:
-					champion_tooltips = parse_champion_data_meraki(response_body)
-				for i, skill_key in enumerate(skill_keys):
 					champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
-				json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
-				json.dump(champion_obj, json_file)
-				json_file.close()
-			else:
-				print("Failed to get: ", champion_name)
+
+				if (using == "meraki"):
+					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
+			json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
+			json.dump(champion_obj, json_file)
+			json_file.close()
 		file.truncate()
 		json.dump(champions, file)
-		ts_file.write('export const CHAMPIONS = ' + pp.pformat(champions))
+		ts_file.write('export const CHAMPIONS = ' + str(champions))
 	return
 
+'''
+[
+	{main:[
+		{
+			attribute,
+			expressions=[
+				rank 1, rank2, rank3, rank4, rank5
+			]
+		}
+	], form: [
+
+	]
+	},
+	{main, form},
+	{main, form}, ..
+]
+'''
+
+# def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
 def parse_champion_data_meraki(champion_data):
 	champion_stats = champion_data["stats"]
 	champion_abilities = champion_data["abilities"]
 	champion_tooltips = []
+	# skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	ability_breakdown = []
 	for i, champion_ability_type in enumerate(champion_abilities):
+		# ability type is p, q, w, e, r
 		champion_ability = champion_abilities[champion_ability_type]
-		for ability_obj in champion_ability:
+		ability_details = []
+		base_champion_blurbs = []
+		champion_tooltip = ""
+		for j, ability_obj in enumerate(champion_ability):
+			# there are multiple ability objs since transformers can switch between abilities
+			# we'll dictate it into 2 separate objs for form and main
+			main_key = "main" if j == 0 else "form"
+			main_dict = {main_key:[]}
 			ability_effects = ability_obj["effects"]
-			champion_tooltip = "<br><br>".join([ability_effect["description"] for ability_effect in ability_effects])
-			champion_tooltips.append(champion_tooltip)
+			for ability_effect in ability_effects:
+				ability_effect_leveling = ability_effect["leveling"]
+				for attribute in ability_effect_leveling:
+					attribute_name = attribute["attribute"]
+					# we are not concerned about minion, monster, and other non-champion related damage
+					# its difficult to know which attributes to limit. some abilities provide stats that are not meaningful when calculating damage such wallm width (yasuo and anivia), but is an attribute that grows on skill level. similarly stats like bonus ad and ap are important but are different than attributes with damage in the name. we'll have to do some manual work to interpret the damage formula which we'll hav e to change on a patch by patch basis. automating this process is impossible since ddragon data is quite far behind
+					if ("minion" not in attribute_name.lower() and "monster" not in attribute_name.lower() and "non-champion" not in attribute_name.lower()):
+						a = {"attribute": attribute_name}
+						expressions = [] # [rank1, rank2, rank3, rank4]
+						for k, modifier in enumerate(attribute["modifiers"]):
+							values, units = modifier["values"], modifier["units"]
+							value_length, unit_length = len(values), len(units)
+							for l, value in enumerate(values):
+								text_formula = str(value) + units[l]
+								if (k==0):
+									expressions.append(text_formula)
+								else:
+									if (unit_length == 1):
+										for o, existing_expression in enumerate(expressions):
+											expressions[o] += " + " + text_formula
+									else:
+										if (unit_length == 5 or unit_length == 6 or unit_length == 3):
+											expressions[l] += " + " + text_formula
+										else:
+											# the skill has a level dependant attribute that we I was unable to dynamically allocate to.
+											# examples like janna w, nidalee cougar q, garen e, etc.
+											# print("error skill key", champion_ability_type, ability_obj["name"], champion_data["name"])
+											pass
+									# print(existing_expression)
+						a["string_expression"]=expressions
+						main_dict[main_key].append(a)
+			if (main_dict != {main_key:[]}):
+				# the name is already attached to the champion skill key in the json obj we use for our calculations
+				main_dict["name"] = ability_obj["name"]
+				ability_details.append(main_dict)
+			if (ability_obj["blurb"] is not None):
+				base_champion_blurbs.append(ability_obj["blurb"])
+		champion_tooltips.append(" ".join(base_champion_blurbs))
+		ability_breakdown.append(ability_details)
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
-	return champion_tooltips
+	return champion_tooltips, ability_breakdown
 
 def parse_champion_data_ddragon(champion_name, champion_data=None):
 	if (champion_data is None):
@@ -109,7 +202,9 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 	champion_spells = champion_data["spells"]
 	champion_passive = champion_data["passive"]
 	champion_tooltips = [remove_html_tags(champion_passive["description"])]
+	max_ranks = []
 	for champion_spell in champion_spells:
+		max_ranks.append(champion_spell["maxrank"])
 		tooltip = remove_html_tags(champion_spell["tooltip"])
 		placeholders = find_all_placeholders(tooltip)
 		parsed_tooltip = tooltip
@@ -131,8 +226,31 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 			elif (look_in == "?"):
 				parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, look_in)
 		champion_tooltips.append(parsed_tooltip)
-	return champion_tooltips
+	return champion_tooltips, max_ranks
+
+def store_meraki():
+	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
+	if (not os.path.exists(meraki_champion_cache_path)):
+		os.mkdir(meraki_champion_cache_path)
+	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r") as file:
+		champions = json.load(file)
+		for champion_obj in champions:
+			champion_name = champion_obj["apiname"]
+			champion_file_name = "{}.json".format(champion_name)
+			url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}".format(champion_file_name)
+			response = requests.get(url)
+			response_body = response.json()
+			json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "w")
+			json.dump(response_body, json_file)
+			json_file.close()
 
 if __name__ == "__main__":
-	compile_champion_data()
+	compile_champion_data(using="meraki", use="cache")
+	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
+	# json_file = open(os.path.join(meraki_champion_cache_path, "Lillia.json"), "r")
+	# champion_data = json.load(json_file)
+	# json_file.close()
+	# champion_tooltips, ability_breakdown  = parse_champion_data_meraki(champion_data)
+	# print(champion_tooltips, ability_breakdown)
+	# store_meraki()
 	pass
