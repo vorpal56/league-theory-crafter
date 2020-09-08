@@ -281,6 +281,15 @@ span.component-title#component-title {
 .tooltip-left:after {
 	border-color: transparent transparent transparent var(--background-alt) !important;
 }
+ul.innate-tooltip {
+	/* used in apheliosTooltip in the champion component */
+	padding-inline-start:20px;
+	margin-top: 0.8em;
+	margin-bottom: 0;
+}
+ul.innate-tooltip > li{
+	list-style-type: none;
+}
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {

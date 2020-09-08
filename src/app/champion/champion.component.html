@@ -21,9 +21,10 @@
 			<div id="champion-img" *ngIf="champion.img != ''">
 				<img class="champion-portrait" [src]="champion.img" alt="" />
 			</div>
-			<div id="champion-abilities" class="center-margin" style="margin-top:0;">
-				<div id="passive" class="flex-center ability" [tooltip]="abilityTooltip('i')">
-					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" />
+			<div id="champion-abilities" class="center-margin">
+				<div id="passive" class="flex-center ability">
+					<mat-icon *ngIf="championIsAphelios()" [tooltip]="apheliosTooltip()" class="help-icon" aria-hidden="false" aria-label="Help">help</mat-icon>
+					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" [tooltip]="abilityTooltip('i')" />
 				</div>
 				<div id="q" class="flex-center ability" [tooltip]="abilityTooltip('q')">
 					<div class="ability-leveler">
@@ -35,7 +36,7 @@
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]" />
-					{{champion.skill_q["rank"]}}
+					<span class="rank">{{champion.skill_q["rank"]}}</span>
 				</div>
 				<div id="w" class="flex-center ability" [tooltip]="abilityTooltip('w')">
 					<div class="ability-leveler">
@@ -47,7 +48,7 @@
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]" />
-					{{champion.skill_w["rank"]}}
+					<span class="rank">{{champion.skill_w["rank"]}}</span>
 				</div>
 				<div id="e" class="flex-center ability" [tooltip]="abilityTooltip('e')">
 					<div class="ability-leveler">
@@ -59,7 +60,7 @@
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]" />
-					{{champion.skill_e["rank"]}}
+					<span class="rank">{{champion.skill_e["rank"]}}</span>
 				</div>
 				<div id="r" class="flex-center ability" [tooltip]="abilityTooltip('r')">
 					<div class="ability-leveler">
@@ -71,7 +72,7 @@
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]" />
-					{{champion.skill_r["rank"]}}
+					<span class="rank">{{champion.skill_r["rank"]}}</span>
 				</div>
 				<div id="hp-mp" class="center-margin">
 					<div class="flex-center hp" [tooltip]="resourceTooltip('hp')">

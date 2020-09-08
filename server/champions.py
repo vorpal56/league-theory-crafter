@@ -188,7 +188,7 @@ def parse_champion_data_meraki(champion_data):
 				ability_details.append(main_dict)
 			if (ability_obj["blurb"] is not None):
 				base_champion_blurbs.append(ability_obj["blurb"])
-		champion_tooltips.append(" ".join(base_champion_blurbs))
+		champion_tooltips.append("<br><br>".join(base_champion_blurbs))
 		ability_breakdown.append(ability_details)
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
 	return champion_tooltips, ability_breakdown
@@ -265,8 +265,8 @@ def store_meraki():
 			json_file.close()
 
 if __name__ == "__main__":
-	combine_champion_data()
-	# compile_champion_data(using="meraki", use="cache")
+	# combine_champion_data()
+	compile_champion_data(using="meraki", use="cache")
 	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	# json_file = open(os.path.join(meraki_champion_cache_path, "Lillia.json"), "r")
 	# champion_data = json.load(json_file)

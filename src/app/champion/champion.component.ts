@@ -48,8 +48,8 @@ export class ChampionComponent implements OnInit {
 		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions/basic").pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
-		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => this.basicChampion = basicChampions[25]);
-		this.http.get<Champion>("/api/champions/Elise").subscribe((champion: Champion) => {
+		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => this.basicChampion = basicChampions[7]);
+		this.http.get<Champion>("/api/champions/Aphelios").subscribe((champion: Champion) => {
 			this.champion = champion;
 			this.resetAbilities();
 			this.championsIndices[champion.apiname.toLowerCase()] = this.numChampsCalled++;
@@ -116,6 +116,9 @@ export class ChampionComponent implements OnInit {
 	canLevelUp(abilityType: string) {
 		let skillKey = "skill_" + abilityType;
 		if (abilityType == "r") {
+			if (this.championIsAphelios()) {
+				return false;
+			}
 			let maxUltPoints = this.maxUltPoints();
 			if (this.champion[skillKey]["rank"] < maxUltPoints && this.totalRanks < this.currentLevel) {
 				return true;
@@ -150,7 +153,8 @@ export class ChampionComponent implements OnInit {
 	}
 	abilityTooltip(abilityType: string) {
 		let abilityKey = "skill_" + abilityType;
-		return this.champion[abilityKey]["1"] + "<br><br>" + this.champion[abilityKey].tooltip;
+		let upperAbilityType = abilityType == "i" ? "P: " : abilityType.toUpperCase() + ": ";
+		return upperAbilityType + this.champion[abilityKey]["1"] + "<br><br>" + this.champion[abilityKey].tooltip;
 	}
 	resourceTooltip(statName: string) {
 		let baseString = "";
@@ -177,6 +181,8 @@ export class ChampionComponent implements OnInit {
 		});
 		if (this.championIsTransformer()) {
 			this.champion[SKILL_KEYS[4]]["rank"] = 1;
+		} else if (this.championIsAphelios()) {
+			this.champion[SKILL_KEYS[4]]["rank"] = this.maxUltPoints();
 		}
 		this.totalRanks = 0;
 		return;
@@ -199,5 +205,11 @@ export class ChampionComponent implements OnInit {
 		} else {
 			return maxPoints;
 		}
+	}
+	championIsAphelios(): boolean {
+		return this.champion.apiname.toLowerCase() == "aphelios";
+	}
+	apheliosTooltip(): string {
+		return `Aphelios automatically levels up his ultimate ability, Moonlight Vigil, at levels 6, 11, and 16.<br><br>You can level up his: <ul class="innate-tooltip"><li>Q for Bonus Attack Damage</li><li>W for Bonus Attack Speed</li><li>E for Bonus Lethality</li></ul>`;
 	}
 }

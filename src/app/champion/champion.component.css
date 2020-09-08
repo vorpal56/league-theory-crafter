@@ -2,20 +2,11 @@
 	margin-top: auto;
 	margin-bottom: auto;
 }
+.help-icon {
+	margin: 3px 0;
+}
 .stat {
 	margin-right: 3px;
-}
-.hp {
-	background-color: green;
-}
-.mp {
-	background-color: royalblue;
-}
-.champion-grid {
-	display: grid;
-	grid-template-columns: minmax(120px, 300px) auto;
-	grid-template-rows: auto;
-	grid-template-areas: "selectors champion-details";
 }
 .ability-leveler {
 	display:flex;
@@ -26,6 +17,7 @@
 	padding:1px;
 	border: 1px solid var(--border-color-light-grey);
 	background-color: var(--border-color-grey);
+	height:26px;
 }
 .level-ability:active {
 	background-color: var(--border-color-light-grey);
@@ -33,6 +25,70 @@
 .level-ability:disabled {
 	color: var(--dark-grey);
 	background-color: var(--background-alt-3);
+}
+.mat-icon {
+	height: 20px;
+	width: 20px;
+	font-size: 20px;
+}
+span.rank {
+	font-size: 14px;
+}
+div.ability {
+	margin: 1px;
+	flex-direction:column;
+}
+img.medium-ability {
+	width: 48px;
+	height: 48px;
+}
+@media(min-width: 768px) {
+	img.medium-ability {
+		width: 40px;
+		height: 40px;
+	}
+	.mat-icon {
+		height: 18px;
+		width: 18px;
+		font-size: 18px;
+	}
+	.level-ability {
+		height:22px;
+	}
+}
+@media (min-width: 880px) {
+	img.medium-ability {
+		width: 48px;
+		height: 48px;
+	}
+	.mat-icon {
+		height: 20px;
+		width: 20px;
+		font-size: 20px;
+	}
+	.level-ability {
+		height:26px;
+	}
+}
+@media (min-width: 1200px) {
+	img.medium-ability {
+		width: 56px;
+		height: 56px;
+	}
+	.mat-icon {
+		height: 24px;
+		width: 24px;
+		font-size: 24px;
+	}
+	.level-ability {
+		height:28px;
+	}
+}
+.champion-grid {
+	display: grid;
+	grid-template-columns: minmax(120px, 200px) auto;
+	grid-template-rows: auto;
+	grid-template-areas: "selectors champion-details";
 }
 #champion-details {
 	grid-area: champion-details;
@@ -60,7 +116,7 @@
 	}
 	#champion-details {
 		grid-template-columns: var(--champion-img-height) auto;
-		grid-template-rows: auto auto;
+		grid-template-rows: 1.2fr 1fr;
 		grid-template-areas:
 			"champion-img champion-abilities"
 			"champion-stats champion-stats";
@@ -102,10 +158,9 @@
 	grid-template-areas:
 		"passive q w e r"
 		"hp-mp hp-mp hp-mp hp-mp hp-mp";
-	height: var(--champion-img-height);
+	/* height: var(--champion-img-height); */
 	margin-right: 3px;
 }
-
 #ad,
 #ap,
 #ls,
@@ -174,32 +229,6 @@
 #heal_shield {
 	grid-area: heal_shield;
 }
-div.ability {
-	margin: 1px;
-	flex-direction:column;
-}
-img.medium-ability {
-	width: 48px;
-	height: 48px;
-}
-@media(min-width: 768px) {
-	img.medium-ability {
-		width: 40px;
-		height: 40px;
-	}
-}
-@media (min-width: 880px) {
-	img.medium-ability {
-		width: 48px;
-		height: 48px;
-	}
-}
-@media (min-width: 1200px) {
-	img.medium-ability {
-		width: 56px;
-		height: 56px;
-	}
-}
 #passive {
 	grid-area: passive;
 }
@@ -217,4 +246,12 @@ img.medium-ability {
 }
 #hp-mp {
 	grid-area: hp-mp;
+	display:flex;
+	flex-direction: column;
+}
+.hp {
+	background-color: green;
+}
+.mp {
+	background-color: royalblue;
 }
