@@ -228,6 +228,26 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 		champion_tooltips.append(parsed_tooltip)
 	return champion_tooltips, max_ranks
 
+def combine_champion_data():
+	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
+		champions = json.load(file)
+		file.seek(0)
+		for champion in champions:
+			champion_file = open(os.path.join(DATA_PATH, "json_combined_champion_cache", "{}.json".format(champion["apiname"])), 'r')
+			champion_data = json.load(champion_file)
+			champion_file.close()
+			for i, skill_key in enumerate(skill_keys):
+				if (champion_data[skill_key]["ability_breakdown"] != []):
+					champion_data[skill_key].pop('img', None)
+					champion_data[skill_key].pop('tooltip', None)
+					champion[skill_key] = champion_data[skill_key]
+				else:
+					print(champion_data["apiname"], skill_key)
+
+		file.truncate()
+		json.dump(champions, file)
+
 def store_meraki():
 	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	if (not os.path.exists(meraki_champion_cache_path)):
@@ -245,7 +265,8 @@ def store_meraki():
 			json_file.close()
 
 if __name__ == "__main__":
-	compile_champion_data(using="meraki", use="cache")
+	combine_champion_data()
+	# compile_champion_data(using="meraki", use="cache")
 	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	# json_file = open(os.path.join(meraki_champion_cache_path, "Lillia.json"), "r")
 	# champion_data = json.load(json_file)

@@ -17,6 +17,9 @@
 	grid-template-rows: auto;
 	grid-template-areas: "selectors champion-details";
 }
+.ability-leveler {
+	display:flex;
+}
 #champion-details {
 	grid-area: champion-details;
 	display:grid;
@@ -159,6 +162,7 @@
 }
 div.ability {
 	margin: 1px;
+	flex-direction:column;
 }
 img.medium-ability {
 	width: 48px;

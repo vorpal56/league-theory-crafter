@@ -1,1 +1,239 @@
-{"adaptivetype": "Physical", "alttype": "Tank", "apiname": "Aatrox", "attack": 8, "be": 4800, "changes": "V10.15", "control": 2, "damage": 3, "date": "2013-06-13", "defense": 4, "difficulty": 2, "herotype": "Fighter", "id": 266, "img": "assets/images/champions/Aatrox/Aatrox.png", "index": 0, "magic": 3, "mobility": 2, "name": "Aatrox", "patch": "V3.8", "rangetype": "Melee", "resource": "None", "rp": 880, "skill_e": {"1": "Umbral Dash", "img": "assets/images/champions/Aatrox/Umbral Dash.png", "tooltip": "Passive:  Aatrox  heals for the portion of the damage he deals to  champions.", "maxrank": 5, "ability_breakdown": [{"main": [{"attribute": "Healing", "string_expression": ["20%", "22.5%", "25%", "27.5%", "30%"]}], "name": "Umbral Dash"}]}, "skill_i": {"1": "Deathbringer Stance", "img": "assets/images/champions/Aatrox/Deathbringer Stance.png", "tooltip": "Innate: Periodically,  Aatrox's next basic attack deals bonus  physical damage and  heals him, based on the target's maximum health.", "ability_breakdown": []}, "skill_q": {"1": "The Darkin Blade", "img": "assets/images/champions/Aatrox/The Darkin Blade.png", "tooltip": "Active:  Aatrox slams his greatsword down up to 3 times before it goes on cooldown, with each having an unique area of effect and dealing physical damage. The damage is increased if enemies are hit by a telegraphed Sweetspot within the area.", "maxrank": 5, "ability_breakdown": [{"main": [{"attribute": "Physical Damage", "string_expression": ["10 + 60% AD", "30 + 65% AD", "50 + 70% AD", "70 + 75% AD", "90 + 80% AD"]}, {"attribute": "Sweetspot Damage", "string_expression": ["15 + 90% AD", "45 + 97.5% AD", "75 + 105% AD", "105 + 112.5% AD", "135 + 120% AD"]}, {"attribute": "Physical Damage", "string_expression": ["12.5 + 75% AD", "37.5 + 81.25% AD", "62.5 + 87.5% AD", "87.5 + 93.75% AD", "112.5 + 100% AD"]}, {"attribute": "Sweetspot Damage", "string_expression": ["18.75 + 112.5% AD", "56.25 + 121.875% AD", "93.75 + 131.25% AD", "131.25 + 140.625% AD", "168.75 + 150% AD"]}, {"attribute": "Physical Damage", "string_expression": ["15 + 90% AD", "45 + 97.5% AD", "75 + 105% AD", "105 + 112.5% AD", "135 + 120% AD"]}, {"attribute": "Sweetspot Damage", "string_expression": ["22.5 + 135% AD", "67.5 + 146.25% AD", "112.5 + 157.5% AD", "157.5 + 168.75% AD", "202.5 + 180% AD"]}], "name": "The Darkin Blade"}]}, "skill_r": {"1": "World Ender", "img": "assets/images/champions/Aatrox/World Ender.png", "tooltip": "Active:  Aatrox unleashes his true demonic form,  fearing nearby enemy  minions and gaining  decaying bonus movement speed.", "maxrank": 3, "ability_breakdown": [{"main": [{"attribute": "Bonus Movement Speed", "string_expression": ["60%", "80%", "100%"]}, {"attribute": "Bonus AD", "string_expression": ["20% AD", "25% AD", "30% AD"]}, {"attribute": "Increased Healing", "string_expression": ["50%", "60%", "70%"]}], "name": "World Ender"}]}, "skill_w": {"1": "Infernal Chains", "img": "assets/images/champions/Aatrox/Infernal Chains.png", "tooltip": "Active:  Aatrox smashes the ground, creating a chain that stops on the first enemy hit, dealing physical damage.  Champions and  large monsters have to leave the impact area quickly or they will be  pulled back to the center and take the damage again.", "maxrank": 5, "ability_breakdown": [{"main": [{"attribute": "Physical Damage", "string_expression": ["30 + 40% AD", "40 + 40% AD", "50 + 40% AD", "60 + 40% AD", "70 + 40% AD"]}, {"attribute": "Total Damage", "string_expression": ["60 + 80% AD", "80 + 80% AD", "100 + 80% AD", "120 + 80% AD", "140 + 80% AD"]}], "name": "Infernal Chains"}]}, "stats": {"ls": 0, "spell_vamp": 0, "apen": 0, "apen%": 0, "mpen": 0, "mpen%": 0, "critdmg": 0, "tenacity": 0, "heal_shield": 0, "acquisition_radius": 475, "ad_base": 60, "ad_lvl": 5, "aram_dmg_taken": 0.95, "arm_base": 38, "arm_lvl": 3.25, "as_base": 0.651, "as_lvl": 2.5, "as_ratio": 0.651000022888183, "attack_cast_time": 0.300000011920928, "attack_total_time": 1.51999998092651, "hp5_base": 3, "hp5_lvl": 1, "hp_base": 580, "hp_lvl": 90, "mp5_base": 0, "mp5_lvl": 0, "mp_base": 0, "mp_lvl": 0, "mr_base": 32.1, "mr_lvl": 1.25, "ms": 345, "ms_base": 345, "pathing_radius": 35, "range": 175, "selection_radius": 135, "urf_dmg_dealt": 1.2, "urf_dmg_taken": 0.75}, "style": 20, "title": "the Darkin Blade", "toughness": 3, "utility": 2}
+{
+	"adaptivetype": "Physical",
+	"alttype": "Tank",
+	"apiname": "Aatrox",
+	"attack": 8,
+	"be": 4800,
+	"changes": "V10.15",
+	"control": 2,
+	"damage": 3,
+	"date": "2013-06-13",
+	"defense": 4,
+	"difficulty": 2,
+	"herotype": "Fighter",
+	"id": 266,
+	"img": "assets/images/champions/Aatrox/Aatrox.png",
+	"index": 0,
+	"magic": 3,
+	"mobility": 2,
+	"name": "Aatrox",
+	"patch": "V3.8",
+	"rangetype": "Melee",
+	"resource": "None",
+	"rp": 880,
+	"skill_e": {
+		"1": "Umbral Dash",
+		"img": "assets/images/champions/Aatrox/Umbral Dash.png",
+		"tooltip": "Passive:  Aatrox  heals for the portion of the damage he deals to  champions.",
+		"maxrank": 5,
+		"ability_breakdown": [
+			{
+				"main": [
+					{
+						"attribute": "Healing",
+						"string_expression": [
+							"20%",
+							"22.5%",
+							"25%",
+							"27.5%",
+							"30%"
+						]
+					}
+				],
+				"name": "Umbral Dash"
+			}
+		]
+	},
+	"skill_i": {
+		"1": "Deathbringer Stance",
+		"img": "assets/images/champions/Aatrox/Deathbringer Stance.png",
+		"tooltip": "Innate: Periodically,  Aatrox's next basic attack deals bonus  physical damage and  heals him, based on the target's maximum health.",
+		"ability_breakdown": []
+	},
+	"skill_q": {
+		"1": "The Darkin Blade",
+		"img": "assets/images/champions/Aatrox/The Darkin Blade.png",
+		"tooltip": "Active:  Aatrox slams his greatsword down up to 3 times before it goes on cooldown, with each having an unique area of effect and dealing physical damage. The damage is increased if enemies are hit by a telegraphed Sweetspot within the area.",
+		"maxrank": 5,
+		"ability_breakdown": [
+			{
+				"main": [
+					{
+						"attribute": "Physical Damage",
+						"string_expression": [
+							"10 + 60% AD",
+							"30 + 65% AD",
+							"50 + 70% AD",
+							"70 + 75% AD",
+							"90 + 80% AD"
+						]
+					},
+					{
+						"attribute": "Sweetspot Damage",
+						"string_expression": [
+							"15 + 90% AD",
+							"45 + 97.5% AD",
+							"75 + 105% AD",
+							"105 + 112.5% AD",
+							"135 + 120% AD"
+						]
+					},
+					{
+						"attribute": "Physical Damage",
+						"string_expression": [
+							"12.5 + 75% AD",
+							"37.5 + 81.25% AD",
+							"62.5 + 87.5% AD",
+							"87.5 + 93.75% AD",
+							"112.5 + 100% AD"
+						]
+					},
+					{
+						"attribute": "Sweetspot Damage",
+						"string_expression": [
+							"18.75 + 112.5% AD",
+							"56.25 + 121.875% AD",
+							"93.75 + 131.25% AD",
+							"131.25 + 140.625% AD",
+							"168.75 + 150% AD"
+						]
+					},
+					{
+						"attribute": "Physical Damage",
+						"string_expression": [
+							"15 + 90% AD",
+							"45 + 97.5% AD",
+							"75 + 105% AD",
+							"105 + 112.5% AD",
+							"135 + 120% AD"
+						]
+					},
+					{
+						"attribute": "Sweetspot Damage",
+						"string_expression": [
+							"22.5 + 135% AD",
+							"67.5 + 146.25% AD",
+							"112.5 + 157.5% AD",
+							"157.5 + 168.75% AD",
+							"202.5 + 180% AD"
+						]
+					}
+				],
+				"name": "The Darkin Blade"
+			}
+		]
+	},
+	"skill_r": {
+		"1": "World Ender",
+		"img": "assets/images/champions/Aatrox/World Ender.png",
+		"tooltip": "Active:  Aatrox unleashes his true demonic form,  fearing nearby enemy  minions and gaining  decaying bonus movement speed.",
+		"maxrank": 3,
+		"ability_breakdown": [
+			{
+				"main": [
+					{
+						"attribute": "Bonus Movement Speed",
+						"string_expression": [
+							"60%",
+							"80%",
+							"100%"
+						]
+					},
+					{
+						"attribute": "Bonus AD",
+						"string_expression": [
+							"20% AD",
+							"25% AD",
+							"30% AD"
+						]
+					},
+					{
+						"attribute": "Increased Healing",
+						"string_expression": [
+							"50%",
+							"60%",
+							"70%"
+						]
+					}
+				],
+				"name": "World Ender"
+			}
+		]
+	},
+	"skill_w": {
+		"1": "Infernal Chains",
+		"img": "assets/images/champions/Aatrox/Infernal Chains.png",
+		"tooltip": "Active:  Aatrox smashes the ground, creating a chain that stops on the first enemy hit, dealing physical damage.  Champions and  large monsters have to leave the impact area quickly or they will be  pulled back to the center and take the damage again.",
+		"maxrank": 5,
+		"ability_breakdown": [
+			{
+				"main": [
+					{
+						"attribute": "Physical Damage",
+						"string_expression": [
+							"30 + 40% AD",
+							"40 + 40% AD",
+							"50 + 40% AD",
+							"60 + 40% AD",
+							"70 + 40% AD"
+						]
+					},
+					{
+						"attribute": "Total Damage",
+						"string_expression": [
+							"60 + 80% AD",
+							"80 + 80% AD",
+							"100 + 80% AD",
+							"120 + 80% AD",
+							"140 + 80% AD"
+						]
+					}
+				],
+				"name": "Infernal Chains"
+			}
+		]
+	},
+	"stats": {
+		"ls": 0,
+		"spell_vamp": 0,
+		"apen": 0,
+		"apen%": 0,
+		"mpen": 0,
+		"mpen%": 0,
+		"critdmg": 0,
+		"tenacity": 0,
+		"heal_shield": 0,
+		"acquisition_radius": 475,
+		"ad_base": 60,
+		"ad_lvl": 5,
+		"aram_dmg_taken": 0.95,
+		"arm_base": 38,
+		"arm_lvl": 3.25,
+		"as_base": 0.651,
+		"as_lvl": 2.5,
+		"as_ratio": 0.651000022888183,
+		"attack_cast_time": 0.300000011920928,
+		"attack_total_time": 1.51999998092651,
+		"hp5_base": 3,
+		"hp5_lvl": 1,
+		"hp_base": 580,
+		"hp_lvl": 90,
+		"mp5_base": 0,
+		"mp5_lvl": 0,
+		"mp_base": 0,
+		"mp_lvl": 0,
+		"mr_base": 32.1,
+		"mr_lvl": 1.25,
+		"ms": 345,
+		"ms_base": 345,
+		"pathing_radius": 35,
+		"range": 175,
+		"selection_radius": 135,
+		"urf_dmg_dealt": 1.2,
+		"urf_dmg_taken": 0.75
+	},
+	"style": 20,
+	"title": "the Darkin Blade",
+	"toughness": 3,
+	"utility": 2
+}

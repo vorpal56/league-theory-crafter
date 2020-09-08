@@ -4,6 +4,7 @@ export const GAMEMODES = [
 	// { "gamemodeLabel": "Howling Abyss", "gamemodeValue": "aram" },
 	// { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }
 ];
+export const SKILL_KEYS = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"];
 export const STAT_KEYS = {
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
