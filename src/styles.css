@@ -10,10 +10,14 @@
 	--background-alt-2: #222238;
 	--background-alt-3: #17172e;
 	--border-color-grey: #2c2c40;
-	--border-color-light-grey: #4f4f60;;
+	--border-color-light-grey: #4f4f60;
 	--border-color-blue-grey :rgb(66, 104, 146);
 	--light-yellow :rgb(225, 205, 146);
 	--dark-amber: rgb(154, 123, 67);
+	--off-white: #e0e0e0;
+	--grey: #bdbdbd;
+	--dark-grey: #616161;
+	--medium-blue-grey: #546e7a;
 	--champion-img-height: 120px;
 	--component-header-height : 44px;
 	--selector-grid-height: 64px;
@@ -151,9 +155,9 @@ span.component-title#component-title {
 /* --------------------------Grid Container Definitions-------------------------- */
 .container-grid-league {
 	display: grid;
-	height: 100vh;
+	/* height: 100vh; */
 	grid-template-columns: 2fr 1fr;
-	grid-template-rows: 0.3fr 0.5fr 2fr;
+	grid-template-rows: 0.3fr 0.5fr 1.8fr;
 	grid-template-areas:
 	"champion champion"
 	"item-rune-epic-selector inventory"

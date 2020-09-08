@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div class="flex-wrapper" id="item-list">
-		<div class="item-list overflow" *ngIf="items$ | async as items else loading">
+		<div class="overflow" *ngIf="items$ | async as items else loading">
 			<ul class="item-grid">
 				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
 					<div class="item-block">

@@ -4,9 +4,8 @@ import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from '../../../server/data/data'
 import { ChampionService } from "../services/champion.service";
 import { Item } from "../models/item";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { toArray, take, shareReplay, share } from 'rxjs/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
 	selector: "champion",

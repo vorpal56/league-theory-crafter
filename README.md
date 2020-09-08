@@ -10,6 +10,12 @@ Used for theory crafting item builds and rune configurations as an approximation
 * [nginx](https://nginx.org/en/#basic_http_features) -  Web server for delivering application content.
 * [Python 3](https://docs.python.org/3/) - Scripting and web scraping for up to date data.
 
+## Getting Started
+You will need [Node.js](https://nodejs.org/en/) to run this project, [npm](https://www.npmjs.com/) (which comes with Node.js during installation), and [Angular 9+](https://angular.io/). I will be using [yarn](https://classic.yarnpkg.com/en/docs/install/#windows-stable) as the package manager in the root and `server` directory.
+1. `npm install -g @angular/cli`
+2. `yarn add yarn.lock | package.json` **OR**
+3. `npm install package.json`
+
 ## Development Server
 ### Frontend
 ```

@@ -17,7 +17,6 @@ mat-form-field.full-width {
 div.overflow {
 	height:100%;
 	overflow-y: auto;
-	max-height:500px;
 }
 .component-body {
 	height: -moz-calc(100% - var(--component-header-height));
@@ -43,6 +42,9 @@ div.overflow {
 }
 .item-selector-filter {
 	padding:4px
+}
+#item-list {
+	max-height:500px;
 }
 #item-grid-orderby-name {
 	grid-area: orderby-name;

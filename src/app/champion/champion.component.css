@@ -19,6 +19,20 @@
 }
 .ability-leveler {
 	display:flex;
+	padding: 1px 0 3px 0
+}
+.level-ability {
+	color:white;
+	padding:1px;
+	border: 1px solid var(--border-color-light-grey);
+	background-color: var(--border-color-grey);
+}
+.level-ability:active {
+	background-color: var(--border-color-light-grey);
+}
+.level-ability:disabled {
+	color: var(--dark-grey);
+	background-color: var(--background-alt-3);
 }
 #champion-details {
 	grid-area: champion-details;
