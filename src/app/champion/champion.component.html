@@ -4,7 +4,7 @@
 </div>
 <div class="component-body">
 	<div class="champion-grid">
-		<div id="selectors">
+		<div id="selectors" class="pad-around">
 			<div class="selector-container">
 				<ng-select [items]="basicChampions$ |async " bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion($event)" [(ngModel)]="basicChampion"></ng-select>
 			</div>

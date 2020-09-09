@@ -24,7 +24,6 @@ div.overflow {
 	height: calc(100% - var(--component-header-height));
 }
 .item-selector-grid {
-	padding: 5px 5px 0px 5px;
 	display:grid;
 	grid-template-columns: repeat(4,1fr);
 	grid-template-rows: var(--selector-grid-height);

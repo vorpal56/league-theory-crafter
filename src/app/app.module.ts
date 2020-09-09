@@ -7,9 +7,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-// import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { NgSelectModule } from "@ng-select/ng-select";
+import { Ng5SliderModule } from 'ng5-slider';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { TooltipOptions } from 'ng2-tooltip-directive';
 import { DefaultTooltipOptions } from './tooltip-options';
@@ -24,6 +24,8 @@ import { EpicMonstersComponent } from "./epic-monsters/epic-monsters.component";
 import { CalculationsComponent } from "./calculations/calculations.component";
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { MinValidatorDirective } from './calculations/min-validator.directive';
+import { MaxValidatorDirective } from './calculations/max-validator.directive';
 
 @NgModule({
 	declarations: [
@@ -37,6 +39,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 		CalculationsComponent,
 		FooterComponent,
 		NavbarComponent,
+		MinValidatorDirective,
+		MaxValidatorDirective,
 	],
 	imports: [
 		FormsModule,
@@ -49,6 +53,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 		MatCheckboxModule,
 		// MatProgressSpinnerModule,
 		NgSelectModule,
+		Ng5SliderModule,
 		TooltipModule,
 		TooltipModule.forRoot(DefaultTooltipOptions as TooltipOptions)
 	],

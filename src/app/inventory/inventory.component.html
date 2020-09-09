@@ -32,9 +32,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="stackables">
-		<ng-container *ngFor="let selectedItem of selectedItems; index as i;">
-			<mat-checkbox *ngIf="selectedItem.stackable" class="example-margin" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
-		</ng-container>
+	<div id="stackables" class="selector-container">
+		<div class="selector-container" *ngFor="let selectedItem of selectedItems; index as i;">
+			<mat-checkbox *ngIf="selectedItem.stackable" (change)="setStackedSelectedItem($event.checked, i)">Stack {{selectedItem.name}} </mat-checkbox>
+		</div>
 	</div>
 </div>

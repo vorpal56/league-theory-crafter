@@ -25,8 +25,12 @@
 	-webkit-user-drag: none;
 	-ms-user-select: none;
 }
+.patch-number {
+	display:inline-block;
+	margin-top:13px;
+}
 .logo-icon {
-	margin-left:1em;
+	margin:0 1em;
 }
 .menu {
 	display:inline-flex;

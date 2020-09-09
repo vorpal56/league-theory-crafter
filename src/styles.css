@@ -32,6 +32,7 @@ html, body {
 	/* background: linear-gradient(180deg, var(--background-main),#292e49); */
 	color:white !important;
 	font-family: 'Oxygen', sans-serif;
+	/* overflow-x: hidden; */
 }
 img {
 	-khtml-user-select: none;
@@ -50,10 +51,38 @@ mat-label, input, .mat-checkbox-label {
 }
 mat-form-field {
 	line-height: 1.5 !important;
+	width: 100%;
 	/* max-width:180px; */
 }
 .mat-form-field-infix {
 	width: auto !important;
+}
+.mat-icon {
+	height: 20px !important;
+	width: 20px !important;
+	font-size: 20px;
+	vertical-align: text-top;
+}
+@media(min-width: 768px) {
+	.mat-icon {
+		height: 18px !important;
+		width: 18px !important;
+		font-size: 18px;
+	}
+}
+@media (min-width: 880px) {
+	.mat-icon {
+		height: 20px !important;
+		width: 20px !important;
+		font-size: 20px;
+	}
+}
+@media (min-width: 1200px) {
+	.mat-icon {
+		height: 24px !important;
+		width: 24px !important;
+		font-size: 24px;
+	}
 }
 button:focus, :focus {
 	outline:none;
@@ -82,10 +111,16 @@ div.item-block:hover {
 	border-color: rgb(255, 255, 250);
 	transition: border-color 0.3s ease;
 }
+.flex-display {
+	display:flex ;
+}
 .flex-center {
 	display:flex !important;
 	justify-content: center;
 	align-items: center;
+}
+.pad-around {
+	padding: 5px 5px 0px 5px
 }
 .selector-container {
 	padding:0px 5px
@@ -234,6 +269,9 @@ span.component-title#component-title {
 .item-tooltips {
 	text-align:left !important;
 }
+.expanded-tooltips {
+	max-width: 380px !important;
+}
 /* Kudos for tooltip border styling https://codepen.io/valerie-roske/pen/XmXPbB?editors=0110 */
 .tooltip:before {
 	border-style: solid;
@@ -281,14 +319,24 @@ span.component-title#component-title {
 .tooltip-left:after {
 	border-color: transparent transparent transparent var(--background-alt) !important;
 }
-ul.innate-tooltip {
+ul.innate-tooltip, ul.numbered-tooltip {
 	/* used in apheliosTooltip in the champion component */
+	/* used in calculation tooltips in the calculations component */
 	padding-inline-start:20px;
 	margin-top: 0.8em;
 	margin-bottom: 0;
 }
+ul.pad-bottom {
+	margin-bottom :0.8em;
+}
 ul.innate-tooltip > li{
 	list-style-type: none;
+}
+ul.numbered-tooltip >li {
+	list-style-type: decimal;
+}
+.help-icon {
+	margin: 3px 0;
 }
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */

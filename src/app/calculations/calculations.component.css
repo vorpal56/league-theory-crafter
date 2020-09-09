@@ -1,4 +1,39 @@
-.target-resistance {
-	 display:flex;
-	 justify-content: center;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calculations-grid {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+	"calculation-selectors"
+	"stat-selectors"
+	"calculations";
+}
+
+#calculation-selectors {
+	grid-area: calculation-selectors;
+	display: flex;
+	flex-direction: column;
+}
+@media only screen and (max-width: 767px) {
+	#calculation-selectors {
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+}
+#stat-selectors {
+	grid-area: stat-selectors;
+	display:flex;
+	flex-direction: column;
+}
+#calculations {
+	grid-area: calculations
+}
+.target-stat-selectors {
+	display:flex;
 }

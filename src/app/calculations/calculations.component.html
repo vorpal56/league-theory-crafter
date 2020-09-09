@@ -1,10 +1,47 @@
 <div class="component-header">
-	<span>Damage Calculations</span>
+	<span>Target Info and Calculations</span>
+	<span>
+		<mat-icon [tooltip]="calculationTooltip()" aria-hidden="false" aria-label="How do we calculate damage?" tooltip-class="expanded-tooltips">help</mat-icon>
+	</span>
 </div>
 <div class="component-body">
-	<div class="target-resistance">
-		<input style='width:90%' type="range" min="30" max="300" step="10" #resistanceStat (input)="setResistanceStat(resistanceStat.value)">
+	<div class="calculations-grid">
+		<div id="calculation-selectors" class="pad-around">
+			<div class="selector-container">
+				<mat-checkbox (change)="applyItemSteroids($event.checked)">Item Steroids</mat-checkbox>
+			</div>
+			<div class="selector-container">
+				<mat-checkbox (change)="applyAbilitySteroids($event.checked)">Ability Steroids</mat-checkbox>
+			</div>
+			<div class="selector-container">
+				<mat-checkbox (change)="applyFormBuffs($event.checked)">Include Form </mat-checkbox>
+			</div>
+		</div>
+		<div id="stat-selectors">
+			<div class="target-stat-selectors pad-around">
+				<div class="selector-container">
+					<mat-form-field>
+						<mat-label>Target Max HP</mat-label>
+						<input matInput type="number" [(ngModel)]="targetMaxHP" [min]="minTargetMaxHP" (change)="updateTargetMaxHP()" required>
+					</mat-form-field>
+				</div>
+				<div class="selector-container">
+					<mat-form-field>
+						<mat-label>Target Armor</mat-label>
+						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMin" required>
+					</mat-form-field>
+				</div>
+				<div class="selector-container">
+					<mat-form-field>
+						<mat-label>Target MR</mat-label>
+						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMin" required>
+					</mat-form-field>
+				</div>
+			</div>
+			<ng5-slider [(value)]="targetCurrentHP" [options]="targetHPOptions" [manualRefresh]="manualRefresh"></ng5-slider>
+		</div>
+		<div id="calculations">
+
+		</div>
 	</div>
-	<label for="resistanceStat">{{ resistanceStat.value }} Armor/MR</label>
-	<label for="resistanceStat">{{ armourNegated }} Armor Negated</label>
 </div>

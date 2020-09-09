@@ -10,8 +10,8 @@ mat-icon.remove-item {
 	opacity: 0;
 	transition: ease 0.3s;
 	position: absolute;
-	width: 54px;
-	height: 54px;
+	width: 54px !important;
+	height: 54px !important;
 	font-size: 32px;
 	color: white;
 	background-color: rgba(5,5,5,0.7);
@@ -58,12 +58,8 @@ ul.item-grid {
 }
 #stackables {
 	grid-area: stackables;
-	/* margin-top:10px; */
-	margin-left:auto;
-	margin-right:auto;
 	display:flex;
 	flex-direction: column;
-	justify-content: center;
 }
 #selected-items .equipped-items-grid {
 	display:grid;
@@ -73,7 +69,4 @@ ul.item-grid {
 	"slot1 slot2 slot3"
 	"slot4 slot5 slot6";
 
-}
-.stackables-margin {
-	margin-top:10px
 }

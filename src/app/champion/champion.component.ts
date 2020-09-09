@@ -6,6 +6,7 @@ import { Item } from "../models/item";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { toArray, take, shareReplay, share } from 'rxjs/operators';
+import { DamageCalculationsService } from '../services/damage-calculations.service';
 
 @Component({
 	selector: "champion",
@@ -19,6 +20,7 @@ export class ChampionComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
 	@Input("stackAllRunes") stackAllRunes: boolean;
+	@Input("dmgCalcModifiers") dmgCalcModifiers: any;
 
 	@Output("selectedChampion") selectedChampionEventEmitter = new EventEmitter<Champion>();
 	@Output("selectedLevel") currentLevelEventEmitter = new EventEmitter<number>();
@@ -41,15 +43,15 @@ export class ChampionComponent implements OnInit {
 	champions: Champion[] = [];
 	champion: Champion;
 
-	constructor(private championService: ChampionService, private http: HttpClient) { }
+	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService, private http: HttpClient) { }
 
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
 		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions/basic").pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
-		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => this.basicChampion = basicChampions[7]);
-		this.http.get<Champion>("/api/champions/Aphelios").subscribe((champion: Champion) => {
+		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => this.basicChampion = basicChampions[0]);
+		this.http.get<Champion>("/api/champions/Aatrox").subscribe((champion: Champion) => {
 			this.champion = champion;
 			this.resetAbilities();
 			this.championsIndices[champion.apiname.toLowerCase()] = this.numChampsCalled++;
@@ -102,7 +104,7 @@ export class ChampionComponent implements OnInit {
 		let championAbilityRank = this.champion[skillKey]["rank"];
 		let championAbilityMaxRank = this.champion[skillKey]["maxrank"];
 		let availableSkillPoints = this.currentLevel - this.totalRanks;
-		if (this.championIsTransformer()) {
+		if (this.championService.hasUltLevel1(this.champion)) {
 			availableSkillPoints += 1;
 		}
 		if (availableSkillPoints > 0 && championAbilityRank < championAbilityMaxRank && championAbilityRank >= 0) {
@@ -136,7 +138,7 @@ export class ChampionComponent implements OnInit {
 			this.totalRanks -= 1;
 			this.champion[skillKey]["rank"] -= 1;
 			if (this.champion[skillKey]["rank"] <= championAbilityMaxRank) { this.champion[skillKey]["canLevelUp"] = true; }
-			if (this.championIsTransformer() && abilityType == "r") {
+			if (this.championService.hasUltLevel1(this.champion) && abilityType == "r") {
 				if (this.champion[skillKey]["rank"] == 1) { this.champion[skillKey]["canLevelDown"] = false; }
 			} else {
 				if (this.champion[skillKey]["rank"] == 0) { this.champion[skillKey]["canLevelDown"] = false; }
@@ -179,20 +181,13 @@ export class ChampionComponent implements OnInit {
 			this.champion[skillKey]["canLevelUp"] = true;
 			this.champion[skillKey]["canLevelDown"] = false;
 		});
-		if (this.championIsTransformer()) {
+		if (this.championService.hasUltLevel1(this.champion)) {
 			this.champion[SKILL_KEYS[4]]["rank"] = 1;
 		} else if (this.championIsAphelios()) {
 			this.champion[SKILL_KEYS[4]]["rank"] = this.maxUltPoints();
 		}
 		this.totalRanks = 0;
 		return;
-	}
-	championIsTransformer(): boolean {
-		let apiname = this.champion.apiname.toLowerCase();
-		if (apiname == "jayce" || apiname == "elise" || apiname == "karma" || apiname == "nidalee") {
-			return true;
-		}
-		return false;
 	}
 	maxUltPoints(): number {
 		let maxPoints = this.champion["skill_r"]["maxrank"];
@@ -210,6 +205,12 @@ export class ChampionComponent implements OnInit {
 		return this.champion.apiname.toLowerCase() == "aphelios";
 	}
 	apheliosTooltip(): string {
-		return `Aphelios automatically levels up his ultimate ability, Moonlight Vigil, at levels 6, 11, and 16.<br><br>You can level up his: <ul class="innate-tooltip"><li>Q for Bonus Attack Damage</li><li>W for Bonus Attack Speed</li><li>E for Bonus Lethality</li></ul>`;
+		return `Aphelios automatically levels up his ultimate ability, ${this.champion.skill_r[1]}, at levels 6, 11, and 16.<br><br>You can level up his:
+		<ul class="innate-tooltip">
+			<li>Q for Bonus Attack Damage</li>
+			<li>W for Bonus Attack Speed</li>
+			<li>E for Bonus Lethality</li>
+		</ul>
+		`;
 	}
 }
