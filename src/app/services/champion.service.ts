@@ -5,13 +5,14 @@ import { StatsService } from './stats.service';
 import { Item } from '../models/item';
 import { Champion } from '../models/champion';
 import { EMPTY_ITEM } from '../../../server/data/items';
+import { DamageCalculationsService } from './damage-calculations.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ChampionService {
 
-	constructor(private statsService: StatsService, private itemsService: ItemsService, private runesService: RunesService) { }
+	constructor(private statsService: StatsService, private itemsService: ItemsService, private runesService: RunesService, private damageCalculationsService: DamageCalculationsService) { }
 
 	/**
 	 * Method that performs all the calculations for changes in all components. This invokes calls to the stats, items and runes service
@@ -66,36 +67,19 @@ export class ChampionService {
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 		return;
 	}
-	damageReduction(champion: Champion, statName: string): number {
-		let championDef = champion.stats[statName];
-		if (championDef >= 0) {
-			return 100 / (100 + championDef);
-		} else {
-			return 2 - (100 / (100 - championDef));
+	hasUltLevel1(champion: Champion): boolean {
+		let apiname = champion.apiname.toLowerCase();
+		if (apiname == "elise" || apiname == "jayce" || apiname == "karma" || apiname == "nidalee") {
+			return true;
 		}
+		return false;
 	}
-	effectiveHealth(champion: Champion, statName: string): number {
-		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
-	}
-	magicPenetration(champion: Champion) {
-		// Magic resistance reduction, flat. (Wit's End, Baron Debuff while fighting it) -> wits end passive was removed and baron is interesting... maybe we can add that as a target
-		// Magic resistance reduction, percentage. (Insert Champion Abilities here) eg. trundle subjugate
-		// Magic penetration, percentage. (Void Staff)
-		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
-	}
-	armorPenetration(champion: Champion, targetLevel: number, targetArmour: number) {
-
-		// 1. Armor reduction, flat (baron)
-		// 2. Armor reduction, percentage (subjugate)
-		// 3. Armor penetration, percentage
-		// 4. Lethality
-
-		let percentAPen = targetArmour * champion.stats["apen%"] / 100;
-		// lethality scales depending on the targets level. the higher the targets level, the more vaulable lethality is
-		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + 0.4 * targetLevel / 18);
-		let total = currentFlatArmorPenetration + percentAPen;
-		// total = total > targetArmour ? targetArmour : total;
-		return total;
+	championIsTransformer(champion: Champion): boolean {
+		let apiname = champion.apiname.toLowerCase();
+		if (apiname == "elise" || apiname == "jayce" || apiname == "kayn" || apiname == "nidalee" || apiname == "shyvana") {
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * Method that formats the number to n places
