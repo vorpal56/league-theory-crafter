@@ -60,6 +60,7 @@ def compile_champion_data(using="meraki", use="live"):
 	if (not os.path.exists(updated_champion_cache_path)):
 		os.mkdir(updated_champion_cache_path)
 
+	all_attribute_names = {}
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
 		open(os.path.join(DATA_PATH, "updated_champions_combined.ts"), "w", encoding="utf-8") as ts_file, \
 		open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
@@ -93,7 +94,19 @@ def compile_champion_data(using="meraki", use="live"):
 				response = requests.get(url)
 				response_body = response.json()
 			if using=="meraki":
-				champion_tooltips, ability_breakdown = parse_champion_data_meraki(response_body)
+				champion_tooltips, ability_breakdown, attribute_names = parse_champion_data_meraki(response_body)
+				some_keys = {}
+				for key, value in attribute_names.items():
+					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower() ):
+						some_keys["has_min"] = True
+					elif ("max." in key.lower() or "max" in key.lower() or "maximum" in key.lower() ):
+						some_keys["has_max"] = True
+					if (key in all_attribute_names):
+						all_attribute_names[key] += value
+					else:
+						all_attribute_names[key] = value
+				if (len(some_keys.keys()) == 1 ):
+					print(champion_name, attribute_names)
 			for i, skill_key in enumerate(skill_keys):
 				if champion_tooltips[i] == "":
 					fixed_tooltip = fixed_tooltips["_".join([champion_name, skill_key])]
@@ -112,6 +125,10 @@ def compile_champion_data(using="meraki", use="live"):
 		file.truncate()
 		json.dump(champions, file)
 		ts_file.write('export const CHAMPIONS = ' + str(champions))
+	sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[0]))
+	attribute_names_file = open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8")
+	json.dump(sorted_attribute_names, attribute_names_file)
+	attribute_names_file.close()
 	return
 
 '''
@@ -139,6 +156,7 @@ def parse_champion_data_meraki(champion_data):
 	champion_tooltips = []
 	# skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	ability_breakdown = []
+	all_attribute_names = {}
 	for i, champion_ability_type in enumerate(champion_abilities):
 		# ability type is p, q, w, e, r
 		champion_ability = champion_abilities[champion_ability_type]
@@ -154,17 +172,41 @@ def parse_champion_data_meraki(champion_data):
 			for ability_effect in ability_effects:
 				ability_effect_leveling = ability_effect["leveling"]
 				for attribute in ability_effect_leveling:
-					attribute_name = attribute["attribute"]
-					# we are not concerned about minion, monster, and other non-champion related damage
-					# its difficult to know which attributes to limit. some abilities provide stats that are not meaningful when calculating damage such wallm width (yasuo and anivia), but is an attribute that grows on skill level. similarly stats like bonus ad and ap are important but are different than attributes with damage in the name. we'll have to do some manual work to interpret the damage formula which we'll hav e to change on a patch by patch basis. automating this process is impossible since ddragon data is quite far behind
-					if ("minion" not in attribute_name.lower() and "monster" not in attribute_name.lower() and "non-champion" not in attribute_name.lower()):
+					attribute_name = attribute["attribute"].title()
+					la_name = attribute_name.lower()
+
+					'''
+					some abilities provide stats that are not meaningful when calculating damage such as wall width or length (taliyah, yasuo, anivia), but is an attribute that grows on skill level. similarly stats like bonus ad and ap are important but are different than attributes with damage in the name. we'll have to do some manual work to interpret the damage formula which we'll have to change on a patch by patch basis. the damage calculation would need to be on a champion by champion basis?
+
+					we are not concerned about minion, monster, and other non-champion related damage
+					refunds and restores are for mana/health on kill which is not significant in calculation
+					slows are not significant in damage calculation
+					ally bonuses are not significant for self and damage calculation
+					walls (taliyah, yasuo, anivia) are not significant in damage calculation
+					structure damage does not affect targets
+					cripple (target attack speed slow) is not significant in damage calculation
+					decay (shyvana) is fury decay rate which is not significant in damage calculation
+					'''
+
+					attribute_is_significant = "minion" not in la_name and "monster" not in la_name and "non-champion" not in la_name and "refund" not in la_name and "restore" not in la_name and "slow" not in la_name and "wall" not in la_name and "width" not in la_name and "ally" not in la_name and "allies" not in la_name and "structure" not in la_name and "cripple" not in la_name and "decay" not in la_name
+					if attribute_is_significant:
+						if (attribute_name in all_attribute_names):
+							all_attribute_names[attribute_name] +=1
+						else:
+							all_attribute_names[attribute_name] = 1
 						a = {"attribute": attribute_name}
 						expressions = [] # [rank1, rank2, rank3, rank4]
 						for k, modifier in enumerate(attribute["modifiers"]):
 							values, units = modifier["values"], modifier["units"]
 							value_length, unit_length = len(values), len(units)
 							for l, value in enumerate(values):
-								text_formula = str(value) + units[l]
+								if units[l] == "%":
+									text_formula = str(value) + units[l]
+								elif ("%" in units[l]):
+									text_formula = str(value/100) + re.sub(r'[%]', ' *', units[l])
+								else:
+									text_formula = str(value) + units[l]
+
 								if (k==0):
 									expressions.append(text_formula)
 								else:
@@ -191,7 +233,7 @@ def parse_champion_data_meraki(champion_data):
 		champion_tooltips.append("<br><br>".join(base_champion_blurbs))
 		ability_breakdown.append(ability_details)
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
-	return champion_tooltips, ability_breakdown
+	return champion_tooltips, ability_breakdown, all_attribute_names
 
 def parse_champion_data_ddragon(champion_name, champion_data=None):
 	if (champion_data is None):
