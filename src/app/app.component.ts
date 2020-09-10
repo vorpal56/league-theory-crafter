@@ -8,8 +8,10 @@ import {
 } from "@angular/core";
 import { Champion } from "./models/champion";
 import { Item, ItemRestrictions } from "./models/item";
+import { RuneModifiers } from "./models/rune";
 import { InventoryComponent } from "./inventory/inventory.component";
 import { EMPTY_ITEM } from "../../server/data/items";
+
 @Component({
 	selector: "league-theory-crafter",
 	templateUrl: "./app.component.html",
@@ -47,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	currentLevel: number;
 	currentTime: number;
 	selectedRunes: any;
-	stackAllRunes: boolean;
+	runeModifiers: RuneModifiers;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -105,8 +107,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 		this.selectedRunes = selectedRunes;
 		return;
 	}
-	setStackAllRunes(stackAllRunes: boolean) {
-		this.stackAllRunes = stackAllRunes;
+	setRuneModifiers(runeModifiers: RuneModifiers) {
+		this.runeModifiers = runeModifiers;
 		return;
 	}
 	setPage(selectedTabName: string) {

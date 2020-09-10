@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Champion } from '../models/champion';
+import { Rune, RuneShard, RuneModifiers } from '../models/rune';
 import { SKILL_KEYS } from '../../../server/data/data';
 import { ChampionService } from './champion.service';
 @Injectable({

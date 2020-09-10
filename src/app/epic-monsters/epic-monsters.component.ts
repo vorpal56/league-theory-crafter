@@ -16,7 +16,7 @@ export class EpicMonstersComponent implements OnInit {
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
-	@Input("stackAllRunes") stackAllRunes: boolean;
+	@Input("runeModifiers") runeModifiers: [boolean, number];
 
 	@Output("externalBuffs") epicBuffsEmitter = new EventEmitter<any>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();

@@ -14,8 +14,12 @@ export interface RuneShard {
 	"name": string,
 	"apiname": string,
 	"type"?: string,
-	"active": boolean;
+	"active": boolean,
 	"index": number,
 	"img": string,
 	"stats": any,
+}
+export interface RuneModifiers {
+	"stackAllRunes": boolean;
+	"soulCount": number,
 }

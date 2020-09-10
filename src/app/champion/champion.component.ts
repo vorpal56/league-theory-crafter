@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from "@angular/core";
 import { Champion, BasicChampion } from "../models/champion";
+import { RuneModifiers } from "../models/rune";
 import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from '../../../server/data/data';
 import { ChampionService } from "../services/champion.service";
 import { Item } from "../models/item";
@@ -14,12 +15,12 @@ import { DamageCalculationsService } from '../services/damage-calculations.servi
 	styleUrls: ["./champion.component.css"],
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChampionComponent implements OnInit {
+export class ChampionComponent implements OnInit, AfterViewInit {
 
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
-	@Input("stackAllRunes") stackAllRunes: boolean;
+	@Input("runeModifiers") runeModifiers: RuneModifiers;
 	@Input("dmgCalcModifiers") dmgCalcModifiers: any;
 
 	@Output("selectedChampion") selectedChampionEventEmitter = new EventEmitter<Champion>();
@@ -46,6 +47,9 @@ export class ChampionComponent implements OnInit {
 	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService, private http: HttpClient) { }
 
 	ngOnInit(): void {
+
+	}
+	ngAfterViewInit() {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
 		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions/basic").pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
@@ -56,7 +60,7 @@ export class ChampionComponent implements OnInit {
 			this.resetAbilities();
 			this.championsIndices[champion.apiname.toLowerCase()] = this.numChampsCalled++;
 			this.champions.push(champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 			this.selectedChampionEventEmitter.emit(this.champion);
 		});
 		this.currentLevelEventEmitter.emit(this.currentLevel);
@@ -69,7 +73,7 @@ export class ChampionComponent implements OnInit {
 			this.champion = this.champions[this.championsIndices[apiname]];
 			this.resetAbilities();
 			this.selectedChampionEventEmitter.emit(this.champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 		} else {
 			// set the champion to null for the loading spinner
 			this.champion = null;
@@ -78,7 +82,7 @@ export class ChampionComponent implements OnInit {
 				this.resetAbilities();
 				this.championsIndices[apiname] = this.numChampsCalled++;
 				this.champions.push(champion);
-				this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+				this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 				this.selectedChampionEventEmitter.emit(this.champion);
 			});
 		}
@@ -87,7 +91,7 @@ export class ChampionComponent implements OnInit {
 	updateLevel() {
 		this.currentLevelEventEmitter.emit(this.currentLevel);
 		if (this.currentLevel >= 9) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 		}
 		// we reset the abilities on change because it's difficult to know where to remove points and where not to remove points.
 		// so when the user changes the champion level, they can readjust the stats
@@ -96,7 +100,7 @@ export class ChampionComponent implements OnInit {
 	}
 	updateCurrentTime() {
 		this.currentTimeEventEmitter.emit(this.currentTime);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 		return;
 	}
 	increaseSkillLevel(abilityType: string) {
