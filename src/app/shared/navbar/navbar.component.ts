@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+	currentPatch = "10.18";
 	constructor() { }
 
 	ngOnInit(): void {

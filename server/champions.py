@@ -67,7 +67,7 @@ def compile_champion_data(using="meraki", use="live"):
 		champions = json.load(file)
 		fixed_tooltips = json.load(fixed_tooltips_file)
 		file.seek(0)
-		for champion_obj in champions:
+		for l, champion_obj in enumerate(champions):
 			champion_name = champion_obj["apiname"]
 			champion_file_name = "{}.json".format(champion_name)
 			if using == "ddragon":
@@ -77,7 +77,7 @@ def compile_champion_data(using="meraki", use="live"):
 					json_file.close()
 				elif use == "live":
 					# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
-					patch_num = "10.16"
+					patch_num = "10.18"
 					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
 					response = requests.get(url)
 					response_body = response.json()
@@ -93,8 +93,11 @@ def compile_champion_data(using="meraki", use="live"):
 				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
 				response = requests.get(url)
 				response_body = response.json()
+				json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "w")
+				json.dump(response_body, json_file)
+				json_file.close()
 			if using=="meraki":
-				champion_tooltips, ability_breakdown, attribute_names = parse_champion_data_meraki(champion_name, response_body)
+				champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(champion_name, response_body)
 				some_keys = {}
 				for key, value in attribute_names.items():
 					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower() ):
@@ -105,11 +108,27 @@ def compile_champion_data(using="meraki", use="live"):
 						all_attribute_names[key] += value
 					else:
 						all_attribute_names[key] = value
-				if (len(some_keys.keys()) == 1 ):
-					print(champion_name, attribute_names)
+
+				# if (len(some_keys.keys()) == 1 ):
+				# 	print(champion_name, attribute_names)
+
+			for stat_name, stat_val in champion_stats.items():
+				if ((stat_name in champion_obj["stats"]) or (stat_name not in champion_obj["stats"] and stat_val != 0)):
+					current_stat_val = champion_obj["stats"][stat_name]
+					if (current_stat_val != stat_val):
+						print(champion_name, "has updated", stat_name, "from", current_stat_val, "to", stat_val)
+						champion_obj["stats"][stat_name] = stat_val
+
 			for i, skill_key in enumerate(skill_keys):
+				for subkey in ability_names[skill_key]:
+					current_skill_name = champion_obj[skill_key][subkey]
+					new_skill_name = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
+					if (current_skill_name.lower() != new_skill_name.lower() and champion_name != "Aphelios"):
+						print(champion_name, "has updated", current_skill_name, "to", new_skill_name )
+						champion_obj[skill_key][subkey] = new_skill_name
+
 				if champion_tooltips[i] == "":
-					fixed_tooltip = fixed_tooltips["_".join([champion_name, skill_key])]
+					fixed_tooltip = fixed_tooltips.get("_".join([champion_name, skill_key]))
 					if (fixed_tooltip is not None):
 						champion_obj[skill_key]["tooltip"] = fixed_tooltip
 					else:
@@ -153,11 +172,46 @@ def compile_champion_data(using="meraki", use="live"):
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
 def parse_champion_data_meraki(champion_name, champion_data):
 	champion_stats = champion_data["stats"]
+	main_meraki_stat_keys = {
+		"health": "hp",
+		"healthRegen": "hp5",
+		"mana": "mp",
+		"manaRegen": "mp5",
+		"armor": "arm",
+		"magicResistance": "mr",
+		"attackDamage": "ad",
+		"movespeed": "ms",
+		# "criticalStrikeDamage": "critdmg",
+		# "criticalStrikeDamageModifier": "crit_mod",
+		"attackSpeed": "as",
+		"attackRange": "range",
+	}
+	stat_val_reps = {
+		"flat": "_base",
+		"percent":"%",
+		"perLevel":"_lvl",
+		# "percentPerLevel":
+	}
+	new_stats = {}
+	for stat_base_key, stat_base_details in champion_stats.items():
+		if stat_base_key in main_meraki_stat_keys:
+			our_stat_key = main_meraki_stat_keys[stat_base_key]
+			if (our_stat_key !="critdmg" and our_stat_key !="crit_mod" and our_stat_key !="range"):
+				for stat_key_type, stat_val in stat_base_details.items():
+					if (stat_key_type in stat_val_reps):
+						key_name = our_stat_key +  stat_val_reps[stat_key_type]
+						new_stats[key_name] = stat_val
+			else:
+				new_stats[our_stat_key] = stat_base_details["flat"]
+
 	champion_abilities = champion_data["abilities"]
 	champion_tooltips = []
-	# skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	ability_breakdown = []
 	all_attribute_names = {}
+	ability_names = {}
+	for skill_key in skill_keys:
+		ability_names[skill_key] = {}
 	for i, champion_ability_type in enumerate(champion_abilities):
 		# ability type is p, q, w, e, r
 		champion_ability = champion_abilities[champion_ability_type]
@@ -168,6 +222,8 @@ def parse_champion_data_meraki(champion_name, champion_data):
 			# there are multiple ability objs since transformers can switch between abilities
 			# we'll dictate it into 2 separate objs for form and main
 			main_key = "main" if j == 0 else "form"
+			ability_key = "1" if j == 0 else "2" # used for the data representation in our champion model
+			ability_name = ability_obj["name"]
 			main_dict = {main_key:[]}
 			ability_effects = ability_obj["effects"]
 			for ability_effect in ability_effects:
@@ -232,14 +288,15 @@ def parse_champion_data_meraki(champion_name, champion_data):
 						main_dict[main_key].append(a)
 			if (main_dict != {main_key:[]}):
 				# the name is already attached to the champion skill key in the json obj we use for our calculations
-				main_dict["name"] = ability_obj["name"]
+				main_dict["name"] = ability_name
 				ability_details.append(main_dict)
+			ability_names[skill_keys[i]][ability_key] = ability_name
 			if (ability_obj["blurb"] is not None):
 				base_champion_blurbs.append(ability_obj["blurb"])
 		champion_tooltips.append("<br><br>".join(base_champion_blurbs))
 		ability_breakdown.append(ability_details)
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
-	return champion_tooltips, ability_breakdown, all_attribute_names
+	return new_stats, champion_tooltips, ability_breakdown, ability_names, all_attribute_names
 
 def parse_champion_data_ddragon(champion_name, champion_data=None):
 	if (champion_data is None):

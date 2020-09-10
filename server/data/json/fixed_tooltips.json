@@ -1,4 +1,5 @@
 {
+	"Ahri_skill_i": "Ahri gains a stack of Essence Theft whenever an enemy is hit with one of her abilities, up to 3 per ability cast. After reaching 9 stacks, her next ability heals her for each enemy hit.",
 	"Ezreal_skill_w": "Ezreal fires an orb that sticks to the first champion or objective hit. If Ezreal hits an enemy with the orb, it detonates and deals damage.",
 	"Fiddlesticks_skill_i": "Fiddlestick can summon an effigy of himself which occupies his trinket slot. This can reveal and disable wards and stealthed traps.",
 	"Fiddlesticks_skill_q": "Damaging enemies with spells while unseen or targeting an enemy with Terrify's activation hits a target with fear, causing the target to flee in fear for a duration",
