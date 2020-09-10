@@ -94,7 +94,7 @@ def compile_champion_data(using="meraki", use="live"):
 				response = requests.get(url)
 				response_body = response.json()
 			if using=="meraki":
-				champion_tooltips, ability_breakdown, attribute_names = parse_champion_data_meraki(response_body)
+				champion_tooltips, ability_breakdown, attribute_names = parse_champion_data_meraki(champion_name, response_body)
 				some_keys = {}
 				for key, value in attribute_names.items():
 					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower() ):
@@ -125,7 +125,8 @@ def compile_champion_data(using="meraki", use="live"):
 		file.truncate()
 		json.dump(champions, file)
 		ts_file.write('export const CHAMPIONS = ' + str(champions))
-	sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[0]))
+	# sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[0]))
+	sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[1], reverse=True))
 	attribute_names_file = open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8")
 	json.dump(sorted_attribute_names, attribute_names_file)
 	attribute_names_file.close()
@@ -150,7 +151,7 @@ def compile_champion_data(using="meraki", use="live"):
 '''
 
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
-def parse_champion_data_meraki(champion_data):
+def parse_champion_data_meraki(champion_name, champion_data):
 	champion_stats = champion_data["stats"]
 	champion_abilities = champion_data["abilities"]
 	champion_tooltips = []
@@ -172,8 +173,6 @@ def parse_champion_data_meraki(champion_data):
 			for ability_effect in ability_effects:
 				ability_effect_leveling = ability_effect["leveling"]
 				for attribute in ability_effect_leveling:
-					attribute_name = attribute["attribute"].title()
-					la_name = attribute_name.lower()
 
 					'''
 					some abilities provide stats that are not meaningful when calculating damage such as wall width or length (taliyah, yasuo, anivia), but is an attribute that grows on skill level. similarly stats like bonus ad and ap are important but are different than attributes with damage in the name. we'll have to do some manual work to interpret the damage formula which we'll have to change on a patch by patch basis. the damage calculation would need to be on a champion by champion basis?
@@ -187,6 +186,8 @@ def parse_champion_data_meraki(champion_data):
 					cripple (target attack speed slow) is not significant in damage calculation
 					decay (shyvana) is fury decay rate which is not significant in damage calculation
 					'''
+					attribute_name = attribute["attribute"].title()
+					la_name = attribute_name.lower()
 
 					attribute_is_significant = "minion" not in la_name and "monster" not in la_name and "non-champion" not in la_name and "refund" not in la_name and "restore" not in la_name and "slow" not in la_name and "wall" not in la_name and "width" not in la_name and "ally" not in la_name and "allies" not in la_name and "structure" not in la_name and "cripple" not in la_name and "decay" not in la_name
 					if attribute_is_significant:
@@ -206,16 +207,21 @@ def parse_champion_data_meraki(champion_data):
 									text_formula = str(value/100) + re.sub(r'[%]', ' *', units[l])
 								else:
 									text_formula = str(value) + units[l]
-
+								if (champion_name == "JarvanIV" and la_name == "armor reduction"):
+									text_formula = text_formula.replace("of target's", "target")
+								else:
+									text_formula = text_formula.replace("of target's", "")
+								text_formula = text_formula.replace("total", "")
+								text_formula = re.sub(r'[ ]', '', text_formula)
 								if (k==0):
 									expressions.append(text_formula)
 								else:
 									if (unit_length == 1):
 										for o, existing_expression in enumerate(expressions):
-											expressions[o] += " + " + text_formula
+											expressions[o] += "+" + text_formula
 									else:
 										if (unit_length == 5 or unit_length == 6 or unit_length == 3):
-											expressions[l] += " + " + text_formula
+											expressions[l] += "+" + text_formula
 										else:
 											# the skill has a level dependant attribute that we I was unable to dynamically allocate to.
 											# examples like janna w, nidalee cougar q, garen e, etc.
@@ -309,11 +315,12 @@ def store_meraki():
 if __name__ == "__main__":
 	# combine_champion_data()
 	compile_champion_data(using="meraki", use="cache")
+	# champion_name = "Lillia"
 	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
-	# json_file = open(os.path.join(meraki_champion_cache_path, "Lillia.json"), "r")
+	# json_file = open(os.path.join(meraki_champion_cache_path, "{}.json".format(champion_name)), "r")
 	# champion_data = json.load(json_file)
 	# json_file.close()
-	# champion_tooltips, ability_breakdown  = parse_champion_data_meraki(champion_data)
+	# champion_tooltips, ability_breakdown  = parse_champion_data_meraki(champion_name, champion_data)
 	# print(champion_tooltips, ability_breakdown)
 	# store_meraki()
 	pass

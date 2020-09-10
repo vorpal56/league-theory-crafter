@@ -113,6 +113,8 @@ export class ChampionComponent implements OnInit {
 			if (this.champion[skillKey]["rank"] == championAbilityMaxRank) { this.champion[skillKey]["canLevelUp"] = false; }
 			if (this.champion[skillKey]["rank"] >= 0) { this.champion[skillKey]["canLevelDown"] = true; }
 		}
+		let damageResults = this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.selectedRunes, null, [1000, 2000], true, true);
+		console.log(damageResults);
 		return;
 	}
 	canLevelUp(abilityType: string) {
@@ -144,6 +146,8 @@ export class ChampionComponent implements OnInit {
 				if (this.champion[skillKey]["rank"] == 0) { this.champion[skillKey]["canLevelDown"] = false; }
 			}
 		}
+		let damageResults = this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.selectedRunes, null, [1000, 2000], true, true);
+		console.log(damageResults);
 		return;
 	}
 	canLevelDown(abilityType: string) {
