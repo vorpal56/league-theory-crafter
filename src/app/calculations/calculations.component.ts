@@ -38,7 +38,7 @@ export class CalculationsComponent implements OnInit {
 
 	ngOnInit(): void { }
 
-	updateTargetMaxHP(): void {
+	setTargetMaxHP(): void {
 		if (this.targetMaxHP >= this.minTargetMaxHP) {
 			let targetHPOptions: Options = {
 				floor: this.targetMin,

@@ -44,7 +44,13 @@
 					</ng-container>
 				</div>
 			</div>
-			<div class="stack-runes flex-center">
+			<div class="stack-selectors flex-center">
+				<div class="selector-container pad-around" *ngIf="hasDarkHarvest()">
+					<mat-form-field>
+						<mat-label>Dark Harvest Soul Count</mat-label>
+						<input matInput type="number" [(ngModel)]="soulCount" [min]="0" required>
+					</mat-form-field>
+				</div>
 				<mat-checkbox (change)="setStackAllRunes($event.checked)">Stack All Rune Choices</mat-checkbox>
 			</div>
 		</div>

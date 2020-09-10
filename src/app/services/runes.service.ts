@@ -20,14 +20,21 @@ export class RunesService {
 	 * @param  {number} currentTime the current time for time dependant runes such as gatherin storm
 	 * @returns any the stats from runes
 	 */
-	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, totalStatsFromItems: any, adaptiveType: string, selectedElixir: Item, stackAllRunes: boolean, currentTime: number): any[] {
+	calculateRuneStats(selectedRunes: any, champion: Champion, currentLevel: number, adaptiveType: string, selectedElixir: Item, stackAllRunes: boolean, currentTime: number): any[] {
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStatsFromRunes = {};
+		let totalDamageFromRunes = { "physicalDamage": 0, "magicDamage": 0, "trueDamage": 0 };
 		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
 		let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
 		let hasTranscendance: boolean = false;
 		let cdrCap = 40;
 		let addedTenacityElixir: boolean = false;
+		let adaptiveDamageType = adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
+		let championRangeType = champion["rangetype"].toLowerCase();
+		let AP = champion.stats.ap;
+		let maximumHealth = champion.stats.hp;
+		let bonusAD = champion.item_stats["ad"] ? champion.item_stats["ad"] : 0;
+		let bonusHealth = champion.item_stats["hp"] ? champion.item_stats["hp"] : 0;
 		for (let runeTree in selectedRunes) {
 			if (runeTree != "runeShards") {
 				// some of the rune calculations are done directly in the condition instead of a separate method depending on complexity and extensibility
@@ -101,6 +108,35 @@ export class RunesService {
 						} else if (runeApiname == "cosmicinsight") {
 							cdrCap += 5;
 							totalStatsFromRunes["cdr"] = rune.stats.cdr; // reason we can add directly is because we need to know the cdr cap before applying transcendance and no other rune provides cdr
+						} else {
+							let expressionString = rune["string_expression"];
+							// phaserush has a ranged_expression
+							if (expressionString && expressionString != "") {
+								try {
+									var expressionValue = eval(expressionString);
+									if (rune["type"] && rune["type"] == "adaptive") {
+										expressionValue *= adaptiveType == "ad" ? 0.6 : 1;
+										if (runeApiname == "conqueror" && stackAllRunes) {
+											expressionValue *= 12;
+										}
+										totalDamageFromRunes[adaptiveDamageType] ? totalDamageFromRunes[adaptiveDamageType] += expressionValue : totalDamageFromRunes[adaptiveDamageType] = expressionValue;
+									} else if (rune["affects_stat"] && rune["affects_stat"] != "") {
+										let affectsStat = rune["affects_stat"];
+										if (affectsStat.includes("Damage")) {
+											totalDamageFromRunes[affectsStat] ? totalDamageFromRunes[affectsStat] += expressionValue : totalDamageFromRunes[affectsStat] = expressionValue;
+										} else {
+											if (rune.apiname == "phaserush") {
+												if (championRangeType == "ranged") { expressionValue = eval(rune["ranged_expression"]); };
+											}
+											// affects_stats = as specifically (this could be a problem in the future)
+											expressionValue *= 100;
+											totalStatsFromRunes[affectsStat] ? totalStatsFromRunes[affectsStat] += expressionValue : totalStatsFromRunes[affectsStat] = expressionValue;
+										}
+									}
+								} catch (error) {
+									console.error("Cannot eval rune expression");
+								}
+							}
 						}
 					}
 				});
@@ -127,7 +163,7 @@ export class RunesService {
 			}
 		}
 		if (hasTranscendance) {
-			let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, totalStatsFromItems, cdrCap);
+			let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, champion.item_stats, cdrCap);
 			for (let bonus in transcendenceTotal) {
 				let bonusVal = transcendenceTotal[bonus];
 				totalStatsFromRunes[bonus] ? totalStatsFromRunes[bonus] += bonusVal : totalStatsFromRunes[bonus] = bonusVal;
@@ -142,6 +178,7 @@ export class RunesService {
 		if (totalStatsFromRunes != {}) {
 			console.log(totalStatsFromRunes);
 		}
+		console.log(totalDamageFromRunes);
 		champion.stats.tenacity = totalTenacityRatio;
 		return [totalStatsFromRunes, cdrCap];
 	}
@@ -172,24 +209,24 @@ export class RunesService {
 		results[adaptiveType] = adaptiveType == "ad" ? 1.2 * totalAdditionalCdr : 2 * totalAdditionalCdr;
 		return results;
 	}
-	addRuneStats(champion: Champion, totalStatsFromRunes: any) {
-		for (let key in totalStatsFromRunes) {
-			let keyVal = totalStatsFromRunes[key];
+	addRuneStats(champion: Champion) {
+		for (let key in champion.rune_stats) {
+			let keyVal = champion.rune_stats[key];
 			if (keyVal != 0 && key != "tenacity" && key != "as") {
 				champion.stats[key] += keyVal;
 			}
 		}
 		// multipliers come from conditioning rune post 12 minutes
-		let armorMultiplier = totalStatsFromRunes["arm_mult"];
-		if ("arm_mult" in totalStatsFromRunes && armorMultiplier) {
+		let armorMultiplier = champion.rune_stats["arm_mult"];
+		if ("arm_mult" in champion.rune_stats && armorMultiplier) {
 			champion.stats["arm"] += champion.stats["arm"] * (armorMultiplier / 100);
 		}
-		let mrMultiplier = totalStatsFromRunes["mr_mult"];
-		if ("mr_mult" in totalStatsFromRunes && mrMultiplier) {
+		let mrMultiplier = champion.rune_stats["mr_mult"];
+		if ("mr_mult" in champion.rune_stats && mrMultiplier) {
 			champion.stats["mr"] += champion.stats["mr"] * (mrMultiplier / 100);
 		}
-		let hpMultiplier = totalStatsFromRunes["hp_mult"];
-		if ("hp_mult" in totalStatsFromRunes && hpMultiplier) {
+		let hpMultiplier = champion.rune_stats["hp_mult"];
+		if ("hp_mult" in champion.rune_stats && hpMultiplier) {
 			champion.stats["hp"] += champion.stats["hp"] * (hpMultiplier / 100);
 		}
 		return;

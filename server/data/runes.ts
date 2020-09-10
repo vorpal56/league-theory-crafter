@@ -107,7 +107,10 @@ export const RUNES = [{
 			'name': 'Press the Attack',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '31.765+8.235*currentLevel',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -117,7 +120,9 @@ export const RUNES = [{
 			'name': 'Lethal Tempo',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '0.35882+0.04118*currentLevel',
+			'affects_stat': 'as',
 		},
 		{
 			'active': false,
@@ -127,7 +132,9 @@ export const RUNES = [{
 			'name': 'Fleet Footwork',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -137,7 +144,10 @@ export const RUNES = [{
 			'name': 'Conqueror',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '1.5529411764706+0.14705882352941*currentLevel',
+			'affects_stat': '',
+			'type': 'adaptive'
 		}],
 		'slot1': [{
 			'active': false,
@@ -148,7 +158,9 @@ export const RUNES = [{
 			'name': 'Overheal',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -159,7 +171,9 @@ export const RUNES = [{
 			'name': 'Triumph',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -214,7 +228,9 @@ export const RUNES = [{
 			'name': 'Coup de Grace',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '0.08',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -225,7 +241,9 @@ export const RUNES = [{
 			'name': 'Cut Down',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '(x-0.1)*1/9+0.05',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -236,7 +254,9 @@ export const RUNES = [{
 			'name': 'Last Stand',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}]
 	}]
 },
@@ -254,7 +274,10 @@ export const RUNES = [{
 			'name': 'Electrocute',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '21.176+8.824*currentLevel+0.4*bonusAD+0.25*AP',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -264,7 +287,10 @@ export const RUNES = [{
 			'name': 'Predator',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '35.294+4.706*currentLevel+0.2*bonusAD+0.1*AP',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -274,7 +300,10 @@ export const RUNES = [{
 			'name': 'Dark Harvest',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '17.647+2.353*currentLevel+5*soulCount+0.25*bonusAD+0.15*AP',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -284,7 +313,9 @@ export const RUNES = [{
 			'name': 'Hail of Blades',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '1.1',
+			'affects_stat': 'as',
 		}],
 		'slot1': [{
 			'active': false,
@@ -295,7 +326,9 @@ export const RUNES = [{
 			'name': 'Cheap Shot',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '7.941+2.059*currentLevel',
+			'affects_stat': 'trueDamage',
 		},
 		{
 			'active': false,
@@ -306,7 +339,9 @@ export const RUNES = [{
 			'name': 'Taste of Blood',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -317,7 +352,9 @@ export const RUNES = [{
 			'name': 'Sudden Impact',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot2': [{
 			'active': false,
@@ -329,6 +366,8 @@ export const RUNES = [{
 			'stackable': { 'ad': 18, 'ap': 30 },
 			'stacked': false,
 			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 			'type': 'adaptive'
 		},
 		{
@@ -341,6 +380,8 @@ export const RUNES = [{
 			'stackable': { 'ad': 18, 'ap': 30 },
 			'stacked': false,
 			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 			'type': 'adaptive'
 		},
 		{
@@ -353,6 +394,8 @@ export const RUNES = [{
 			'stackable': { 'ad': 18, 'ap': 30 },
 			'stacked': false,
 			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 			'type': 'adaptive'
 		}],
 		'slot3': [{
@@ -375,7 +418,9 @@ export const RUNES = [{
 			'name': 'Ingenious Hunter',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -386,7 +431,9 @@ export const RUNES = [{
 			'name': 'Relentless Hunter',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -397,7 +444,9 @@ export const RUNES = [{
 			'name': 'Ultimate Hunter',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}]
 	}]
 },
@@ -415,7 +464,10 @@ export const RUNES = [{
 			'name': 'Summon Aery',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '8.235+1.765*currentLevel+0.15*bonusAD+0.1*AP',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -425,7 +477,10 @@ export const RUNES = [{
 			'name': 'Arcane Comet',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '25.882+4.118*currentLevel+0.35*bonusAD+0.2*AP',
+			'affects_stat': '',
+			'type': 'adaptive'
 		},
 		{
 			'active': false,
@@ -435,7 +490,10 @@ export const RUNES = [{
 			'name': 'Phase Rush',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '0.38824+0.01176*currentLevel',
+			'ranged_expression': '0.24118+0.00882*currentLevel',
+			'affects_stat': 'ms',
 		}],
 		'slot1': [{
 			'active': false,
@@ -446,7 +504,9 @@ export const RUNES = [{
 			'name': 'Nullifying Orb',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -457,7 +517,9 @@ export const RUNES = [{
 			'name': 'Manaflow Band',
 			'stackable': { 'mp': 250 },
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -468,7 +530,9 @@ export const RUNES = [{
 			'name': 'Nimbus Cloak',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot2': [{
 			'active': false,
@@ -479,7 +543,9 @@ export const RUNES = [{
 			'name': 'Transcendence',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -513,7 +579,9 @@ export const RUNES = [{
 			'name': 'Scorch',
 			'stackable': { "spell_m_proc": 15, "spell_m_proc_lvl": 1.17647 },
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -524,7 +592,9 @@ export const RUNES = [{
 			'name': 'Waterwalking',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -536,6 +606,8 @@ export const RUNES = [{
 			'stackable': {},
 			'stacked': false,
 			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 			'type': 'adaptive'
 		}]
 	}]
@@ -554,7 +626,9 @@ export const RUNES = [{
 			'name': 'Grasp of the Undying',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '0.04*maximumHealth',
+			'affects_stat': 'magicDamage',
 		},
 		{
 			'active': false,
@@ -564,7 +638,9 @@ export const RUNES = [{
 			'name': 'Aftershock',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '19.412+5.588*currentLevel+0.08*bonusHealth',
+			'affects_stat': 'magicDamage',
 		},
 		{
 			'active': false,
@@ -574,7 +650,9 @@ export const RUNES = [{
 			'name': 'Guardian',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot1': [{
 			'active': false,
@@ -585,7 +663,9 @@ export const RUNES = [{
 			'name': 'Demolish',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -596,7 +676,9 @@ export const RUNES = [{
 			'name': 'Font of Life',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -607,7 +689,9 @@ export const RUNES = [{
 			'name': 'Shield Bash',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot2': [{
 			'active': false,
@@ -629,7 +713,9 @@ export const RUNES = [{
 			'name': 'Second Wind',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -640,7 +726,9 @@ export const RUNES = [{
 			'name': 'Bone Plating',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot3': [{
 			'active': false,
@@ -651,7 +739,9 @@ export const RUNES = [{
 			'name': 'Overgrowth',
 			'stackable': { "hp": 45, "hp_mult": 3.5 },
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -691,7 +781,9 @@ export const RUNES = [{
 			'name': 'Glacial Augment',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -701,7 +793,9 @@ export const RUNES = [{
 			'name': 'Unsealed Spellbook',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -711,7 +805,9 @@ export const RUNES = [{
 			'name': 'Prototype: Omnistone',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot1': [{
 			'active': false,
@@ -722,7 +818,9 @@ export const RUNES = [{
 			'name': 'Hextech Flashtraption',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -744,7 +842,9 @@ export const RUNES = [{
 			'name': 'Perfect Timing',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot2': [{
 			'active': false,
@@ -755,7 +855,9 @@ export const RUNES = [{
 			'name': "Future's Market",
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -766,7 +868,9 @@ export const RUNES = [{
 			'name': 'Minion Dematerializer',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -777,7 +881,9 @@ export const RUNES = [{
 			'name': 'Biscuit Delivery',
 			'stackable': { "mp": 150 },
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}],
 		'slot3': [{
 			'active': false,
@@ -799,7 +905,9 @@ export const RUNES = [{
 			'name': 'Approach Velocity',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		},
 		{
 			'active': false,
@@ -810,7 +918,9 @@ export const RUNES = [{
 			'name': 'Time Warp Tonic',
 			'stackable': {},
 			'stacked': false,
-			'stats': {}
+			'stats': {},
+			'string_expression': '',
+			'affects_stat': '',
 		}]
 	}]
 }];

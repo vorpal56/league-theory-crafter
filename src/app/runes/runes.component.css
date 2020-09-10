@@ -58,6 +58,7 @@ img.rune-shard {
 	/* transition: ease 0.3s; */
 	border:1px solid rgba(255, 255, 255, 0.2);
 }
-.stack-runes {
+.stack-selectors {
 	height:100%;
+	flex-direction: column;
 }

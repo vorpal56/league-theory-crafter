@@ -24,19 +24,19 @@ export class ChampionService {
 	 * @param  {any} selectedRunes the selected runes to calculate stats
 	 * @param  {boolean} stackAllRunes boolean to stack all the rune choices or not (eg. legend runes)
 	 */
-	applyAllComponentChanges(selectedChampion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, stackAllRunes: boolean) {
-		this.statsService.adjustBaseStats(selectedChampion, currentLevel);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(selectedChampion, selectedItems, selectedElixir);
-		this.itemsService.addItemStats(selectedChampion, totalStatsFromItems, multKeyValues);
+	applyAllComponentChanges(champion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, stackAllRunes: boolean) {
+		this.statsService.adjustBaseStats(champion, currentLevel);
+		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
-		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(selectedRunes, selectedChampion, currentLevel, totalStatsFromItems, adaptiveType, selectedElixir, stackAllRunes, currentTime);
-		this.runesService.addRuneStats(selectedChampion, totalStatsFromRunes);
+		champion.item_stats = totalStatsFromItems;
+		this.itemsService.addItemStats(champion, multKeyValues);
+		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(selectedRunes, champion, currentLevel, adaptiveType, selectedElixir, stackAllRunes, currentTime);
+		champion.rune_stats = totalStatsFromRunes;
 
-		this.statsService.adjustAttackSpeed(selectedChampion, currentLevel, totalStatsFromItems, totalStatsFromRunes);
-		this.postCalculations(selectedChampion, currentLevel, itemAdditions, cdrCap);
+		this.runesService.addRuneStats(champion);
+		this.statsService.adjustAttackSpeed(champion, currentLevel);
+		this.postCalculations(champion, currentLevel, itemAdditions, cdrCap);
 
-		selectedChampion.item_stats = totalStatsFromItems;
-		selectedChampion.rune_stats = totalStatsFromRunes;
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
 	}

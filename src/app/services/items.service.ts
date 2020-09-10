@@ -200,7 +200,7 @@ export class ItemsService {
 		}
 		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
 	}
-	addItemStats(champion: Champion, totalStatsFromItems: any, multKeyValues: any) {
+	addItemStats(champion: Champion, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;
 		for (let key in multKeyValues) {
 			let additionalMultipliers = multKeyValues[key];
@@ -211,7 +211,7 @@ export class ItemsService {
 				let statKey = key.replace("_mult", "");
 				// some of the multipliers (as the name suggests are multiplicative) are dependant on total stats, some are dependant on bonus stats -> comeback to this
 				if (additionalMultiplierType == "bonus" && additionalMultiplierVal != 0) {
-					totalStatsFromItems[statKey] *= (1 + additionalMultiplier["value"]);
+					champion.item_stats[statKey] *= (1 + additionalMultiplier["value"]);
 				}
 				if (additionalMultiplierType == "total") {
 					hasTotalMultiplier = true;
@@ -222,8 +222,8 @@ export class ItemsService {
 
 		let flatMoveSpeedBonuses = 0;
 		let baseBonuses = {};
-		for (let key in totalStatsFromItems) {
-			let statVal = totalStatsFromItems[key];
+		for (let key in champion.item_stats) {
+			let statVal = champion.item_stats[key];
 			if (key == "boots_ms" || key == "flat_ms") {
 				flatMoveSpeedBonuses += statVal;
 				champion.stats.ms += statVal;

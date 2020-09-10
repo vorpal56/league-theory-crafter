@@ -53,7 +53,7 @@ export class StatsService {
 		return;
 	}
 
-	adjustAttackSpeed(champion: Champion, currentLevel: number, totalStatsFromItems: any, totalStatsFromRunes: any) {
+	adjustAttackSpeed(champion: Champion, currentLevel: number) {
 		// we can go backwards in the formula to add any additional attackspeed gained from items and runes
 		// the calulation is dependant on the stats growth formula which is calculated on adjustBaseStats function
 		// but does not include item or rune bonuses
@@ -62,8 +62,8 @@ export class StatsService {
 		// 100 * (AS/AS_BASE - 1 - SGF/100) = items + runes
 		let statsGrowthIncrease = this.statsGrowthFormula(champion.stats.as_lvl, currentLevel) / 100;
 		let totalAttackSpeed = 0;
-		totalAttackSpeed += totalStatsFromItems["as"] ? totalStatsFromItems["as"] : 0;
-		totalAttackSpeed += totalStatsFromRunes["as"] ? totalStatsFromRunes["as"] : 0;
+		totalAttackSpeed += champion.item_stats["as"] ? champion.item_stats["as"] : 0;
+		totalAttackSpeed += champion.rune_stats["as"] ? champion.rune_stats["as"] : 0;
 		totalAttackSpeed *= 0.01; // divide by 100 on right side
 		totalAttackSpeed += (statsGrowthIncrease + 1); // add 1 and SGF/100
 		totalAttackSpeed *= champion.stats.as_base; // multiply by AS_BASE

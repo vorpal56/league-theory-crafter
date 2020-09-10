@@ -44,6 +44,12 @@ img {
 	-ms-user-select: none;
 	/* user-drag: none;  */
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 /* --------------------------End Body changes-------------------------- */
 /* --------------------------Material Changes-------------------------- */
 mat-label, input, .mat-checkbox-label {
@@ -119,11 +125,11 @@ div.item-block:hover {
 	justify-content: center;
 	align-items: center;
 }
-.pad-around {
-	padding: 5px 5px 0px 5px
-}
 .selector-container {
 	padding:0px 5px
+}
+.pad-around {
+	padding: 5px 5px 0px 5px
 }
 .champion-portrait {
 	width:108px;

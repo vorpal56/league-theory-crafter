@@ -36,6 +36,7 @@ export class RunesComponent implements OnInit {
 	@Output("stackAllRunes") stackAllRunesEmitter = new EventEmitter<boolean>();
 
 	stackAllRunes: boolean = false;
+	soulCount: number = 0;
 
 	constructor(private championService: ChampionService) { }
 
@@ -196,5 +197,12 @@ export class RunesComponent implements OnInit {
 		this.stackAllRunes = stackAllRunes;
 		this.stackAllRunesEmitter.emit(this.stackAllRunes);
 		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.stackAllRunes);
+	}
+	hasDarkHarvest(): boolean {
+		let selectedKeystone: Rune = this.selectedRunes["primaryTree"]["runes"][0];
+		if (selectedKeystone == null) {
+			return false;
+		}
+		return selectedKeystone.apiname == "darkharvest";
 	}
 }
