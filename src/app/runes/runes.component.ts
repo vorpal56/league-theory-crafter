@@ -1,8 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { RUNES, RUNE_SHARDS } from '../../../server/data/runes';
-import { RuneShard, Rune, RuneModifiers } from '../models/rune';
+
 import { Champion } from '../models/champion';
 import { Item } from '../models/item';
+import { RuneShard, Rune, RuneModifiers } from '../models/rune';
+import { TargetDetails } from '../models/target';
+
+import { RUNES, RUNE_SHARDS } from '../../../server/data/runes';
 import { ChampionService } from '../services/champion.service';
 
 @Component({
@@ -30,6 +33,7 @@ export class RunesComponent implements OnInit {
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
+	@Input("targetDetails") targetDetails: TargetDetails;
 
 	@Output("selectedPage") selectedPageEmitter = new EventEmitter<string>();
 	@Output("selectedRunes") selectedRunesEmitter = new EventEmitter<any>();
@@ -44,7 +48,6 @@ export class RunesComponent implements OnInit {
 	ngOnInit(): void {
 		this.selectedRunes.primaryTree.path = this.runes[0].path_name;
 		this.runes[0].active_primary = true;
-		this.runeModifiers = { "stackAllRunes": this.stackAllRunes, "soulCount": this.soulCount };
 		// you can set the secondary path here oninit
 		// this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
 		// this.runes[1].active_secondary = true;
@@ -52,6 +55,7 @@ export class RunesComponent implements OnInit {
 
 	emitSelectedRunes() {
 		this.selectedRunesEmitter.emit(this.selectedRunes);
+		this.runeModifiersEmitter.emit(this.runeModifiers);
 	}
 	switchToItemSelectorPage() {
 		this.selectedPageEmitter.emit("item-selector");
@@ -65,15 +69,22 @@ export class RunesComponent implements OnInit {
 		});
 		this.selectedRunes.primaryTree.runes[0] = rune;
 		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	setPrimarySlots(rune: Rune, runeSlotSection: any, index: number) {
+		for (let selectedRuneIndex in this.selectedRunes.primaryTree.runes) {
+			let selectedRune = this.selectedRunes.primaryTree.runes[selectedRuneIndex];
+			// if the rune selected is the same as the rune chosen do nothing
+			if (selectedRune == rune) {
+				return;
+			}
+		}
 		runeSlotSection.forEach((runeSlot: Rune) => {
 			runeSlot.active = runeSlot == rune;
 		});
 		this.selectedRunes.primaryTree.runes[index] = rune;
 		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	setSecondarySlots(rune: Rune, pathName: string) {
 		// only make the rune active if it's valid
@@ -81,6 +92,8 @@ export class RunesComponent implements OnInit {
 		if (this.selectedRunes.secondaryTree.runes[0] == null) {
 			rune.active = true;
 			this.selectedRunes.secondaryTree.runes[0] = rune;
+			this.emitSelectedRunes();
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		} else {
 			for (let selectedRuneIndex in this.selectedRunes.secondaryTree.runes) {
 				let selectedRune = this.selectedRunes.secondaryTree.runes[selectedRuneIndex];
@@ -94,7 +107,7 @@ export class RunesComponent implements OnInit {
 					this.runes[this.pathIndices[pathName]].runes[0][selectedRune.keyslot][selectedRune.index].active = false;
 					this.selectedRunes.secondaryTree.runes[selectedRuneIndex] = rune;
 					this.emitSelectedRunes();
-					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 					return;
 				}
 				// check if the slot is empty otherwise it's occupied
@@ -102,7 +115,7 @@ export class RunesComponent implements OnInit {
 					rune.active = true;
 					this.selectedRunes.secondaryTree.runes[selectedRuneIndex] = rune;
 					this.emitSelectedRunes();
-					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+					this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 					return;
 				}
 			}
@@ -114,9 +127,9 @@ export class RunesComponent implements OnInit {
 			rune.active = true;
 			this.selectedRunes.secondaryTree.runes[0] = { ...this.selectedRunes.secondaryTree.runes[1] };
 			this.selectedRunes.secondaryTree.runes[1] = rune;
+			this.emitSelectedRunes();
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		}
-		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 	}
 	setRuneShards(runeShard: RuneShard, slotIndex: number) {
 		if (this.selectedRunes.runeShards[slotIndex] != runeShard) {
@@ -126,10 +139,8 @@ export class RunesComponent implements OnInit {
 			runeShard.active = true;
 			this.selectedRunes.runeShards[slotIndex] = runeShard;
 		}
-		// this.championService.adjustBaseStats(this.champion, this.currentLevel)
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		return;
 	}
 	activeClass(rune: Rune, def?: string) {
@@ -158,7 +169,6 @@ export class RunesComponent implements OnInit {
 			});
 		}
 		this.emitSelectedRunes();
-		// this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 	}
 	chooseSecondaryPath(runePath: any) {
 		// only allow selected a different secondary path
@@ -172,7 +182,6 @@ export class RunesComponent implements OnInit {
 			});
 		}
 		this.emitSelectedRunes();
-		// this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
 	}
 	resetTree(keyname: string) {
 		// set the content of the runes and path as empty
@@ -193,17 +202,17 @@ export class RunesComponent implements OnInit {
 		}
 		this.selectedRunes[keyname + "Tree"].path = null;
 		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	setStackAllRunes(stackAllRunes: boolean) {
 		this.runeModifiers.stackAllRunes = stackAllRunes;
 		this.runeModifiersEmitter.emit(this.runeModifiers);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	setSoulCount() {
 		this.runeModifiers.soulCount = this.soulCount;
 		this.runeModifiersEmitter.emit(this.runeModifiers);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	hasDarkHarvest(): boolean {
 		let selectedKeystone: Rune = this.selectedRunes["primaryTree"]["runes"][0];

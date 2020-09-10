@@ -242,7 +242,7 @@ export const RUNES = [{
 			'stackable': {},
 			'stacked': false,
 			'stats': {},
-			'string_expression': '(x-0.1)*1/9+0.05',
+			'string_expression': '(targetAdditionalMaxHealthPercent-0.1)*1/9+0.05',
 			'affects_stat': '',
 		},
 		{
@@ -352,7 +352,7 @@ export const RUNES = [{
 			'name': 'Sudden Impact',
 			'stackable': {},
 			'stacked': false,
-			'stats': {},
+			'stats': { 'leth': 7, 'mpen': 6 },
 			'string_expression': '',
 			'affects_stat': '',
 		}],

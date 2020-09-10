@@ -1,13 +1,15 @@
 import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from "@angular/core";
-import { Champion, BasicChampion } from "../models/champion";
-import { RuneModifiers } from "../models/rune";
-import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from '../../../server/data/data';
-import { ChampionService } from "../services/champion.service";
-import { Item } from "../models/item";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { toArray, take, shareReplay, share } from 'rxjs/operators';
-import { DamageCalculationsService } from '../services/damage-calculations.service';
+
+import { Champion, BasicChampion } from "../models/champion";
+import { Item } from "../models/item";
+import { RuneModifiers } from "../models/rune";
+import { TargetDetails } from "../models/target";
+
+import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from '../../../server/data/data';
+import { ChampionService } from "../services/champion.service";
 
 @Component({
 	selector: "champion",
@@ -21,7 +23,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
 	@Input("runeModifiers") runeModifiers: RuneModifiers;
-	@Input("dmgCalcModifiers") dmgCalcModifiers: any;
+	@Input("targetDetails") targetDetails: TargetDetails;
 
 	@Output("selectedChampion") selectedChampionEventEmitter = new EventEmitter<Champion>();
 	@Output("selectedLevel") currentLevelEventEmitter = new EventEmitter<number>();
@@ -44,7 +46,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 	champions: Champion[] = [];
 	champion: Champion;
 
-	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService, private http: HttpClient) { }
+	constructor(private championService: ChampionService, private http: HttpClient) { }
 
 	ngOnInit(): void {
 
@@ -60,7 +62,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 			this.resetAbilities();
 			this.championsIndices[champion.apiname.toLowerCase()] = this.numChampsCalled++;
 			this.champions.push(champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 			this.selectedChampionEventEmitter.emit(this.champion);
 		});
 		this.currentLevelEventEmitter.emit(this.currentLevel);
@@ -73,7 +75,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 			this.champion = this.champions[this.championsIndices[apiname]];
 			this.resetAbilities();
 			this.selectedChampionEventEmitter.emit(this.champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		} else {
 			// set the champion to null for the loading spinner
 			this.champion = null;
@@ -82,7 +84,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 				this.resetAbilities();
 				this.championsIndices[apiname] = this.numChampsCalled++;
 				this.champions.push(champion);
-				this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+				this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 				this.selectedChampionEventEmitter.emit(this.champion);
 			});
 		}
@@ -91,7 +93,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 	updateLevel() {
 		this.currentLevelEventEmitter.emit(this.currentLevel);
 		if (this.currentLevel >= 9) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		}
 		// we reset the abilities on change because it's difficult to know where to remove points and where not to remove points.
 		// so when the user changes the champion level, they can readjust the stats
@@ -100,7 +102,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 	}
 	updateCurrentTime() {
 		this.currentTimeEventEmitter.emit(this.currentTime);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		return;
 	}
 	increaseSkillLevel(abilityType: string) {
@@ -117,8 +119,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 			if (this.champion[skillKey]["rank"] == championAbilityMaxRank) { this.champion[skillKey]["canLevelUp"] = false; }
 			if (this.champion[skillKey]["rank"] >= 0) { this.champion[skillKey]["canLevelDown"] = true; }
 		}
-		let damageResults = this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.selectedRunes, null, [1000, 2000], true, true);
-		console.log(damageResults);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		return;
 	}
 	canLevelUp(abilityType: string) {
@@ -150,8 +151,7 @@ export class ChampionComponent implements OnInit, AfterViewInit {
 				if (this.champion[skillKey]["rank"] == 0) { this.champion[skillKey]["canLevelDown"] = false; }
 			}
 		}
-		let damageResults = this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.selectedRunes, null, [1000, 2000], true, true);
-		console.log(damageResults);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		return;
 	}
 	canLevelDown(abilityType: string) {

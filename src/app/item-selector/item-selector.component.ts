@@ -1,13 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
+
 import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
 import { RuneModifiers } from '../models/rune';
+import { TargetDetails } from '../models/target';
+
 import { GAMEMODES, ORDERBY, ORDERMODES } from "../../../server/data/data";
 import { EMPTY_ITEM } from "../../../server/data/items";
 import { ChampionService } from '../services/champion.service';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { shareReplay } from 'rxjs/operators';
 
 @Component({
 	selector: 'item-selector',
@@ -32,6 +35,7 @@ export class ItemSelectorComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
 	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("targetDetails") targetDetails: TargetDetails;
 	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 	@Input("selectedPage") selectedPage: string;
@@ -95,7 +99,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.currentLevel >= 9) {
 			this.selectedElixir = selectedElixir;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		} else {
 			alert("need to be lvl 9 or more");
 		}
@@ -142,7 +146,7 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			this.numberOfEquippedItems += 1;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 			// this.statsService.postCalculations(this.champion, this.currentLevel, itemAdditions);
 		}
 		return;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Champion } from '../models/champion';
 import { Rune, RuneShard, RuneModifiers } from '../models/rune';
+import { TargetDetails } from '../models/target';
 import { SKILL_KEYS } from '../../../server/data/data';
-import { ChampionService } from './champion.service';
 @Injectable({
 	providedIn: 'root'
 })
@@ -44,35 +44,36 @@ export class DamageCalculationsService {
 	/**
 	 * Simple champions are champions that have simple calculations, pretty straight forward in the damage calculation and does not have forms
 	 * @param  {Champion} champion
-	 * @param  {any} runes
-	 * @param  {any[]} targetResistances
-	 * @param  {any[]} targetHPs
-	 * @param  {boolean} useSteroids
+	 * @param  {TargetDetails} targetDetails
 	 * @returns any
 	 */
-	totalChampionDamageCalculation(champion: Champion, runes: any, targetResistances: any[], targetHPs: number[], useSteroids: boolean, useForm: boolean): any {
-		let bonusAD = champion.item_stats["ad"] ? champion.item_stats["ad"] : 0 + champion.rune_stats["ad"] ? champion.rune_stats["ad"] : 0;
-		let bonusAP = champion.item_stats["ap"] ? champion.item_stats["ap"] : 0 + champion.rune_stats["ap"] ? champion.rune_stats["ap"] : 0;
-		let bonusHP = champion.item_stats["hp"] ? champion.item_stats["hp"] : 0 + champion.rune_stats["hp"] ? champion.rune_stats["hp"] : 0;
-		let bonusarmor = champion.item_stats["arm"] ? champion.item_stats["arm"] : 0 + champion.rune_stats["arm"] ? champion.rune_stats["arm"] : 0;
-		let bonusmagicresistance = champion.item_stats["mr"] ? champion.item_stats["mr"] : 0 + champion.rune_stats["mr"] ? champion.rune_stats["mr"] : 0;
+	totalChampionDamageCalculation(champion: Champion, targetDetails: TargetDetails): any {
+		let bonusAD: number = champion.item_stats["ad"] ? champion.item_stats["ad"] : 0 + champion.rune_stats["ad"] ? champion.rune_stats["ad"] : 0;
+		let bonusAP: number = champion.item_stats["ap"] ? champion.item_stats["ap"] : 0 + champion.rune_stats["ap"] ? champion.rune_stats["ap"] : 0;
+		let bonusHP: number = champion.item_stats["hp"] ? champion.item_stats["hp"] : 0 + champion.rune_stats["hp"] ? champion.rune_stats["hp"] : 0;
+		let bonusarmor: number = champion.item_stats["arm"] ? champion.item_stats["arm"] : 0 + champion.rune_stats["arm"] ? champion.rune_stats["arm"] : 0;
+		let bonusmagicresistance: number = champion.item_stats["mr"] ? champion.item_stats["mr"] : 0 + champion.rune_stats["mr"] ? champion.rune_stats["mr"] : 0;
 
-		let AD = champion.stats.ad;
-		let AP = champion.stats.ap;
-		let HP = champion.stats.hp;
-		let armor = champion.stats.arm;
-		let magicresistance = champion.stats.mr;
+		let AD: number = champion.stats.ad;
+		let AP: number = champion.stats.ap;
+		let HP: number = champion.stats.hp;
+		let armor: number = champion.stats.arm;
+		let magicresistance: number = champion.stats.mr;
 
-		let currenthealth = targetHPs[0];
-		let maximumhealth = targetHPs[1];
-		let missinghealth = (maximumhealth - currenthealth);
+		let currenthealth: number = targetDetails.targetCurrentHP;
+		let maximumhealth: number = targetDetails.targetMaxHP;
+		let missinghealth: number = (maximumhealth - currenthealth);
 		let targetPercentMissingHealth = missinghealth / maximumhealth;
 
-		let phyiscalKey = "physicalDamage"; // split damage into physical, magical, and true to determine how to apply resistance stats
-		let magicalKey = "magicDamage";
-		let trueKey = "trueDamage";
+		let phyiscalKey: string = "physicalDamage"; // split damage into physical, magical, and true to determine how to apply resistance stats
+		let magicalKey: string = "magicDamage";
+		let trueKey: string = "trueDamage";
 
-		// let damageKeys = [phyiscalKey, magicalKey, trueKey];
+		// let damageKeys : string[] = [phyiscalKey, magicalKey, trueKey];
+
+		let itemSteroids: boolean = targetDetails.itemSteroids;
+		let abilitySteroids: boolean = targetDetails.abilitySteroids;
+		let useForm: boolean = targetDetails.useForm;
 
 		let damageResults = {
 			"skill_i": { "physicalDamage": "", "magicDamage": "", "trueDamage": "" },
@@ -88,31 +89,31 @@ export class DamageCalculationsService {
 			"skill_e": { "physicalDamage": "", "magicDamage": "", "trueDamage": "" },
 			"skill_r": { "physicalDamage": "", "magicDamage": "", "trueDamage": "" },
 		};
-		let rotationDuration = 3; // the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
+		let rotationDuration: number = 3; // the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
 		// example is alistar E, trample, it ticks 1 time each 0.5s for 5s
 
-		let totalAdditionalAD = 0; // bonuses that apply on additional stats from items, runes, and epic monster enhancements
-		let totalAdditionalAP = 0;
-		let totalAdditionalHP = 0;
-		let bonusPercentAbilityDamage = 0;
+		let totalAdditionalAD: number = 0; // bonuses that apply on additional stats from items, runes, and epic monster enhancements
+		let totalAdditionalAP: number = 0;
+		let totalAdditionalHP: number = 0;
+		let bonusPercentAbilityDamage: number = 0;
 
-		let apiname = champion.apiname.toLowerCase();
+		let apiname: string = champion.apiname.toLowerCase();
 
 		SKILL_KEYS.forEach((skillKey: string, i: number) => {
-			let abilityType = skillKey.replace("skill_", "");
-			let abilityRank = champion[skillKey]["rank"];
-			let expressionIndex = Number(abilityRank) - 1;
+			let abilityType: string = skillKey.replace("skill_", "");
+			let abilityRank: number = champion[skillKey]["rank"];
+			let expressionIndex: number = Number(abilityRank) - 1;
 			if (expressionIndex >= 0) {
-				let abilityBreakdown = champion[skillKey]["ability_breakdown"][0]["main"];
+				let abilityBreakdown: object[] = champion[skillKey]["ability_breakdown"][0]["main"];
 				abilityBreakdown.forEach((attributeObj: object, k: number) => {
-					let loweredAttribute = attributeObj["attribute"].toLowerCase();
-					let expressionString = attributeObj["string_expression"][expressionIndex];
+					let loweredAttribute: string = attributeObj["attribute"].toLowerCase();
+					let expressionString: string = attributeObj["string_expression"][expressionIndex];
 					// can we work with abilities that appear multiple times? for example physical damage and magic damage appear many times?
 					// the following keys appear the most times as of patch 10.16
 					if (apiname == "aatrox") {
-						if (useSteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
+						if (abilitySteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
 							damageResults[skillKey][phyiscalKey] ? damageResults[skillKey][phyiscalKey] += "+" + expressionString : damageResults[skillKey][phyiscalKey] = expressionString;
-						} else if (!useSteroids && abilityType == "q" && !loweredAttribute.includes("sweetspot")) {
+						} else if (!abilitySteroids && abilityType == "q" && !loweredAttribute.includes("sweetspot")) {
 							damageResults[skillKey][phyiscalKey] ? damageResults[skillKey][phyiscalKey] += "+" + expressionString : damageResults[skillKey][phyiscalKey] = expressionString;
 						}
 						if (abilityType == "w" && loweredAttribute.includes("total")) {
@@ -126,7 +127,7 @@ export class DamageCalculationsService {
 							(abilityType == "r" && loweredAttribute == "maximum single target damage")) {
 							damageResults[skillKey][magicalKey] ? damageResults[skillKey][magicalKey] += "+" + expressionString : damageResults[skillKey][magicalKey] = expressionString;
 						} else if (abilityType == "e" && loweredAttribute == "magic damage") {
-							if (useSteroids) {
+							if (abilitySteroids) {
 								bonusPercentAbilityDamage += 0.2;
 							}
 							damageResults[skillKey][magicalKey] += "+" + expressionString;
@@ -165,12 +166,12 @@ export class DamageCalculationsService {
 						}
 					} else if (apiname == "anivia") {
 						if ((abilityType == "q" && loweredAttribute == "total damage") ||
-							(useSteroids && abilityType == "e" && loweredAttribute.includes("enhanced")) ||
-							(!useSteroids && abilityType == "e" && !loweredAttribute.includes("enhanced"))) {
+							(abilitySteroids && abilityType == "e" && loweredAttribute.includes("enhanced")) ||
+							(!abilitySteroids && abilityType == "e" && !loweredAttribute.includes("enhanced"))) {
 							damageResults[skillKey][magicalKey] ? damageResults[skillKey][magicalKey] += "+" + expressionString : damageResults[skillKey][magicalKey] = expressionString;
 						} else if (abilityType == "r") {
-							let maxSizeSeconds = 1.5; // the time it takes to grow to max size which will then do empowered damage
-							let expressionValue = eval(expressionString);
+							let maxSizeSeconds: number = 1.5; // the time it takes to grow to max size which will then do empowered damage
+							let expressionValue: number = eval(expressionString);
 							if (!loweredAttribute.includes("empowered")) {
 								expressionValue *= maxSizeSeconds;
 							} else {
@@ -182,7 +183,7 @@ export class DamageCalculationsService {
 						if (loweredAttribute.includes("magic damage")) {
 							damageResults[skillKey][magicalKey] ? damageResults[skillKey][magicalKey] += "+" + expressionString : damageResults[skillKey][magicalKey] = expressionString;
 						} else if (loweredAttribute == "damage reduction") {
-							let expressionValue = eval(expressionString.replace("%", "")) / 100;
+							let expressionValue: number = eval(expressionString.replace("%", "")) / 100;
 							damageReductionResults[skillKey][phyiscalKey] ? damageReductionResults[skillKey][phyiscalKey] += "+" + expressionValue : damageReductionResults[skillKey][phyiscalKey] = expressionValue;
 							damageReductionResults[skillKey][magicalKey] ? damageReductionResults[skillKey][magicalKey] += "+" + expressionValue : damageReductionResults[skillKey][magicalKey] = expressionValue;
 						}
@@ -216,6 +217,8 @@ export class DamageCalculationsService {
 				}
 			}
 		}
+		// console.log(targetDetails);
+		// console.log(damageResults);
 		return damageResults;
 	}
 	abilityInference(champion: Champion, useForm: boolean) {

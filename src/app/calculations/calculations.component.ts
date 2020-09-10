@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ChampionService } from '../services/champion.service';
-import { Champion } from '../models/champion';
 import { Options, LabelType, TranslateFunction } from 'ng5-slider';
+
+import { Champion } from '../models/champion';
+import { TargetDetails } from '../models/target';
+
+import { ChampionService } from '../services/champion.service';
 
 @Component({
 	selector: 'calculations',
@@ -12,11 +15,19 @@ export class CalculationsComponent implements OnInit {
 
 	@Input('champion') champion: Champion;
 	@Output('manualRefresh') manualRefresh = new EventEmitter<void>();
+	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
 
 	targetMin: number = 0;
 	targetCurrentHP: number = 300;
 	minTargetMaxHP: number = 400;
 	targetMaxHP: number = this.minTargetMaxHP;
+	targetMR: number = 30;
+	targetArmor: number = 10;
+
+	itemSteroids: boolean = false;
+	abilitySteroids: boolean = false;
+	useForm: boolean = false;
+
 	targetHPTranslate: TranslateFunction = (value: number, label: LabelType): string => {
 		switch (label) {
 			case LabelType.Floor: return 'Min HP: ' + value;
@@ -31,12 +42,19 @@ export class CalculationsComponent implements OnInit {
 		translate: this.targetHPTranslate
 	};
 
-	targetMR: number = 30;
-	targetArmor: number = 10;
+	targetDetails: TargetDetails = {
+		"targetMaxHP": this.targetMaxHP,
+		"targetCurrentHP": this.targetCurrentHP,
+		"targetArmor": this.targetArmor,
+		"targetMR": this.targetMR,
+		"itemSteroids": this.itemSteroids,
+		"abilitySteroids": this.abilitySteroids,
+		"useForm": this.useForm,
+	};
 
 	constructor(private championService: ChampionService) { }
 
-	ngOnInit(): void { }
+	ngOnInit(): void { this.emitTargetDetails(); }
 
 	setTargetMaxHP(): void {
 		if (this.targetMaxHP >= this.minTargetMaxHP) {
@@ -47,17 +65,25 @@ export class CalculationsComponent implements OnInit {
 			};
 			this.targetHPOptions = targetHPOptions;
 			this.manualRefresh.emit();
+			this.targetDetails.targetMaxHP = this.targetMaxHP;
+			this.emitTargetDetails();
 		}
 		return;
 	}
-	applyItemSteroids(useSteroids: boolean) {
-		console.log(useSteroids);
+	applyItemSteroids(itemSteroids: boolean) {
+		this.targetDetails.itemSteroids = itemSteroids;
+		this.emitTargetDetails();
 	}
-	applyAbilitySteroids(useSteroids: boolean) {
-		console.log(useSteroids);
+	applyAbilitySteroids(abilitySteroids: boolean) {
+		this.targetDetails.abilitySteroids = abilitySteroids;
+		this.emitTargetDetails();
 	}
 	applyFormBuffs(useForm: boolean) {
-		console.log(useForm);
+		this.targetDetails.useForm = useForm;
+		this.emitTargetDetails();
+	}
+	emitTargetDetails() {
+		this.targetDetailsEventEmitter.emit(this.targetDetails);
 	}
 	calculationTooltip(): string {
 		let calculationHelpString = `Calculation is <b>only an approximation (not exact)</b> of how much damage is dealt. It uses a full rotation in the best order with a duration of 3 seconds. Abilities that do not impact damage are not included. For example minion, monster, or non-champion damage, slows, stat restores, and so on. The calculation is dependant on the following attributes. <br>`;
@@ -73,6 +99,7 @@ export class CalculationsComponent implements OnInit {
 			<li>Muramana</li>
 			<li>Guinsoo's Rageblade</li>
 			<li>Black Cleaver</li>
+			<li>Sheen/Lichbane/Trinity Force</li>
 		</ul>
 		`;
 	}

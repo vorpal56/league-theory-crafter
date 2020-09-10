@@ -9,6 +9,8 @@ import {
 import { Champion } from "./models/champion";
 import { Item, ItemRestrictions } from "./models/item";
 import { RuneModifiers } from "./models/rune";
+import { TargetDetails } from './models/target';
+
 import { InventoryComponent } from "./inventory/inventory.component";
 import { EMPTY_ITEM } from "../../server/data/items";
 
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	currentTime: number;
 	selectedRunes: any;
 	runeModifiers: RuneModifiers;
+	targetDetails: TargetDetails;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -109,6 +112,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	setRuneModifiers(runeModifiers: RuneModifiers) {
 		this.runeModifiers = runeModifiers;
+		return;
+	}
+	setTargetDetails(targetDetails: TargetDetails) {
+		this.targetDetails = targetDetails;
 		return;
 	}
 	setPage(selectedTabName: string) {

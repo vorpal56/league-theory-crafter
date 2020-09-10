@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Champion } from '../models/champion';
 import { Item, ItemRestrictions } from '../models/item';
 import { RuneModifiers } from "../models/rune";
+import { TargetDetails } from '../models/target';
+
 import { EMPTY_ITEM } from '../../../server/data/items';
-import { Champion } from '../models/champion';
 import { ChampionService } from '../services/champion.service';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -22,6 +25,7 @@ export class InventoryComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: any;
 	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("targetDetails") targetDetails: TargetDetails;
 	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 
@@ -58,7 +62,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedElixir = EMPTY_ITEM;
 			this.numberOfEquippedItems = 0;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		}
 		return;
 	}
@@ -101,7 +105,7 @@ export class InventoryComponent implements OnInit {
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
 		if (runService) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		}
 		return;
 	}
@@ -151,7 +155,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedElixir = EMPTY_ITEM;
 			this.selectedElixirEmitter.emit(this.selectedElixir);
 			// this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+			this.championService.applyAllComponentChanges(this.champion, currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 		}
 	}
 	/**
@@ -174,7 +178,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedItems[index].stacked = isStacked;
 		}
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers);
+		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
 	}
 	/**
 	 * Method that emits the selected items

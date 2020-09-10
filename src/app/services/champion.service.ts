@@ -7,6 +7,7 @@ import { Champion } from '../models/champion';
 import { RuneModifiers } from '../models/rune';
 import { EMPTY_ITEM } from '../../../server/data/items';
 import { DamageCalculationsService } from './damage-calculations.service';
+import { TargetDetails } from '../models/target';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,18 +26,19 @@ export class ChampionService {
 	 * @param  {any} selectedRunes the selected runes to calculate stats
 	 * @param  {RuneModifiers} runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
 	 */
-	applyAllComponentChanges(champion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, runeModifiers: RuneModifiers) {
+	applyAllComponentChanges(champion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, runeModifiers: RuneModifiers, targetDetails: TargetDetails) {
 		this.statsService.adjustBaseStats(champion, currentLevel);
 		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
 		champion.item_stats = totalStatsFromItems;
 		this.itemsService.addItemStats(champion, multKeyValues);
-		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(selectedRunes, champion, currentLevel, adaptiveType, selectedElixir, runeModifiers, currentTime);
+		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(champion, selectedRunes, currentLevel, currentTime, adaptiveType, selectedElixir, runeModifiers, targetDetails);
 		champion.rune_stats = totalStatsFromRunes;
 
 		this.runesService.addRuneStats(champion);
 		this.statsService.adjustAttackSpeed(champion, currentLevel);
 		this.postCalculations(champion, currentLevel, itemAdditions, cdrCap);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
