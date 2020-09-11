@@ -35,6 +35,32 @@ stat_keys = {
 	'tenacity': '% Tenacity',
 }
 
+main_meraki_stat_keys = {
+		"abilityPower": "ap",
+		"armor": "arm",
+		"armorPenetration": "apen",
+		"attackDamage": "ad",
+		"attackSpeed": "as",
+		"cooldownReduction": "cdr",
+		"criticalStrikeChance": "crit",
+		"goldPer_10": "gp10",
+		"healAndShieldPower": "heal_shield",
+		"healthRegen": "hp5",
+		"lethality": "leth",
+		"lifesteal": "ls",
+		"magicPenetration": "mpen",
+		"magicResistance": "mr",
+		"mana": "mp",
+		"manaRegen": "mp5",
+		"movespeed": "ms",
+	}
+	stat_val_reps = {
+		"flat": "_base",
+		"percent":"%",
+		"perLevel":"_lvl",
+		# "percentPerLevel":
+	}
+
 def get_item_codes():
 	item_width = 150
 	pp = PrettyPrinter(indent=2, width=item_width)
@@ -69,12 +95,13 @@ def get_item_codes():
 	return
 
 def compile_item_data(using="meraki", use="live"):
+	# I think we need to manually update data for every patch since the way we represent our data is different than the model that we have. not quite sure. with the new preason 2021, we can reflect the data according to the new item model and adjust the code as needed. For the time being, we update the data manually
 	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache")
 	if not os.path.exists(item_cache_path):
 		os.mkdir(item_cache_path)
 
-	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file, \
-		open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
+	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file:
+		# open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
 		items = json.load(file)
 		file.seek(0)
 		for item in items:
@@ -99,8 +126,8 @@ def compile_item_data(using="meraki", use="live"):
 			item["tooltip"] = tooltip
 		file.truncate()
 		json.dump(items, file)
-		pp = PrettyPrinter(indent=2, width=900)
-		ts_file.write("export const ITEMS = " + pp.pformat(items))
+		# pp = PrettyPrinter(indent=2, width=900)
+		# ts_file.write("export const ITEMS = " + pp.pformat(items))
 	return
 
 def fix_punctuation(text):

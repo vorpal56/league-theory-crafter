@@ -353,6 +353,17 @@ def combine_champion_data():
 		file.truncate()
 		json.dump(champions, file)
 
+def clear_basic_champions():
+	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
+		champions = json.load(file)
+		file.seek(0)
+		for champion in champions:
+			for i, skill_key in enumerate(skill_keys):
+				champion.pop(skill_key, None)
+		file.truncate()
+		json.dump(champions, file)
+
 def store_meraki():
 	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	if (not os.path.exists(meraki_champion_cache_path)):
@@ -370,7 +381,7 @@ def store_meraki():
 			json_file.close()
 
 if __name__ == "__main__":
-	# combine_champion_data()
+	# clear_basic_champions()
 	compile_champion_data(using="meraki", use="cache")
 	# champion_name = "Lillia"
 	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
