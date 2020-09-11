@@ -8,6 +8,7 @@ export interface Rune {
 	"stacked": boolean,
 	"index": number,
 	"apiname": string,
+	"tooltip": string,
 }
 
 export interface RuneShard {
