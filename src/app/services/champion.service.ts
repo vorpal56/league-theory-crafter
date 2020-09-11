@@ -27,18 +27,19 @@ export class ChampionService {
 	 * @param  {RuneModifiers} runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
 	 */
 	applyAllComponentChanges(champion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, runeModifiers: RuneModifiers, targetDetails: TargetDetails) {
+
 		this.statsService.adjustBaseStats(champion, currentLevel);
 		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
-		champion.item_stats = totalStatsFromItems;
+		champion.itemStats = totalStatsFromItems;
 		this.itemsService.addItemStats(champion, multKeyValues);
 		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(champion, selectedRunes, currentLevel, currentTime, adaptiveType, selectedElixir, runeModifiers, targetDetails);
-		champion.rune_stats = totalStatsFromRunes;
+		champion.runeStats = totalStatsFromRunes;
 
 		this.runesService.addRuneStats(champion);
 		this.statsService.adjustAttackSpeed(champion, currentLevel);
 		this.postCalculations(champion, currentLevel, itemAdditions, cdrCap);
-		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, currentLevel);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
@@ -83,6 +84,9 @@ export class ChampionService {
 			return true;
 		}
 		return false;
+	}
+	championIsAphelios(champion: Champion): boolean {
+		return champion.apiname.toLowerCase() == "aphelios";
 	}
 	/**
 	 * Method that formats the number to n places

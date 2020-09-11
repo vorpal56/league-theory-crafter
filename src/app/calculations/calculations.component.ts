@@ -5,6 +5,7 @@ import { Champion } from '../models/champion';
 import { TargetDetails } from '../models/target';
 
 import { ChampionService } from '../services/champion.service';
+import { DamageCalculationsService } from '../services/damage-calculations.service';
 
 @Component({
 	selector: 'calculations',
@@ -14,6 +15,7 @@ import { ChampionService } from '../services/champion.service';
 export class CalculationsComponent implements OnInit {
 
 	@Input('champion') champion: Champion;
+	@Input('currentLevel') currentLevel: number;
 	@Output('manualRefresh') manualRefresh = new EventEmitter<void>();
 	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
 
@@ -52,7 +54,7 @@ export class CalculationsComponent implements OnInit {
 		"useForm": this.useForm,
 	};
 
-	constructor(private championService: ChampionService) { }
+	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService) { }
 
 	ngOnInit(): void { this.emitTargetDetails(); }
 
@@ -67,20 +69,24 @@ export class CalculationsComponent implements OnInit {
 			this.manualRefresh.emit();
 			this.targetDetails.targetMaxHP = this.targetMaxHP;
 			this.emitTargetDetails();
+			this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 		}
 		return;
 	}
 	applyItemSteroids(itemSteroids: boolean) {
 		this.targetDetails.itemSteroids = itemSteroids;
 		this.emitTargetDetails();
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
 	applyAbilitySteroids(abilitySteroids: boolean) {
 		this.targetDetails.abilitySteroids = abilitySteroids;
 		this.emitTargetDetails();
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
 	applyFormBuffs(useForm: boolean) {
 		this.targetDetails.useForm = useForm;
 		this.emitTargetDetails();
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
 	emitTargetDetails() {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);

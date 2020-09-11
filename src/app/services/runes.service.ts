@@ -40,8 +40,8 @@ export class RunesService {
 
 			let AP = champion.stats.ap;
 			let maximumHealth = champion.stats.hp;
-			let bonusAD = champion.item_stats["ad"] ? champion.item_stats["ad"] : 0;
-			let bonusHealth = champion.item_stats["hp"] ? champion.item_stats["hp"] : 0;
+			let bonusAD = champion.itemStats["ad"] ? champion.itemStats["ad"] : 0;
+			let bonusHealth = champion.itemStats["hp"] ? champion.itemStats["hp"] : 0;
 
 			for (let runeTree in selectedRunes) {
 				if (runeTree != "runeShards") {
@@ -189,7 +189,7 @@ export class RunesService {
 				}
 			}
 			if (hasTranscendance) {
-				let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, champion.item_stats, cdrCap);
+				let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, champion.itemStats, cdrCap);
 				for (let bonus in transcendenceTotal) {
 					let bonusVal = transcendenceTotal[bonus];
 					totalStats[bonus] ? totalStats[bonus] += bonusVal : totalStats[bonus] = bonusVal;
@@ -237,23 +237,23 @@ export class RunesService {
 		return results;
 	}
 	addRuneStats(champion: Champion) {
-		for (let key in champion.rune_stats) {
-			let keyVal = champion.rune_stats[key];
+		for (let key in champion.runeStats) {
+			let keyVal = champion.runeStats[key];
 			if (keyVal != 0 && key != "tenacity" && key != "as") {
 				champion.stats[key] += keyVal;
 			}
 		}
 		// multipliers come from conditioning rune post 12 minutes
-		let armorMultiplier = champion.rune_stats["arm_mult"];
-		if ("arm_mult" in champion.rune_stats && armorMultiplier) {
+		let armorMultiplier = champion.runeStats["arm_mult"];
+		if ("arm_mult" in champion.runeStats && armorMultiplier) {
 			champion.stats["arm"] += champion.stats["arm"] * (armorMultiplier / 100);
 		}
-		let mrMultiplier = champion.rune_stats["mr_mult"];
-		if ("mr_mult" in champion.rune_stats && mrMultiplier) {
+		let mrMultiplier = champion.runeStats["mr_mult"];
+		if ("mr_mult" in champion.runeStats && mrMultiplier) {
 			champion.stats["mr"] += champion.stats["mr"] * (mrMultiplier / 100);
 		}
-		let hpMultiplier = champion.rune_stats["hp_mult"];
-		if ("hp_mult" in champion.rune_stats && hpMultiplier) {
+		let hpMultiplier = champion.runeStats["hp_mult"];
+		if ("hp_mult" in champion.runeStats && hpMultiplier) {
 			champion.stats["hp"] += champion.stats["hp"] * (hpMultiplier / 100);
 		}
 		return;

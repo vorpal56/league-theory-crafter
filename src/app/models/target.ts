@@ -3,7 +3,7 @@ export interface TargetDetails {
 	"targetCurrentHP": number,
 	"targetArmor": number,
 	"targetMR": number,
-	"itemSteroids": boolean,
+	"itemSteroids": boolean, // part of the calculation component anyways so we'll attach it directly
 	"abilitySteroids": boolean,
 	"useForm": boolean,
 }

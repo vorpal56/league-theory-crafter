@@ -1,83 +1,62 @@
-export interface Champion {
-	apiname: string;
+import { ChampionStats } from './stats';
+
+export class BasicChampion {
+	private _apiname: string;
+	private _id: number;
+	private _index: number;
 	name: string;
-	img?: string;
-	index: number,
-	resource?: string;
-	stats: {
-		hp?: number;
-		hp_base?: number;
-		hp_lvl?: number;
-		hp5?: number;
-		hp5_base?: number;
-		hp5_lvl?: number;
+	constructor(name: string, apiname: string, index: number, id: number) {
+		this.championName = name;
+		this.apiname = apiname;
+		this.index = index;
+		this.id = id;
+	}
 
-		mp?: number;
-		mp_base?: number;
-		mp_lvl?: number;
-		mp5?: number;
-		mp5_base?: number;
-		mp5_lvl?: number;
+	get championName() { return this.name; }
+	set championName(name: string) { this.name = name; }
 
-		ad?: number;
-		ad_base?: number;
-		ad_lvl?: number;
+	get apiname() { return this._apiname; }
+	set apiname(apiname: string) { this._apiname = apiname; }
 
-		ap?: number;
-		ap_base?: number;
+	get id() { return this._id; }
+	set id(id: number) { this._id = id; }
 
-		arm?: number;
-		arm_base?: number;
-		arm_lvl?: number;
-
-		mr?: number;
-		mr_base?: number;
-		mr_lvl?: number;
-
-		as?: number;
-		as_base?: number;
-		as_lvl?: number;
-
-		cdr?: number;
-		cdr_base?: number;
-		cdr_lvl?: number;
-
-		range?: number;
-		range_lvl?: number;
-
-		ms?: number;
-		ms_base?: number;
-		ms_lvl?: number;
-
-		crit?: number;
-		crit_base?: number;
-		crit_lvl?: number;
-		critdmg?: number,
-
-		ls?: number,
-		spell_vamp?: number,
-
-		leth?: number,
-		'apen%'?: number,
-
-		mpen?: number,
-		'mpen%'?: number,
-
-		tenacity?: number,
-		heal_shield?: number;
-
-	};
-	item_stats?: any;
-	rune_stats?: any;
-	skill_i?: any;
-	skill_q?: any;
-	skill_w?: any;
-	skill_e?: any;
-	skill_r?: any;
+	get index() { return this._index; }
+	set index(index: number) { this._index = index; }
 }
-export interface BasicChampion {
-	'apiname': string,
-	'id': number,
-	'index': number,
-	'name': string,
+export class Champion extends BasicChampion {
+	img: string;
+	resource: string;
+	stats: ChampionStats;
+	private _item_stats: object;
+	private _rune_stats: object;
+	private _other_sources_stats: object;
+	skill_i: any;
+	skill_q: any;
+	skill_w: any;
+	skill_e: any;
+	skill_r: any;
+	constructor(championDetails: any) {
+		super(championDetails["name"], championDetails["apiname"], championDetails["index"], championDetails["id"]);
+		for (let attributeName in championDetails) {
+			if (attributeName != "apiname" && attributeName != "id" && attributeName != "index") {
+				this[attributeName] = championDetails[attributeName];
+			}
+		}
+		this.itemStats = {};
+		this.runeStats = {};
+		this.otherSourcesStats = {};
+	}
+
+	get itemStats() { return this._item_stats; }
+	set itemStats(itemStats: object) { this._item_stats = itemStats; }
+
+	get runeStats() { return this._rune_stats; }
+	set runeStats(runeStats: object) { this._rune_stats = runeStats; }
+
+	get otherSourcesStats() { return this._other_sources_stats; }
+	set otherSourcesStats(otherSourcesStats: object) { this._other_sources_stats = otherSourcesStats; }
+
+	getChampionStat(statKey: string) { return this.stats[statKey]; }
+	setChampionStat(statKey: string, statVal: number) { this.stats[statKey] = statVal; }
 }
