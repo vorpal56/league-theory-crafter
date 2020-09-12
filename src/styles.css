@@ -341,7 +341,7 @@ ul.innate-tooltip > li{
 ul.numbered-tooltip >li {
 	list-style-type: decimal;
 }
-.help-icon {
+.info-icon {
 	margin: 3px 0;
 }
 /* --------------------------End Tooltips-------------------------- */

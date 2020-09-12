@@ -1,20 +1,20 @@
 <div class="component-header">
 	<span>Target Info and Calculations</span>
 	<span>
-		<mat-icon [tooltip]="calculationTooltip()" aria-hidden="false" aria-label="How do we calculate damage?" tooltip-class="expanded-tooltips">help</mat-icon>
+		<mat-icon [tooltip]="calculationTooltip()" aria-hidden="false" aria-label="How do we calculate damage?" tooltip-class="expanded-tooltips">info</mat-icon>
 	</span>
 </div>
 <div class="component-body">
 	<div class="calculations-grid">
 		<div id="calculation-selectors" class="pad-around">
 			<div class="selector-container">
-				<mat-checkbox (change)="applyItemSteroids($event.checked)">Item Steroids</mat-checkbox>
+				<mat-checkbox (change)="itemSteroidsChange($event.checked)">Item Steroids</mat-checkbox>
 			</div>
 			<div class="selector-container">
-				<mat-checkbox (change)="applyAbilitySteroids($event.checked)">Ability Steroids</mat-checkbox>
+				<mat-checkbox (change)="abilitySteroidsChange($event.checked)">Ability Steroids</mat-checkbox>
 			</div>
 			<div class="selector-container">
-				<mat-checkbox (change)="applyFormBuffs($event.checked)">Include Form </mat-checkbox>
+				<mat-checkbox (change)="formUsageChange($event.checked)">Include Form </mat-checkbox>
 			</div>
 		</div>
 		<div id="stat-selectors">

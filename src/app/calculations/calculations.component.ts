@@ -26,11 +26,11 @@ export class CalculationsComponent implements OnInit {
 	targetMR: number = 30;
 	targetArmor: number = 10;
 
-	itemSteroids: boolean = false;
-	abilitySteroids: boolean = false;
-	useForm: boolean = false;
+	applyItemSteroids: boolean = false;
+	applyAbilitySteroids: boolean = false;
+	formUsage: boolean = false;
 
-	targetHPTranslate: TranslateFunction = (value: number, label: LabelType): string => {
+	translateTargetHP: TranslateFunction = (value: number, label: LabelType): string => {
 		switch (label) {
 			case LabelType.Floor: return 'Min HP: ' + value;
 			case LabelType.Ceil: return 'Max HP: ' + value;
@@ -41,18 +41,13 @@ export class CalculationsComponent implements OnInit {
 	targetHPOptions: Options = {
 		floor: this.targetMin,
 		ceil: this.targetMaxHP,
-		translate: this.targetHPTranslate
+		translate: this.translateTargetHP
 	};
 
-	targetDetails: TargetDetails = {
-		"targetMaxHP": this.targetMaxHP,
-		"targetCurrentHP": this.targetCurrentHP,
-		"targetArmor": this.targetArmor,
-		"targetMR": this.targetMR,
-		"itemSteroids": this.itemSteroids,
-		"abilitySteroids": this.abilitySteroids,
-		"useForm": this.useForm,
-	};
+	targetDetails: TargetDetails = new TargetDetails(
+		this.targetMaxHP, this.targetCurrentHP, this.targetArmor, this.targetMR,
+		this.applyItemSteroids, this.applyAbilitySteroids, this.formUsage
+	);
 
 	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService) { }
 
@@ -63,28 +58,28 @@ export class CalculationsComponent implements OnInit {
 			let targetHPOptions: Options = {
 				floor: this.targetMin,
 				ceil: this.targetMaxHP,
-				translate: this.targetHPTranslate
+				translate: this.translateTargetHP
 			};
 			this.targetHPOptions = targetHPOptions;
 			this.manualRefresh.emit();
-			this.targetDetails.targetMaxHP = this.targetMaxHP;
+			this.targetDetails.maxHP = this.targetMaxHP;
 			this.emitTargetDetails();
 			this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 		}
 		return;
 	}
-	applyItemSteroids(itemSteroids: boolean) {
-		this.targetDetails.itemSteroids = itemSteroids;
+	itemSteroidsChange(appliedItemSteroids: boolean) {
+		this.targetDetails.applyItemSteroids = appliedItemSteroids;
 		this.emitTargetDetails();
 		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
-	applyAbilitySteroids(abilitySteroids: boolean) {
-		this.targetDetails.abilitySteroids = abilitySteroids;
+	abilitySteroidsChange(abilitySteroids: boolean) {
+		this.targetDetails.applyAbilitySteroids = abilitySteroids;
 		this.emitTargetDetails();
 		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
-	applyFormBuffs(useForm: boolean) {
-		this.targetDetails.useForm = useForm;
+	formUsageChange(formUsage: boolean) {
+		this.targetDetails.applyFormUsage = formUsage;
 		this.emitTargetDetails();
 		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
 	}
@@ -140,10 +135,11 @@ export class CalculationsComponent implements OnInit {
 	// DONE 5. checkbox for champions that have different forms (considered as transformer) eg. jayce, nidalee, kayn (starts as red), shyvana, etc.
 	// 6. how do I account for champion specific things? (attached yuumi, kayn transformations, aphelios guns, sylas stealing literally everyone's ult (rotations are different depending on the ult))
 	// 7. and then the approximated DPS (which is probably going to be very off, but will do my best to figure it out)
-	// 8. split dps into physical, true, and magic damage?
+	// 8. DONE split dps into physical, true, and magic damage?
 	// 9. potential damage reduced (eg. braum e, alistar r, etc.)
 	// 10. a question mark near the top indicating when choosing options, what it influences and provide examples
 	// 11. healing per second? that's a stat that's not available in the practice tool
+	// 12. damage before and after resistances (show how much damage is reduced)
 
 	// main thing is do we just assume a full rotation will be within 3 seconds? > some champions like akali have abilities that have a wait timer for the ult
 	// can we also assume that dps is calculated by the total of 1 full rotation (1 of i, q, w, e, r and however many autos?)

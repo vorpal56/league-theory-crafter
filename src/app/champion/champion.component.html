@@ -23,7 +23,7 @@
 			</div>
 			<div id="champion-abilities" class="center-margin">
 				<div id="passive" class="flex-center ability">
-					<mat-icon *ngIf="championIsAphelios()" [tooltip]="apheliosTooltip()" class="help-icon" aria-hidden="false" aria-label="Help">help</mat-icon>
+					<mat-icon *ngIf="championIsAphelios()" [tooltip]="apheliosTooltip()" class="info-icon" aria-hidden="false" aria-label="Info">info</mat-icon>
 					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" [tooltip]="abilityTooltip('i')" />
 				</div>
 				<div id="q" class="flex-center ability" [tooltip]="abilityTooltip('q')">

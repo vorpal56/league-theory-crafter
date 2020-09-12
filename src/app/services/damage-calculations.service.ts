@@ -13,9 +13,9 @@ export class DamageCalculationsService {
 
 	constructor(private statsService: StatsService) { }
 
-	physicalKey: string = "physicalDamage"; // split damage into physical, magical, and true to determine how to apply resistance stats
-	magicalKey: string = "magicDamage";
-	trueKey: string = "trueDamage";
+	physicalDamage = CalculationResults.physicalDamage;
+	magicalDamage = CalculationResults.magicalDamage;
+	trueDamage = CalculationResults.trueDamage;
 
 	damageReduction(champion: Champion, statName: string): number {
 		let championDef = champion.stats[statName];
@@ -67,17 +67,17 @@ export class DamageCalculationsService {
 		let armor: number = champion.stats.arm;
 		let magicresistance: number = champion.stats.mr;
 
-		let currenthealth: number = targetDetails.targetCurrentHP;
-		let maximumhealth: number = targetDetails.targetMaxHP;
+		let currenthealth: number = targetDetails.currentHP;
+		let maximumhealth: number = targetDetails.maxHP;
 		let missinghealth: number = (maximumhealth - currenthealth);
 		let targetPercentMissingHealth = missinghealth / maximumhealth;
 
-		let itemSteroids: boolean = targetDetails.itemSteroids;
-		let abilitySteroids: boolean = targetDetails.abilitySteroids;
-		let useForm: boolean = targetDetails.useForm;
+		let applyItemSteroids: boolean = targetDetails.applyItemSteroids;
+		let applyAbilitySteroids: boolean = targetDetails.applyAbilitySteroids;
+		let formUsage: boolean = targetDetails.applyFormUsage;
 
 		let damageResults: CalculationResults = new CalculationResults();
-		let damageReductionResults: CalculationResults = new CalculationResults();;
+		let damageReductionResults: CalculationResults = new CalculationResults(CalculationResults.defensiveType);
 		let rotationDuration: number = 3; // the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
 		// example is alistar E, trample, it ticks 1 time each 0.5s for 5s
 
@@ -93,14 +93,14 @@ export class DamageCalculationsService {
 			let loweredAttribute = attributeObj["attribute"].toLowerCase();
 			let expressionString = attributeObj["string_expression"][expressionIndex];
 			if (abilityType == "q") {
-				if (abilitySteroids) {
+				if (applyAbilitySteroids) {
 					if (loweredAttribute == "maximum magic damage" || loweredAttribute.includes("prowl")) {
-						damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+						damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 					}
 				} else {
 					if (loweredAttribute == "maximum magic damage" || loweredAttribute == "minimum magic damage") {
 						let expressionValue = eval(expressionString) / 2;
-						damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionValue : damageResults[skillKey][this.magicalKey] = expressionValue;
+						damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageResults[skillKey][this.magicalDamage] = expressionValue;
 					}
 				}
 				if (loweredAttribute == "bonus damage") {
@@ -108,7 +108,7 @@ export class DamageCalculationsService {
 				}
 			} else if (abilityType == "w" || abilityType == "e") {
 				if (loweredAttribute == "total magic damage" || loweredAttribute == "magic damage") {
-					damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+					damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 				}
 				else if (loweredAttribute == "bonus attack speed") {
 					let expressionValue = this.evalAttributePercent(expressionString, false);
@@ -129,7 +129,7 @@ export class DamageCalculationsService {
 
 					} else if (apiname == "nidalee") {
 						let abilityBreakdown = champion[skillKey]["ability_breakdown"];
-						if (useForm) {
+						if (formUsage) {
 							let ultRank = Number(champion["skill_r"]["rank"]) - 1;
 							abilityBreakdown.forEach((ability: object, j: number) => {
 								let mainKey = j == 0 ? "main" : "form";
@@ -158,13 +158,13 @@ export class DamageCalculationsService {
 						// can we work with abilities that appear multiple times? for example physical damage and magic damage appear many times?
 						// the following keys appear the most times as of patch 10.16
 						if (apiname == "aatrox") {
-							if (abilitySteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
-								damageResults[skillKey][this.physicalKey] ? damageResults[skillKey][this.physicalKey] += "+" + expressionString : damageResults[skillKey][this.physicalKey] = expressionString;
-							} else if (!abilitySteroids && abilityType == "q" && !loweredAttribute.includes("sweetspot")) {
-								damageResults[skillKey][this.physicalKey] ? damageResults[skillKey][this.physicalKey] += "+" + expressionString : damageResults[skillKey][this.physicalKey] = expressionString;
+							if (applyAbilitySteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
+								damageResults[skillKey][this.physicalDamage] ? damageResults[skillKey][this.physicalDamage] += "+" + expressionString : damageResults[skillKey][this.physicalDamage] = expressionString;
+							} else if (!applyAbilitySteroids && abilityType == "q" && !loweredAttribute.includes("sweetspot")) {
+								damageResults[skillKey][this.physicalDamage] ? damageResults[skillKey][this.physicalDamage] += "+" + expressionString : damageResults[skillKey][this.physicalDamage] = expressionString;
 							}
 							if (abilityType == "w" && loweredAttribute.includes("total")) {
-								damageResults[skillKey][this.physicalKey] ? damageResults[skillKey][this.physicalKey] += "+" + expressionString : damageResults[skillKey][this.physicalKey] = expressionString;
+								damageResults[skillKey][this.physicalDamage] ? damageResults[skillKey][this.physicalDamage] += "+" + expressionString : damageResults[skillKey][this.physicalDamage] = expressionString;
 							} else if (abilityType == "r" && loweredAttribute.includes("ad")) {
 								totalAdditionalAD += eval(expressionString);
 							}
@@ -172,50 +172,50 @@ export class DamageCalculationsService {
 							if ((abilityType == "q" && loweredAttribute == "total mixed damage") ||
 								(abilityType == "w" && loweredAttribute == "total single target damage") ||
 								(abilityType == "r" && loweredAttribute == "maximum single target damage")) {
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
-								if (abilitySteroids) {
+								if (applyAbilitySteroids) {
 									bonusPercentAbilityDamage += 0.2;
 								}
-								damageResults[skillKey][this.magicalKey] += "+" + expressionString;
+								damageResults[skillKey][this.magicalDamage] += "+" + expressionString;
 							}
 						} else if (apiname == "akali") {
 							if ((abilityType == "q" && loweredAttribute == "magic damage") ||
 								(abilityType == "e" && loweredAttribute == "total damage") ||
 								(abilityType == "r" && loweredAttribute == "physical damage")) {
-								damageResults[skillKey][this.physicalKey] = expressionString;
+								damageResults[skillKey][this.physicalDamage] = expressionString;
 							} else if (abilityType == "r" && loweredAttribute == "minimum magic damage") {
-								damageResults[skillKey][this.magicalKey] = "m*(" + expressionString + ")";
+								damageResults[skillKey][this.magicalDamage] = "m*(" + expressionString + ")";
 							}
 							if (abilityType == "r" && j == abilityBreakdown.length - 1) {
 								let m = targetPercentMissingHealth * 0.0286 * 100; // 0.0286 is 2.86% per 1% missing health on the fandom
 								m = m > 2 ? 2 : m;
 								m += 1;
-								damageResults[skillKey][this.magicalKey] = eval(damageResults[skillKey][this.magicalKey]);
+								damageResults[skillKey][this.magicalDamage] = eval(damageResults[skillKey][this.magicalDamage]);
 							}
 						} else if (apiname == "alistar") {
 							if (abilityType != "r" && (loweredAttribute == "magic damage" || loweredAttribute == "total magic damage")) {
 								// trample does total magic damage over 5 seconds
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 							}
 						} else if (apiname == "amumu") {
 							// how do I include amumus passive?
 							if ((abilityType == "q" || abilityType == "e" || abilityType == "r") && loweredAttribute == "magic damage") {
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 							} else if (abilityType == "e" && loweredAttribute == "physical damage reduction") {
-								damageReductionResults[skillKey][this.physicalKey] ? damageReductionResults[skillKey][this.physicalKey] += "+" + expressionString : damageReductionResults[skillKey][this.physicalKey] = expressionString;
+								damageReductionResults[skillKey][this.physicalDamage] ? damageReductionResults[skillKey][this.physicalDamage] += "+" + expressionString : damageReductionResults[skillKey][this.physicalDamage] = expressionString;
 							} else if (abilityType == "w" && loweredAttribute.includes("magic damage")) {
 								// this is based off the parsed data. the example is the following"5+0.005*(+0.5*per100AP)maximumhealth"
 								let splitExpressionString = expressionString.split("+");
 								let perAPMaxHealthFormula = 0.5 * Math.floor(AP / 100) + eval(splitExpressionString[1].replace("*(", "")) * maximumhealth;
 								let expressionValue = (eval(splitExpressionString[0]) + perAPMaxHealthFormula) * rotationDuration * 2;
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionValue : damageResults[skillKey][this.magicalKey] = expressionValue;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageResults[skillKey][this.magicalDamage] = expressionValue;
 							}
 						} else if (apiname == "anivia") {
 							if ((abilityType == "q" && loweredAttribute == "total damage") ||
-								(abilitySteroids && abilityType == "e" && loweredAttribute.includes("enhanced")) ||
-								(!abilitySteroids && abilityType == "e" && !loweredAttribute.includes("enhanced"))) {
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+								(applyAbilitySteroids && abilityType == "e" && loweredAttribute.includes("enhanced")) ||
+								(!applyAbilitySteroids && abilityType == "e" && !loweredAttribute.includes("enhanced"))) {
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 							} else if (abilityType == "r") {
 								let maxSizeSeconds: number = 1.5; // the time it takes to grow to max size which will then do empowered damage
 								let expressionValue: number = eval(expressionString);
@@ -224,15 +224,15 @@ export class DamageCalculationsService {
 								} else {
 									expressionValue *= (rotationDuration - maxSizeSeconds);
 								}
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionValue : damageResults[skillKey][this.magicalKey] = expressionValue;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageResults[skillKey][this.magicalDamage] = expressionValue;
 							}
 						} else if (apiname == "annie") {
 							if (loweredAttribute.includes("magic damage")) {
-								damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 							} else if (loweredAttribute == "damage reduction") {
 								let expressionValue: number = this.evalAttributePercent(expressionString);
-								damageReductionResults[skillKey][this.physicalKey] ? damageReductionResults[skillKey][this.physicalKey] += "+" + expressionValue : damageReductionResults[skillKey][this.physicalKey] = expressionValue;
-								damageReductionResults[skillKey][this.magicalKey] ? damageReductionResults[skillKey][this.magicalKey] += "+" + expressionValue : damageReductionResults[skillKey][this.magicalKey] = expressionValue;
+								damageReductionResults[skillKey][this.physicalDamage] ? damageReductionResults[skillKey][this.physicalDamage] += "+" + expressionValue : damageReductionResults[skillKey][this.physicalDamage] = expressionValue;
+								damageReductionResults[skillKey][this.magicalDamage] ? damageReductionResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageReductionResults[skillKey][this.magicalDamage] = expressionValue;
 							}
 						}
 					});
@@ -272,8 +272,13 @@ export class DamageCalculationsService {
 			}
 		}
 		this.statsService.adjustAttackSpeed(champion, currentLevel);
-		// console.log(targetDetails);
-		console.log(damageResults, bonusPercentAbilityDamage);
+		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, rotationDuration, applyAbilitySteroids);
+		for (let autoDamageKey in autoAttackDamage) {
+			damageResults.autos[autoDamageKey] = autoAttackDamage[autoDamageKey];
+		}
+		targetDetails.damageResults = damageResults;
+		targetDetails.damageReductionResults = damageReductionResults;
+		console.log(targetDetails);
 		return damageResults;
 	}
 	nidaleeCalculationMethod(champion: Champion, targetDetails: TargetDetails,
@@ -292,9 +297,9 @@ export class DamageCalculationsService {
 		let skillKey = "skill_" + abilityType;
 		let loweredAttribute = attributeObj["attribute"].toLowerCase();
 		let expressionString = attributeObj["string_expression"][expressionIndex];
-		let abilitySteroids = targetDetails.abilitySteroids;
-		let currenthealth: number = targetDetails.targetCurrentHP;
-		let maximumhealth: number = targetDetails.targetMaxHP;
+		let applyAbilitySteroids = targetDetails.applyAbilitySteroids;
+		let currenthealth: number = targetDetails.currentHP;
+		let maximumhealth: number = targetDetails.maxHP;
 		let missinghealth: number = (maximumhealth - currenthealth);
 		let targetPercentMissingHealth = missinghealth / maximumhealth;
 
@@ -303,14 +308,14 @@ export class DamageCalculationsService {
 		let totalAdditionalHP: number = 0;
 
 		if (abilityType == "q") {
-			if (abilitySteroids) {
+			if (applyAbilitySteroids) {
 				if (loweredAttribute == "maximum magic damage" || loweredAttribute.includes("prowl")) {
-					damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionString : damageResults[skillKey][this.magicalKey] = expressionString;
+					damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
 				}
 			} else {
 				if (loweredAttribute == "maximum magic damage" || loweredAttribute == "minimum magic damage") {
 					let expressionValue = eval(expressionString) / 2;
-					damageResults[skillKey][this.magicalKey] ? damageResults[skillKey][this.magicalKey] += "+" + expressionValue : damageResults[skillKey][this.magicalKey] = expressionValue;
+					damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageResults[skillKey][this.magicalDamage] = expressionValue;
 				}
 			}
 			if (loweredAttribute == "bonus damage") {
@@ -318,8 +323,17 @@ export class DamageCalculationsService {
 			}
 		}
 	}
-	totalNumberOfAttacks(champion: Champion, rotationDuration: number) {
-		return Math.floor(champion.stats.as * rotationDuration);
+	totalDamageFromAutoAttacks(champion: Champion, rotationDuration: number, applyAbilitySteroids: boolean): object {
+		let numberOfAutos: number = Math.floor(champion.stats.as * rotationDuration);
+		let apiname: string = champion.apiname.toLowerCase();
+		let totalAutoDamage: object = {};
+		if (apiname == "corki") {
+			totalAutoDamage[this.physicalDamage] = numberOfAutos * champion.stats.ad * 0.2;
+			totalAutoDamage[this.magicalDamage] = numberOfAutos * champion.stats.ap * 0.8;
+		} else {
+			totalAutoDamage[this.physicalDamage] = numberOfAutos * champion.stats.ad;
+		}
+		return totalAutoDamage;
 	}
 	applyTargetResistance(champion: Champion, targetDetails: TargetDetails) {
 
