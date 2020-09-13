@@ -20,46 +20,46 @@ export class StatsService {
 	}
 	/**
 	 * Method that adjusts the base stats given the champion stats
-	 * @param  {Champion} selectedChampion the champion to adjust stats by
-	 * @param  {number} currentLevel the current level to adjust stats by
+	 * @param  {Champion} champion the champion to adjust stats by
+	 * @param  {number} champion.currentLevel the current level to adjust stats by
 	 * @returns void
 	 */
-	adjustBaseStats(selectedChampion: Champion, currentLevel: number): void {
-		selectedChampion.stats.hp = this.statsGrowthFormula(selectedChampion.stats.hp_lvl, currentLevel, selectedChampion.stats.hp_base);
-		selectedChampion.stats.hp5 = this.statsGrowthFormula(selectedChampion.stats.hp5_lvl, currentLevel, selectedChampion.stats.hp5_base);
-		selectedChampion.stats.mp = selectedChampion.stats.mp_base ? this.statsGrowthFormula(selectedChampion.stats.mp_lvl, currentLevel, selectedChampion.stats.mp_base) : 0;
-		selectedChampion.stats.mp5 = selectedChampion.stats.mp5_base ? this.statsGrowthFormula(selectedChampion.stats.mp5_lvl, currentLevel, selectedChampion.stats.mp5_base) : 0;
-		selectedChampion.stats.ad = selectedChampion.stats.ad_base ? this.statsGrowthFormula(selectedChampion.stats.ad_lvl, currentLevel, selectedChampion.stats.ad_base) : 0;
-		selectedChampion.stats.ap = selectedChampion.stats.ap_base ? selectedChampion.stats.ap_base : 0;
-		selectedChampion.stats.arm = selectedChampion.stats.arm_base ? this.statsGrowthFormula(selectedChampion.stats.arm_lvl, currentLevel, selectedChampion.stats.arm_base) : 0;
-		selectedChampion.stats.mr = selectedChampion.stats.mr_base ? this.statsGrowthFormula(selectedChampion.stats.mr_lvl, currentLevel, selectedChampion.stats.mr_base) : 0;
+	adjustBaseStats(champion: Champion): void {
+		champion.stats.hp = this.statsGrowthFormula(champion.stats.hp_lvl, champion.currentLevel, champion.stats.hp_base);
+		champion.stats.hp5 = this.statsGrowthFormula(champion.stats.hp5_lvl, champion.currentLevel, champion.stats.hp5_base);
+		champion.stats.mp = champion.stats.mp_base ? this.statsGrowthFormula(champion.stats.mp_lvl, champion.currentLevel, champion.stats.mp_base) : 0;
+		champion.stats.mp5 = champion.stats.mp5_base ? this.statsGrowthFormula(champion.stats.mp5_lvl, champion.currentLevel, champion.stats.mp5_base) : 0;
+		champion.stats.ad = champion.stats.ad_base ? this.statsGrowthFormula(champion.stats.ad_lvl, champion.currentLevel, champion.stats.ad_base) : 0;
+		champion.stats.ap = champion.stats.ap_base ? champion.stats.ap_base : 0;
+		champion.stats.arm = champion.stats.arm_base ? this.statsGrowthFormula(champion.stats.arm_lvl, champion.currentLevel, champion.stats.arm_base) : 0;
+		champion.stats.mr = champion.stats.mr_base ? this.statsGrowthFormula(champion.stats.mr_lvl, champion.currentLevel, champion.stats.mr_base) : 0;
 		// attack speed is calculated in the adjustAttackSpeed method since it is dependant on items and runes which can be grabbed afterwards
-		// selectedChampion.stats.as = selectedChampion.stats.as_base ? selectedChampion.stats.as_base * (1 + this.statsGrowthFormula(selectedChampion.stats.as_lvl, currentLevel) / 100) : 0;
-		selectedChampion.stats.cdr = selectedChampion.stats.cdr_base ? selectedChampion.stats.cdr_base : 0;
-		selectedChampion.stats.ms = selectedChampion.stats.ms_base ? selectedChampion.stats.ms_base : 0;
-		selectedChampion.stats.crit = selectedChampion.stats.crit_base ? 100 - selectedChampion.stats.crit_base : 0;
-		selectedChampion.stats.critdmg = 0;
-		selectedChampion.stats.ls = 0;
-		selectedChampion.stats.spell_vamp = 0;
-		selectedChampion.stats.leth = 0;
-		selectedChampion.stats["apen%"] = 0;
-		selectedChampion.stats.mpen = 0;
-		selectedChampion.stats["mpen%"] = 0;
-		selectedChampion.stats.tenacity = 0;
-		selectedChampion.stats.heal_shield = 0;
-		if (selectedChampion.apiname.toLowerCase() == "tristana") {
-			selectedChampion.stats.range = 525 + 8 * (currentLevel - 1);
+		// champion.stats.as = champion.stats.as_base ? champion.stats.as_base * (1 + this.statsGrowthFormula(champion.stats.as_lvl, champion.currentLevel) / 100) : 0;
+		champion.stats.cdr = champion.stats.cdr_base ? champion.stats.cdr_base : 0;
+		champion.stats.ms = champion.stats.ms_base ? champion.stats.ms_base : 0;
+		champion.stats.crit = champion.stats.crit_base ? 100 - champion.stats.crit_base : 0;
+		champion.stats.critdmg = 0;
+		champion.stats.ls = 0;
+		champion.stats.spell_vamp = 0;
+		champion.stats.leth = 0;
+		champion.stats["apen%"] = 0;
+		champion.stats.mpen = 0;
+		champion.stats["mpen%"] = 0;
+		champion.stats.tenacity = 0;
+		champion.stats.heal_shield = 0;
+		if (champion.apiname.toLowerCase() == "tristana") {
+			champion.stats.range = 525 + 8 * (champion.currentLevel - 1);
 		}
 		return;
 	}
-	adjustAttackSpeed(champion: Champion, currentLevel: number) {
+	adjustAttackSpeed(champion: Champion, exceedsAttackSpeedLimit: boolean) {
 		// we can go backwards in the formula to add any additional attackspeed gained from items and runes
 		// the calulation is dependant on the stats growth formula which is calculated on adjustBaseStats function
 		// but does not include item or rune bonuses
 		// General Formula is:
 		// AS = AS_BASE * (1 + (SGF + items + runes) / 100 )
 		// 100 * (AS/AS_BASE - 1 - SGF/100) = items + runes
-		let statsGrowthIncrease = this.statsGrowthFormula(champion.stats.as_lvl, currentLevel) / 100;
+		let statsGrowthIncrease = this.statsGrowthFormula(champion.stats.as_lvl, champion.currentLevel) / 100;
 		let totalAttackSpeed = 0;
 		// the as stat is based on whole values (eg. 100% = 100, 20% = 20)
 		totalAttackSpeed += champion.itemStats["as"] ? champion.itemStats["as"] : 0;
@@ -68,6 +68,7 @@ export class StatsService {
 		totalAttackSpeed *= 0.01; // divide by 100 on right side
 		totalAttackSpeed += (statsGrowthIncrease + 1); // add 1 and SGF/100
 		totalAttackSpeed *= champion.stats.as_base; // multiply by AS_BASE
+		totalAttackSpeed -= totalAttackSpeed > 2.5 && exceedsAttackSpeedLimit == false ? (totalAttackSpeed - 2.5) : 0;
 		champion.stats.as = totalAttackSpeed;
 		return totalAttackSpeed;
 	}

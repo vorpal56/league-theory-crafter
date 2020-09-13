@@ -3,6 +3,7 @@ import { Champion } from '../models/champion';
 import { RuneShard, Rune, RuneModifiers } from '../models/rune';
 import { Item } from '../models/item';
 import { TargetDetails } from '../models/target';
+import { DamageTypes } from '../models/calculations';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,28 +15,27 @@ export class RunesService {
 	 * @param  {any} selectedRunes the selected runes to calculate stats with
 	 * @param  {Champion} champion the selected champion to apply the calculations towards
 	 * @param  {number} currentLevel the current level for level dependant runes such as transcendance and abs focus.
-	 * @param  {any} totalStatsFromItems the total stats from items to calculate adaptive bonus from transcendence
-	 * @param  {string} adaptiveType the adaptive type to switch the calculation based on the item
+	 * @param  {any} champion.itemStats the total stats from items to calculate adaptive bonus from transcendence
+	 * @param  {string} champion.adaptiveType the adaptive type to switch the calculation based on the item
 	 * @param  {Item} selectedElixir the selected elixir for tenacity calulation (if neccessary)
-	 * @param  {[boolean, number]} runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
+	 * @param  {[boolean, number]} rune.runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
 	 * @param  {number} currentTime the current time for time dependant runes such as gatherin storm
 	 * @returns any the stats from runes
 	 */
-	calculateRuneStats(champion: Champion, selectedRunes: any, currentLevel: number, currentTime: number, adaptiveType: string, selectedElixir: Item, runeModifiers: RuneModifiers, targetDetails: TargetDetails): any[] {
+	calculateRuneStats(champion: Champion, selectedRunes: any, currentTime: number, selectedElixir: Item, targetDetails: TargetDetails): any {
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
-		let cdrCap = 40;
 		let totalStats = {};
-		let totalDamage = { "physicalDamage": 0, "magicDamage": 0, "trueDamage": 0 };
+		let totalDamage: DamageTypes = { "physicalDamage": 0, "magicDamage": 0, "trueDamage": 0 };
 		let totalDamageModifier: number = 0;
-		if (runeModifiers != undefined && selectedRunes != undefined) {
-			let stackAllRunes: boolean = runeModifiers.stackAllRunes;
-			let soulCount: number = runeModifiers.soulCount;
+		if (selectedRunes != undefined && selectedRunes.runeModifiers != undefined) {
+			let stackAllRunes: boolean = selectedRunes.runeModifiers.stackAllRunes;
+			let soulCount: number = selectedRunes.runeModifiers.soulCount;
 
 			// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
 			let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
 			let hasTranscendance: boolean = false;
 			let addedTenacityElixir: boolean = false;
-			let adaptiveDamageType = adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
+			let adaptiveDamageType = champion.adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
 			let championRangeType = champion["rangetype"].toLowerCase();
 
 			let AP = champion.stats.ap;
@@ -44,7 +44,7 @@ export class RunesService {
 			let bonusHealth = champion.itemStats["hp"] ? champion.itemStats["hp"] : 0;
 
 			for (let runeTree in selectedRunes) {
-				if (runeTree != "runeShards") {
+				if (runeTree != "runeShards" && runeTree != "runeModifiers") {
 					// some of the rune calculations are done directly in the condition instead of a separate method depending on complexity and extensibility
 					selectedRunes[runeTree].runes.forEach((rune: Rune) => {
 						// runes are in order of precision, domination, sorcery, resolve, and inspiration
@@ -74,8 +74,8 @@ export class RunesService {
 									totalStats[statKey] ? totalStats[statKey] += statVal : totalStats[statKey] = statVal;
 								}
 							} else if (runeApiname == "zombieward" || runeApiname == "ghostporo" || runeApiname == "eyeballcollection") {
-								let stackedBonus = stackAllRunes ? rune.stackable[adaptiveType] : 0;
-								totalStats[adaptiveType] ? totalStats[adaptiveType] += stackedBonus : totalStats[adaptiveType] = stackedBonus;
+								let stackedBonus = stackAllRunes ? rune.stackable[champion.adaptiveType] : 0;
+								totalStats[champion.adaptiveType] ? totalStats[champion.adaptiveType] += stackedBonus : totalStats[champion.adaptiveType] = stackedBonus;
 							} else if (runeApiname == "ravenoushunter") {
 								for (let statKey in rune.stats) {
 									let statVal = rune.stats[statKey];
@@ -89,11 +89,11 @@ export class RunesService {
 									totalStats["mp"] ? totalStats["mp"] += rune.stackable["mp"] : totalStats["mp"] = rune.stackable["mp"];
 								}
 							} else if (runeApiname == "absolutefocus") {
-								let bonusAdaptive = rune.stats[adaptiveType] + (rune.stats[adaptiveType + "_lvl"] * (currentLevel - 1));
-								totalStats[adaptiveType] ? totalStats[adaptiveType] += bonusAdaptive : totalStats[adaptiveType] = bonusAdaptive;
+								let bonusAdaptive = rune.stats[champion.adaptiveType] + (rune.stats[champion.adaptiveType + "_lvl"] * (champion.currentLevel - 1));
+								totalStats[champion.adaptiveType] ? totalStats[champion.adaptiveType] += bonusAdaptive : totalStats[champion.adaptiveType] = bonusAdaptive;
 							} else if (runeApiname == "gatheringstorm") {
-								let gatheringStormTotal = this.gatheringStormRune(adaptiveType, currentTime);
-								totalStats[adaptiveType] ? totalStats[adaptiveType] += gatheringStormTotal : totalStats[adaptiveType] = gatheringStormTotal;
+								let gatheringStormTotal = this.gatheringStormRune(champion.adaptiveType, currentTime);
+								totalStats[champion.adaptiveType] ? totalStats[champion.adaptiveType] += gatheringStormTotal : totalStats[champion.adaptiveType] = gatheringStormTotal;
 							} else if (runeApiname == "transcendence") {
 								hasTranscendance = true;
 							} else if (runeApiname == "conditioning") {
@@ -119,7 +119,7 @@ export class RunesService {
 									totalStats["mp"] ? totalStats["mp"] += rune.stackable["mp"] : totalStats["mp"] = rune.stackable["mp"];
 								}
 							} else if (runeApiname == "cosmicinsight") {
-								cdrCap += 5;
+								selectedRunes.runeModifiers.cdrCap += 5;
 								totalStats["cdr"] = rune.stats.cdr; // reason we can add directly is because we need to know the cdr cap before applying transcendance and no other rune provides cdr
 							} else {
 								// consist of other runes with more complicated formulas
@@ -127,12 +127,12 @@ export class RunesService {
 								// phaserush has a ranged_expression
 								if (expressionString && expressionString != "") {
 									try {
-										let targetAdditionalMaxHealthPercent: number = (targetDetails.targetMaxHP - maximumHealth) / maximumHealth;
+										let targetAdditionalMaxHealthPercent: number = (targetDetails.maxHP - maximumHealth) / maximumHealth;
 										// the targetHP can be smaller than the users maxhp
 										targetAdditionalMaxHealthPercent = targetAdditionalMaxHealthPercent < 0 ? 0 : targetAdditionalMaxHealthPercent && targetAdditionalMaxHealthPercent > 1 ? 1 : targetAdditionalMaxHealthPercent;
 										var expressionValue = eval(expressionString);
 										if (rune["type"] && rune["type"] == "adaptive") {
-											expressionValue *= adaptiveType == "ad" ? 0.6 : 1;
+											expressionValue *= champion.adaptiveType == "ad" ? 0.6 : 1;
 											if (runeApiname == "conqueror" && stackAllRunes) {
 												expressionValue *= 12;
 											}
@@ -146,6 +146,9 @@ export class RunesService {
 													if (championRangeType == "ranged") { expressionValue = eval(rune["ranged_expression"]); };
 												}
 												// affects_stats = as specifically (this could be a problem in the future)
+												if (runeApiname == "lethaltempo" || runeApiname == "hailofblades") {
+
+												}
 												expressionValue *= 100;
 												totalStats[affectsStat] ? totalStats[affectsStat] += expressionValue : totalStats[affectsStat] = expressionValue;
 											}
@@ -166,20 +169,20 @@ export class RunesService {
 							}
 						}
 					});
-				} else {
+				} else if (runeTree == "runeShards") {
 					// do the rune shard calculation
 					let selectedRuneShards = selectedRunes[runeTree];
 					selectedRuneShards.forEach((runeShard: RuneShard) => {
 						if (runeShard) {
 							if (runeShard.type && runeShard.type == "adaptive") {
-								totalStats[adaptiveType] ? totalStats[adaptiveType] += runeShard.stats[adaptiveType] : totalStats[adaptiveType] = runeShard.stats[adaptiveType];
+								totalStats[champion.adaptiveType] ? totalStats[champion.adaptiveType] += runeShard.stats[champion.adaptiveType] : totalStats[champion.adaptiveType] = runeShard.stats[champion.adaptiveType];
 							} else {
 								for (let runeShardStat in runeShard.stats) {
 									let statKey = runeShardStat;
 									let statVal = runeShard.stats[runeShardStat];
 									if (runeShardStat.includes("_lvl")) {
 										statKey = runeShardStat.replace("_lvl", "");
-										statVal *= (currentLevel - 1);
+										statVal *= (champion.currentLevel - 1);
 									}
 									totalStats[statKey] ? totalStats[statKey] += statVal : totalStats[statKey] = statVal;
 								}
@@ -189,7 +192,7 @@ export class RunesService {
 				}
 			}
 			if (hasTranscendance) {
-				let transcendenceTotal = this.transcendenceRune(adaptiveType, currentLevel, champion.itemStats, cdrCap);
+				let transcendenceTotal = this.transcendenceRune(champion, selectedRunes.runeModifiers.cdrCap);
 				for (let bonus in transcendenceTotal) {
 					let bonusVal = transcendenceTotal[bonus];
 					totalStats[bonus] ? totalStats[bonus] += bonusVal : totalStats[bonus] = bonusVal;
@@ -207,7 +210,7 @@ export class RunesService {
 			console.log(totalDamage, totalDamageModifier);
 			champion.stats.tenacity = totalTenacityRatio;
 		}
-		return [totalStats, cdrCap];
+		return totalStats;
 	}
 	legendRune(rune: Rune, statKey: string, stackAllRunes: boolean) {
 		let bonusStat = rune.stats[statKey];
@@ -228,12 +231,12 @@ export class RunesService {
 		let targetAdditionalMaxHealthPercent = currentTime % 10 == 0 ? 1 + 0.1 * (currentTime) : 1 + 1 * Math.floor(currentTime / 10);
 		return adaptiveType == "ad" ? 4.8 * targetAdditionalMaxHealthPercent * (targetAdditionalMaxHealthPercent - 1) * 0.5 : 8 * targetAdditionalMaxHealthPercent * (targetAdditionalMaxHealthPercent - 1) * 0.5;
 	}
-	transcendenceRune(adaptiveType: string, currentLevel: number, totalStatsFromItems: any, cdrCap: number): any {
-		let additionalTranscendenceCdr: number = currentLevel >= 10 ? 10 : 0;
+	transcendenceRune(champion: Champion, cdrCap: number): any {
+		let additionalTranscendenceCdr: number = champion.currentLevel >= 10 ? 10 : 0;
 		let totalAdditionalCdr: number = additionalTranscendenceCdr;
-		totalAdditionalCdr += totalStatsFromItems["cdr"] && totalStatsFromItems["cdr"] > cdrCap ? totalStatsFromItems["cdr"] - cdrCap : 0;
+		totalAdditionalCdr += champion.itemStats["cdr"] && champion.itemStats["cdr"] > cdrCap ? champion.itemStats["cdr"] - cdrCap : 0;
 		let results = { "cdr": additionalTranscendenceCdr };
-		results[adaptiveType] = adaptiveType == "ad" ? 1.2 * totalAdditionalCdr : 2 * totalAdditionalCdr;
+		results[champion.adaptiveType] = champion.adaptiveType == "ad" ? 1.2 * totalAdditionalCdr : 2 * totalAdditionalCdr;
 		return results;
 	}
 	addRuneStats(champion: Champion) {

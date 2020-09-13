@@ -54,7 +54,7 @@ export class DamageCalculationsService {
 	 * @param  {TargetDetails} targetDetails
 	 * @returns any
 	 */
-	totalChampionDamageCalculation(champion: Champion, targetDetails: TargetDetails, currentLevel: number): any {
+	totalChampionDamageCalculation(champion: Champion, targetDetails: TargetDetails, runeModifiers: RuneModifiers): any {
 		let bonusAD: number = champion.itemStats["ad"] ? champion.itemStats["ad"] : 0 + champion.runeStats["ad"] ? champion.runeStats["ad"] : 0;
 		let bonusAP: number = champion.itemStats["ap"] ? champion.itemStats["ap"] : 0 + champion.runeStats["ap"] ? champion.runeStats["ap"] : 0;
 		let bonusHP: number = champion.itemStats["hp"] ? champion.itemStats["hp"] : 0 + champion.runeStats["hp"] ? champion.runeStats["hp"] : 0;
@@ -234,6 +234,28 @@ export class DamageCalculationsService {
 								damageReductionResults[skillKey][this.physicalDamage] ? damageReductionResults[skillKey][this.physicalDamage] += "+" + expressionValue : damageReductionResults[skillKey][this.physicalDamage] = expressionValue;
 								damageReductionResults[skillKey][this.magicalDamage] ? damageReductionResults[skillKey][this.magicalDamage] += "+" + expressionValue : damageReductionResults[skillKey][this.magicalDamage] = expressionValue;
 							}
+						} else if (apiname == "ashe") {
+							if (abilityType == "q") {
+								if (loweredAttribute.includes("total")) {
+									damageResults[skillKey][this.physicalDamage] ? damageResults[skillKey][this.physicalDamage] += "+" + expressionString : damageResults[skillKey][this.physicalDamage] = expressionString;
+								} else if (loweredAttribute == "bonus attack speed") {
+									let expressionValue = this.evalAttributePercent(expressionString, false);
+									champion.otherSourcesStats["as"] = expressionValue;
+								}
+							} else if (abilityType == "w") {
+								damageResults[skillKey][this.physicalDamage] ? damageResults[skillKey][this.physicalDamage] += "+" + expressionString : damageResults[skillKey][this.physicalDamage] = expressionString;
+							} else if (abilityType == "r" && loweredAttribute == "magic damage") {
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
+							}
+						} else if (apiname == "aurelionsol") {
+							if ((abilityType == "q" || abilityType == "r") && loweredAttribute == "magic damage") {
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
+							} else if (abilityType == "w" && loweredAttribute == "total damage") {
+								let expressionString = attributeObj["string_expression"][champion.currentLevel - 1];
+								damageResults[skillKey][this.magicalDamage] ? damageResults[skillKey][this.magicalDamage] += "+" + expressionString : damageResults[skillKey][this.magicalDamage] = expressionString;
+							} else if (abilityType == "e") {
+								champion.otherSourcesStats["ms"] = eval(expressionString);
+							}
 						}
 					});
 				} catch (error) {
@@ -271,7 +293,7 @@ export class DamageCalculationsService {
 				}
 			}
 		}
-		this.statsService.adjustAttackSpeed(champion, currentLevel);
+		this.statsService.adjustAttackSpeed(champion, runeModifiers.exceedsAttackSpeedLimit);
 		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, rotationDuration, applyAbilitySteroids);
 		for (let autoDamageKey in autoAttackDamage) {
 			damageResults.autos[autoDamageKey] = autoAttackDamage[autoDamageKey];

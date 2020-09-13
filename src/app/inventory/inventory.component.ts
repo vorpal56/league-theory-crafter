@@ -62,7 +62,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedElixir = EMPTY_ITEM;
 			this.numberOfEquippedItems = 0;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		}
 		return;
 	}
@@ -105,7 +105,7 @@ export class InventoryComponent implements OnInit {
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
 		if (runService) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		}
 		return;
 	}
@@ -155,7 +155,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedElixir = EMPTY_ITEM;
 			this.selectedElixirEmitter.emit(this.selectedElixir);
 			// this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		}
 	}
 	/**
@@ -178,7 +178,7 @@ export class InventoryComponent implements OnInit {
 			this.selectedItems[index].stacked = isStacked;
 		}
 		this.emitSelectedItems();
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}
 	/**
 	 * Method that emits the selected items

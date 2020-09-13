@@ -1,4 +1,4 @@
-interface DamageTypes {
+export interface DamageTypes {
 	physicalDamage: string | number;
 	magicDamage: string | number;
 	trueDamage: string | number;

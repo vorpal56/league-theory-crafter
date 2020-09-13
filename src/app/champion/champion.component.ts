@@ -64,11 +64,11 @@ export class ChampionComponent implements OnInit {
 			);
 		});
 		this.http.get<Champion>("/api/champions/Nidalee").subscribe((champion: Champion) => {
-			this.champion = new Champion(champion);
+			this.champion = new Champion(champion, this.currentLevel);
 			this.resetAbilities();
 			this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
 			this.champions.push(this.champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 			this.selectedChampionEventEmitter.emit(this.champion);
 		});
 		this.currentLevelEventEmitter.emit(this.currentLevel);
@@ -87,16 +87,16 @@ export class ChampionComponent implements OnInit {
 			this.champion = this.champions[this.championsIndices[apiname]];
 			this.resetAbilities();
 			this.selectedChampionEventEmitter.emit(this.champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		} else {
 			// set the champion to null for the loading spinner
 			this.champion = null;
 			this.http.get<Champion>(`/api/champions/${this.basicChampion.apiname}`).subscribe((champion: Champion) => {
-				this.champion = new Champion(champion);
+				this.champion = new Champion(champion, this.currentLevel);
 				this.resetAbilities();
 				this.championsIndices[apiname] = this.numChampsCalled++;
 				this.champions.push(this.champion);
-				this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+				this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 				this.selectedChampionEventEmitter.emit(this.champion);
 			});
 		}
@@ -106,7 +106,7 @@ export class ChampionComponent implements OnInit {
 		this.currentLevelEventEmitter.emit(this.currentLevel);
 		this.resetAbilities();
 		if (this.currentLevel >= 9) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		}
 		// we reset the abilities on change because it's difficult to know where to remove points and where not to remove points.
 		// so when the user changes the champion level, they can readjust the stats
@@ -114,7 +114,7 @@ export class ChampionComponent implements OnInit {
 	}
 	updateCurrentTime() {
 		this.currentTimeEventEmitter.emit(this.currentTime);
-		this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		return;
 	}
 	increaseSkillLevel(abilityType: string) {
@@ -136,12 +136,12 @@ export class ChampionComponent implements OnInit {
 				this.champion.stats.ad += 4;
 			} else if (abilityType == "w") {
 				this.champion.otherSourcesStats["as"] = 6 * this.champion[skillKey]["rank"];
-				this.statsService.adjustAttackSpeed(this.champion, this.currentLevel);
+				this.statsService.adjustAttackSpeed(this.champion, this.runeModifiers.exceedsAttackSpeedLimit);
 			} else if (abilityType == "e") {
 				this.champion.stats.leth += 2;
 			}
 		}
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		return;
 	}
 	decreaseSkillLevel(abilityType: string) {
@@ -163,12 +163,12 @@ export class ChampionComponent implements OnInit {
 				this.champion.stats.ad -= 4;
 			} else if (abilityType == "w") {
 				this.champion.otherSourcesStats["as"] = 6 * this.champion[skillKey]["rank"];
-				this.statsService.adjustAttackSpeed(this.champion, this.currentLevel);
+				this.statsService.adjustAttackSpeed(this.champion, this.runeModifiers.exceedsAttackSpeedLimit);
 			} else if (abilityType == "e") {
 				this.champion.stats.leth -= 2;
 			}
 		}
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.currentLevel);
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		return;
 	}
 	canLevelUp(abilityType: string) {

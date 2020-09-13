@@ -26,20 +26,21 @@ export class ChampionService {
 	 * @param  {any} selectedRunes the selected runes to calculate stats
 	 * @param  {RuneModifiers} runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
 	 */
-	applyAllComponentChanges(champion: Champion, currentLevel: number, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, runeModifiers: RuneModifiers, targetDetails: TargetDetails) {
+	applyAllComponentChanges(champion: Champion, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, targetDetails: TargetDetails) {
 
-		this.statsService.adjustBaseStats(champion, currentLevel);
+		this.statsService.adjustBaseStats(champion);
 		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
 		champion.itemStats = totalStatsFromItems;
 		this.itemsService.addItemStats(champion, multKeyValues);
-		let [totalStatsFromRunes, cdrCap] = this.runesService.calculateRuneStats(champion, selectedRunes, currentLevel, currentTime, adaptiveType, selectedElixir, runeModifiers, targetDetails);
+		let totalStatsFromRunes = this.runesService.calculateRuneStats(champion, selectedRunes, currentTime, selectedElixir, targetDetails);
 		champion.runeStats = totalStatsFromRunes;
 
 		this.runesService.addRuneStats(champion);
-		this.statsService.adjustAttackSpeed(champion, currentLevel);
-		this.postCalculations(champion, currentLevel, itemAdditions, cdrCap);
-		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, currentLevel);
+		this.statsService.adjustAttackSpeed(champion, selectedRunes.runeModifiers.exceedsAttackSpeedLimit);
+		this.preDamageCalculations(champion, itemAdditions, selectedRunes.runeModifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, selectedRunes.runeModifiers);
+		this.addPostDamageCalculationsBonusStats(champion);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
@@ -50,13 +51,13 @@ export class ChampionService {
 	 * @param  {any} itemAdditions any additional items that are calculated post like tear items
 	 * @param  {number} cdrCap cdr cap to limit the champions cdr if the cosmic insight option in runes is selected
 	 */
-	postCalculations(champion: Champion, currentLevel: number, itemAdditions: any, cdrCap: number) {
+	preDamageCalculations(champion: Champion, itemAdditions: any, runeModifiers: RuneModifiers) {
 		if (champion.apiname.toLowerCase() == "yasuo") {
 			champion.stats.crit *= 2;
 		}
 		if (itemAdditions.hexcoreItem && itemAdditions.hexcoreItem != EMPTY_ITEM) {
-			champion.stats.ap += (itemAdditions.hexcoreItem.ap * (currentLevel - 1));
-			champion.stats.mp += (itemAdditions.hexcoreItem.mp * (currentLevel - 1));
+			champion.stats.ap += (itemAdditions.hexcoreItem.ap * (champion.currentLevel - 1));
+			champion.stats.mp += (itemAdditions.hexcoreItem.mp * (champion.currentLevel - 1));
 		}
 		if (itemAdditions.aweItem && itemAdditions.aweItem != EMPTY_ITEM && champion.resource.toLowerCase() == "mana") {
 			if (itemAdditions.aweItem.apiname == "manamune" || itemAdditions.aweItem.apiname == "muramana") {
@@ -67,9 +68,16 @@ export class ChampionService {
 				champion.stats.ap += (champion.stats.mp * 0.03);
 			}
 		}
-		champion.stats.cdr -= champion.stats.cdr > cdrCap ? (champion.stats.cdr - cdrCap) : 0;
+		champion.stats.cdr -= champion.stats.cdr > runeModifiers.cdrCap ? (champion.stats.cdr - runeModifiers.cdrCap) : 0;
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 		return;
+	}
+	addPostDamageCalculationsBonusStats(champion: Champion) {
+		for (let bonusAttributeKey in champion.otherSourcesStats) {
+			if (bonusAttributeKey != "as") {
+				champion.stats[bonusAttributeKey] += champion.otherSourcesStats[bonusAttributeKey];
+			}
+		}
 	}
 	hasUltLevel1(champion: Champion): boolean {
 		let apiname = champion.apiname.toLowerCase();

@@ -19,7 +19,7 @@
 							 [selectedRunes]="selectedRunes" [runeModifiers]="runeModifiers" [targetDetails]="targetDetails" [currentTime]="currentTime">
 		</inventory>
 		<div id="damage-calc">
-			<calculations [champion]="champion" [currentLevel]="currentLevel" (targetDetails)="setTargetDetails($event)"></calculations>
+			<calculations [champion]="champion" [currentLevel]="currentLevel" [selectedRunes]="selectedRunes" (targetDetails)="setTargetDetails($event)"></calculations>
 		</div>
 	</div>
 </div>

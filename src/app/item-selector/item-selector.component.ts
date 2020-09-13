@@ -99,7 +99,7 @@ export class ItemSelectorComponent implements OnInit {
 		if (this.currentLevel >= 9) {
 			this.selectedElixir = selectedElixir;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		} else {
 			alert("need to be lvl 9 or more");
 		}
@@ -146,7 +146,7 @@ export class ItemSelectorComponent implements OnInit {
 			}
 			this.numberOfEquippedItems += 1;
 			this.emitSelectedItems();
-			this.championService.applyAllComponentChanges(this.champion, this.currentLevel, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.runeModifiers, this.targetDetails);
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 			// this.statsService.postCalculations(this.champion, this.currentLevel, itemAdditions);
 		}
 		return;
