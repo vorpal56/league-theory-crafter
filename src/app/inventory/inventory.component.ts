@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Champion } from '../models/champion';
 import { Item, ItemRestrictions } from '../models/item';
-import { RuneModifiers } from "../models/rune";
+import { Runes } from "../models/rune";
 import { TargetDetails } from '../models/target';
 
 import { EMPTY_ITEM } from '../../../server/data/items';
@@ -18,13 +18,11 @@ import { ChampionService } from '../services/champion.service';
 })
 export class InventoryComponent implements OnInit {
 
-	@Input("selectedChampion") champion: Champion;
-	@Input("currentLevel") currentLevel: number;
+	@Input("champion") champion: Champion;
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("selectedRunes") selectedRunes: any;
-	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
 	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
@@ -112,23 +110,23 @@ export class InventoryComponent implements OnInit {
 	/**
 	 * Method that removes any invalid items depending on the selected champion restrictions including boots, hexcore items, ornn items, etc.
 	 * Called by parent component on (change)
-	 * @param  {Champion} selectedChampion the champion that was changed into -> previous selected champion is on this.champion when called -> model doesn't update immediately?
+	 * @param  {Champion} champion the champion that was changed into -> previous selected champion is on this.champion when called -> model doesn't update immediately?
 	 * @param  {number} currentLevel the level that was changed into -> previous selected level is on this.currentLevel when called -> model doesn't update immediately?
 	 * @returns void
 	 */
-	removeInvalidItemsBasedOnChampion(selectedChampion: Champion): void {
+	removeInvalidItemsBasedOnChampion(champion: Champion): void {
 		let runService = false;
 		this.selectedItems.forEach((item, index) => {
-			let championRangeType = selectedChampion["rangetype"].toLowerCase();
-			if (selectedChampion.name == "Cassiopeia" && item.boots_ms != 0) {
+			let championRangeType = champion["rangetype"].toLowerCase();
+			if (champion.name == "Cassiopeia" && item.boots_ms != 0) {
 				this.removeItem(item, index, runService);
-			} else if (selectedChampion.name != "Viktor" && item.apiname.includes("hexcore")) {
+			} else if (champion.name != "Viktor" && item.apiname.includes("hexcore")) {
 				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.melee && !item.allowed_to.ranged && championRangeType == "ranged") {
 				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.ranged && !item.allowed_to.melee && championRangeType == "melee") {
 				this.removeItem(item, index, runService);
-			} else if (item.apiname.includes("masterwork") && selectedChampion.name != "Ornn") {
+			} else if (item.apiname.includes("masterwork") && champion.name != "Ornn") {
 				let occupiedSlots = 0;
 				// look at this logic again and see if there is a logically better way of doing this
 				// remove any ornn items that can't be held in the inventory on switching champs
@@ -147,16 +145,30 @@ export class InventoryComponent implements OnInit {
 		// this.emitSelectedItems();
 		return;
 	}
-	removeElixir(currentLevel?: number) {
-		if (!currentLevel) {
-			currentLevel = this.currentLevel;
-		}
-		if (this.selectedElixir != EMPTY_ITEM || currentLevel < 9) {
+	/**
+	 * @param  {Champion} champion? this is an optional param that is passed from the parent component
+	 * there are reasons why we pass it here.
+	 * on the html, the param is not there. since elixirs are only available at level >=9, we reference this.champion.
+	 * when we want to remove the elixir when the level is updated, the champion component does not actually receive the changes
+	 * of the elixir changes. the stack follows:
+	 * 1. update level -> emit champion change
+	 * 2. parent sets champion and calls this method
+	 * 3. apply component changes
+	 * 4. run apply component changes again (but does not receive the elixir changes) -> incorrect calculation
+	 * the main idea is that we need to only call component changes once if the level is updated
+	 */
+	removeElixir(champion?: Champion) {
+		if (champion) {
+			if (this.selectedElixir != EMPTY_ITEM && champion.currentLevel < 9) {
+				this.selectedElixir = EMPTY_ITEM;
+				this.selectedElixirEmitter.emit(this.selectedElixir);
+			}
+		} else {
 			this.selectedElixir = EMPTY_ITEM;
 			this.selectedElixirEmitter.emit(this.selectedElixir);
-			// this.emitSelectedItems();
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		}
+		return;
 	}
 	/**
 	 * Method that removes elixir slot if the champion level is below the required level

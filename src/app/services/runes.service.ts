@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Champion } from '../models/champion';
-import { RuneShard, Rune, RuneModifiers } from '../models/rune';
 import { Item } from '../models/item';
+import { RuneShard, Rune, Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 import { DamageTypes } from '../models/calculations';
 
@@ -22,29 +23,30 @@ export class RunesService {
 	 * @param  {number} currentTime the current time for time dependant runes such as gatherin storm
 	 * @returns any the stats from runes
 	 */
-	calculateRuneStats(champion: Champion, selectedRunes: any, currentTime: number, selectedElixir: Item, targetDetails: TargetDetails): any {
+	calculateRuneStats(champion: Champion, selectedRunes: Runes, currentTime: number, selectedElixir: Item, targetDetails: TargetDetails): any {
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStats = {};
 		let totalDamage: DamageTypes = { "physicalDamage": 0, "magicDamage": 0, "trueDamage": 0 };
 		let totalDamageModifier: number = 0;
-		if (selectedRunes != undefined && selectedRunes.runeModifiers != undefined) {
-			let stackAllRunes: boolean = selectedRunes.runeModifiers.stackAllRunes;
-			let soulCount: number = selectedRunes.runeModifiers.soulCount;
 
-			// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
-			let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
-			let hasTranscendance: boolean = false;
-			let addedTenacityElixir: boolean = false;
-			let adaptiveDamageType = champion.adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
-			let championRangeType = champion["rangetype"].toLowerCase();
+		let stackAllRunes: boolean = selectedRunes.modifiers.stackAllRunes;
+		let soulCount: number = selectedRunes.modifiers.soulCount; // used in eval expression
+		let currentLevel: number = champion.currentLevel; // used in eval expression
+		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
+		let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
+		let hasTranscendance: boolean = false;
+		let addedTenacityElixir: boolean = false;
+		let adaptiveDamageType = champion.adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
+		let championRangeType = champion["rangetype"].toLowerCase();
 
-			let AP = champion.stats.ap;
-			let maximumHealth = champion.stats.hp;
-			let bonusAD = champion.itemStats["ad"] ? champion.itemStats["ad"] : 0;
-			let bonusHealth = champion.itemStats["hp"] ? champion.itemStats["hp"] : 0;
+		let AP = champion.stats.ap;
+		let maximumHealth = champion.stats.hp;
+		let bonusAD = champion.itemStats["ad"] ? champion.itemStats["ad"] : 0;
+		let bonusHealth = champion.itemStats["hp"] ? champion.itemStats["hp"] : 0;
 
-			for (let runeTree in selectedRunes) {
-				if (runeTree != "runeShards" && runeTree != "runeModifiers") {
+		for (let runeTree in selectedRunes) {
+			if (runeTree.charAt(0) != "_") {
+				if (runeTree != "runeShards") {
 					// some of the rune calculations are done directly in the condition instead of a separate method depending on complexity and extensibility
 					selectedRunes[runeTree].runes.forEach((rune: Rune) => {
 						// runes are in order of precision, domination, sorcery, resolve, and inspiration
@@ -119,7 +121,7 @@ export class RunesService {
 									totalStats["mp"] ? totalStats["mp"] += rune.stackable["mp"] : totalStats["mp"] = rune.stackable["mp"];
 								}
 							} else if (runeApiname == "cosmicinsight") {
-								selectedRunes.runeModifiers.cdrCap += 5;
+								selectedRunes.modifiers.cdrCap += 5;
 								totalStats["cdr"] = rune.stats.cdr; // reason we can add directly is because we need to know the cdr cap before applying transcendance and no other rune provides cdr
 							} else {
 								// consist of other runes with more complicated formulas
@@ -191,25 +193,25 @@ export class RunesService {
 					});
 				}
 			}
-			if (hasTranscendance) {
-				let transcendenceTotal = this.transcendenceRune(champion, selectedRunes.runeModifiers.cdrCap);
-				for (let bonus in transcendenceTotal) {
-					let bonusVal = transcendenceTotal[bonus];
-					totalStats[bonus] ? totalStats[bonus] += bonusVal : totalStats[bonus] = bonusVal;
-				}
-			}
-			if (!addedTenacityElixir && selectedElixir.apiname == "elixirofiron") {
-				currentTenacityRatio *= (1 - (selectedElixir.tenacity) / 100);
-			}
-			let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
-			let tenacity = totalTenacityRatio - champion.stats.tenacity;
-			if (tenacity > 0) { totalStats['tenacity'] = tenacity; }
-			if (totalStats != {}) {
-				console.log(totalStats);
-			}
-			console.log(totalDamage, totalDamageModifier);
-			champion.stats.tenacity = totalTenacityRatio;
 		}
+		if (hasTranscendance) {
+			let transcendenceTotal = this.transcendenceRune(champion, selectedRunes.modifiers.cdrCap);
+			for (let bonus in transcendenceTotal) {
+				let bonusVal = transcendenceTotal[bonus];
+				totalStats[bonus] ? totalStats[bonus] += bonusVal : totalStats[bonus] = bonusVal;
+			}
+		}
+		if (!addedTenacityElixir && selectedElixir.apiname == "elixirofiron") {
+			currentTenacityRatio *= (1 - (selectedElixir.tenacity) / 100);
+		}
+		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
+		let tenacity = totalTenacityRatio - champion.stats.tenacity;
+		if (tenacity > 0) { totalStats['tenacity'] = tenacity; }
+		if (Object.keys(totalStats).length != 0) {
+			console.log(totalStats);
+		}
+		// console.log(totalDamage, totalDamageModifier);
+		champion.stats.tenacity = totalTenacityRatio;
 		return totalStats;
 	}
 	legendRune(rune: Rune, statKey: string, stackAllRunes: boolean) {

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+
+import { Champion } from '../models/champion';
+import { Item } from '../models/item';
+import { RuneModifiers, Runes } from '../models/rune';
+import { TargetDetails } from '../models/target';
+
+import { EMPTY_ITEM } from '../../../server/data/items';
 import { ItemsService } from './items.service';
 import { RunesService } from './runes.service';
 import { StatsService } from './stats.service';
-import { Item } from '../models/item';
-import { Champion } from '../models/champion';
-import { RuneModifiers } from '../models/rune';
-import { EMPTY_ITEM } from '../../../server/data/items';
 import { DamageCalculationsService } from './damage-calculations.service';
-import { TargetDetails } from '../models/target';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,7 +20,7 @@ export class ChampionService {
 
 	/**
 	 * Method that performs all the calculations for changes in all components. This invokes calls to the stats, items and runes service
-	 * @param  {Champion} selectedChampion the champion to apply the calculations to
+	 * @param  {Champion} champion the champion to apply the calculations to
 	 * @param  {number} currentLevel the current level selected
 	 * @param  {number} currentTime the current time in game for time dependant runes and items
 	 * @param  {[Item*6]} selectedItems the selected items to calculate stats
@@ -26,10 +28,10 @@ export class ChampionService {
 	 * @param  {any} selectedRunes the selected runes to calculate stats
 	 * @param  {RuneModifiers} runeModifiers boolean to stack all the rune choices or not (eg. legend runes) and dark harvest soul count
 	 */
-	applyAllComponentChanges(champion: Champion, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: any, targetDetails: TargetDetails) {
+	applyAllComponentChanges(champion: Champion, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: Runes, targetDetails: TargetDetails) {
 
 		this.statsService.adjustBaseStats(champion);
-		let [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
+		let [totalStatsFromItems, multKeyValues, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
 		champion.itemStats = totalStatsFromItems;
 		this.itemsService.addItemStats(champion, multKeyValues);
@@ -37,9 +39,9 @@ export class ChampionService {
 		champion.runeStats = totalStatsFromRunes;
 
 		this.runesService.addRuneStats(champion);
-		this.statsService.adjustAttackSpeed(champion, selectedRunes.runeModifiers.exceedsAttackSpeedLimit);
-		this.preDamageCalculations(champion, itemAdditions, selectedRunes.runeModifiers);
-		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, selectedRunes.runeModifiers);
+		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
+		this.preDamageCalculations(champion, itemAdditions, selectedRunes.modifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, selectedRunes.modifiers);
 		this.addPostDamageCalculationsBonusStats(champion);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters

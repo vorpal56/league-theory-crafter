@@ -98,7 +98,7 @@ export const RUNES = [
 		"active_primary": false,
 		"active_secondary": false,
 		"img": "assets/images/runes/Precision/Precision.png",
-		"path_name": "Precision",
+		"path": "Precision",
 		"tooltip": "Precision: Focused on improved attacks and sustained damage.",
 		"runes": [
 			{
@@ -305,7 +305,7 @@ export const RUNES = [
 		"active_primary": false,
 		"active_secondary": false,
 		"img": "assets/images/runes/Domination/Domination.png",
-		"path_name": "Domination",
+		"path": "Domination",
 		"tooltip": "Domination: Focuses on burst damage and target access.",
 		"runes": [
 			{
@@ -538,7 +538,7 @@ export const RUNES = [
 		"active_primary": false,
 		"active_secondary": false,
 		"img": "assets/images/runes/Sorcery/Sorcery.png",
-		"path_name": "Sorcery",
+		"path": "Sorcery",
 		"tooltip": "Sorcery: Focuses on empowered abilities and resource manipulation.",
 		"runes": [
 			{
@@ -735,7 +735,7 @@ export const RUNES = [
 		"active_primary": false,
 		"active_secondary": false,
 		"img": "assets/images/runes/Resolve/Resolve.png",
-		"path_name": "Resolve",
+		"path": "Resolve",
 		"tooltip": "Resolve: Focuses on durability and crowd control.",
 		"runes": [
 			{
@@ -925,7 +925,7 @@ export const RUNES = [
 		"active_primary": false,
 		"active_secondary": false,
 		"img": "assets/images/runes/Inspiration/Inspiration.png",
-		"path_name": "Inspiration",
+		"path": "Inspiration",
 		"tooltip": "Inspiration: Focuses on creative tools and rule bending.",
 		"runes": [
 			{

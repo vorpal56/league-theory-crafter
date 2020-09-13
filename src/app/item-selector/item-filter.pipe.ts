@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Item } from "../models/item";
 import { Champion } from "../models/champion";
+import { Item } from "../models/item";
 
 @Pipe({
 	name: "itemFilter",
@@ -34,19 +34,19 @@ export class ItemFilterPipe implements PipeTransform {
 	/**
 	 * Item filter pipe that is called on search input
 	 * @param  {Item[]} items the list of all items
-	 * @param  {Champion} selectedChampion the selected champion to filter items that are unobtainable
+	 * @param  {Champion} champion the selected champion to filter items that are unobtainable
 	 * @param  {string} searchText search input when typed in
 	 * @param  {string} searchMode search by gamemode
 	 * @param  {string} orderBy orders results by name or gold/price
 	 * @param  {string} orderMode orders in ascending or descending order
 	 * @returns Item[]
 	 */
-	transform(items: Item[], selectedChampion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
+	transform(items: Item[], champion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
 		if (!items) return [];
 		// check if there is a selected champion from oninit in champion component
-		if (!selectedChampion) return items;
-		let championName = selectedChampion.name;
-		let championRangeType = selectedChampion["rangetype"].toLowerCase();
+		if (!champion) return items;
+		let apiname = champion.apiname.toLowerCase();
+		let championRangeType = champion["rangetype"].toLowerCase();
 		searchText = searchText.toLowerCase();
 		searchMode = searchMode.toLowerCase();
 
@@ -81,11 +81,11 @@ export class ItemFilterPipe implements PipeTransform {
 				return;
 			}
 			finalCondition = intermediaryCondition2 && itemsSearchedByMode;
-			if (championName == "Cassiopeia") {
+			if (apiname == "cassiopeia") {
 				item.visible = finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
 				// return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
 				return;
-			} else if (championName == "Viktor") {
+			} else if (apiname == "viktor") {
 				item.visible = finalCondition || (finalCondition && item.apiname.includes("hexcore"));
 				// return finalCondition || (finalCondition && item.apiname.includes("hexcore"));
 				return;

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Item } from '../models/item';
+
 import { Champion } from '../models/champion';
+import { Item } from '../models/item';
+
 import { EMPTY_ITEM } from '../../../server/data/items';
 
 @Injectable({
@@ -16,7 +18,7 @@ export class ItemsService {
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns [object, object, string, object] total calculated stats from items, any multipliers on items, the adaptive type for runes, and item additions for post calculations
 	 */
-	calculateItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): [object, object, string, object] {
+	calculateItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): [object, object, object] {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 
@@ -195,10 +197,12 @@ export class ItemsService {
 			} else {
 				adaptiveType = totalAdFromItems > totalApFromItems ? "ad" : "ap";
 			}
+			champion.adaptiveType = adaptiveType;
 			let itemAdditions = { "aweItem": aweItem, "hexcoreItem": hexCoreItem };
-			return [totalStatsFromItems, multKeyValues, adaptiveType, itemAdditions];
+			return [totalStatsFromItems, multKeyValues, itemAdditions];
 		}
-		return [{}, {}, champion.stats.ad > champion.stats.ap ? "ad" : "ap", {}];
+		champion.adaptiveType = champion.stats.ad > champion.stats.ap ? "ad" : "ap";
+		return [{}, {}, {}];
 	}
 	addItemStats(champion: Champion, multKeyValues: any) {
 		let hasTotalMultiplier: boolean = false;

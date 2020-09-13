@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { Champion } from "./models/champion";
 import { Item, ItemRestrictions } from "./models/item";
-import { RuneModifiers } from "./models/rune";
+import { RuneModifiers, Runes } from "./models/rune";
 import { TargetDetails } from './models/target';
 
 import { InventoryComponent } from "./inventory/inventory.component";
@@ -44,15 +44,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 	numberOfEquippedItems: number = 0;
 
 	// runes/item-selector/epic-monsters buff definition to show which page first
-	selectedTab: string = "runes";
+	selectedTab: string = "item-selector";
 
 	// champion and current level definition from the champion component
 	champion: Champion;
-	currentLevel: number;
 	currentTime: number;
-	selectedRunes: any;
+	selectedRunes: Runes;
 	runeModifiers: RuneModifiers;
 	targetDetails: TargetDetails;
+
+	runElixirComponentChange: boolean = false;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -72,17 +73,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 			return this.selectedTab == "runes" || this.selectedTab == "item-selector";
 		}
 	}
-	setChampion(selectedChampion: Champion) {
-		this.champion = selectedChampion;
+	setChampion(champion: Champion) {
+		this.champion = champion;
 		if (this.inventoryComponent) {
 			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
-		}
-		return;
-	}
-	setCurrentLevel(selectedLevel: number) {
-		this.currentLevel = selectedLevel;
-		if (this.inventoryComponent) {
-			this.inventoryComponent.removeElixir(this.currentLevel);
+			// call remove elixir by passing champion
+			this.inventoryComponent.removeElixir(this.champion);
 		}
 		return;
 	}
@@ -106,12 +102,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 		this.selectedElixir = selectedElixir;
 		return;
 	}
-	setSelectedRunes(selectedRunes: any) {
+	setSelectedRunes(selectedRunes: Runes) {
 		this.selectedRunes = selectedRunes;
-		return;
-	}
-	setRuneModifiers(runeModifiers: RuneModifiers) {
-		this.runeModifiers = runeModifiers;
 		return;
 	}
 	setTargetDetails(targetDetails: TargetDetails) {

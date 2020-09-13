@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { Champion } from '../models/champion';
 import { Item } from '../models/item';
-import { RuneShard, Rune, RuneModifiers } from '../models/rune';
+import { RuneShard, Rune, Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 
 import { RUNES, RUNE_SHARDS } from '../../../server/data/runes';
@@ -14,16 +14,14 @@ import { ChampionService } from '../services/champion.service';
 	styleUrls: ['./runes.component.css']
 })
 export class RunesComponent implements OnInit {
-	runes: any = RUNES;
+	runes: any[] = RUNES;
 	runeShards: any = RUNE_SHARDS;
 
 	runeShardSet1: [RuneShard, RuneShard, RuneShard] = this.runeShards.set1;
 	runeShardSet2: [RuneShard, RuneShard, RuneShard] = this.runeShards.set2;
 	runeShardSet3: [RuneShard, RuneShard, RuneShard] = this.runeShards.set3;
-	pathIndices = { "Precision": 0, "Domination": 1, "Sorcery": 2, "Resolve": 3, "Inspiration": 4 };
 
-	@Input("selectedChampion") champion: Champion;
-	@Input("currentLevel") currentLevel: number;
+	@Input("champion") champion: Champion;
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
@@ -34,22 +32,15 @@ export class RunesComponent implements OnInit {
 
 	stackAllRunes: boolean = false;
 	soulCount: number = 0;
-	selectedRunes: any = {
-		"primaryTree": { "runes": [null, null, null, null], "path": null },
-		"secondaryTree": { "runes": [null, null], "path": null },
-		"runeShards": [null, null, null],
-		"runeModifiers": new RuneModifiers(this.stackAllRunes, this.soulCount)
-	};
+
+	selectedRunes: Runes = new Runes(this.stackAllRunes, this.soulCount);
 
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
-		this.selectedRunes.primaryTree.path = this.runes[0].path_name;
-		this.runes[0].active_primary = true;
+		this.selectedRunes.primaryTree.path = Runes.PRECISION;
+		this.runes[Runes.TREE_INDEXES[Runes.PRECISION]].active_primary = true;
 		this.emitSelectedRunes();
-		// you can set the secondary path here oninit
-		// this.selectedRunes.secondaryTree.path = this.runes[1].path_name;
-		// this.runes[1].active_secondary = true;
 	}
 
 	emitSelectedRunes() {
@@ -102,7 +93,7 @@ export class RunesComponent implements OnInit {
 				// if the slot is not empty but the slot is in the same line, set the previous rune as inactive
 				if (selectedRune != null && selectedRune.keyslot == rune.keyslot) {
 					rune.active = true;
-					this.runes[this.pathIndices[pathName]].runes[0][selectedRune.keyslot][selectedRune.index].active = false;
+					this.runes[Runes.TREE_INDEXES[pathName]].runes[0][selectedRune.keyslot][selectedRune.index].active = false;
 					this.selectedRunes.secondaryTree.runes[selectedRuneIndex] = rune;
 					this.emitSelectedRunes();
 					this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
@@ -121,7 +112,7 @@ export class RunesComponent implements OnInit {
 			let slotName = this.selectedRunes.secondaryTree.runes[0].keyslot;
 			let runeIndex = this.selectedRunes.secondaryTree.runes[0].index;
 			// set the previous rune as inactive
-			this.runes[this.pathIndices[pathName]].runes[0][slotName][runeIndex].active = false;
+			this.runes[Runes.TREE_INDEXES[pathName]].runes[0][slotName][runeIndex].active = false;
 			rune.active = true;
 			this.selectedRunes.secondaryTree.runes[0] = { ...this.selectedRunes.secondaryTree.runes[1] };
 			this.selectedRunes.secondaryTree.runes[1] = rune;
@@ -151,16 +142,16 @@ export class RunesComponent implements OnInit {
 	}
 	choosePrimaryPath(runePath: any) {
 		// only do something if the selected tree is different from the one that's active
-		if (runePath.path_name != this.selectedRunes.primaryTree.path) {
+		if (runePath.path != this.selectedRunes.primaryTree.path) {
 			// reset the primary tree (make all rune options in this tree inactive)
 			this.resetTree("primary");
 			// if the primary path is the same as the secondary path, set the secondary path as inactive
-			if (this.selectedRunes.secondaryTree.path == runePath.path_name) {
+			if (this.selectedRunes.secondaryTree.path == runePath.path) {
 				this.resetTree("secondary");
 				runePath.active_secondary = false;
 			}
 			// set the path as the tree name
-			this.selectedRunes.primaryTree.path = runePath.path_name;
+			this.selectedRunes.primaryTree.path = runePath.path;
 			// reset the images of the runes to be inactive
 			this.runes.forEach((availableRunePath: any) => {
 				availableRunePath.active_primary = availableRunePath == runePath;
@@ -170,10 +161,10 @@ export class RunesComponent implements OnInit {
 	}
 	chooseSecondaryPath(runePath: any) {
 		// only allow selected a different secondary path
-		if (this.selectedRunes.secondaryTree.path != runePath.path_name) {
+		if (this.selectedRunes.secondaryTree.path != runePath.path) {
 			// reset the secondary tree
 			this.resetTree("secondary");
-			this.selectedRunes.secondaryTree.path = runePath.path_name;
+			this.selectedRunes.secondaryTree.path = runePath.path;
 			// reset the images of the runes to be inactive
 			this.runes.forEach((availableRunePath: any) => {
 				availableRunePath.active_secondary = availableRunePath == runePath;
@@ -191,7 +182,7 @@ export class RunesComponent implements OnInit {
 		// get the path name which can be empty if they decide to switch primary paths without selecting a secondary path
 		let pathName = this.selectedRunes[keyname + "Tree"].path;
 		if (pathName != null) {
-			let runesToReset = this.runes[this.pathIndices[pathName]].runes[0];
+			let runesToReset = this.runes[Runes.TREE_INDEXES[pathName]].runes[0];
 			for (let key in runesToReset) {
 				for (let runeToResetIndex in runesToReset[key]) {
 					runesToReset[key][runeToResetIndex].active = false;
@@ -203,12 +194,12 @@ export class RunesComponent implements OnInit {
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}
 	setStackAllRunes(stackAllRunes: boolean) {
-		this.selectedRunes.runeModifiers.stackAllRunes = stackAllRunes;
+		this.selectedRunes.modifiers.stackAllRunes = stackAllRunes;
 		this.emitSelectedRunes();
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}
 	setSoulCount() {
-		this.selectedRunes.runeModifiers.soulCount = this.soulCount;
+		this.selectedRunes.modifiers.soulCount = this.soulCount;
 		this.emitSelectedRunes();
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}

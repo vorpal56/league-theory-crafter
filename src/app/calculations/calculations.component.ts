@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Options, LabelType, TranslateFunction } from 'ng5-slider';
 
 import { Champion } from '../models/champion';
+import { Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 
 import { ChampionService } from '../services/champion.service';
@@ -15,8 +16,7 @@ import { DamageCalculationsService } from '../services/damage-calculations.servi
 export class CalculationsComponent implements OnInit {
 
 	@Input('champion') champion: Champion;
-	@Input('currentLevel') currentLevel: number;
-	@Input('selectedRunes') selectedRunes: any;
+	@Input('selectedRunes') selectedRunes: Runes;
 
 	@Output('manualRefresh') manualRefresh = new EventEmitter<void>();
 	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
@@ -66,24 +66,24 @@ export class CalculationsComponent implements OnInit {
 			this.manualRefresh.emit();
 			this.targetDetails.maxHP = this.targetMaxHP;
 			this.emitTargetDetails();
-			this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.runeModifiers);
+			this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.modifiers);
 		}
 		return;
 	}
 	itemSteroidsChange(appliedItemSteroids: boolean) {
 		this.targetDetails.applyItemSteroids = appliedItemSteroids;
 		this.emitTargetDetails();
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.runeModifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.modifiers);
 	}
 	abilitySteroidsChange(abilitySteroids: boolean) {
 		this.targetDetails.applyAbilitySteroids = abilitySteroids;
 		this.emitTargetDetails();
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.runeModifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.modifiers);
 	}
 	formUsageChange(formUsage: boolean) {
 		this.targetDetails.applyFormUsage = formUsage;
 		this.emitTargetDetails();
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.runeModifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.targetDetails, this.selectedRunes.modifiers);
 	}
 	emitTargetDetails() {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);

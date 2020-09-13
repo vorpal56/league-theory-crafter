@@ -5,7 +5,7 @@ import { shareReplay } from 'rxjs/operators';
 
 import { Champion } from "../models/champion";
 import { Item, ItemRestrictions } from "../models/item";
-import { RuneModifiers } from '../models/rune';
+import { Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 
 import { GAMEMODES, ORDERBY, ORDERMODES } from "../../../server/data/data";
@@ -28,13 +28,11 @@ export class ItemSelectorComponent implements OnInit {
 	searchMode: string = "all";
 	searchText: string = "";
 
-	@Input('selectedChampion') champion: Champion;
-	@Input('currentLevel') currentLevel: number;
+	@Input('champion') champion: Champion;
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("selectedRunes") selectedRunes: any;
-	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
 	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
@@ -96,7 +94,7 @@ export class ItemSelectorComponent implements OnInit {
 	}
 
 	addElixir(selectedElixir: Item) {
-		if (this.currentLevel >= 9) {
+		if (this.champion.currentLevel >= 9) {
 			this.selectedElixir = selectedElixir;
 			this.emitSelectedItems();
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);

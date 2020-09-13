@@ -5,9 +5,10 @@ import { toArray, take, shareReplay, share } from 'rxjs/operators';
 
 import { Champion, BasicChampion } from "../models/champion";
 import { Item } from "../models/item";
-import { RuneModifiers } from "../models/rune";
+import { Runes } from '../models/rune';
 import { TargetDetails } from "../models/target";
 
+import { EMPTY_ITEM } from 'server/data/items';
 import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from '../../../server/data/data';
 import { ChampionService } from "../services/champion.service";
 import { DamageCalculationsService } from '../services/damage-calculations.service';
@@ -23,19 +24,16 @@ export class ChampionComponent implements OnInit {
 
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("selectedRunes") selectedRunes: any;
-	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
 
-	@Output("selectedChampion") selectedChampionEventEmitter = new EventEmitter<Champion>();
-	@Output("selectedLevel") currentLevelEventEmitter = new EventEmitter<number>();
+	@Output("champion") championEventEmitter = new EventEmitter<Champion>();
 	@Output("selectedTime") currentTimeEventEmitter = new EventEmitter<number>();
-	@Output("selectedAbilityLevels") selectedAbilityLevelsEventEmitter = new EventEmitter<any[]>();
 
 	levels = LEVELS;
 	times = TIMES;
 	statKeys = STAT_KEYS;
-	currentLevel: number = this.levels[9].levelValue;
+	currentLevel: number = this.levels[0].levelValue;
 	currentTime: number = this.times[0].timeValue;
 	totalRanks = 0;
 
@@ -69,9 +67,8 @@ export class ChampionComponent implements OnInit {
 			this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
 			this.champions.push(this.champion);
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
-			this.selectedChampionEventEmitter.emit(this.champion);
+			this.championEventEmitter.emit(this.champion);
 		});
-		this.currentLevelEventEmitter.emit(this.currentLevel);
 		this.currentTimeEventEmitter.emit(this.currentTime);
 		return;
 	}
@@ -86,7 +83,7 @@ export class ChampionComponent implements OnInit {
 		if (apiname in this.championsIndices) {
 			this.champion = this.champions[this.championsIndices[apiname]];
 			this.resetAbilities();
-			this.selectedChampionEventEmitter.emit(this.champion);
+			this.championEventEmitter.emit(this.champion);
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		} else {
 			// set the champion to null for the loading spinner
@@ -97,17 +94,18 @@ export class ChampionComponent implements OnInit {
 				this.championsIndices[apiname] = this.numChampsCalled++;
 				this.champions.push(this.champion);
 				this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
-				this.selectedChampionEventEmitter.emit(this.champion);
+				this.championEventEmitter.emit(this.champion);
 			});
 		}
 		return;
 	}
 	updateLevel() {
-		this.currentLevelEventEmitter.emit(this.currentLevel);
+		this.champion.currentLevel = this.currentLevel;
 		this.resetAbilities();
-		if (this.currentLevel >= 9) {
-			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
-		}
+		// champion component does not receive the changes from inventory component
+		let tempElixir = this.currentLevel < 9 ? EMPTY_ITEM : this.selectedElixir;
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, tempElixir, this.selectedRunes, this.targetDetails);
+		this.championEventEmitter.emit(this.champion);
 		// we reset the abilities on change because it's difficult to know where to remove points and where not to remove points.
 		// so when the user changes the champion level, they can readjust the stats
 		return;
@@ -136,7 +134,7 @@ export class ChampionComponent implements OnInit {
 				this.champion.stats.ad += 4;
 			} else if (abilityType == "w") {
 				this.champion.otherSourcesStats["as"] = 6 * this.champion[skillKey]["rank"];
-				this.statsService.adjustAttackSpeed(this.champion, this.runeModifiers.exceedsAttackSpeedLimit);
+				this.statsService.adjustAttackSpeed(this.champion, this.selectedRunes.modifiers.exceedsAttackSpeedLimit);
 			} else if (abilityType == "e") {
 				this.champion.stats.leth += 2;
 			}
@@ -163,7 +161,7 @@ export class ChampionComponent implements OnInit {
 				this.champion.stats.ad -= 4;
 			} else if (abilityType == "w") {
 				this.champion.otherSourcesStats["as"] = 6 * this.champion[skillKey]["rank"];
-				this.statsService.adjustAttackSpeed(this.champion, this.runeModifiers.exceedsAttackSpeedLimit);
+				this.statsService.adjustAttackSpeed(this.champion, this.selectedRunes.modifiers.exceedsAttackSpeedLimit);
 			} else if (abilityType == "e") {
 				this.champion.stats.leth -= 2;
 			}

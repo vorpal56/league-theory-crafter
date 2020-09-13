@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Champion } from '../models/champion';
 import { Item } from '../models/item';
-import { RuneModifiers } from '../models/rune';
+import { Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 
 import { ChampionService } from '../services/champion.service';
@@ -14,13 +14,11 @@ import { ChampionService } from '../services/champion.service';
 })
 export class EpicMonstersComponent implements OnInit {
 
-	@Input("selectedChampion") champion: Champion;
-	@Input("currentLevel") currentLevel: number;
+	@Input("champion") champion: Champion;
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
-	@Input("selectedRunes") selectedRunes: any;
-	@Input("runeModifiers") runeModifiers: RuneModifiers;
+	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
 
 	@Output("externalBuffs") epicBuffsEmitter = new EventEmitter<any>();

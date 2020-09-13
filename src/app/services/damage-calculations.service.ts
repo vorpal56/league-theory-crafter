@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { Champion } from '../models/champion';
 import { Rune, RuneShard, RuneModifiers } from '../models/rune';
 import { TargetDetails } from '../models/target';
+import { CalculationResults } from '../models/calculations';
+
 import { SKILL_KEYS } from '../../../server/data/data';
 import { StatsService } from './stats.service';
-import { CalculationResults } from '../models/calculations';
 
 @Injectable({
 	providedIn: 'root'
@@ -300,7 +302,7 @@ export class DamageCalculationsService {
 		}
 		targetDetails.damageResults = damageResults;
 		targetDetails.damageReductionResults = damageReductionResults;
-		console.log(targetDetails);
+		console.log(targetDetails.damageResults, targetDetails.damageReductionResults);
 		return damageResults;
 	}
 	nidaleeCalculationMethod(champion: Champion, targetDetails: TargetDetails,
