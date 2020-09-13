@@ -20,7 +20,7 @@ export class TargetDetails {
 		this.applyAbilitySteroids = applyAbilitySteroids;
 		this.applyFormUsage = formUsage;
 		this.damageResults = new CalculationResults();
-		this.damageReductionResults = new CalculationResults(CalculationResults.defensiveType);
+		this.damageReductionResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);
 	}
 	get maxHP() { return this._targetMaxHP; }
 	set maxHP(maxHP: number) { this._targetMaxHP = maxHP; }

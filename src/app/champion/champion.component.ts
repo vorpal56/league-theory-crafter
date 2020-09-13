@@ -49,7 +49,7 @@ export class ChampionComponent implements OnInit {
 
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
-		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions/basic").pipe(
+		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions").pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
 		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => {

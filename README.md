@@ -26,5 +26,12 @@ yarn serve
 cd server/
 yarn ts-dev
 ```
+### Updating Data using Python
+Run them as **modules** instead of **scripts** to prevent module import errors.
+```
+./venv/Scripts/activate | source venv/bin/activate
+cd server/src
+python -m items | runes | champions
+```
 
 
