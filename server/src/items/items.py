@@ -1,11 +1,8 @@
-import re,  os,  pickle, requests, json
+import os
+import requests
+import json
 from pprint import PrettyPrinter
-APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES_PATH = os.path.join(APP_PATH, "server")
-DATA_PATH = os.path.join(FILES_PATH, "data")
-true = True
-false = False
-null = None
+from common.utils import DATA_PATH, fix_punctuation
 stat_keys = {
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
@@ -54,45 +51,12 @@ main_meraki_stat_keys = {
 		"manaRegen": "mp5",
 		"movespeed": "ms",
 	}
-	stat_val_reps = {
-		"flat": "_base",
-		"percent":"%",
-		"perLevel":"_lvl",
-		# "percentPerLevel":
-	}
-
-def get_item_codes():
-	item_width = 150
-	pp = PrettyPrinter(indent=2, width=item_width)
-	try:
-		from bs4 import BeautifulSoup
-	except:
-		print("Requires Beautiful Soup")
-		return
-	for item in items:
-		item_name = item["name"]
-		url = "https://leagueoflegends.fandom.com/wiki/{}".format(item_name)
-		response = requests.get(url)
-		if response.status_code == 200:
-			soup = BeautifulSoup(response.text, 'html.parser')
-			item_code = soup.find("td", attrs={"data-source":"code"}).text
-			item["id"] = item_code
-		else:
-			if (item_name == "BF Sword"):
-				item["id"] = "1038"
-			elif ("bloodrazor" in item_name):
-				item["id"] = "1419"
-			elif ("cinderhulk" in item_name):
-				item["id"] = "1413"
-			elif ("runic" in item_name):
-				item["id"] = "1414"
-			elif ("warrior" in item_name):
-				item["id"] = "1412"
-			else:
-				print("Cant get ", item_name)
-	with open(os.path.join(DATA_PATH, "items.ts"), "w", encoding="utf-8") as file:
-		file.write("export const ITEMS = " + pp.pformat(items))
-	return
+stat_val_reps = {
+	"flat": "_base",
+	"percent":"%",
+	"perLevel":"_lvl",
+	# "percentPerLevel":
+}
 
 def compile_item_data(using="meraki", use="live"):
 	# I think we need to manually update data for every patch since the way we represent our data is different than the model that we have. not quite sure. with the new preason 2021, we can reflect the data according to the new item model and adjust the code as needed. For the time being, we update the data manually
@@ -101,7 +65,7 @@ def compile_item_data(using="meraki", use="live"):
 		os.mkdir(item_cache_path)
 
 	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file:
-		# open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
+		open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
 		items = json.load(file)
 		file.seek(0)
 		for item in items:
@@ -127,14 +91,8 @@ def compile_item_data(using="meraki", use="live"):
 		file.truncate()
 		json.dump(items, file)
 		# pp = PrettyPrinter(indent=2, width=900)
-		# ts_file.write("export const ITEMS = " + pp.pformat(items))
+		ts_file.write("export const ITEMS = " + str(items))
 	return
-
-def fix_punctuation(text):
-	# some of the text has some weird things in it so we fix the punctuation
-	if ("0.0%" in text):
-		text = text.replace("0.0%", "0%")
-	return re.sub(r'(?<=[.,])(?=[^\s])', r' ', text)
 
 def parse_item_data_meraki(response_data, item):
 	passives = response_data["passives"]
@@ -170,7 +128,3 @@ def parse_item_data_meraki(response_data, item):
 
 def base_item_stats_tooltip(item):
 	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + stat_keys[stat_name] for stat_name, stat_val in item.items() if (stat_val != 0 and stat_name in stat_keys)])
-
-if __name__ == "__main__":
-	compile_item_data(use="cache")
-	pass

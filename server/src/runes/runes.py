@@ -1,28 +1,15 @@
-import re, os, json
+import re
+import os
+import json
+import requests
 from pprint import PrettyPrinter
-APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES_PATH = os.path.join(APP_PATH, "server")
-DATA_PATH = os.path.join(FILES_PATH, "data")
-
-false = False
-true = True
-def remove_html_tags(text, keep_breaks=True):
-	# useful for parsing the tooltips from ddragon cdn
-	exp = '<[^<]+?>'
-	if (keep_breaks):
-		replace_br_with_newline = re.sub('<br\s?\/>|<br>', r'\n', text)
-		replaced_tags = re.sub(exp, '', replace_br_with_newline)
-		return re.sub(r'\n', '<br>', replaced_tags)
-	else:
-		return re.sub(exp, '', text)
+from common.utils import DATA_PATH, remove_html_tags, full_clean_text
+from bs4 import BeautifulSoup
 
 def clean_tooltip(text):
-	return re.sub(r' +', ' ', re.sub(r'[−]', '-', remove_html_tags(text, False))).replace(u"\u00A0", " ")
+	return full_clean_text(remove_html_tags(text, keep_breaks=False))
 
 def get_rune_tooltips():
-	import requests
-	from bs4 import BeautifulSoup
-
 	with open(os.path.join(DATA_PATH, "json", 'runes.json'), "r+") as file:
 		all_runes = json.load(file)
 		file.seek(0)
@@ -70,7 +57,3 @@ def store_runes():
 	with open(os.path.join(DATA_PATH, "json", 'runes.json'), "w") as file:
 		json.dump(runes, file)
 	return
-
-if __name__ == "__main__":
-	get_rune_tooltips()
-	pass

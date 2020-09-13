@@ -1,5 +1,5 @@
 import * as express from "express";
-import { ITEMS } from "../data/updated_items_merkai";
+import { ITEMS } from "../../data/updated_items_merkai";
 var router = express.Router();
 
 router.get("/", (req, res) => {

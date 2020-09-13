@@ -1,14 +1,9 @@
-import re, os, json, requests
+import re
+import os
+import json
+import requests
 from pprint import PrettyPrinter
-APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES_PATH = os.path.join(APP_PATH, "server")
-DATA_PATH = os.path.join(FILES_PATH, "data")
-
-def remove_html_tags(text):
-	# useful for parsing the tooltips from ddragon cdn
-	replace_br_with_newline = re.sub('<br\s?\/>|<br>', r'\n', text)
-	replaced_tags = re.sub('<[^<]+?>', '', replace_br_with_newline)
-	return re.sub(r'\n', '<br>', replaced_tags)
+from common.utils import DATA_PATH, remove_html_tags, skill_keys
 
 def find_all_placeholders(tooltip):
 	expression_pattern = r'({{.*?}})'
@@ -44,7 +39,6 @@ def compile_champion_data(using="meraki", use="live"):
 
 	champion_width = 770 # tooltipping (pretty print on prettify)
 	pp = PrettyPrinter(indent=2, width=champion_width)
-	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
 	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	if (not os.path.exists(meraki_champion_cache_path)):
@@ -62,7 +56,6 @@ def compile_champion_data(using="meraki", use="live"):
 
 	all_attribute_names = {}
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
-		open(os.path.join(DATA_PATH, "updated_champions_combined.ts"), "w", encoding="utf-8") as ts_file, \
 		open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
 		champions = json.load(file)
 		fixed_tooltips = json.load(fixed_tooltips_file)
@@ -143,7 +136,6 @@ def compile_champion_data(using="meraki", use="live"):
 			json_file.close()
 		file.truncate()
 		json.dump(champions, file)
-		ts_file.write('export const CHAMPIONS = ' + str(champions))
 	# sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[0]))
 	sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[1], reverse=True))
 	attribute_names_file = open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8")
@@ -206,7 +198,6 @@ def parse_champion_data_meraki(champion_name, champion_data):
 
 	champion_abilities = champion_data["abilities"]
 	champion_tooltips = []
-	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	ability_breakdown = []
 	all_attribute_names = {}
 	ability_names = {}
@@ -334,7 +325,6 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 	return champion_tooltips, max_ranks
 
 def combine_champion_data():
-	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
 		champions = json.load(file)
 		file.seek(0)
@@ -354,7 +344,6 @@ def combine_champion_data():
 		json.dump(champions, file)
 
 def clear_basic_champions():
-	skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
 		champions = json.load(file)
 		file.seek(0)
@@ -379,16 +368,3 @@ def store_meraki():
 			json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "w")
 			json.dump(response_body, json_file)
 			json_file.close()
-
-if __name__ == "__main__":
-	# clear_basic_champions()
-	compile_champion_data(using="meraki", use="cache")
-	# champion_name = "Lillia"
-	# meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
-	# json_file = open(os.path.join(meraki_champion_cache_path, "{}.json".format(champion_name)), "r")
-	# champion_data = json.load(json_file)
-	# json_file.close()
-	# champion_tooltips, ability_breakdown  = parse_champion_data_meraki(champion_name, champion_data)
-	# print(champion_tooltips, ability_breakdown)
-	# store_meraki()
-	pass
