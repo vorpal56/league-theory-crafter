@@ -41,7 +41,7 @@ export class ChampionService {
 		this.runesService.addRuneStats(champion);
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
 		this.preDamageCalculations(champion, itemAdditions, selectedRunes.modifiers);
-		this.damageCalculationsService.totalChampionDamageCalculation(champion, targetDetails, selectedRunes.modifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, currentTime, targetDetails, selectedRunes.modifiers);
 		this.addPostDamageCalculationsBonusStats(champion);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
@@ -76,8 +76,14 @@ export class ChampionService {
 	}
 	addPostDamageCalculationsBonusStats(champion: Champion) {
 		for (let bonusAttributeKey in champion.otherSourcesStats) {
-			if (bonusAttributeKey != "as") {
-				champion.stats[bonusAttributeKey] += champion.otherSourcesStats[bonusAttributeKey];
+			let statVal = champion.otherSourcesStats[bonusAttributeKey];
+			if (bonusAttributeKey == "flat_ms") {
+				champion.stats.ms += statVal;
+			} else if (bonusAttributeKey == "ms%") {
+				// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
+				champion.stats.ms += champion.stats.ms * (statVal / 100);
+			} else if (bonusAttributeKey != "as") {
+				champion.stats[bonusAttributeKey] += statVal;
 			}
 		}
 	}

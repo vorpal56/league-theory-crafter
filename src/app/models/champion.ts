@@ -38,6 +38,7 @@ export class Champion extends BasicChampion {
 	skill_r: any;
 	currentLevel: number;
 	adaptiveType: string;
+	totalAbilityRanks: number;
 	constructor(championDetails: any, currentLevel: number) {
 		super(championDetails["name"], championDetails["apiname"], championDetails["index"], championDetails["id"]);
 		for (let attributeName in championDetails) {
@@ -50,6 +51,7 @@ export class Champion extends BasicChampion {
 		this.itemStats = {};
 		this.runeStats = {};
 		this.otherSourcesStats = {};
+		this.totalAbilityRanks = 0;
 	}
 
 	get itemStats() { return this._item_stats; }

@@ -34,8 +34,7 @@ export class ChampionComponent implements OnInit {
 	times = TIMES;
 	statKeys = STAT_KEYS;
 	currentLevel: number = this.levels[0].levelValue;
-	currentTime: number = this.times[0].timeValue;
-	totalRanks = 0;
+	currentTime: number = this.times[1].timeValue;
 
 	basicChampions$: Observable<BasicChampion[]>;
 	basicChampion: BasicChampion;
@@ -53,7 +52,7 @@ export class ChampionComponent implements OnInit {
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
 		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => {
-			let basicChampion: BasicChampion = basicChampions[80];
+			let basicChampion: BasicChampion = basicChampions[10];
 			this.basicChampion = new BasicChampion(
 				basicChampion["name"],
 				basicChampion["apiname"],
@@ -61,7 +60,7 @@ export class ChampionComponent implements OnInit {
 				basicChampion["id"],
 			);
 		});
-		this.http.get<Champion>("/api/champions/Nidalee").subscribe((champion: Champion) => {
+		this.http.get<Champion>("/api/champions/Azir").subscribe((champion: Champion) => {
 			this.champion = new Champion(champion, this.currentLevel);
 			this.resetAbilities();
 			this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
@@ -119,12 +118,12 @@ export class ChampionComponent implements OnInit {
 		let skillKey = "skill_" + abilityType;
 		let championAbilityRank = this.champion[skillKey]["rank"];
 		let championAbilityMaxRank = this.champion[skillKey]["maxrank"];
-		let availableSkillPoints = this.currentLevel - this.totalRanks;
+		let availableSkillPoints = this.currentLevel - this.champion.totalAbilityRanks;
 		if (this.championService.hasUltLevel1(this.champion)) {
 			availableSkillPoints += 1;
 		}
 		if (availableSkillPoints > 0 && championAbilityRank < championAbilityMaxRank && championAbilityRank >= 0) {
-			this.totalRanks += 1;
+			this.champion.totalAbilityRanks += 1;
 			this.champion[skillKey]["rank"] += 1;
 			if (this.champion[skillKey]["rank"] == championAbilityMaxRank) { this.champion[skillKey]["canLevelUp"] = false; }
 			if (this.champion[skillKey]["rank"] >= 0) { this.champion[skillKey]["canLevelDown"] = true; }
@@ -147,7 +146,7 @@ export class ChampionComponent implements OnInit {
 		let championAbilityRank = this.champion[skillKey]["rank"];
 		let championAbilityMaxRank = this.champion[skillKey]["maxrank"];
 		if (championAbilityRank <= championAbilityMaxRank && championAbilityRank > 0) {
-			this.totalRanks -= 1;
+			this.champion.totalAbilityRanks -= 1;
 			this.champion[skillKey]["rank"] -= 1;
 			if (this.champion[skillKey]["rank"] <= championAbilityMaxRank) { this.champion[skillKey]["canLevelUp"] = true; }
 			if (this.championService.hasUltLevel1(this.champion) && abilityType == "r") {
@@ -174,13 +173,13 @@ export class ChampionComponent implements OnInit {
 		if (abilityType == "r") {
 			if (this.championIsAphelios()) { return false; }
 			let maxUltPoints = this.maxUltPoints();
-			if (this.champion[skillKey]["rank"] < maxUltPoints && this.totalRanks < this.currentLevel) {
+			if (this.champion[skillKey]["rank"] < maxUltPoints && this.champion.totalAbilityRanks < this.currentLevel) {
 				return true;
 			} else if (this.champion[skillKey]["rank"] >= maxUltPoints) {
 				return false;
 			}
 		}
-		return (this.champion[skillKey]["canLevelUp"] || this.champion[skillKey]["rank"] < this.champion[skillKey]["maxrank"]) && this.totalRanks < this.currentLevel;
+		return (this.champion[skillKey]["canLevelUp"] || this.champion[skillKey]["rank"] < this.champion[skillKey]["maxrank"]) && this.champion.totalAbilityRanks < this.currentLevel;
 	}
 	canLevelDown(abilityType: string) {
 		let skillKey = "skill_" + abilityType;
@@ -222,7 +221,7 @@ export class ChampionComponent implements OnInit {
 		} else if (this.championIsAphelios()) {
 			this.champion[SKILL_KEYS[4]]["rank"] = this.maxUltPoints();
 		}
-		this.totalRanks = 0;
+		this.champion.totalAbilityRanks = 0;
 		return;
 	}
 	maxUltPoints(): number {

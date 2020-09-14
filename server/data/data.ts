@@ -64,6 +64,7 @@ export const LEVELS = [
 	{ "levelLabel": "Level 18", "levelValue": 18 },
 ];
 export const TIMES = [
+	{ "timeLabel": "1 min", "timeValue": 1 },
 	{ "timeLabel": "10 mins", "timeValue": 10 },
 	{ "timeLabel": "20 mins", "timeValue": 20 },
 	{ "timeLabel": "30 mins", "timeValue": 30 },
