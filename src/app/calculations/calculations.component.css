@@ -4,29 +4,176 @@
 	grid-template-rows: auto 1fr auto;
 	grid-template-areas:
 	"calculation-selectors"
-	"stat-selectors"
+	"target-selectors"
 	"calculations";
 }
-
 #calculation-selectors {
 	grid-area: calculation-selectors;
 	display: flex;
 	flex-direction: column;
+}
+@media (min-width: 1200px) {
+	#calculation-selectors {
+		flex-direction: row;
+	}
+}
+#target-selectors {
+	grid-area: target-selectors;
+	display:flex;
+	flex-direction: column;
+}
+.target-hp-slider {
+	overflow-x:hidden;
+}
+.target-selectors-grid {
+	display:grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, auto);
+	grid-template-areas:
+	"target-level target-max-hp"
+	"target-armor target-mr";
 }
 @media only screen and (max-width: 767px) {
 	#calculation-selectors {
 		flex-direction: row;
 		justify-content: space-evenly;
 	}
+	.target-selectors-grid {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+		"target-level target-max-hp target-armor target-mr";
+	}
 }
-#stat-selectors {
-	grid-area: stat-selectors;
-	display:flex;
-	flex-direction: column;
+.distribution {
+	vertical-align: text-top;
 }
 #calculations {
-	grid-area: calculations
+	grid-area: calculations;
+	background-color: var(--background-main);
 }
-.target-stat-selectors {
-	display:flex;
+.results-grid-2 {
+	display:grid;
+	grid-template-columns: repeat(2, auto);
+	grid-template-rows: auto;
+	text-align:center;
 }
+.results-grid-3 {
+	display:grid;
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: auto;
+	text-align:center;
+}
+.main-results-grid {
+	display:grid;
+	grid-template-columns: auto;
+	grid-template-rows: repeat(4, auto);
+	grid-template-areas:
+		"dps"
+		"dbr"
+		"dar"
+		"dr";
+		grid-gap: 8px;
+		padding: 8px 0;
+}
+@media only screen and (max-width: 767px) {
+	.main-results-grid {
+		grid-template-columns: repeat(2, auto);
+		grid-template-rows: repeat(2, auto);
+		grid-template-areas:
+		"dps dbr"
+		"dr dar";
+	}
+}
+@media (min-width: 1200px) {
+	.main-results-grid {
+		grid-template-columns: repeat(2, auto);
+		grid-template-rows: repeat(2, auto);
+		grid-template-areas:
+		"dps dbr"
+		"dr dar";
+	}
+}
+#dps,
+#dbr,
+#dar,
+#dr{
+	padding: 0 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+/* @media (min-width: 1200px) and (max-width: 1440px) {
+	#dps,
+	#dbr,
+	#dar,
+	#dr{
+		padding: 0 5px;
+	}
+} */
+#dps {
+	grid-area: dps;
+}
+#dbr {
+	grid-area: dbr;
+}
+#dar {
+	grid-area: dar;
+}
+#dr {
+	grid-area: dr;
+}
+/* -----------------Common Section----------------- */
+.common {
+	grid-template-areas:
+	"gold-efficiency total-dps"
+}
+#gold-efficiency {
+	grid-area: gold-efficiency
+}
+#total-dps {
+	grid-area: total-dps
+}
+/* -----------------End Common Section----------------- */
+/* -----------------Damage Before Section----------------- */
+.damage-before {
+	grid-template-areas:
+	"physical-damage-before magic-damage-before true-damage"
+}
+#physical-damage-before {
+	grid-area: physical-damage-before
+}
+#magic-damage-before {
+	grid-area: magic-damage-before
+}
+#true-damage {
+	grid-area: true-damage
+}
+/* -----------------End Damage Before Section----------------- */
+/* -----------------Damage After Section----------------- */
+.damage-after {
+	grid-template-areas:
+	"physical-damage-after magic-damage-after true-damage"
+}
+#physical-damage-after {
+	grid-area: physical-damage-after
+}
+#magic-damage-after {
+	grid-area: magic-damage-after
+}
+#true-damage {
+	grid-area: true-damage
+}
+/* -----------------End Damage After Section----------------- */
+/* -----------------Reduction Section----------------- */
+.damage-reduction {
+	grid-template-areas:
+	"physical-damage-reduction magic-damage-reduction";
+}
+#physical-damage-reduction {
+	grid-area: physical-damage-reduction
+}
+#magic-damage-reduction {
+	grid-area: magic-damage-reduction
+}
+/* -----------------End Reduction Section----------------- */

@@ -29,10 +29,10 @@
 				<div id="q" class="flex-center ability" [tooltip]="abilityTooltip('q')">
 					<div class="ability-leveler">
 						<button class="level-ability center-margin" (click)="decreaseSkillLevel('q')" [disabled]="!canLevelDown('q')">
-							<mat-icon aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
 						</button>
 						<button class="level-ability center-margin" (click)="increaseSkillLevel('q')" [disabled]="!canLevelUp('q')">
-							<mat-icon aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]" />
@@ -41,10 +41,10 @@
 				<div id="w" class="flex-center ability" [tooltip]="abilityTooltip('w')">
 					<div class="ability-leveler">
 						<button class="level-ability center-margin" (click)="decreaseSkillLevel('w')" [disabled]="!canLevelDown('w')">
-							<mat-icon aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
 						</button>
 						<button class="level-ability center-margin" (click)="increaseSkillLevel('w')" [disabled]="!canLevelUp('w')">
-							<mat-icon aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]" />
@@ -53,10 +53,10 @@
 				<div id="e" class="flex-center ability" [tooltip]="abilityTooltip('e')">
 					<div class="ability-leveler">
 						<button class="level-ability center-margin" (click)="decreaseSkillLevel('e')" [disabled]="!canLevelDown('e')">
-							<mat-icon aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
 						</button>
 						<button class="level-ability center-margin" (click)="increaseSkillLevel('e')" [disabled]="!canLevelUp('e')">
-							<mat-icon aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]" />
@@ -65,10 +65,10 @@
 				<div id="r" class="flex-center ability" [tooltip]="abilityTooltip('r')">
 					<div class="ability-leveler">
 						<button class="level-ability center-margin" (click)="decreaseSkillLevel('r')" [disabled]="!canLevelDown('r')">
-							<mat-icon aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
 						</button>
 						<button class="level-ability center-margin" (click)="increaseSkillLevel('r')" [disabled]="!canLevelUp('r')">
-							<mat-icon aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
+							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Increase Ability Level">add</mat-icon>
 						</button>
 					</div>
 					<img class="medium-ability" [src]="champion.skill_r.img" [alt]="champion.skill_r[1]" />

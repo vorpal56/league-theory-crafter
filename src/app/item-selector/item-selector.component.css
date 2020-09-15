@@ -43,7 +43,7 @@ div.overflow {
 	padding:4px
 }
 #item-list {
-	max-height:500px;
+	max-height:650px;
 }
 #item-grid-orderby-name {
 	grid-area: orderby-name;

@@ -26,6 +26,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MinValidatorDirective } from './calculations/min-validator.directive';
 import { MaxValidatorDirective } from './calculations/max-validator.directive';
+import { FloorPipe } from './calculations/floor.pipe';
 
 @NgModule({
 	declarations: [
@@ -41,6 +42,7 @@ import { MaxValidatorDirective } from './calculations/max-validator.directive';
 		NavbarComponent,
 		MinValidatorDirective,
 		MaxValidatorDirective,
+		FloorPipe,
 	],
 	imports: [
 		FormsModule,

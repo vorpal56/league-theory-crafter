@@ -1,3 +1,5 @@
+import { DamageTypes } from './calculations';
+
 export interface Rune {
 	name: string,
 	img: string,
@@ -54,6 +56,7 @@ export class Runes {
 	secondaryTree: RuneTree;
 	runeShards: RuneShard[];
 	private _runeModifiers: RuneModifiers;
+	private _runeDamage: DamageTypes;
 	constructor(stackAllRunes: boolean, soulCount: number) {
 		this.primaryTree = { runes: [null, null, null, null], path: null },
 			this.secondaryTree = { runes: [null, null], path: null },
@@ -75,4 +78,6 @@ export class Runes {
 	get modifiers() { return this._runeModifiers; }
 	set modifiers(runeModifiers: RuneModifiers) { this._runeModifiers = runeModifiers; }
 
+	get runeDamage() { return this._runeDamage; }
+	set runeDamage(runeDamage: DamageTypes) { this._runeDamage = runeDamage; }
 }

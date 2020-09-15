@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { Champion } from '../models/champion';
-import { Rune, RuneShard, RuneModifiers } from '../models/rune';
+import { Rune, RuneShard, RuneModifiers, Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
 import { CalculationResults, DamageTypes } from '../models/calculations';
 
-import { SKILL_KEYS } from '../../../server/data/data';
+import { ROTATION_DURATION, SKILL_KEYS } from '../../../server/data/data';
 import { StatsService } from './stats.service';
 import { ItemsService } from './items.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,16 +16,15 @@ export class DamageCalculationsService {
 
 	constructor(private statsService: StatsService, private itemsService: ItemsService) { }
 
-	PHYSICAL_DAMAGE = CalculationResults.PHYSICAL_DAMAGE;
-	MAGIC_DAMAGE = CalculationResults.MAGIC_DAMAGE;
-	TRUE_DAMAGE = CalculationResults.TRUE_DAMAGE;
+	PHYSICAL_DAMAGE = DamageTypes.PHYSICAL_DAMAGE;
+	MAGIC_DAMAGE = DamageTypes.MAGIC_DAMAGE;
+	TRUE_DAMAGE = DamageTypes.TRUE_DAMAGE;
 
-	damageReduction(champion: Champion, statName: string): number {
-		let championDef = champion.stats[statName];
-		if (championDef >= 0) {
-			return 100 / (100 + championDef);
+	damageReduction(resistVal: number): number {
+		if (resistVal >= 0) {
+			return 100 / (100 + resistVal);
 		} else {
-			return 2 - (100 / (100 - championDef));
+			return 2 - (100 / (100 - resistVal));
 		}
 	}
 	effectiveHealth(champion: Champion, statName: string): number {
@@ -60,7 +58,7 @@ export class DamageCalculationsService {
 	 * @param  {TargetDetails} targetDetails
 	 * @returns any
 	 */
-	totalChampionDamageCalculation(champion: Champion, currentTime: number, targetDetails: TargetDetails, runeModifiers: RuneModifiers): CalculationResults {
+	totalChampionDamageCalculation(champion: Champion, currentTime: number, targetDetails: TargetDetails, selectedRunes: Runes): CalculationResults {
 		let bonusAD: number = champion.itemStats["ad"] ? champion.itemStats["ad"] : 0;
 		bonusAD += champion.runeStats["ad"] ? champion.runeStats["ad"] : 0;
 		let bonusAP: number = champion.itemStats["ap"] ? champion.itemStats["ap"] : 0;
@@ -88,8 +86,7 @@ export class DamageCalculationsService {
 		let formUsage: boolean = targetDetails.applyFormUsage;
 
 		let damageBeforeResistances: CalculationResults = new CalculationResults();
-		let damageReductionResults: CalculationResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);
-		let rotationDuration: number = 3; // the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
+		let damageReductions: CalculationResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);// the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
 		// example is alistar E, trample, it ticks 1 time each 0.5s for 5s
 
 		let totalAdditionalAD: number = 0; // bonuses that apply on additional stats from items, runes, and epic monster enhancements
@@ -212,12 +209,12 @@ export class DamageCalculationsService {
 							if ((abilityType == "q" || abilityType == "e" || abilityType == "r") && loweredAttribute == "magic damage") {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
 							} else if (abilityType == "e" && loweredAttribute == "physical damage reduction") {
-								damageReductionResults[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageReductions[skillKey][this.PHYSICAL_DAMAGE] += eval("+" + expressionString);
 							} else if (abilityType == "w" && loweredAttribute.includes("magic damage")) {
 								// this is based off the parsed data. the example is the following"5+0.005*(+0.5*per100AP)maximumhealth"
 								let splitExpressionString = expressionString.split("+");
 								let perAPMaxHealthFormula = 0.5 * Math.floor(AP / 100) + eval(splitExpressionString[1].replace("*(", "")) * maximumhealth;
-								let expressionValue = (eval(splitExpressionString[0]) + perAPMaxHealthFormula) * rotationDuration * 2;
+								let expressionValue = (eval(splitExpressionString[0]) + perAPMaxHealthFormula) * ROTATION_DURATION * 2;
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
 							}
 						} else if (apiname == "anivia") {
@@ -231,7 +228,7 @@ export class DamageCalculationsService {
 								if (!loweredAttribute.includes("empowered")) {
 									expressionValue *= maxSizeSeconds;
 								} else {
-									expressionValue *= (rotationDuration - maxSizeSeconds);
+									expressionValue *= (ROTATION_DURATION - maxSizeSeconds);
 								}
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
 							}
@@ -240,8 +237,8 @@ export class DamageCalculationsService {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (loweredAttribute == "damage reduction") {
 								let expressionValue: number = this.evalAttributePercent(expressionString);
-								damageReductionResults[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionValue;
-								damageReductionResults[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
+								damageReductions[skillKey][this.PHYSICAL_DAMAGE] += eval("+" + expressionValue);
+								damageReductions[skillKey][this.MAGIC_DAMAGE] += eval("+" + expressionValue);
 							}
 						} else if (apiname == "ashe") {
 							if (abilityType == "q") {
@@ -317,8 +314,8 @@ export class DamageCalculationsService {
 									champion.otherSourcesStats["mr"] = eval(expressionString);
 								}
 							} else if (abilityType == "e") {
-								damageReductionResults[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
-								damageReductionResults[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageReductions[skillKey][this.PHYSICAL_DAMAGE] += eval("+" + expressionString);
+								damageReductions[skillKey][this.MAGIC_DAMAGE] += eval("+" + expressionString);
 							}
 						} else if (apiname == "caitlyn") {
 							if ((abilityType == "q" || abilityType == "r") && loweredAttribute == "physical damage") {
@@ -382,8 +379,8 @@ export class DamageCalculationsService {
 		AD += totalAdditionalAD;
 		AP += totalAdditionalAP;
 		HP += totalAdditionalHP;
-		this.statsService.adjustAttackSpeed(champion, runeModifiers.exceedsAttackSpeedLimit);
-		let numberOfAutos: number = Math.floor(champion.stats.as * rotationDuration);
+		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
+		let numberOfAutos: number = Math.floor(champion.stats.as * ROTATION_DURATION);
 		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
 		let applyAdditionalPassiveDamage = () => {
 			let passiveSkillKey = SKILL_KEYS[0];
@@ -493,14 +490,16 @@ export class DamageCalculationsService {
 				}
 			}
 		}
+
 		tempBonusAbilityKeys.forEach((keyList: any[]) => {
 			let [skillKey, damageKeyType] = keyList;
 			damageBeforeResistances[skillKey][damageKeyType] += tempBonusAbilityDamage[skillKey][damageKeyType];
 		});
 		damageBeforeResistances.autos = autoAttackDamage;
-		targetDetails.damageBeforeResistances = damageBeforeResistances;
-		targetDetails.damageReductionResults = damageReductionResults;
-		console.log(targetDetails.damageBeforeResistances);
+		damageBeforeResistances.runeDamage = selectedRunes.runeDamage;
+		champion.damageBeforeResistances = damageBeforeResistances;
+		champion.damageReductions = damageReductions;
+		console.log(champion.damageBeforeResistances, champion.damageReductions);
 		return damageBeforeResistances;
 	}
 	totalDamageFromAutoAttacks(champion: Champion, currentTime: number, numberOfAutos: number, applyAbilitySteroids: boolean): DamageTypes {

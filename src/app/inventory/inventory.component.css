@@ -34,7 +34,7 @@ ul.item-grid {
 	height:auto;
 	max-width:240px;
 	margin:auto;
-	padding:15px 0px;
+	padding:5px 0px;
 	grid-template-columns: 3fr 1fr;
 	grid-template-rows: repeat(2,1fr);
 	grid-template-areas:

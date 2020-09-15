@@ -1,3 +1,4 @@
+import { DamageTypes } from "../../src/app/models/calculations";
 export const GAMEMODES = [
 	{ "gamemodeLabel": "All", "gamemodeValue": "all" },
 	{ "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" },
@@ -5,6 +6,11 @@ export const GAMEMODES = [
 	// { "gamemodeLabel": "Featured Exclusives", "gamemodeValue": "fgm" }
 ];
 export const SKILL_KEYS = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"];
+export const ROTATION_DURATION = 3;
+export const DAMAGE_TYPE_MAPPING = {};
+DAMAGE_TYPE_MAPPING[DamageTypes.PHYSICAL_DAMAGE] = "Physical Damage";
+DAMAGE_TYPE_MAPPING[DamageTypes.MAGIC_DAMAGE] = "Magic Damage";
+DAMAGE_TYPE_MAPPING[DamageTypes.TRUE_DAMAGE] = "True Damage";
 export const STAT_KEYS = {
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',

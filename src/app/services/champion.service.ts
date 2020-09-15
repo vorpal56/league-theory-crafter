@@ -41,7 +41,7 @@ export class ChampionService {
 		this.runesService.addRuneStats(champion);
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
 		this.preDamageCalculations(champion, itemAdditions, selectedRunes.modifiers);
-		this.damageCalculationsService.totalChampionDamageCalculation(champion, currentTime, targetDetails, selectedRunes.modifiers);
+		this.damageCalculationsService.totalChampionDamageCalculation(champion, currentTime, targetDetails, selectedRunes);
 		this.addPostDamageCalculationsBonusStats(champion);
 
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters

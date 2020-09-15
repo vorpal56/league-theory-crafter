@@ -63,28 +63,28 @@ mat-form-field {
 .mat-form-field-infix {
 	width: auto !important;
 }
-.mat-icon {
+.mat-icon.leveler-icon, .mat-icon.info-icon {
 	height: 20px !important;
 	width: 20px !important;
 	font-size: 20px;
-	vertical-align: text-top;
+	/* vertical-align: text-top; */
 }
 @media(min-width: 768px) {
-	.mat-icon {
+	.mat-icon.leveler-icon, .mat-icon.info-icon {
 		height: 18px !important;
 		width: 18px !important;
 		font-size: 18px;
 	}
 }
 @media (min-width: 880px) {
-	.mat-icon {
+	.mat-icon.leveler-icon, .mat-icon.info-icon {
 		height: 20px !important;
 		width: 20px !important;
 		font-size: 20px;
 	}
 }
 @media (min-width: 1200px) {
-	.mat-icon {
+	.mat-icon.leveler-icon, .mat-icon.info-icon {
 		height: 24px !important;
 		width: 24px !important;
 		font-size: 24px;
@@ -198,7 +198,7 @@ span.component-title#component-title {
 	display: grid;
 	/* height: 100vh; */
 	grid-template-columns: 2fr 1fr;
-	grid-template-rows: 0.3fr 0.5fr 1.8fr;
+	grid-template-rows: 0.3fr 0.5fr auto;
 	grid-template-areas:
 	"champion champion"
 	"item-rune-epic-selector inventory"
@@ -211,7 +211,7 @@ span.component-title#component-title {
 	.container-grid-league {
 		height:auto;
 		grid-template-columns: auto;
-		grid-template-rows: 0.3fr 0.4fr 0.2fr 1.2fr;
+		grid-template-rows: 0.3fr 0.4fr 0.2fr auto;
 		grid-template-areas:
 		"champion"
 		"damage-calc"
@@ -366,13 +366,11 @@ ul.numbered-tooltip >li {
   border-radius: 50%;
 	perspective: 800px;
 }
-
 @media only screen and (max-width: 767px) {
 	.orbit-spinner {
 		margin: 10px auto;
 	}
 }
-
 .orbit-spinner .orbit-line {
   position: absolute;
   box-sizing: border-box;

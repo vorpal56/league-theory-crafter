@@ -26,7 +26,7 @@ export class RunesService {
 	calculateRuneStats(champion: Champion, selectedRunes: Runes, currentTime: number, selectedElixir: Item, targetDetails: TargetDetails): any {
 		// for stackable stats if the rune is stackable and the checkbox for stackable is enabled, then continue stacking any additional runes
 		let totalStats = {};
-		let totalDamage: DamageTypes = { "physicalDamage": 0, "magicDamage": 0, "trueDamage": 0 };
+		let totalDamage: DamageTypes = new DamageTypes();
 		let totalDamageModifier: number = 0;
 
 		let stackAllRunes: boolean = selectedRunes.modifiers.stackAllRunes;
@@ -210,6 +210,7 @@ export class RunesService {
 		if (Object.keys(totalStats).length != 0) {
 			console.log(totalStats);
 		}
+		selectedRunes.runeDamage = totalDamage;
 		// console.log(totalDamage, totalDamageModifier);
 		champion.stats.tenacity = totalTenacityRatio;
 		return totalStats;

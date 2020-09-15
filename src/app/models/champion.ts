@@ -1,3 +1,4 @@
+import { CalculationResults } from './calculations';
 import { ChampionStats } from './stats';
 
 export class BasicChampion {
@@ -39,6 +40,9 @@ export class Champion extends BasicChampion {
 	currentLevel: number;
 	adaptiveType: string;
 	totalAbilityRanks: number;
+	private _damageBeforeResistances: CalculationResults;
+	private _damageAfterResistances: CalculationResults;
+	private _damageReductions: CalculationResults;
 	constructor(championDetails: any, currentLevel: number) {
 		super(championDetails["name"], championDetails["apiname"], championDetails["index"], championDetails["id"]);
 		for (let attributeName in championDetails) {
@@ -62,6 +66,14 @@ export class Champion extends BasicChampion {
 
 	get otherSourcesStats() { return this._other_sources_stats; }
 	set otherSourcesStats(otherSourcesStats: object) { this._other_sources_stats = otherSourcesStats; }
+
+	get damageBeforeResistances() { return this._damageBeforeResistances; }
+	set damageBeforeResistances(damageBeforeResistances: CalculationResults) { this._damageBeforeResistances = damageBeforeResistances; }
+	get damageAfterResistances() { return this._damageAfterResistances; }
+	set damageAfterResistances(damageAfterResistances: CalculationResults) { this._damageAfterResistances = damageAfterResistances; }
+
+	get damageReductions() { return this._damageReductions; }
+	set damageReductions(damageReductions: CalculationResults) { this._damageReductions = damageReductions; }
 
 	getChampionStat(statKey: string) { return this.stats[statKey]; }
 	setChampionStat(statKey: string, statVal: number) { this.stats[statKey] = statVal; }
