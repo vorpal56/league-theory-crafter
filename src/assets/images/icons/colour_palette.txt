@@ -1,0 +1,4 @@
+dark-gold: #9a7b43, rgb(154, 123, 67)
+light-beige: #e1cb99, rgb(225, 203, 153)
+dark-gold -> light-beige
+used in the icons colouring scheme as a linear gradient

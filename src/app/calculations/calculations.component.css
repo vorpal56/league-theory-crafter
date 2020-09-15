@@ -50,7 +50,6 @@
 }
 #calculations {
 	grid-area: calculations;
-	background-color: var(--background-main);
 }
 .results-grid-2 {
 	display:grid;

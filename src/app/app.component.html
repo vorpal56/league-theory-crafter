@@ -9,9 +9,8 @@
 										 (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
 										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime">
 			</item-selector>
-			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="hideTabsFor('runes')" [champion]="champion" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"
+			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="hideTabsFor('runes-epic')" [champion]="champion" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"
 						 [currentTime]="currentTime" [targetDetails]="targetDetails"></runes>
-			<epic-monsters [hidden]="hideTabsFor('epic-monsters')" (selectedPage)="setPage($event)" [targetDetails]="targetDetails"></epic-monsters>
 		</div>
 		<inventory id="inventory" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
 							 [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"

@@ -196,7 +196,7 @@ export class ItemSelectorComponent implements OnInit {
 	}
 
 	switchToRunesPage() {
-		this.selectedPageEmitter.emit("runes");
+		this.selectedPageEmitter.emit("runes-epic");
 	}
 	switchToEpicMonsterPage() {
 		this.selectedPageEmitter.emit("epic-monsters");

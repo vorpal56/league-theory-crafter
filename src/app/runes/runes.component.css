@@ -24,7 +24,8 @@ img.rune-shard {
 .rune-trees-container {
 	display:flex;
 	justify-content: space-around;
-	margin: 10px 0px;
+	/* margin-bottom: 10px; */
+	/* background-color: var(--background) */
 }
 .rune-tree, .rune-shards {
 	display:flex;

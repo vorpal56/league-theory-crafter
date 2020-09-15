@@ -175,10 +175,10 @@ img.tab-icon {
 	display:grid;
 	height: 42px;
 	margin-bottom: 6px;
-	grid-template-columns: auto 42px 42px 42px;
+	grid-template-columns: auto 42px 42px;
 	grid-template-rows: 1fr;
 	grid-template-areas:
-	"component-title epic-monsters-tab rune-tab item-selector-tab";
+	"component-title runes-epic-tab item-selector-tab";
 	grid-gap:10px;
 	/* You can switch the order of the tab switcher in the grid template area and columns */
 }
@@ -191,6 +191,14 @@ span.component-title#component-title {
 	background-color:var(--background);
 	display:flex;
 	flex-direction: column;
+}
+.inner-component-header {
+	/* if you want multiple components in one, put this in the line as the component header */
+	margin-top:10px;
+}
+.inner-component {
+	/* if you want multiple components in one, put this in the parent of the inner component header */
+	background-color: var(--background-main)
 }
 /* --------------------------End Global Component Definitions-------------------------- */
 /* --------------------------Grid Container Definitions-------------------------- */
@@ -252,8 +260,8 @@ span.component-title#component-title {
 	grid-area: epic-monsters-tab;
 	background-color: var(--background);
 }
-.rune-tab {
-	grid-area: rune-tab;
+.runes-epic-tab {
+	grid-area: runes-epic-tab;
 	background-color: var(--background);
 }
 .item-selector-tab {

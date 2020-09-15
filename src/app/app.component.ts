@@ -11,8 +11,8 @@ import { Item, ItemRestrictions } from "./models/item";
 import { RuneModifiers, Runes } from "./models/rune";
 import { TargetDetails } from './models/target';
 
-import { InventoryComponent } from "./inventory/inventory.component";
 import { EMPTY_ITEM } from "../../server/data/items";
+import { InventoryComponent } from "./inventory/inventory.component";
 
 @Component({
 	selector: "league-theory-crafter",
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	};
 	numberOfEquippedItems: number = 0;
 
-	// runes/item-selector/epic-monsters buff definition to show which page first
+	// runes-epic/item-selector buff definition to show which page first
 	selectedTab: string = "item-selector";
 
 	// champion and current level definition from the champion component
@@ -66,11 +66,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 	hideTabsFor(tabName: string): boolean {
 		if (tabName == "item-selector") {
-			return this.selectedTab == "runes" || this.selectedTab == "epic-monsters";
-		} else if (tabName == "runes") {
+			return this.selectedTab == "runes-epic" || this.selectedTab == "epic-monsters";
+		} else if (tabName == "runes-epic") {
 			return this.selectedTab == "item-selector" || this.selectedTab == "epic-monsters";
 		} else if (tabName == "epic-monsters") {
-			return this.selectedTab == "runes" || this.selectedTab == "item-selector";
+			return this.selectedTab == "runes-epic" || this.selectedTab == "item-selector";
 		}
 	}
 	setChampion(champion: Champion) {
