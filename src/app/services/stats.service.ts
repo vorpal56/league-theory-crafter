@@ -25,6 +25,7 @@ export class StatsService {
 	 * @returns void
 	 */
 	adjustBaseStats(champion: Champion): void {
+		let apiname = champion.apiname.toLowerCase();
 		champion.stats.hp = this.statsGrowthFormula(champion.stats.hp_lvl, champion.currentLevel, champion.stats.hp_base);
 		champion.stats.hp5 = this.statsGrowthFormula(champion.stats.hp5_lvl, champion.currentLevel, champion.stats.hp5_base);
 		champion.stats.mp = champion.stats.mp_base ? this.statsGrowthFormula(champion.stats.mp_lvl, champion.currentLevel, champion.stats.mp_base) : 0;
@@ -47,7 +48,9 @@ export class StatsService {
 		champion.stats["mpen%"] = 0;
 		champion.stats.tenacity = 0;
 		champion.stats.heal_shield = 0;
-		if (champion.apiname.toLowerCase() == "tristana") {
+		if (apiname == "cassiopeia") {
+			champion.stats.ms += 4 * champion.currentLevel;
+		} else if (apiname == "tristana") {
 			champion.stats.range = 525 + 8 * (champion.currentLevel - 1);
 		}
 		return;

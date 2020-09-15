@@ -90,7 +90,7 @@ export class CalculationsComponent implements OnInit {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);
 	}
 	calculationTooltip(): string {
-		let calculationHelpString = `Calculation is <b>only an approximation (not exact)</b> of how much damage is dealt. It uses a full rotation in the best order with a duration of 3 seconds. Abilities that do not impact damage are not included. For example minion, monster, or non-champion damage, slows, stat restores, and so on. The calculation is dependant on the following attributes. <br>`;
+		let calculationHelpString = `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of 3 seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on. The calculation is dependant on the following attributes: <br>`;
 		let itemsHelpString = this.itemSteroidsTooltip();
 		let abilitiesHelpString = this.abilitySteroidsTooltip();
 		let formHelpString = this.formBuffsTooltip();

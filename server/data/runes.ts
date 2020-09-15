@@ -9,7 +9,8 @@ export const RUNE_SHARDS = {
 			"ap": 9,
 		},
 		"type": "adaptive",
-		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
+		"img": "assets/images/runes/Rune Shards/Adaptive Force.png",
+		"tooltip": "+9 Adaptive Force",
 	},
 	{
 		"name": "Attack Speed",
@@ -19,7 +20,8 @@ export const RUNE_SHARDS = {
 		"stats": {
 			"as": 10,
 		},
-		"img": "assets/images/runes/Rune Shards/Attack Speed.png"
+		"img": "assets/images/runes/Rune Shards/Attack Speed.png",
+		"tooltip": "+10% Attack Speed",
 	},
 	{
 		"name": "Cooldown Reduction",
@@ -30,7 +32,8 @@ export const RUNE_SHARDS = {
 			"cdr": 1,
 			"cdr_lvl": 0.5294,
 		},
-		"img": "assets/images/runes/Rune Shards/Cooldown Reduction.png"
+		"img": "assets/images/runes/Rune Shards/Cooldown Reduction.png",
+		"tooltip": "1-10% Cooldown Reduction",
 	}], "set2": [{
 		"name": "Adaptive Force",
 		"apiname": "adaptive",
@@ -41,7 +44,8 @@ export const RUNE_SHARDS = {
 			"ap": 9,
 		},
 		"type": "adaptive",
-		"img": "assets/images/runes/Rune Shards/Adaptive Force.png"
+		"img": "assets/images/runes/Rune Shards/Adaptive Force.png",
+		"tooltip": "+9 Adaptive Force",
 	},
 	{
 		"name": "Armor",
@@ -51,7 +55,8 @@ export const RUNE_SHARDS = {
 		"stats": {
 			"arm": 6,
 		},
-		"img": "assets/images/runes/Rune Shards/Armor.png"
+		"img": "assets/images/runes/Rune Shards/Armor.png",
+		"tooltip": "+6 Armor",
 	},
 	{
 		"name": "Magic Resistance",
@@ -61,7 +66,8 @@ export const RUNE_SHARDS = {
 		"stats": {
 			"mr": 8,
 		},
-		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
+		"img": "assets/images/runes/Rune Shards/Magic Resistance.png",
+		"tooltip": "+8 Magic Resistance",
 	}], "set3": [{
 		"name": "Health",
 		"apiname": "health",
@@ -71,7 +77,8 @@ export const RUNE_SHARDS = {
 			"hp": 15,
 			"hp_lvl": 4.411765,
 		},
-		"img": "assets/images/runes/Rune Shards/Health.png"
+		"img": "assets/images/runes/Rune Shards/Health.png",
+		"tooltip": "+15-90 Health",
 	}, {
 		"name": "Armor",
 		"apiname": "armor",
@@ -80,7 +87,8 @@ export const RUNE_SHARDS = {
 		"stats": {
 			"arm": 6,
 		},
-		"img": "assets/images/runes/Rune Shards/Armor.png"
+		"img": "assets/images/runes/Rune Shards/Armor.png",
+		"tooltip": "+6 Armor",
 	},
 	{
 		"name": "Magic Resistance",
@@ -90,7 +98,8 @@ export const RUNE_SHARDS = {
 		"stats": {
 			"mr": 8,
 		},
-		"img": "assets/images/runes/Rune Shards/Magic Resistance.png"
+		"img": "assets/images/runes/Rune Shards/Magic Resistance.png",
+		"tooltip": "+8 Magic Resistance",
 	}]
 };
 export const RUNES = [

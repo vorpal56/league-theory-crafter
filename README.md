@@ -34,4 +34,11 @@ cd server/src
 python -m items | runes | champions
 ```
 
+### **Key Takeaways for Preason 2021 and Season 11**
+The item system is getting a complete revamp in October/November 2021. As such, we'll need to adjust the `Item` model according to the way that new item data is presented. Currently, all items include all item base stats, but only a few item passives calculations are included. Like Stinger, Fiendish Codex, Nashor's Tooth, Kindlegem, and a few others.
 
+**Design structure for the new item system follows:**
+1. Look at the new structure of items and create a model of the new items in the system for calculation purposes. This must be made in according with the `Champion` model since all services depend on the same structure
+2. Use Meraki CDN to get the new item data. This can potentially take a long time, so alternatively, we'll have to use DDragon for the time being
+3. Interpret the data and allocate its relevant stats to the new `Item` model
+4. Update `services/items.service.ts` according to the model and data changes

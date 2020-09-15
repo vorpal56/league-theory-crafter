@@ -85,17 +85,17 @@
 			<div class="rune-shards">
 				<div class="rune-selection">
 					<ng-container *ngFor="let runeShard of runeShardSet1; index as i">
-						<img class="option rune-shard" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 0)">
+						<img class="option rune-shard" [tooltip]="runeShard.tooltip" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 0)">
 					</ng-container>
 				</div>
 				<div class="rune-selection">
 					<ng-container *ngFor="let runeShard of runeShardSet2; index as i">
-						<img class="option rune-shard" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 1)">
+						<img class="option rune-shard" [tooltip]="runeShard.tooltip" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 1)">
 					</ng-container>
 				</div>
 				<div class="rune-selection">
 					<ng-container *ngFor="let runeShard of runeShardSet3; index as i">
-						<img class="option rune-shard" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 2)">
+						<img class="option rune-shard" [tooltip]="runeShard.tooltip" [ngClass]="activeClass(runeShard, 'shard')" [src]="runeShard.img" (click)="setRuneShards(runeShard, 2)">
 					</ng-container>
 				</div>
 			</div>

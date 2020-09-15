@@ -19,6 +19,7 @@ export interface RuneShard {
 	index: number,
 	img: string,
 	stats: any,
+	tooltip: string,
 }
 export class RuneModifiers {
 	stackAllRunes: boolean;

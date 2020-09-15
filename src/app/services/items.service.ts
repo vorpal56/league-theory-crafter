@@ -14,6 +14,9 @@ export class ItemsService {
 	/**
 	 * Method that adds the items stats to the champion stats after adjustBaseStats is applied
 	 * This looks at stackable item stats such as tear items, mejais, dark seal, seekers and unique passives such as fiendish, kindlegem, stinger, etc. so long as the data in the model is presented correctly (see the server/data/items.ts for the complete item set)
+	 *
+	 * With the introduction of item changes in Preseason 2021, the way items are calculated will be differnt. We will readjust the Item model
+	 * according to the new items and figure out the logic behind it. Details of this are laid out in the README
 	 * @param  {Champion} champion the champion to adjust stats by
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns [object, object, string, object] total calculated stats from items, any multipliers on items, the adaptive type for runes, and item additions for post calculations
@@ -293,5 +296,14 @@ export class ItemsService {
 			}
 		}
 		return;
+	}
+	hasIE(selectedItems: [Item, Item, Item, Item, Item, Item]): boolean {
+		for (let i in selectedItems) {
+			let item: Item = selectedItems[i];
+			if (item.apiname == "infinityedge") {
+				return true;
+			}
+		}
+		return false;
 	}
 }
