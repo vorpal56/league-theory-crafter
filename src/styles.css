@@ -147,6 +147,20 @@ div.item-block:hover {
 	filter:none;
 	opacity: 1;
 }
+.inactive-option {
+	filter: grayscale(100%);
+	opacity: .27;
+	transition: ease 0.3s;
+}
+.inactive-option:hover {
+	transition: ease 0.3s;
+	filter:none;
+	opacity: 1;
+}
+.active-option {
+	/* transition: ease 0.3s; */
+	border:1px solid rgba(255, 255, 255, 0.2);
+}
 img.tab-icon {
 	width:42px;
 	height:42px;

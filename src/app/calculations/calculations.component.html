@@ -56,13 +56,13 @@
 						Gold Efficiency and Total DPS
 						<div class="results-grid-2 common">
 							<div id="gold-efficiency">
-								<img class="distribution" src="assets/images/icons/gold_icon.png" alt="Gold Efficiency (%)" />
+								<img class="distribution" src="assets/images/icons/stats/gold_icon.png" alt="Gold Efficiency (%)" />
 								{{ "123%" }}
 							</div>
 							<div id="total-dps">
-								<img class="distribution" src="assets/images/icons/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
-								<img class="distribution" src="assets/images/icons/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
-								<img class="distribution" src="assets/images/icons/true_damage_icon.png" alt="Total True Damage" />
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
 								{{ totalDPSBeforeResistances() | number:'1.0-2' }}
 							</div>
 						</div>
@@ -71,15 +71,15 @@
 						Damage Before Resistances
 						<div class="results-grid-3 damage-before">
 							<div id="physical-damage-before" [tooltip]="damageBeforeResistancesTooltip(PHYSICAL_DAMAGE)">
-								<img class="distribution" src="assets/images/icons/physical_damage_icon.png" alt="Total Physical Damage Before Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage Before Resistances" />
 								{{ damageBeforeResistances(PHYSICAL_DAMAGE) | floor}}
 							</div>
 							<div id="magic-damage-before" [tooltip]="damageBeforeResistancesTooltip(MAGIC_DAMAGE)">
-								<img class="distribution" src="assets/images/icons/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
 								{{ damageBeforeResistances(MAGIC_DAMAGE) | floor }}
 							</div>
 							<div id="true-damage" [tooltip]="damageBeforeResistancesTooltip(TRUE_DAMAGE)">
-								<img class="distribution" src="assets/images/icons/true_damage_icon.png" alt="Total True Damage" />
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
 								{{ damageBeforeResistances(TRUE_DAMAGE) | floor }}
 							</div>
 						</div>
@@ -88,15 +88,15 @@
 						Damage After Resistances
 						<div class="results-grid-3 damage-after">
 							<div id="physical-damage-after" [tooltip]="damageAfterResistancesTooltip(PHYSICAL_DAMAGE, targetArmor)">
-								<img class="distribution" src="assets/images/icons/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
 								{{ damageAfterResistances(PHYSICAL_DAMAGE, targetArmor ) | floor }}
 							</div>
 							<div id="magic-damage-after" [tooltip]="damageAfterResistancesTooltip(MAGIC_DAMAGE, targetMR)">
-								<img class="distribution" src="assets/images/icons/magic_damage_icon.png" alt="Total Magic Damage After Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage After Resistances" />
 								{{ damageAfterResistances(MAGIC_DAMAGE, targetMR ) | floor}}
 							</div>
 							<div id="true-damage" [tooltip]="damageBeforeResistancesTooltip(TRUE_DAMAGE)">
-								<img class="distribution" src="assets/images/icons/true_damage_icon.png" alt="Total True Damage" />
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
 								{{ damageBeforeResistances(TRUE_DAMAGE) | floor }}
 							</div>
 						</div>
@@ -105,11 +105,11 @@
 						Damage Reduction
 						<div class="results-grid-2 damage-reduction">
 							<div id="physical-damage-reduction">
-								<img src="assets/images/icons/arm_icon.png" alt="Total Physical Damage Reduced" />
+								<img src="assets/images/icons/stats/arm_icon.png" alt="Total Physical Damage Reduced" />
 								{{ (damageReduction(PHYSICAL_DAMAGE) | floor) + "%" }}
 							</div>
 							<div id="magic-damage-reduction">
-								<img src="assets/images/icons/mr_icon.png" alt="Total Magic Damage Reduced" />
+								<img src="assets/images/icons/stats/mr_icon.png" alt="Total Magic Damage Reduced" />
 								{{ (damageReduction(MAGIC_DAMAGE) | floor)  + "%"}}
 							</div>
 						</div>

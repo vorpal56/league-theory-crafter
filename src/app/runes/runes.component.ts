@@ -134,11 +134,11 @@ export class RunesComponent implements OnInit {
 	}
 	activeClass(rune: Rune, def?: string) {
 		if (def == "primary" || def == "secondary") {
-			return rune["active_" + def] ? "active-rune" : "inactive-rune";
+			return rune["active_" + def] ? "active-option" : "inactive-option";
 		} else if (def == "shard") {
-			return rune.active ? "" : "inactive-rune";
+			return rune.active ? "" : "inactive-option";
 		}
-		return rune.active ? "active-rune" : "inactive-rune";
+		return rune.active ? "active-option" : "inactive-option";
 	}
 	choosePrimaryPath(runePath: any) {
 		// only do something if the selected tree is different from the one that's active

@@ -14,4 +14,8 @@
 img.medium-option{
 	width:48px;
 	height:48px;
+	margin: 3px;
+}
+.circle {
+	border-radius: 50%;
 }

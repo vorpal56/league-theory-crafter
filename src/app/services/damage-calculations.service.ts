@@ -166,12 +166,12 @@ export class DamageCalculationsService {
 						// the following keys appear the most times as of patch 10.16
 						if (apiname == "aatrox") {
 							if (applyAbilitySteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (!applyAbilitySteroids && abilityType == "q" && !loweredAttribute.includes("sweetspot")) {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							}
 							if (abilityType == "w" && loweredAttribute.includes("total")) {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute.includes("ad")) {
 								totalAdditionalAD += eval(expressionString);
 							}
@@ -179,18 +179,18 @@ export class DamageCalculationsService {
 							if ((abilityType == "q" && loweredAttribute == "total mixed damage") ||
 								(abilityType == "w" && loweredAttribute == "total single target damage") ||
 								(abilityType == "r" && loweredAttribute == "maximum single target damage")) {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
 								if (applyAbilitySteroids) {
 									bonusPercentAbilityDamage[this.MAGIC_DAMAGE] += 0.2;
 								}
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "akali") {
 							if ((abilityType == "q" && loweredAttribute == "magic damage") ||
 								(abilityType == "e" && loweredAttribute == "total damage") ||
 								(abilityType == "r" && loweredAttribute == "physical damage")) {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute == "minimum magic damage") {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] = "m*(" + expressionString + ")";
 							}
@@ -203,11 +203,11 @@ export class DamageCalculationsService {
 						} else if (apiname == "alistar") {
 							if (abilityType != "r" && (loweredAttribute == "magic damage" || loweredAttribute == "total magic damage")) {
 								// trample does total magic damage over 5 seconds
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "amumu") {
 							if ((abilityType == "q" || abilityType == "e" || abilityType == "r") && loweredAttribute == "magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "e" && loweredAttribute == "physical damage reduction") {
 								damageReductions[skillKey][this.PHYSICAL_DAMAGE] += eval("+" + expressionString);
 							} else if (abilityType == "w" && loweredAttribute.includes("magic damage")) {
@@ -221,7 +221,7 @@ export class DamageCalculationsService {
 							if ((abilityType == "q" && loweredAttribute == "total damage") ||
 								(applyAbilitySteroids && abilityType == "e" && loweredAttribute.includes("enhanced")) ||
 								(!applyAbilitySteroids && abilityType == "e" && !loweredAttribute.includes("enhanced"))) {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r") {
 								let maxSizeSeconds: number = 1.5; // the time it takes to grow to max size which will then do empowered damage
 								let expressionValue: number = eval(expressionString);
@@ -243,28 +243,28 @@ export class DamageCalculationsService {
 						} else if (apiname == "ashe") {
 							if (abilityType == "q") {
 								if (loweredAttribute.includes("total")) {
-									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 								} else if (loweredAttribute == "bonus attack speed") {
 									let expressionValue = this.evalAttributePercent(expressionString, false);
 									champion.otherSourcesStats["as"] = expressionValue;
 								}
 							} else if (abilityType == "w") {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute == "magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "aurelionsol") {
 							if ((abilityType == "q" || abilityType == "r") && loweredAttribute == "magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "w" && loweredAttribute == "total damage") {
 								let expressionString = attributeObj["string_expression"][champion.currentLevel - 1];
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "e") {
 								champion.otherSourcesStats["ms"] = eval(expressionString);
 							}
 						} else if (apiname == "azir") {
 							if ((abilityType == "q" || abilityType == "e" || abilityType == "r") && loweredAttribute == "magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "w") {
 								let expressionValue = this.evalAttributePercent(expressionString, false);
 								if (applyAbilitySteroids && loweredAttribute == "increased attack speed") {
@@ -275,12 +275,12 @@ export class DamageCalculationsService {
 							}
 						} else if (apiname == "bard") {
 							if (abilityType == "q" && loweredAttribute == "magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "blitzcrank") {
 							if ((abilityType == "q" && loweredAttribute == "magic damage") ||
 								(abilityType == "r" && loweredAttribute.includes("detonation"))) {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "w") {
 								if (loweredAttribute == "attack speed") {
 									champion.otherSourcesStats["as"] = this.evalAttributePercent(expressionString, false);
@@ -291,15 +291,15 @@ export class DamageCalculationsService {
 							}
 						} else if (apiname == "brand") {
 							if (abilityType == "q" || abilityType == "e") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType = "w") {
 								if ((applyAbilitySteroids && loweredAttribute == "increased damage") ||
 									(!applyAbilitySteroids && loweredAttribute == "magic damage")) {
-									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 								}
 							} else if (abilityType == "r") {
 								if ((applyAbilitySteroids && loweredAttribute.includes("total")) || (!applyAbilitySteroids && loweredAttribute == "magic damage")) {
-									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 								}
 							}
 						} else if (apiname == "braum") {
@@ -319,11 +319,11 @@ export class DamageCalculationsService {
 							}
 						} else if (apiname == "caitlyn") {
 							if ((abilityType == "q" || abilityType == "r") && loweredAttribute == "physical damage") {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "w" && loweredAttribute.includes("headshot")) {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "e") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "camille") {
 							if (abilityType == "q") {
@@ -340,7 +340,7 @@ export class DamageCalculationsService {
 								}
 							} else if (abilityType == "w") {
 								if (loweredAttribute == "physical damage") {
-									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 								}
 								if (applyAbilitySteroids && loweredAttribute.includes("outer")) {
 									let splitExpressionString = expressionString.split("+");
@@ -350,7 +350,7 @@ export class DamageCalculationsService {
 								}
 							} else if (abilityType == "e") {
 								if (loweredAttribute == "physical damage") {
-									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 								} else if (loweredAttribute == "bonus attack speed") {
 									champion.otherSourcesStats = this.evalAttributePercent(expressionString, false);
 								}
@@ -376,6 +376,8 @@ export class DamageCalculationsService {
 			}
 		});
 		// these values are read in the eval expression
+		// the reason we eval after is because we apply any additional modifiers directly into the expression
+		// example is aatrox. His R gives AD across the board which impacts all of his abilities and autos
 		AD += totalAdditionalAD;
 		AP += totalAdditionalAP;
 		HP += totalAdditionalHP;

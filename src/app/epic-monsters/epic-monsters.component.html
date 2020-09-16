@@ -5,33 +5,33 @@
 	<div class="epic-monsters-container">
 		<div class="dragons-container">
 			<div class="dragons-row">
-				<img src="assets/images/icons/cloud.png" class="medium-option">
-				<img src="assets/images/icons/mountain.png" class="medium-option">
-				<img src="assets/images/icons/ocean.png" class="medium-option">
-				<img src="assets/images/icons/infernal.png" class="medium-option">
+				<ng-container *ngFor="let dragon of epics.dragonSet1; index as i">
+					<img (click)="selectDragon('dragonSet1', i)" [ngClass]="activeDragonClass(dragon)" [src]="dragon.img" class="medium-option">
+				</ng-container>
 			</div>
 			<div class="dragons-row">
-				<img src="assets/images/icons/cloud.png" class="medium-option">
-				<img src="assets/images/icons/mountain.png" class="medium-option">
-				<img src="assets/images/icons/ocean.png" class="medium-option">
-				<img src="assets/images/icons/infernal.png" class="medium-option">
+				<ng-container *ngFor="let dragon of epics.dragonSet2; index as i">
+					<img (click)="selectDragon('dragonSet2', i)" [ngClass]="activeDragonClass(dragon)" [src]="dragon.img" class="medium-option">
+				</ng-container>
 			</div>
 			<div class="dragons-row">
-				<img src="assets/images/icons/cloud.png" class="medium-option">
-				<img src="assets/images/icons/mountain.png" class="medium-option">
-				<img src="assets/images/icons/ocean.png" class="medium-option">
-				<img src="assets/images/icons/infernal.png" class="medium-option">
+				<ng-container *ngFor="let dragon of epics.dragonSet3; index as i">
+					<img (click)="selectDragon('dragonSet3', i)" [ngClass]="activeDragonClass(dragon)" [src]="dragon.img" class="medium-option">
+				</ng-container>
 			</div>
 			<div class="dragons-row">
-				<img src="assets/images/icons/cloud.png" class="medium-option">
-				<img src="assets/images/icons/mountain.png" class="medium-option">
-				<img src="assets/images/icons/ocean.png" class="medium-option">
-				<img src="assets/images/icons/infernal.png" class="medium-option">
-				<img src="assets/images/icons/infernal.png" class="medium-option">
+				<ng-container *ngFor="let dragon of epics.dragonSet4; index as i">
+					<img (click)="selectDragon('dragonSet4', i)" [ngClass]="activeDragonClass(dragon)" [src]="dragon.img" class="medium-option">
+				</ng-container>
 			</div>
 		</div>
 		<div class="neutral-camps-container">
-
+			<div class="dragons-row">
+				<img src="assets/images/icons/epics/blue.png" class="medium-option circle">
+				<img src="assets/images/icons/epics/red.png" class="medium-option circle">
+				<img src="assets/images/icons/epics/baron.png" class="medium-option circle">
+				<img src="assets/images/icons/epics/elder.png" class="medium-option">
+			</div>
 		</div>
 	</div>
 </div>

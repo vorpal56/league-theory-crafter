@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Champion } from '../models/champion';
+import { Dragon, Epics } from '../models/epic';
 import { Item } from '../models/item';
 import { Runes } from '../models/rune';
 import { TargetDetails } from '../models/target';
@@ -14,6 +15,7 @@ import { ChampionService } from '../services/champion.service';
 })
 export class EpicMonstersComponent implements OnInit {
 
+	epics: Epics = new Epics();
 	@Input("champion") champion: Champion;
 	@Input("currentTime") currentTime: number;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
@@ -21,18 +23,35 @@ export class EpicMonstersComponent implements OnInit {
 	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
 
-	@Output("externalBuffs") epicBuffsEmitter = new EventEmitter<any>();
-	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
-
 	constructor(private championService: ChampionService) { }
 
-	ngOnInit(): void {
+	ngOnInit(): void { }
+	activeDragonClass(dragon: Dragon) {
+		return dragon.active ? "" : "inactive-option";
 	}
-	switchToRunesPage() {
-		this.selectedPageEmitter.emit("runes");
+	selectDragon(dragonSet: string, index: number) {
+		if (this.epics[dragonSet][index].active == false) {
+			this.epics[dragonSet].forEach((dragon: Dragon, i: number) => {
+				dragon.active = i == index;
+			});
+		}
+		this.dragonDistribution();
 	}
-	switchToItemSelectorPage() {
-		this.selectedPageEmitter.emit("item-selector");
+	dragonDistribution() {
+		let dragonDistribution: object = {
+			cloud: 0,
+			infernal: 0,
+			mountain: 0,
+			ocean: 0
+		};
+		for (let epicMonsters in this.epics) {
+			if (epicMonsters.includes("dragon")) {
+				this.epics[epicMonsters].forEach((dragon: Dragon) => {
+					if (dragon.active) { dragonDistribution[dragon.name]++; }
+				});
+			}
+		}
+		return dragonDistribution;
 	}
 	// need a button to clear the buff selections since the toggling effect will have large overhead. different effect than runes where champions enter with runes
 }
