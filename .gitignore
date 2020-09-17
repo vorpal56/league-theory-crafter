@@ -11,7 +11,7 @@ ability-leveler/
 *.psd
 example_layout.png
 *cache*/
-attributes.json
+*attributes.json
 !json_ddragon_champion_cache_updated/
 !json_combined_champion_cache/
 # src/assets/images/champions/*

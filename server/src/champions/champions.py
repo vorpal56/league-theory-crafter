@@ -3,7 +3,9 @@ import os
 import json
 import requests
 from pprint import PrettyPrinter
-from common.utils import DATA_PATH, remove_html_tags, skill_keys
+from common.utils import DATA_PATH, remove_html_tags, skill_keys, get_version
+from deepdiff import DeepDiff
+
 
 def find_all_placeholders(tooltip):
 	expression_pattern = r'({{.*?}})'
@@ -37,8 +39,7 @@ def compile_champion_data(using="meraki", use="live"):
 	# we are going to be using both data points. Some of the data in league wiki is incomplete or organized differently than the expectation.
 	# we will use a combination of the
 
-	champion_width = 770 # tooltipping (pretty print on prettify)
-	pp = PrettyPrinter(indent=2, width=champion_width)
+	pp = PrettyPrinter(indent=2,width=100)
 
 	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	if (not os.path.exists(meraki_champion_cache_path)):
@@ -70,7 +71,7 @@ def compile_champion_data(using="meraki", use="live"):
 					json_file.close()
 				elif use == "live":
 					# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
-					patch_num = "10.18"
+					patch_num = get_version()
 					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
 					response = requests.get(url)
 					response_body = response.json()
@@ -130,6 +131,9 @@ def compile_champion_data(using="meraki", use="live"):
 					champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
 
 				if (using == "meraki"):
+					if (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[i]):
+						difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[i])
+						print(champion_name, "has changed", pp.pformat(difference))
 					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
 			json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
 			json.dump(champion_obj, json_file)

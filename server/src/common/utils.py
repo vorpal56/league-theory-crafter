@@ -5,6 +5,32 @@ DATA_PATH = os.path.join(APP_PATH, "data")
 
 skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
+class DictDiffer(object):
+    """
+    Calculate the difference between two dictionaries as:
+    (1) items added
+    (2) items removed
+    (3) keys same in both but changed values
+    (4) keys same in both and unchanged values
+    """
+    def __init__(self, current_dict, past_dict):
+        self.current_dict, self.past_dict = current_dict, past_dict
+        self.set_current, self.set_past = set(current_dict.keys()), set(past_dict.keys())
+        self.intersect = self.set_current.intersection(self.set_past)
+    def added(self):
+        return self.set_current - self.intersect
+    def removed(self):
+        return self.set_past - self.intersect
+    def changed(self):
+        return set(o for o in self.intersect if self.past_dict[o] != self.current_dict[o])
+    def unchanged(self):
+        return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
+
+def get_version():
+	import requests
+	response = requests.get("https://ddragon.leagueoflegends.com/api/versions.json")
+	return response.json()[0]
+
 def remove_html_tags(text, keep_breaks=True):
 	# useful for parsing the tooltips from ddragon cdn
 	exp = '<[^<]+?>'
@@ -39,3 +65,6 @@ def fix_punctuation(text):
 
 def full_clean_text(text):
 	return remove_ascii_chars(remove_extra_whitespace(text))
+
+if __name__ == "__main__":
+	print(get_version())
