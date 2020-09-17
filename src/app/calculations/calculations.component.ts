@@ -79,6 +79,10 @@ export class CalculationsComponent implements OnInit {
 		}
 		return;
 	}
+	updateCurrentHP() {
+		this.targetDetails.currentHP = this.targetCurrentHP;
+		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+	}
 	updateDetails(): void {
 		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
 	}

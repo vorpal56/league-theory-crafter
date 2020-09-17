@@ -8,6 +8,7 @@ import { TargetDetails } from '../models/target';
 
 import { EMPTY_ITEM } from '../../../server/data/items';
 import { ChampionService } from '../services/champion.service';
+import { ITEMS } from 'server/data/updated_items_merkai';
 
 
 @Component({
@@ -184,8 +185,10 @@ export class InventoryComponent implements OnInit {
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
 			this.selectedItems[index] = this.muramana;
+			// this.selectedItems[index] = ITEMS[99];
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
 			this.selectedItems[index] = this.seraphs;
+			// this.selectedItems[index] = ITEMS[133];
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}

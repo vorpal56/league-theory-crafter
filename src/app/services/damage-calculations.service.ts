@@ -192,13 +192,13 @@ export class DamageCalculationsService {
 								(abilityType == "r" && loweredAttribute == "physical damage")) {
 								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute == "minimum magic damage") {
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] = "m*(" + expressionString + ")";
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+m*(" + expressionString + ")";
 							}
 							if (abilityType == "r" && j == abilityBreakdown.length - 1) {
 								let m = targetPercentMissingHealth * 0.0286 * 100; // 0.0286 is 2.86% per 1% missing health on the fandom
 								m = m > 2 ? 2 : m;
 								m += 1;
-								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(damageBeforeResistances[skillKey][this.MAGIC_DAMAGE]);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] = eval(damageBeforeResistances[skillKey][this.MAGIC_DAMAGE]);
 							}
 						} else if (apiname == "alistar") {
 							if (abilityType != "r" && (loweredAttribute == "magic damage" || loweredAttribute == "total magic damage")) {

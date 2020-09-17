@@ -43,7 +43,7 @@
 							"sourceMap": false,
 							"extractCss": true,
 							"namedChunks": false,
-							"extractLicenses": true,
+							"extractLicenses": false,
 							"vendorChunk": false,
 							"buildOptimizer": true,
 							"budgets": [
@@ -120,6 +120,10 @@
 							"devServerTarget": "league-theory-crafter:serve:production"
 						}
 					}
+				},
+				"deploy": {
+					"builder": "angular-cli-ghpages:deploy",
+					"options": {}
 				}
 			}
 		}

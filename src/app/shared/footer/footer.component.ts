@@ -9,7 +9,7 @@ export class FooterComponent implements OnInit {
 
 	constructor() { }
 
-	credit: boolean = true;
+	credit: boolean = false;
 	ngOnInit(): void {
 	}
 

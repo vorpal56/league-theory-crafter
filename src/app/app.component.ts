@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	numberOfEquippedItems: number = 0;
 
 	// runes-epic/item-selector definition to show which page first
-	selectedTab: string = "runes-epic";
+	selectedTab: string = "item-selector";
 
 	// champion and current level definition from the champion component
 	champion: Champion;

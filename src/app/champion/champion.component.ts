@@ -34,7 +34,7 @@ export class ChampionComponent implements OnInit {
 	times = TIMES;
 	statKeys = STAT_KEYS;
 	currentLevel: number = this.levels[0].levelValue;
-	currentTime: number = this.times[1].timeValue;
+	currentTime: number = this.times[5].timeValue;
 
 	basicChampions$: Observable<BasicChampion[]>;
 	basicChampion: BasicChampion;
@@ -52,7 +52,7 @@ export class ChampionComponent implements OnInit {
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
 		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => {
-			let basicChampion: BasicChampion = basicChampions[10];
+			let basicChampion: BasicChampion = basicChampions[0];
 			this.basicChampion = new BasicChampion(
 				basicChampion["name"],
 				basicChampion["apiname"],
@@ -60,7 +60,7 @@ export class ChampionComponent implements OnInit {
 				basicChampion["id"],
 			);
 		});
-		this.http.get<Champion>("/api/champions/Azir").subscribe((champion: Champion) => {
+		this.http.get<Champion>("/api/champions/Aatrox").subscribe((champion: Champion) => {
 			this.champion = new Champion(champion, this.currentLevel);
 			this.resetAbilities();
 			this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;

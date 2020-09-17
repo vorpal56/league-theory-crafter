@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="target-hp-slider selector-container">
-				<ng5-slider [(value)]="targetCurrentHP" [options]="targetHPOptions" [manualRefresh]="manualRefresh"></ng5-slider>
+				<ng5-slider (valueChange)="updateCurrentHP()" [(value)]="targetCurrentHP" [options]="targetHPOptions" [manualRefresh]="manualRefresh"></ng5-slider>
 			</div>
 		</div>
 		<div id="calculations" class="inner-component">

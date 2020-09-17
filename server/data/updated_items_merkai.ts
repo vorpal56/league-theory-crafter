@@ -4838,7 +4838,7 @@ export const ITEMS = [{
 	'name': "Nashor's Tooth",
 	'phys_on_hit': 0,
 	'shared_item': null,
-	'shared_passives': [{ 'cdr': true, 'name': 'fiendish' }, { 'cdr': true, 'name': 'stinger' }],
+	'shared_passives': [{ 'cdr': true, 'name': 'nashors' }],
 	'shield': 0,
 	'spell_m_proc': 0,
 	'spell_vamp': 0,
