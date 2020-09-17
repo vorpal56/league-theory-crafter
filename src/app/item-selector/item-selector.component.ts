@@ -11,6 +11,7 @@ import { TargetDetails } from '../models/target';
 import { GAMEMODES, ORDERBY, ORDERMODES } from "../../../server/data/data";
 import { EMPTY_ITEM } from "../../../server/data/items";
 import { ChampionService } from '../services/champion.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'item-selector',
@@ -46,10 +47,9 @@ export class ItemSelectorComponent implements OnInit {
 
 	constructor(private championService: ChampionService, private http: HttpClient) { }
 	ngOnInit(): void {
-		this.items$ = this.http.get<Item[]>("/api/items").pipe(
+		this.items$ = this.http.get<Item[]>(`${environment.apiItemsUrl}`).pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
-		// this.addItem(ITEMS[83]);
 	}
 
 	/**

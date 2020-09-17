@@ -9,7 +9,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 
 import { NgSelectModule } from "@ng-select/ng-select";
-import { Ng5SliderModule } from 'ng5-slider';
+import { NgxSliderModule } from '@m0t0r/ngx-slider';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { TooltipOptions } from 'ng2-tooltip-directive';
 import { DefaultTooltipOptions } from './tooltip-options';
@@ -27,6 +27,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MinValidatorDirective } from './calculations/min-validator.directive';
 import { MaxValidatorDirective } from './calculations/max-validator.directive';
 import { FloorPipe } from './calculations/floor.pipe';
+import { ChampionService } from './services/champion.service';
+import { DamageCalculationsService } from './services/damage-calculations.service';
+import { ItemsService } from './services/items.service';
+import { RunesService } from './services/runes.service';
+import { StatsService } from './services/stats.service';
 
 @NgModule({
 	declarations: [
@@ -55,7 +60,7 @@ import { FloorPipe } from './calculations/floor.pipe';
 		MatCheckboxModule,
 		// MatProgressSpinnerModule,
 		NgSelectModule,
-		Ng5SliderModule,
+		NgxSliderModule,
 		TooltipModule,
 		TooltipModule.forRoot(DefaultTooltipOptions as TooltipOptions)
 	],

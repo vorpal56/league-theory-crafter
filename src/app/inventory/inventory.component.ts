@@ -9,6 +9,7 @@ import { TargetDetails } from '../models/target';
 import { EMPTY_ITEM } from '../../../server/data/items';
 import { ChampionService } from '../services/champion.service';
 import { ITEMS } from 'server/data/updated_items_merkai';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -46,8 +47,10 @@ export class InventoryComponent implements OnInit {
 		// this.selectedItems[4] = ITEMS[70];
 		// this.selectedItems[5] = ITEMS[70];
 		// there must be a better way of doing it instead of subscribing on init
-		this.http.get<Item>("/api/items/99").subscribe((item: Item) => this.muramana = item[0]);
-		this.http.get<Item>("/api/items/133").subscribe((item: Item) => this.seraphs = item[0]);
+		if (environment.production == false) {
+			this.http.get<Item>(`${environment.apiItemsUrl}`).subscribe((item: Item) => this.muramana = item[0]);
+			this.http.get<Item>("/api/items/133").subscribe((item: Item) => this.seraphs = item[0]);
+		}
 		this.emitSelectedItems();
 	}
 	/**
@@ -184,11 +187,9 @@ export class InventoryComponent implements OnInit {
 	// }
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
-			this.selectedItems[index] = this.muramana;
-			// this.selectedItems[index] = ITEMS[99];
+			this.selectedItems[index] = environment.production ? ITEMS[99] : this.muramana;
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
-			this.selectedItems[index] = this.seraphs;
-			// this.selectedItems[index] = ITEMS[133];
+			this.selectedItems[index] = environment.production ? ITEMS[133] : this.seraphs;
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}

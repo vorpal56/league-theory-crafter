@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Options, LabelType, TranslateFunction } from 'ng5-slider';
+import { Options, LabelType, TranslateFunction } from '@m0t0r/ngx-slider';
 
 import { Champion } from '../models/champion';
 import { Runes } from '../models/rune';

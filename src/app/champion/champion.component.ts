@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { toArray, take, shareReplay, share } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 import { Champion, BasicChampion } from "../models/champion";
 import { Item } from "../models/item";
@@ -33,8 +34,8 @@ export class ChampionComponent implements OnInit {
 	levels = LEVELS;
 	times = TIMES;
 	statKeys = STAT_KEYS;
-	currentLevel: number = this.levels[0].levelValue;
-	currentTime: number = this.times[5].timeValue;
+	currentLevel: number = this.levels[5].levelValue;
+	currentTime: number = this.times[1].timeValue;
 
 	basicChampions$: Observable<BasicChampion[]>;
 	basicChampion: BasicChampion;
@@ -48,25 +49,28 @@ export class ChampionComponent implements OnInit {
 
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
-		this.basicChampions$ = this.http.get<BasicChampion[]>("/api/champions").pipe(
+		let championIndex = 0;
+		this.basicChampions$ = this.http.get<BasicChampion[]>(`${environment.apiBasicChampionsUrl}`).pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
 		this.basicChampions$.subscribe((basicChampions: BasicChampion[]) => {
-			let basicChampion: BasicChampion = basicChampions[0];
+			let basicChampion: BasicChampion = basicChampions[championIndex];
 			this.basicChampion = new BasicChampion(
 				basicChampion["name"],
 				basicChampion["apiname"],
 				basicChampion["index"],
 				basicChampion["id"],
 			);
-		});
-		this.http.get<Champion>("/api/champions/Aatrox").subscribe((champion: Champion) => {
-			this.champion = new Champion(champion, this.currentLevel);
-			this.resetAbilities();
-			this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
-			this.champions.push(this.champion);
-			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
-			this.championEventEmitter.emit(this.champion);
+			let championUrl = `${environment.apiChampionsUrl}${this.basicChampion.apiname}`;
+			championUrl += environment.production ? ".json" : "";
+			this.http.get<Champion>(championUrl).subscribe((champion: Champion) => {
+				this.champion = new Champion(champion, this.currentLevel);
+				this.resetAbilities();
+				this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
+				this.champions.push(this.champion);
+				this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
+				this.championEventEmitter.emit(this.champion);
+			});
 		});
 		this.currentTimeEventEmitter.emit(this.currentTime);
 		return;
@@ -87,7 +91,9 @@ export class ChampionComponent implements OnInit {
 		} else {
 			// set the champion to null for the loading spinner
 			this.champion = null;
-			this.http.get<Champion>(`/api/champions/${this.basicChampion.apiname}`).subscribe((champion: Champion) => {
+			let championUrl = `${environment.apiChampionsUrl}${this.basicChampion.apiname}`;
+			championUrl += environment.production ? ".json" : "";
+			this.http.get<Champion>(championUrl).subscribe((champion: Champion) => {
 				this.champion = new Champion(champion, this.currentLevel);
 				this.resetAbilities();
 				this.championsIndices[apiname] = this.numChampsCalled++;
