@@ -197,7 +197,31 @@ export class ChampionComponent implements OnInit {
 	abilityTooltip(abilityType: string) {
 		let abilityKey = "skill_" + abilityType;
 		let upperAbilityType = abilityType == "i" ? "P: " : abilityType.toUpperCase() + ": ";
-		return upperAbilityType + this.champion[abilityKey]["1"] + "<br><br>" + this.champion[abilityKey].tooltip;
+		let abilityBreakdown = this.champion[abilityKey]["ability_breakdown"];
+		let baseTooltipExpression = upperAbilityType + this.champion[abilityKey]["1"] + "<br><br>" + this.champion[abilityKey].tooltip;
+		let abilityBreakdownLength = abilityBreakdown.length;
+		if (abilityBreakdownLength == 0) {
+			return baseTooltipExpression;
+		}
+		let cooldownExpression = `<br><div class="cd">`;
+		let affectedBy = " (CDR Affected)";
+		let notAffectedBy = " (Not CDR Affected)";
+		if (abilityBreakdownLength > 1) {
+			abilityBreakdown.forEach((breakdown: object, i: number) => {
+				if (breakdown["cooldown"].length != 0) {
+					let mainKey = i == 0 && abilityBreakdownLength > 1 ? "Main" : "Form";
+					// we add the <br> straight into the div since there can be multiple abilities
+					cooldownExpression += `<br>${mainKey}: `;
+					cooldownExpression += breakdown["cooldown"].join("/");
+					cooldownExpression += breakdown["applies_cdr"] ? affectedBy : notAffectedBy;
+				}
+			});
+		} else {
+			cooldownExpression += `<br>`;
+			cooldownExpression += abilityBreakdown[0]["cooldown"].join("/");
+			cooldownExpression += abilityBreakdown[0]["applies_cdr"] ? affectedBy : notAffectedBy;
+		}
+		return baseTooltipExpression + cooldownExpression + "</div>";
 	}
 	resourceTooltip(statName: string) {
 		let baseString = "";

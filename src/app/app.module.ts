@@ -27,11 +27,6 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MinValidatorDirective } from './calculations/min-validator.directive';
 import { MaxValidatorDirective } from './calculations/max-validator.directive';
 import { FloorPipe } from './calculations/floor.pipe';
-import { ChampionService } from './services/champion.service';
-import { DamageCalculationsService } from './services/damage-calculations.service';
-import { ItemsService } from './services/items.service';
-import { RunesService } from './services/runes.service';
-import { StatsService } from './services/stats.service';
 
 @NgModule({
 	declarations: [

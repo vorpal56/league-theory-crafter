@@ -40,6 +40,8 @@ export class CalculationsComponent implements OnInit {
 	PHYSICAL_DAMAGE = DamageTypes.PHYSICAL_DAMAGE;
 	MAGIC_DAMAGE = DamageTypes.MAGIC_DAMAGE;
 	TRUE_DAMAGE = DamageTypes.TRUE_DAMAGE;
+	AFTER = "After";
+	BEFORE = "Before";
 
 	translateTargetHP: TranslateFunction = (value: number, label: LabelType): string => {
 		switch (label) {
@@ -75,43 +77,56 @@ export class CalculationsComponent implements OnInit {
 			this.manualRefresh.emit();
 			this.targetDetails.maxHP = this.targetMaxHP;
 			this.emitTargetDetails();
-			this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+			this.updateCalculation();
 		}
 		return;
 	}
 	updateCurrentHP() {
 		this.targetDetails.currentHP = this.targetCurrentHP;
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+		this.updateCalculation();
 	}
-	updateDetails(): void {
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+	updateArmor() {
+		if (this.targetArmor >= this.targetMin) {
+			this.targetDetails.armor = this.targetArmor;
+			this.updateCalculation();
+		}
+	}
+	updateMR() {
+		if (this.targetMR >= this.targetMin) {
+			this.targetDetails.mr = this.targetMR;
+			this.updateCalculation();
+		}
 	}
 	itemSteroidsChange(appliedItemSteroids: boolean) {
 		this.targetDetails.applyItemSteroids = appliedItemSteroids;
 		this.emitTargetDetails();
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+		this.updateCalculation();
 	}
 	abilitySteroidsChange(abilitySteroids: boolean) {
 		this.targetDetails.applyAbilitySteroids = abilitySteroids;
 		this.emitTargetDetails();
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+		this.updateCalculation();
 	}
 	formUsageChange(formUsage: boolean) {
 		this.targetDetails.applyFormUsage = formUsage;
 		this.emitTargetDetails();
+		this.updateCalculation();
+	}
+	updateCalculation() {
 		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
 	}
 	emitTargetDetails() {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);
 	}
-	totalDPSBeforeResistances() {
+	totalDPS(partialKeyName: string) {
 		let total = 0;
 		let damageTypes: DamageTypes = new DamageTypes();
-		for (let damageDistributionType in this.champion.damageBeforeResistances) {
-			if (damageDistributionType.charAt(0) != "_") {
+		let keyName = `damage${partialKeyName}Resistances`;
+		for (let damageFrom in this.champion[keyName]) {
+			if (damageFrom.charAt(0) != "_") {
 				for (let damageType in damageTypes) {
 					if (damageType.charAt(0) != "_") {
-						let damageVal = this.champion.damageBeforeResistances[damageDistributionType][damageType];
+						let damageVal = this.champion[keyName][damageFrom][damageType];
 						total += damageVal;
 					}
 				}
@@ -119,57 +134,29 @@ export class CalculationsComponent implements OnInit {
 		}
 		return total / ROTATION_DURATION;
 	}
-
-	damageBeforeResistances(damageType: string) {
+	damageValue(partialKeyName: string, damageType: string) {
 		let total = 0;
-		for (let damageDistributionType in this.champion.damageBeforeResistances) {
-			if (damageDistributionType.charAt(0) != "_") {
-				let damageVal = this.champion.damageBeforeResistances[damageDistributionType][damageType];
+		let keyName = `damage${partialKeyName}Resistances`;
+		for (let damageFrom in this.champion[keyName]) {
+			if (damageFrom.charAt(0) != "_") {
+				let damageVal = this.champion[keyName][damageFrom][damageType];
 				total += damageVal;
 			}
 		}
 		return total;
 	}
-	damageBeforeResistancesTooltip(damageType: string) {
+	damageTooltip(partialKeyName: string, damageType: string) {
 		let expressionStringList = [DAMAGE_TYPE_MAPPING[damageType] + " Distribution<br>"];
-		for (let damageDistributionType in this.champion.damageBeforeResistances) {
-			if (damageDistributionType.charAt(0) != "_") {
-				let damageVal = this.championService.formatNPlaces(this.champion.damageBeforeResistances[damageDistributionType][damageType]);
-				if (damageDistributionType == "autos") {
+		let keyName = `damage${partialKeyName}Resistances`;
+		for (let damageFrom in this.champion[keyName]) {
+			if (damageFrom.charAt(0) != "_") {
+				let damageVal = this.championService.formatNPlaces(this.champion[keyName][damageFrom][damageType]);
+				if (damageFrom == "autos") {
 					expressionStringList.push("Auto Attacks: " + damageVal);
-				} else if (damageDistributionType == "runeDamage") {
+				} else if (damageFrom == "runeDamage") {
 					expressionStringList.push("Rune Damage: " + damageVal);
 				} else {
-					expressionStringList.push(this.champion[damageDistributionType][1] + ": " + damageVal);
-				}
-			}
-		}
-		return expressionStringList.join("<br>");
-	}
-	damageAfterResistances(damageType: string, resistVal: number) {
-		let total = 0;
-		for (let damageDistributionType in this.champion.damageBeforeResistances) {
-			if (damageDistributionType.charAt(0) != "_") {
-				let damageVal = this.champion.damageBeforeResistances[damageDistributionType][damageType];
-				let damageReducedMod: number = this.damageCalculationsService.damageReduction(resistVal);
-				total += damageReducedMod * damageVal;
-			}
-		}
-		return total;
-	}
-	damageAfterResistancesTooltip(damageType: string, resistVal: number) {
-		let expressionStringList = [DAMAGE_TYPE_MAPPING[damageType] + " Distribution<br>"];
-		for (let damageDistributionType in this.champion.damageBeforeResistances) {
-			if (damageDistributionType.charAt(0) != "_") {
-				let damageVal = this.champion.damageBeforeResistances[damageDistributionType][damageType];
-				let damageReducedMod: number = this.damageCalculationsService.damageReduction(resistVal);
-				damageVal = this.championService.formatNPlaces(damageReducedMod * damageVal);
-				if (damageDistributionType == "autos") {
-					expressionStringList.push("Auto Attacks: " + damageVal);
-				} else if (damageDistributionType == "runeDamage") {
-					expressionStringList.push("Rune Damage: " + damageVal);
-				} else {
-					expressionStringList.push(this.champion[damageDistributionType][1] + ": " + damageVal);
+					expressionStringList.push(this.champion[damageFrom][1] + ": " + damageVal);
 				}
 			}
 		}
@@ -177,9 +164,9 @@ export class CalculationsComponent implements OnInit {
 	}
 	damageReduction(damageType: string) {
 		let total = 0;
-		for (let damageDistributionType in this.champion.damageReductions) {
-			if (damageDistributionType.charAt(0) != "_") {
-				let damageReduced = this.champion.damageReductions[damageDistributionType][damageType] * 100;
+		for (let damageFrom in this.champion.damageReductions) {
+			if (damageFrom.charAt(0) != "_") {
+				let damageReduced = this.champion.damageReductions[damageFrom][damageType] * 100;
 				total += damageReduced;
 			}
 		}

@@ -89,10 +89,7 @@ export class DamageCalculationsService {
 		let damageReductions: CalculationResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);// the rotation duration in seconds (if there is an attribute where total damage is calculated, we will use that one instead)
 		// example is alistar E, trample, it ticks 1 time each 0.5s for 5s
 
-		let totalAdditionalAD: number = 0; // bonuses that apply on additional stats from items, runes, and epic monster enhancements
-		let totalAdditionalAP: number = 0;
-		let totalAdditionalHP: number = 0;
-		let bonusPercentAbilityDamage: DamageTypes = new DamageTypes();
+		let bonusPercentAbilityDamage: DamageTypes = new DamageTypes(); //apply bonuses that are hidden
 		let bonusPercentAutoDamage: DamageTypes = new DamageTypes();
 
 		let apiname: string = champion.apiname.toLowerCase();
@@ -173,7 +170,7 @@ export class DamageCalculationsService {
 							if (abilityType == "w" && loweredAttribute.includes("total")) {
 								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute.includes("ad")) {
-								totalAdditionalAD += eval(expressionString);
+								champion.stats.ad += eval(expressionString);
 							}
 						} else if (apiname == "ahri") {
 							if ((abilityType == "q" && loweredAttribute == "total mixed damage") ||
@@ -358,7 +355,21 @@ export class DamageCalculationsService {
 								bonusPercentAutoDamage[this.MAGIC_DAMAGE] += "+" + (eval(expressionString) / 100); // we apply this damage to the q since it empowers her auto attacks and q
 							}
 						} else if (apiname == "cassiopeia") {
-
+							if (abilityType == "q") {
+								if (loweredAttribute == "total magic damage") {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								} else if (loweredAttribute == "bonus movement speed") {
+									champion.otherSourcesStats["ms%"] = this.evalAttributePercent(expressionString, false);
+								}
+							} else if (abilityType == "w" && loweredAttribute == "maximum damage") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+							} else if (abilityType == "e" && loweredAttribute.includes("damage")) {
+								let baseDamage = 48 + 4 * champion.currentLevel + 0.1 * AP;
+								if (applyAbilitySteroids) {
+									baseDamage += eval(expressionString);
+								}
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + baseDamage * 4; // the cooldown is 0.75 so you can throw 4 in 3s
+							}
 						}
 					});
 				} catch (error) {
@@ -377,10 +388,10 @@ export class DamageCalculationsService {
 		});
 		// these values are read in the eval expression
 		// the reason we eval after is because we apply any additional modifiers directly into the expression
-		// example is aatrox. His R gives AD across the board which impacts all of his abilities and autos
-		AD += totalAdditionalAD;
-		AP += totalAdditionalAP;
-		HP += totalAdditionalHP;
+		// example is aatrox. His R gives AD across the board which impacts all of his abilities and autos hence we reassign the value since when encountered through the expression, we eval directly
+		AD = champion.stats.ad;
+		AP = champion.stats.ap;
+		HP = champion.stats.hp;
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
 		let numberOfAutos: number = Math.floor(champion.stats.as * ROTATION_DURATION);
 		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
@@ -501,7 +512,9 @@ export class DamageCalculationsService {
 		damageBeforeResistances.runeDamage = selectedRunes.runeDamage;
 		champion.damageBeforeResistances = damageBeforeResistances;
 		champion.damageReductions = damageReductions;
-		console.log(champion.damageBeforeResistances, champion.damageReductions);
+		let damageAfterResistances = this.applyTargetResistance(champion, targetDetails);
+		champion.damageAfterResistances = damageAfterResistances;
+		// console.log(champion.damageBeforeResistances, champion.damageReductions);
 		return damageBeforeResistances;
 	}
 	totalDamageFromAutoAttacks(champion: Champion, currentTime: number, numberOfAutos: number, applyAbilitySteroids: boolean): DamageTypes {
@@ -542,8 +555,24 @@ export class DamageCalculationsService {
 		}
 		return autoDamageResults;
 	}
-	applyTargetResistance(champion: Champion, targetDetails: TargetDetails) {
-
+	applyTargetResistance(champion: Champion, targetDetails: TargetDetails): CalculationResults {
+		let damageTypes: DamageTypes = new DamageTypes();
+		let damageAfterResistances: CalculationResults = new CalculationResults();
+		for (let damageFrom in champion.damageBeforeResistances) {
+			if (damageFrom.charAt(0) != "_") {
+				for (let damageType in damageTypes) {
+					let damageVal: number = champion.damageBeforeResistances[damageFrom][damageType];
+					let damageReducedMod: number = 1;
+					if (damageType != this.TRUE_DAMAGE) {
+						let resistVal = damageType == this.PHYSICAL_DAMAGE ? targetDetails.armor : targetDetails.mr;
+						damageReducedMod = this.damageReduction(resistVal);
+					}
+					damageAfterResistances[damageFrom][damageType] += damageReducedMod * damageVal;
+				}
+			}
+		}
+		// console.log(damageAfterResistances);
+		return damageAfterResistances;
 	}
 	evalAttributePercent(expressionString: string, asRatio: boolean = true) {
 		let expressionValue = eval(expressionString.replace("%", ""));

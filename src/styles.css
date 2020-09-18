@@ -366,6 +366,9 @@ ul.numbered-tooltip >li {
 .info-icon {
 	margin: 3px 0;
 }
+.cd {
+	text-align:right;
+}
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {
