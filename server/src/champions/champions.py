@@ -116,7 +116,7 @@ def compile_champion_data(using="meraki", use="live"):
 			for i, skill_key in enumerate(skill_keys):
 				for subkey in ability_names[skill_key]:
 					current_skill_name = champion_obj[skill_key][subkey]
-					new_skill_name = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
+					new_skill_name = re.sub(r'[\:]', '', ability_names[skill_key][subkey]) # sometimes the tooltip key is missing characters that are not meaningful
 					if (current_skill_name.lower() != new_skill_name.lower() and champion_name != "Aphelios"):
 						print(champion_name, "has updated", current_skill_name, "to", new_skill_name )
 						champion_obj[skill_key][subkey] = new_skill_name
@@ -126,15 +126,17 @@ def compile_champion_data(using="meraki", use="live"):
 					if (fixed_tooltip is not None):
 						champion_obj[skill_key]["tooltip"] = fixed_tooltip
 					else:
-						print(champion_name, skill_key)
+						print("\nXXXXX", champion_name, "needs tooltip for", skill_key, "XXXXX\n")
 				else:
 					champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
 
 				if (using == "meraki"):
+					# check if there has been any changes to the ability breakdown
 					if (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[i]):
 						difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[i])
 						print(champion_name, "has changed", pp.pformat(difference))
-					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
+						champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
+
 			json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
 			json.dump(champion_obj, json_file)
 			json_file.close()
@@ -221,6 +223,17 @@ def parse_champion_data_meraki(champion_name, champion_data):
 			ability_name = ability_obj["name"]
 			main_dict = {main_key:[]}
 			ability_effects = ability_obj["effects"]
+			ability_cooldown_affected_by_cdr = False
+			if ability_obj["cooldown"]:
+				ability_cooldown_modifiers = ability_obj["cooldown"]["modifiers"]
+				ability_cooldown_affected_by_cdr = ability_obj["cooldown"]["affectedByCdr"]
+				total_cooldown_expressions = []
+				for cooldown_modifier in ability_cooldown_modifiers:
+					values, units = cooldown_modifier["values"], cooldown_modifier["units"]
+					value_length, unit_length = len(values), len(units)
+					for k, value in enumerate(values):
+						cooldown_formula = str(value) + units[k]
+						total_cooldown_expressions.append(cooldown_formula)
 			for ability_effect in ability_effects:
 				ability_effect_leveling = ability_effect["leveling"]
 				for attribute in ability_effect_leveling:
@@ -265,12 +278,15 @@ def parse_champion_data_meraki(champion_name, champion_data):
 								text_formula = text_formula.replace("total", "")
 								text_formula = re.sub(r'[ ]', '', text_formula)
 								if (k==0):
+									# if it's the first modifier object, we can append the expression since it will always be a value
 									expressions.append(text_formula)
 								else:
+									# if the units list is only one, then we attach that unit to all existing expressions
 									if (unit_length == 1):
 										for o, existing_expression in enumerate(expressions):
 											expressions[o] += "+" + text_formula
 									else:
+										#  we can work with champions that have the basic leveling scheme
 										if (unit_length == 5 or unit_length == 6 or unit_length == 3):
 											expressions[l] += "+" + text_formula
 										else:
@@ -284,6 +300,12 @@ def parse_champion_data_meraki(champion_name, champion_data):
 			if (main_dict != {main_key:[]}):
 				# the name is already attached to the champion skill key in the json obj we use for our calculations
 				main_dict["name"] = ability_name
+				if ability_obj["cooldown"]:
+					main_dict["applies_cdr"] = ability_cooldown_affected_by_cdr
+					main_dict["cooldown"] = total_cooldown_expressions
+				else:
+					main_dict["applies_cdr"] = False
+					main_dict["cooldown"] = []
 				ability_details.append(main_dict)
 			ability_names[skill_keys[i]][ability_key] = ability_name
 			if (ability_obj["blurb"] is not None):
