@@ -21,11 +21,14 @@ export class DamageCalculationsService {
 	TRUE_DAMAGE = DamageTypes.TRUE_DAMAGE;
 
 	damageReduction(resistVal: number): number {
-		if (resistVal >= 0) {
-			return 100 / (100 + resistVal);
-		} else {
-			return 2 - (100 / (100 - resistVal));
+		if (resistVal != null) {
+			if (resistVal >= 0) {
+				return 100 / (100 + resistVal);
+			} else {
+				return 2 - (100 / (100 - resistVal));
+			}
 		}
+		return 1;
 	}
 	effectiveHealth(champion: Champion, statName: string): number {
 		return (1 + champion.stats[statName] / 100) * champion.stats.hp;
@@ -152,15 +155,17 @@ export class DamageCalculationsService {
 						return;
 					}
 				}
-				// try to get the ability breakdown -> this will catch if there is not ability breakdown ->
-				// notably aphelios
+				// try to get the ability breakdown -> this will catch if there is not ability breakdown for every ability other than the passive. the passive doesn't have any ability breakdwon, but exists within the body of the text. checkout the wiki
+				// eg. aphelios, blitzcrank
 				try {
 					let abilityBreakdown: object[] = champion[skillKey]["ability_breakdown"][0]["main"];
 					abilityBreakdown.forEach((attributeObj: object, j: number) => {
 						let loweredAttribute: string = attributeObj["attribute"].toLowerCase();
 						let expressionString: string = attributeObj["string_expression"][expressionIndex];
 						// can we work with abilities that appear multiple times? for example physical damage and magic damage appear many times?
-						// the following keys appear the most times as of patch 10.16
+						// A: we cannot do that since multiple attributes can exist within their particular form
+						// take for example aatrox who has sweetspot and physical damage. we don't want to add physical damage always
+						// because if we use steroids, we avoid the physical damage attribute
 						if (apiname == "aatrox") {
 							if (applyAbilitySteroids && abilityType == "q" && loweredAttribute.includes("sweetspot")) {
 								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
@@ -173,9 +178,9 @@ export class DamageCalculationsService {
 								champion.stats.ad += eval(expressionString);
 							}
 						} else if (apiname == "ahri") {
-							if ((abilityType == "q" && loweredAttribute == "total mixed damage") ||
-								(abilityType == "w" && loweredAttribute == "total single target damage") ||
-								(abilityType == "r" && loweredAttribute == "maximum single target damage")) {
+							if ((abilityType == "q" && loweredAttribute.includes("total mixed")) ||
+								(abilityType == "w" && loweredAttribute.includes("total single")) ||
+								(abilityType == "r" && loweredAttribute.includes("maximum single"))) {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
 								if (applyAbilitySteroids) {
@@ -184,10 +189,11 @@ export class DamageCalculationsService {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
 						} else if (apiname == "akali") {
-							if ((abilityType == "q" && loweredAttribute == "magic damage") ||
-								(abilityType == "e" && loweredAttribute == "total damage") ||
+							if ((abilityType == "e" && loweredAttribute == "total damage") ||
 								(abilityType == "r" && loweredAttribute == "physical damage")) {
 								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
+							} else if ((abilityType == "q" && loweredAttribute == "magic damage")) {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							} else if (abilityType == "r" && loweredAttribute == "minimum magic damage") {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+m*(" + expressionString + ")";
 							}
@@ -198,7 +204,7 @@ export class DamageCalculationsService {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] = eval(damageBeforeResistances[skillKey][this.MAGIC_DAMAGE]);
 							}
 						} else if (apiname == "alistar") {
-							if (abilityType != "r" && (loweredAttribute == "magic damage" || loweredAttribute == "total magic damage")) {
+							if (abilityType != "r" && (loweredAttribute == "magic damage" || loweredAttribute.includes("total magic"))) {
 								// trample does total magic damage over 5 seconds
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionString;
 							}
@@ -356,7 +362,7 @@ export class DamageCalculationsService {
 							}
 						} else if (apiname == "cassiopeia") {
 							if (abilityType == "q") {
-								if (loweredAttribute == "total magic damage") {
+								if (loweredAttribute.includes("total magic")) {
 									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
 								} else if (loweredAttribute == "bonus movement speed") {
 									champion.otherSourcesStats["ms%"] = this.evalAttributePercent(expressionString, false);
@@ -370,6 +376,8 @@ export class DamageCalculationsService {
 								}
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + baseDamage * 4; // the cooldown is 0.75 so you can throw 4 in 3s
 							}
+						} else if (apiname == "chogath") {
+
 						}
 					});
 				} catch (error) {
@@ -440,7 +448,7 @@ export class DamageCalculationsService {
 				ieBonus = 0;
 				let headShotFormula = (baseDamage + ((1.25 + ieBonus) * champion.stats.crit / 100)) * champion.stats.ad;
 				let maxUsableTraps = numberOfAutos > 2 ? 2 : numberOfAutos; // get the max number of ability traps if the its ranked
-				let numberOfHeadshotAutos = Math.floor(numberOfAutos / (applyAbilitySteroids ? 3 : 6));
+				let numberOfHeadshotAutos = Math.floor(numberOfAutos / (applyAbilitySteroids ? 3 : 6)); // 6 is the number of times it takes to get headshot (on the 6th one). steroid application is inside a brush which is 2x speed
 				if (applyAbilitySteroids) { numberOfHeadshotAutos += 1; } // start the rotation with the headshot, otherwise a normal auto at 0 stacks
 				let numberOfRegularAutos = numberOfAutos - numberOfHeadshotAutos;
 				if (champion.skill_w["rank"] >= 1) {
@@ -571,7 +579,6 @@ export class DamageCalculationsService {
 				}
 			}
 		}
-		// console.log(damageAfterResistances);
 		return damageAfterResistances;
 	}
 	evalAttributePercent(expressionString: string, asRatio: boolean = true) {

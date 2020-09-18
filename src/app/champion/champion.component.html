@@ -18,8 +18,23 @@
 			</div>
 		</div>
 		<div id="champion-details" *ngIf="champion; else loading">
-			<div id="champion-img" *ngIf="champion.img != ''">
-				<img class="champion-portrait" [src]="champion.img" alt="" />
+			<div id="champion-img">
+				<img class="champion-portrait ability-modifier" [src]="champion.img" [alt]="champion.championName" />
+				<div *ngIf="hasAbilityModifier()" class="selector-container">
+					<mat-form-field>
+						<mat-label>{{abilityModifierName()}}</mat-label>
+						<input matInput [(ngModel)]="stackCount" type="number" [min]="minStackCount" [max]="maxStackCount" required>
+						<mat-error *ngIf="boundError()">{{boundErrorMessage()}}</mat-error>
+					</mat-form-field>
+				</div>
+				<!-- <div class="summoner-spells">
+					<div class="summoner-spell-container">
+						<img class="summoner-spell" src="assets/images/summoners/flash.png" />
+					</div>
+					<div class="summoner-spell-container">
+						<img class="summoner-spell" src="assets/images/summoners/ignite.png" />
+					</div>
+				</div> -->
 			</div>
 			<div id="champion-abilities" class="center-margin">
 				<div id="passive" class="flex-center ability">

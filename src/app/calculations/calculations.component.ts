@@ -9,6 +9,7 @@ import { CalculationResults, DamageTypes } from '../models/calculations';
 import { ChampionService } from '../services/champion.service';
 import { DamageCalculationsService } from '../services/damage-calculations.service';
 import { DAMAGE_TYPE_MAPPING, LEVELS, ROTATION_DURATION } from 'server/data/data';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
 	selector: 'calculations',
@@ -25,8 +26,10 @@ export class CalculationsComponent implements OnInit {
 	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
 
 	targetMin: number = 0;
+	readonly targetMaxResist: number = 10000;
 	targetCurrentHP: number = 300;
-	minTargetMaxHP: number = 400;
+	readonly minTargetMaxHP: number = 400;
+	readonly maxTargetMaxHP: number = 30000;
 	targetMaxHP: number = this.minTargetMaxHP;
 	targetMR: number = 30;
 	targetArmor: number = 10;
@@ -67,7 +70,7 @@ export class CalculationsComponent implements OnInit {
 	ngOnInit(): void { this.emitTargetDetails(); }
 
 	updateMaxHP(): void {
-		if (this.targetMaxHP >= this.minTargetMaxHP) {
+		if (this.targetMaxHP >= this.minTargetMaxHP && this.targetMaxHP <= this.maxTargetMaxHP) {
 			let targetHPOptions: Options = {
 				floor: this.targetMin,
 				ceil: this.targetMaxHP,
@@ -86,13 +89,13 @@ export class CalculationsComponent implements OnInit {
 		this.updateCalculation();
 	}
 	updateArmor() {
-		if (this.targetArmor >= this.targetMin) {
+		if (this.targetArmor >= this.targetMin && this.targetArmor <= this.targetMaxResist) {
 			this.targetDetails.armor = this.targetArmor;
 			this.updateCalculation();
 		}
 	}
 	updateMR() {
-		if (this.targetMR >= this.targetMin) {
+		if (this.targetMR >= this.targetMin && this.targetMR <= this.targetMaxResist) {
 			this.targetDetails.mr = this.targetMR;
 			this.updateCalculation();
 		}
@@ -117,6 +120,12 @@ export class CalculationsComponent implements OnInit {
 	}
 	emitTargetDetails() {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);
+	}
+	boundError(value: number, min: number, max: number): boolean {
+		return !this.championService.isBetween(value, min, max);
+	}
+	boundErrorMessage(min: number, max: number) {
+		return this.championService.boundErrorMessage(min, max);
 	}
 	totalDPS(partialKeyName: string) {
 		let total = 0;
@@ -173,11 +182,14 @@ export class CalculationsComponent implements OnInit {
 		return total;
 	}
 	calculationTooltip(): string {
-		let calculationHelpString = `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of 3 seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on. The calculation is dependant on the following attributes: <br>`;
+		return `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of 3 seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on.`;
+	}
+	targetTooltip(): string {
+		let targetTooltip = `The calculation is dependant on the following attributes: <br>`;
 		let itemsHelpString = this.itemSteroidsTooltip();
 		let abilitiesHelpString = this.abilitySteroidsTooltip();
 		let formHelpString = this.formBuffsTooltip();
-		return [calculationHelpString, itemsHelpString, abilitiesHelpString, formHelpString].join("<br>");
+		return [targetTooltip, itemsHelpString, abilitiesHelpString, formHelpString].join("<br>");
 	}
 	itemSteroidsTooltip(): string {
 		return `<b>Item Steroids</b> provides bonuses to damage depending on item choices. These include:

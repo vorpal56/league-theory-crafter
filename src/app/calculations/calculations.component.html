@@ -1,5 +1,6 @@
 <div class="component-header">
-	<span>Target Info</span>
+	<span>Modifiers and Target Info</span>
+	<mat-icon class="info" [tooltip]="targetTooltip()" placement="left" aria-hidden="false" aria-label="What influences damage?" tooltip-class="expanded-tooltips">info</mat-icon>
 </div>
 <div class="component-body">
 	<div class="calculations-grid">
@@ -23,19 +24,22 @@
 				<div id="target-max-hp" class="selector-container">
 					<mat-form-field>
 						<mat-label>Target Max HP</mat-label>
-						<input matInput type="number" [(ngModel)]="targetMaxHP" [min]="minTargetMaxHP" (change)="updateMaxHP()" required>
+						<input matInput type="number" [(ngModel)]="targetMaxHP" [min]="minTargetMaxHP" [max]="maxTargetMaxHP" (change)="updateMaxHP()" required>
+						<mat-error *ngIf="boundError(targetMaxHP, minTargetMaxHP, maxTargetMaxHP)">{{boundErrorMessage(minTargetMaxHP, maxTargetMaxHP)}}</mat-error>
 					</mat-form-field>
 				</div>
 				<div id="target-armor" class="selector-container">
 					<mat-form-field>
 						<mat-label>Target Armor</mat-label>
-						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMin" (change)="updateArmor()" required>
+						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMin" [max]="targetMaxResist" (change)="updateArmor()" required>
+						<mat-error *ngIf="boundError(targetArmor, targetMin, targetMaxResist)">{{boundErrorMessage(targetMin, targetMaxResist)}}</mat-error>
 					</mat-form-field>
 				</div>
 				<div id="target-mr" class="selector-container">
 					<mat-form-field>
 						<mat-label>Target MR</mat-label>
-						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMin" (change)="updateMR()" required>
+						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMin" [max]="targetMaxResist" (change)="updateMR()" required>
+						<mat-error *ngIf="boundError(targetMR, targetMin, targetMaxResist)">{{boundErrorMessage(targetMin, targetMaxResist)}}</mat-error>
 					</mat-form-field>
 				</div>
 			</div>
@@ -47,7 +51,7 @@
 			<div class="component-header inner-component-header">
 				<span>Calculations</span>
 				<span>
-					<mat-icon class="info" [tooltip]="calculationTooltip()" aria-hidden="false" aria-label="How is damage calculated?" tooltip-class="expanded-tooltips">info</mat-icon>
+					<mat-icon class="info" [tooltip]="calculationTooltip()" placement="left" aria-hidden="false" aria-label="How is damage calculated?" tooltip-class="expanded-tooltips">info</mat-icon>
 				</span>
 			</div>
 			<div class="component-body">

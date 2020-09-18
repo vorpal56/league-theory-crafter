@@ -40,10 +40,14 @@ export class ChampionComponent implements OnInit {
 	basicChampions$: Observable<BasicChampion[]>;
 	basicChampion: BasicChampion;
 
-	numChampsCalled = 0;
-	championsIndices = {};
+	numChampsCalled: number = 0;
+	championsIndices: object = {};
 	champions: Champion[] = [];
 	champion: Champion;
+
+	stackCount: number = 0;
+	readonly minStackCount: number = 0;
+	readonly maxStackCount: number = 10000;
 
 	constructor(private statsService: StatsService, private championService: ChampionService, private damageCalculationsService: DamageCalculationsService, private http: HttpClient) { }
 
@@ -64,7 +68,7 @@ export class ChampionComponent implements OnInit {
 			let championUrl = `${environment.apiChampionsUrl}${this.basicChampion.apiname}`;
 			championUrl += environment.production ? ".json" : "";
 			this.http.get<Champion>(championUrl).subscribe((champion: Champion) => {
-				this.champion = new Champion(champion, this.currentLevel);
+				this.champion = new Champion(champion, this.currentLevel, { stackCount: this.stackCount });
 				this.resetAbilities();
 				this.championsIndices[this.champion.apiname.toLowerCase()] = this.numChampsCalled++;
 				this.champions.push(this.champion);
@@ -94,7 +98,7 @@ export class ChampionComponent implements OnInit {
 			let championUrl = `${environment.apiChampionsUrl}${this.basicChampion.apiname}`;
 			championUrl += environment.production ? ".json" : "";
 			this.http.get<Champion>(championUrl).subscribe((champion: Champion) => {
-				this.champion = new Champion(champion, this.currentLevel);
+				this.champion = new Champion(champion, this.currentLevel, { stackCount: this.stackCount });
 				this.resetAbilities();
 				this.championsIndices[apiname] = this.numChampsCalled++;
 				this.champions.push(this.champion);
@@ -190,6 +194,26 @@ export class ChampionComponent implements OnInit {
 	canLevelDown(abilityType: string) {
 		let skillKey = "skill_" + abilityType;
 		return this.champion[skillKey]["canLevelDown"];
+	}
+	boundError() {
+		return !this.championService.isBetween(this.stackCount, this.minStackCount, this.maxStackCount);
+	}
+	boundErrorMessage() {
+		return this.championService.boundErrorMessage(this.minStackCount, this.maxStackCount);
+	}
+	abilityModifierName() {
+		let apiname = this.champion.apiname.toLowerCase();
+		if (apiname == "chogath") {
+			return "Feast Stacks";
+		}
+		return "Passive Stacks";
+	}
+	hasAbilityModifier() {
+		let apiname = this.champion.apiname.toLowerCase();
+		return apiname == "chogath" || apiname == "veigar";
+	}
+	hasAbilityModifierClass() {
+		return this.hasAbilityModifier() ? "ability-modifier" : "";
 	}
 	assetStatUrl(statName: string) {
 		return "assets/images/icons/" + statName + "_icon.png";

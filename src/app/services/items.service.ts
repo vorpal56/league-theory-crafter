@@ -191,8 +191,8 @@ export class ItemsService {
 			let adaptiveType: string;
 			let totalApFromItems = totalStatsFromItems["ap"];
 			let totalAdFromItems = totalStatsFromItems["ad"];
-			if (totalAdFromItems == undefined && totalApFromItems == undefined) {
-				adaptiveType = champion.stats.ad > champion.stats.ap ? "ad" : "ap";
+			if (totalAdFromItems == totalApFromItems) {
+				adaptiveType = champion.mainAdaptiveType;
 			} else if (totalAdFromItems == undefined && totalApFromItems) {
 				adaptiveType = "ap";
 			} else if (totalAdFromItems && totalApFromItems == undefined) {
@@ -204,7 +204,7 @@ export class ItemsService {
 			let itemAdditions = { "aweItem": aweItem, "hexcoreItem": hexCoreItem };
 			return [totalStatsFromItems, multKeyValues, itemAdditions];
 		}
-		champion.adaptiveType = champion.stats.ad > champion.stats.ap ? "ad" : "ap";
+		champion.adaptiveType = champion.mainAdaptiveType;
 		return [{}, {}, {}];
 	}
 	addItemStats(champion: Champion, multKeyValues: any) {

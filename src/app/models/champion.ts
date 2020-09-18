@@ -39,22 +39,31 @@ export class Champion extends BasicChampion {
 	skill_r: any;
 	currentLevel: number;
 	adaptiveType: string;
+	mainAdaptiveType: string;
 	totalAbilityRanks: number;
 	private _damageBeforeResistances: CalculationResults;
 	private _damageAfterResistances: CalculationResults;
 	private _damageReductions: CalculationResults;
-	constructor(championDetails: any, currentLevel: number) {
+	private _abilityModifiers: any;
+	constructor(championDetails: any, currentLevel: number, abilityModifiers: any) {
 		super(championDetails["name"], championDetails["apiname"], championDetails["index"], championDetails["id"]);
 		for (let attributeName in championDetails) {
 			if (attributeName != "apiname" && attributeName != "id" && attributeName != "index") {
 				this[attributeName] = championDetails[attributeName];
 			}
 		}
-		this.adaptiveType = "ad";
+		let adaptiveTypes = championDetails["adaptivetype"].toLowerCase();
+		if (!adaptiveTypes.includes("mixed")) {
+			this.mainAdaptiveType = adaptiveTypes == "magic" ? "ap" : "ad";
+		} else {
+			this.mainAdaptiveType = "ad"; // assumption is anyone with mixed means main is ad
+		}
+		this.adaptiveType = this.mainAdaptiveType;
 		this.currentLevel = currentLevel;
 		this.itemStats = {};
 		this.runeStats = {};
 		this.otherSourcesStats = {};
+		this.abilityModifiers = {};
 		this.totalAbilityRanks = 0;
 	}
 
@@ -75,6 +84,6 @@ export class Champion extends BasicChampion {
 	get damageReductions() { return this._damageReductions; }
 	set damageReductions(damageReductions: CalculationResults) { this._damageReductions = damageReductions; }
 
-	getChampionStat(statKey: string) { return this.stats[statKey]; }
-	setChampionStat(statKey: string, statVal: number) { this.stats[statKey] = statVal; }
+	get abilityModifiers() { return this._abilityModifiers; }
+	set abilityModifiers(abilityModifiers: any) { this._abilityModifiers = abilityModifiers; }
 }

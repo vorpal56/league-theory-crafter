@@ -30,6 +30,9 @@ div.overflow {
 	grid-template-areas:
 	"orderby-name orderby-mode gamemode-filter search-filter";
 }
+#item-list {
+	max-height:700px;
+}
 @media only screen and (max-width: 767px) {
 	.item-selector-grid {
 		grid-template-columns: repeat(2, 1fr);
@@ -38,12 +41,12 @@ div.overflow {
 		"orderby-name orderby-mode"
 		"gamemode-filter search-filter"
 	}
+	#item-list {
+		max-height:470px;
+	}
 }
 .item-selector-filter {
 	padding:4px
-}
-#item-list {
-	max-height:700px;
 }
 #item-grid-orderby-name {
 	grid-area: orderby-name;

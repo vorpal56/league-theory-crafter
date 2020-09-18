@@ -119,4 +119,10 @@ export class ChampionService {
 		);
 		return value;
 	}
+	isBetween(value: number, min: number, max: number): boolean {
+		return value != null && value >= min && value <= max;
+	}
+	boundErrorMessage(min: number, max: number) {
+		return `Between [${min}, ${max}]`;
+	}
 }

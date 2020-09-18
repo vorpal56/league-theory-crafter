@@ -9,6 +9,9 @@
 	display:flex;
 	padding: 1px 0 3px 0
 }
+.ability-modifier {
+	margin-top: 12px;
+}
 .level-ability {
 	color:white;
 	padding:1px;
@@ -124,6 +127,17 @@ img.medium-ability {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+}
+.summoner-spells {
+	display:flex;
+}
+.summoner-spell-container {
+	margin:4px
+}
+.summoner-spell {
+	width:32px;
+	height:32px;
 }
 #champion-stats {
 	grid-area: champion-stats;
