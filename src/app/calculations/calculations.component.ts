@@ -25,9 +25,10 @@ export class CalculationsComponent implements OnInit {
 	@Output('manualRefresh') manualRefresh = new EventEmitter<void>();
 	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
 
-	targetMin: number = 0;
+	readonly targetMinResist: number = -500;
 	readonly targetMaxResist: number = 10000;
 	targetCurrentHP: number = 300;
+	readonly targetMinHP: number = 0;
 	readonly minTargetMaxHP: number = 400;
 	readonly maxTargetMaxHP: number = 30000;
 	targetMaxHP: number = this.minTargetMaxHP;
@@ -55,12 +56,12 @@ export class CalculationsComponent implements OnInit {
 	};
 
 	targetHPOptions: Options = {
-		floor: this.targetMin,
+		floor: this.targetMinHP,
 		ceil: this.targetMaxHP,
 		translate: this.translateTargetHP
 	};
 
-	targetDetails: TargetDetails = new TargetDetails(
+	targetDetails: TargetDetails = new TargetDetails(this.targetLevel,
 		this.targetMaxHP, this.targetCurrentHP, this.targetArmor, this.targetMR,
 		this.applyItemSteroids, this.applyAbilitySteroids, this.formUsage
 	);
@@ -68,11 +69,15 @@ export class CalculationsComponent implements OnInit {
 	constructor(private championService: ChampionService, private damageCalculationsService: DamageCalculationsService) { }
 
 	ngOnInit(): void { this.emitTargetDetails(); }
-
+	updateLevel() {
+		this.targetDetails.level = this.targetLevel;
+		this.emitTargetDetails();
+		this.updateCalculation();
+	}
 	updateMaxHP(): void {
-		if (this.targetMaxHP >= this.minTargetMaxHP && this.targetMaxHP <= this.maxTargetMaxHP) {
+		if (this.championService.isBetween(this.targetMaxHP, this.minTargetMaxHP, this.maxTargetMaxHP)) {
 			let targetHPOptions: Options = {
-				floor: this.targetMin,
+				floor: this.targetMinHP,
 				ceil: this.targetMaxHP,
 				translate: this.translateTargetHP
 			};
@@ -89,13 +94,30 @@ export class CalculationsComponent implements OnInit {
 		this.updateCalculation();
 	}
 	updateArmor() {
-		if (this.targetArmor >= this.targetMin && this.targetArmor <= this.targetMaxResist) {
+		if (this.championService.isBetween(this.targetArmor, this.targetMinResist, this.targetMaxResist)) {
 			this.targetDetails.armor = this.targetArmor;
 			this.updateCalculation();
 		}
 	}
+	shredTooltip(keyName: string): string {
+		let tooltip = `${keyName} shred by abilities: `;
+		let loweredKeyName = keyName.toLowerCase();
+		tooltip += this.targetDetails.abilityResistShred[loweredKeyName] ? this.targetDetails.abilityResistShred[loweredKeyName] : 0;
+		tooltip += `<br>Target treated with ${keyName}: `;
+		let resistAfter: number;
+		if (this.targetDetails[`${loweredKeyName}After`] != null || this.targetDetails[`${loweredKeyName}After`] != undefined) {
+			resistAfter = this.targetDetails[`${loweredKeyName}After`];
+		} else {
+			resistAfter = this.targetDetails[`${loweredKeyName}`];
+		}
+		tooltip += this.championService.formatNPlaces(resistAfter);
+		return tooltip;
+	}
+	targetLevelTooltip() {
+		return `As target level increases, so does the flat armor penetration from lethality. That is, you have more flat armor penetration at Level 18 than at Level 1.`;
+	}
 	updateMR() {
-		if (this.targetMR >= this.targetMin && this.targetMR <= this.targetMaxResist) {
+		if (this.championService.isBetween(this.targetMR, this.targetMinResist, this.targetMaxResist)) {
 			this.targetDetails.mr = this.targetMR;
 			this.updateCalculation();
 		}

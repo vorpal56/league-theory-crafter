@@ -23,7 +23,7 @@
 				<div *ngIf="hasAbilityModifier()" class="selector-container">
 					<mat-form-field>
 						<mat-label>{{abilityModifierName()}}</mat-label>
-						<input matInput [(ngModel)]="stackCount" type="number" [min]="minStackCount" [max]="maxStackCount" required>
+						<input matInput [(ngModel)]="stackCount" type="number" [min]="minStackCount" [max]="maxStackCount" (change)="updateStackCount()" required>
 						<mat-error *ngIf="boundError()">{{boundErrorMessage()}}</mat-error>
 					</mat-form-field>
 				</div>

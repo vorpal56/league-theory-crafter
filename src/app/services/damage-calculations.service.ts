@@ -20,7 +20,7 @@ export class DamageCalculationsService {
 	MAGIC_DAMAGE = DamageTypes.MAGIC_DAMAGE;
 	TRUE_DAMAGE = DamageTypes.TRUE_DAMAGE;
 
-	damageReduction(resistVal: number): number {
+	damageModifier(resistVal: number): number {
 		if (resistVal != null) {
 			if (resistVal >= 0) {
 				return 100 / (100 + resistVal);
@@ -39,19 +39,32 @@ export class DamageCalculationsService {
 		// Magic penetration, percentage. (Void Staff)
 		// Magic penetration, flat. (Sorcerer's Shoes, Morellonomicon, oblivion orb)
 	}
-	armorPenetration(champion: Champion, targetLevel: number, targetArmour: number) {
-
-		// 1. Armor reduction, flat (baron)
-		// 2. Armor reduction, percentage (subjugate)
-		// 3. Armor penetration, percentage
+	targetAfterArmorPenetration(champion: Champion, targetDetails: TargetDetails) {
+		// 1. Armor reduction, flat (baron, corki)
+		// 2. Armor reduction, percentage (subjugate, apprehend): Percentage armor reduction stacks multiplicatively and is ignored if the target's armor is 0 or less
+		// 3. Armor penetration, percentage: Percentage armor penetration stacks multiplicatively and is ignored if the target's armor is 0 or less
 		// 4. Lethality
-
-		let percentAPen = targetArmour * champion.stats["apen%"] / 100;
-		// lethality scales depending on the targets level. the higher the targets level, the more vaulable lethality is
-		let currentFlatArmorPenetration = champion.stats.leth * (0.6 + 0.4 * targetLevel / 18);
-		let total = currentFlatArmorPenetration + percentAPen;
-		// total = total > targetArmour ? targetArmour : total;
-		return total;
+		let currentArmor = targetDetails.armorAfter;
+		if (currentArmor > 0) {
+			// ignored if the target has no armor
+			let percentArmorReduction = targetDetails.abilityResistShred["apen%"] ? targetDetails.abilityResistShred["apen%"] / 100 : 0;
+			currentArmor *= (1 - percentArmorReduction);
+		} else {
+			return currentArmor;
+		}
+		if (currentArmor > 0) {
+			// ignored if the target has no armor
+			currentArmor *= (1 - champion.stats["apen%"] / 100);
+		} else {
+			return currentArmor;
+		}
+		if (currentArmor > 0) {
+			let lethFlatArmorPen = champion.stats.leth * (0.6 + 0.4 * targetDetails.level / 18);
+			lethFlatArmorPen > currentArmor ? currentArmor = 0 : currentArmor -= lethFlatArmorPen;
+		} else {
+			return currentArmor;
+		}
+		return currentArmor;
 	}
 	/**
 	 * The entire interpretation set of data for champions. It is important to know that values within the body of the ability are not grabbed by meraki, meaning that they must be calculated manually.
@@ -72,6 +85,8 @@ export class DamageCalculationsService {
 		bonusarmor += champion.runeStats["arm"] ? champion.runeStats["arm"] : 0;
 		let bonusmagicresistance: number = champion.itemStats["mr"] ? champion.itemStats["mr"] : 0;
 		bonusmagicresistance += champion.runeStats["mr"] ? champion.runeStats["mr"] : 0;
+		let bonushealth = bonusHP;
+
 
 		let AD: number = champion.stats.ad;
 		let AP: number = champion.stats.ap;
@@ -355,7 +370,7 @@ export class DamageCalculationsService {
 								if (loweredAttribute == "physical damage") {
 									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 								} else if (loweredAttribute == "bonus attack speed") {
-									champion.otherSourcesStats = this.evalAttributePercent(expressionString, false);
+									champion.otherSourcesStats["as"] = this.evalAttributePercent(expressionString, false);
 								}
 							} else if (abilityType == "r" && loweredAttribute == "bonus magic damage") {
 								bonusPercentAutoDamage[this.MAGIC_DAMAGE] += "+" + (eval(expressionString) / 100); // we apply this damage to the q since it empowers her auto attacks and q
@@ -377,7 +392,79 @@ export class DamageCalculationsService {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + baseDamage * 4; // the cooldown is 0.75 so you can throw 4 in 3s
 							}
 						} else if (apiname == "chogath") {
-
+							let stackCount = champion.abilityModifiers.stackCount;
+							if ((abilityType == "q" || abilityType == "w") && loweredAttribute == "magic damage") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
+								let numberOfAutos = Math.floor(champion.stats.as * ROTATION_DURATION);
+								numberOfAutos = numberOfAutos > 3 ? 3 : numberOfAutos; // vorpal spikes apply to only 3 auto attacks
+								let splitExpressionString = expressionString.split("*");
+								let feastStackMultiplierValue = 0 + this.evalAttributePercent(splitExpressionString[2].replace("(", "")) * stackCount; // this is in % value and not absolute value
+								let midStringExpression = splitExpressionString[1].split("+");
+								let totalMaxHealthDamage = (eval(midStringExpression[1]) + feastStackMultiplierValue) * maximumhealth;
+								let expressionValue = eval(splitExpressionString[0] + "*" + midStringExpression[0] + "+" + totalMaxHealthDamage) * numberOfAutos;
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
+							} else if (abilityType == "r") {
+								if (loweredAttribute.includes("true damage")) {
+									damageBeforeResistances[skillKey][this.TRUE_DAMAGE] += "+" + eval(expressionString);
+								} else if (loweredAttribute.includes("bonus health")) {
+									// replace only keep the digits in the bonus health expression
+									champion.otherSourcesStats["hp"] = eval(expressionString.replace(/\D+/g, '')) * stackCount;
+								}
+							}
+						} else if (apiname == "corki") {
+							let tickDuration = 0.25;
+							if (abilityType == "q" && loweredAttribute == "magic damage") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+							} else if (abilityType == "w" && loweredAttribute.includes("total magic")) {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + eval(expressionString);
+								if (applyAbilitySteroids) {
+									let baseDamage = 7.5;
+									if (champion.currentLevel >= 15) {
+										baseDamage += (17.5 - baseDamage) + 2.5 * champion.currentLevel - 15;
+									} else if (champion.currentLevel >= 8) {
+										baseDamage += (8.75 - baseDamage) + 1.25 * champion.currentLevel - 8;
+									}
+									let numberOfTicks = ROTATION_DURATION / tickDuration;
+									baseDamage += 0.5 * bonusAD + 0.06 * AP;
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + (baseDamage * numberOfTicks);
+								}
+							} else if (abilityType == "e") {
+								if (loweredAttribute.includes("total mixed")) {
+									let physicalSplit = 0.5;
+									let magicalSplit = 1 - physicalSplit;
+									let expressionValue = eval(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionValue * physicalSplit;
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue * magicalSplit;
+								} else if (loweredAttribute.includes("total resistance")) {
+									let expressionValue = eval(expressionString);
+									targetDetails.abilityResistShred["armor"] = expressionValue;
+									targetDetails.abilityResistShred["mr"] = expressionValue;
+								}
+							} else if (abilityType == "r") {
+								let numberOfRocketsShot = 2;
+								let expressionValue = eval(expressionString);
+								if (loweredAttribute == "magic damage") {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
+									if (!applyAbilitySteroids) {
+										damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue * (numberOfRocketsShot - 1);
+									} // we shoot 1 extra regular rocket as if we didn't start with the big one
+								} else if (applyAbilitySteroids && loweredAttribute.includes("increased magic")) {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += "+" + expressionValue;
+								}
+							}
+						} else if (apiname == "darius") {
+							if (abilityType == "q") {
+								if ((applyAbilitySteroids && loweredAttribute.includes("blade")) ||
+									(!applyAbilitySteroids && loweredAttribute.includes("handle"))) {
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								}
+							} else if (abilityType == "w") {
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+							} else if (abilityType == "e") {
+								let expressionValue = this.evalAttributePercent(expressionString, false);
+								targetDetails.abilityResistShred["apen%"] = expressionValue;
+							}
 						}
 					});
 				} catch (error) {
@@ -390,6 +477,8 @@ export class DamageCalculationsService {
 							let expressionValue = champion.stats.ad * 2;
 							damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionValue;
 						}
+					} else {
+						console.error(error);
 					}
 				}
 			}
@@ -522,7 +611,7 @@ export class DamageCalculationsService {
 		champion.damageReductions = damageReductions;
 		let damageAfterResistances = this.applyTargetResistance(champion, targetDetails);
 		champion.damageAfterResistances = damageAfterResistances;
-		// console.log(champion.damageBeforeResistances, champion.damageReductions);
+		console.log(champion.damageBeforeResistances, champion.damageReductions);
 		return damageBeforeResistances;
 	}
 	totalDamageFromAutoAttacks(champion: Champion, currentTime: number, numberOfAutos: number, applyAbilitySteroids: boolean): DamageTypes {
@@ -566,14 +655,26 @@ export class DamageCalculationsService {
 	applyTargetResistance(champion: Champion, targetDetails: TargetDetails): CalculationResults {
 		let damageTypes: DamageTypes = new DamageTypes();
 		let damageAfterResistances: CalculationResults = new CalculationResults();
+		// we cannot update the armor directly since it will mean that when a change happens,
+		// we decrement continuously which is not what we want
+		targetDetails.armorAfter = targetDetails.armor;
+		targetDetails.armorAfter -= targetDetails.abilityResistShred["armor"] ? targetDetails.abilityResistShred["armor"] : 0;
+		targetDetails.armorAfter = this.targetAfterArmorPenetration(champion, targetDetails);
+		targetDetails.mrAfter = targetDetails.mr;
+		targetDetails.mrAfter -= targetDetails.abilityResistShred["mr"] ? targetDetails.abilityResistShred["mr"] : 0;
 		for (let damageFrom in champion.damageBeforeResistances) {
 			if (damageFrom.charAt(0) != "_") {
 				for (let damageType in damageTypes) {
 					let damageVal: number = champion.damageBeforeResistances[damageFrom][damageType];
 					let damageReducedMod: number = 1;
 					if (damageType != this.TRUE_DAMAGE) {
-						let resistVal = damageType == this.PHYSICAL_DAMAGE ? targetDetails.armor : targetDetails.mr;
-						damageReducedMod = this.damageReduction(resistVal);
+						let resistVal;
+						if (damageType == this.PHYSICAL_DAMAGE) {
+							resistVal = targetDetails.armorAfter;
+						} else {
+							resistVal = targetDetails.mrAfter;
+						}
+						damageReducedMod = this.damageModifier(resistVal);
 					}
 					damageAfterResistances[damageFrom][damageType] += damageReducedMod * damageVal;
 				}
@@ -581,7 +682,7 @@ export class DamageCalculationsService {
 		}
 		return damageAfterResistances;
 	}
-	evalAttributePercent(expressionString: string, asRatio: boolean = true) {
+	evalAttributePercent(expressionString: string, asRatio: boolean = true): number {
 		let expressionValue = eval(expressionString.replace("%", ""));
 		if (asRatio) { return expressionValue / 100; }
 		return expressionValue;

@@ -53,7 +53,7 @@ export class ChampionComponent implements OnInit {
 
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
-		let championIndex = 0;
+		let championIndex = 18;
 		this.basicChampions$ = this.http.get<BasicChampion[]>(`${environment.apiBasicChampionsUrl}`).pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);
@@ -194,6 +194,14 @@ export class ChampionComponent implements OnInit {
 	canLevelDown(abilityType: string) {
 		let skillKey = "skill_" + abilityType;
 		return this.champion[skillKey]["canLevelDown"];
+	}
+	updateStackCount() {
+		if (this.championService.isBetween(this.stackCount, this.minStackCount, this.maxStackCount)) {
+			this.champion.abilityModifiers.stackCount = this.stackCount;
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
+		} else {
+			this.champion.abilityModifiers.stackCount = 0;
+		}
 	}
 	boundError() {
 		return !this.championService.isBetween(this.stackCount, this.minStackCount, this.maxStackCount);

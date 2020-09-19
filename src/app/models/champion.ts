@@ -63,7 +63,7 @@ export class Champion extends BasicChampion {
 		this.itemStats = {};
 		this.runeStats = {};
 		this.otherSourcesStats = {};
-		this.abilityModifiers = {};
+		this.abilityModifiers = abilityModifiers;
 		this.totalAbilityRanks = 0;
 	}
 

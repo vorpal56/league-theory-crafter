@@ -18,7 +18,7 @@
 		<div id="target-selectors">
 			<div class="target-selectors-grid pad-around">
 				<div id="target-level" class="selector-container">
-					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Target Level" (change)="updateCalculation()" [(ngModel)]="targetLevel">
+					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Target Level" (change)="updateLevel()" [(ngModel)]="targetLevel" [tooltip]="targetLevelTooltip()">
 					</ng-select>
 				</div>
 				<div id="target-max-hp" class="selector-container">
@@ -28,18 +28,18 @@
 						<mat-error *ngIf="boundError(targetMaxHP, minTargetMaxHP, maxTargetMaxHP)">{{boundErrorMessage(minTargetMaxHP, maxTargetMaxHP)}}</mat-error>
 					</mat-form-field>
 				</div>
-				<div id="target-armor" class="selector-container">
+				<div id="target-armor" class="selector-container" [tooltip]="shredTooltip('Armor')" placement="top">
 					<mat-form-field>
 						<mat-label>Target Armor</mat-label>
-						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMin" [max]="targetMaxResist" (change)="updateArmor()" required>
-						<mat-error *ngIf="boundError(targetArmor, targetMin, targetMaxResist)">{{boundErrorMessage(targetMin, targetMaxResist)}}</mat-error>
+						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMinResist" [max]="targetMaxResist" (change)="updateArmor()" required>
+						<mat-error *ngIf="boundError(targetArmor, targetMinResist, targetMaxResist)">{{boundErrorMessage(targetMinResist, targetMaxResist)}}</mat-error>
 					</mat-form-field>
 				</div>
-				<div id="target-mr" class="selector-container">
+				<div id="target-mr" class="selector-container" [tooltip]="shredTooltip('MR')" placement="top">
 					<mat-form-field>
 						<mat-label>Target MR</mat-label>
-						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMin" [max]="targetMaxResist" (change)="updateMR()" required>
-						<mat-error *ngIf="boundError(targetMR, targetMin, targetMaxResist)">{{boundErrorMessage(targetMin, targetMaxResist)}}</mat-error>
+						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMinResist" [max]="targetMaxResist" (change)="updateMR()" required>
+						<mat-error *ngIf="boundError(targetMR, targetMinResist, targetMaxResist)">{{boundErrorMessage(targetMinResist, targetMaxResist)}}</mat-error>
 					</mat-form-field>
 				</div>
 			</div>
