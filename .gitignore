@@ -9,6 +9,7 @@ ref/
 *_runes.ts
 ability-leveler/
 *.psd
+*.csv
 example_layout.png
 *cache*/
 *attributes.json
