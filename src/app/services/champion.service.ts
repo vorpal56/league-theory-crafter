@@ -42,7 +42,6 @@ export class ChampionService {
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
 		this.preDamageCalculations(champion, itemAdditions, selectedRunes.modifiers);
 		this.damageCalculationsService.totalChampionDamageCalculation(champion, currentTime, targetDetails, selectedRunes);
-		this.addPostDamageCalculationsBonusStats(champion);
 		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
 	}
@@ -72,21 +71,6 @@ export class ChampionService {
 		champion.stats.cdr -= champion.stats.cdr > runeModifiers.cdrCap ? (champion.stats.cdr - runeModifiers.cdrCap) : 0;
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 		return;
-	}
-	addPostDamageCalculationsBonusStats(champion: Champion) {
-		for (let bonusAttributeKey in champion.otherSourcesStats) {
-			if (bonusAttributeKey.charAt(0) != "_") {
-				let statVal = champion.otherSourcesStats[bonusAttributeKey];
-				if (bonusAttributeKey == "flat_ms") {
-					champion.stats.ms += statVal;
-				} else if (bonusAttributeKey == "ms%") {
-					// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
-					champion.stats.ms += champion.stats.ms * (statVal / 100);
-				} else if (bonusAttributeKey != "as") {
-					champion.stats[bonusAttributeKey] += statVal;
-				}
-			}
-		}
 	}
 	hasUltLevel1(champion: Champion): boolean {
 		let apiname = champion.apiname.toLowerCase();

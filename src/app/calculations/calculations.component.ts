@@ -10,6 +10,7 @@ import { ChampionService } from '../services/champion.service';
 import { DamageCalculationsService } from '../services/damage-calculations.service';
 import { DAMAGE_TYPE_MAPPING, LEVELS, ROTATION_DURATION } from 'server/data/data';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Item } from '../models/item';
 
 @Component({
 	selector: 'calculations',
@@ -21,6 +22,8 @@ export class CalculationsComponent implements OnInit {
 	@Input('champion') champion: Champion;
 	@Input('currentTime') currentTime: number;
 	@Input('selectedRunes') selectedRunes: Runes;
+	@Input('selectedItems') selectedItems: [Item, Item, Item, Item, Item, Item];
+	@Input('selectedElixir') selectedElixir: Item;
 
 	@Output('manualRefresh') manualRefresh = new EventEmitter<void>();
 	@Output('targetDetails') targetDetailsEventEmitter = new EventEmitter<TargetDetails>();
@@ -138,7 +141,7 @@ export class CalculationsComponent implements OnInit {
 		this.updateCalculation();
 	}
 	updateCalculation() {
-		this.damageCalculationsService.totalChampionDamageCalculation(this.champion, this.currentTime, this.targetDetails, this.selectedRunes);
+		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}
 	emitTargetDetails() {
 		this.targetDetailsEventEmitter.emit(this.targetDetails);
@@ -204,7 +207,7 @@ export class CalculationsComponent implements OnInit {
 		return total;
 	}
 	calculationTooltip(): string {
-		return `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of 3 seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on.`;
+		return `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of ${ROTATION_DURATION} seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on.`;
 	}
 	targetTooltip(): string {
 		let targetTooltip = `The calculation is dependant on the following attributes: <br>`;

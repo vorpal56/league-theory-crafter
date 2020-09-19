@@ -125,13 +125,17 @@
 /* -----------------Common Section----------------- */
 .common {
 	grid-template-areas:
-	"gold-efficiency total-dps"
+	"total-dps-after total-dps-before";
+	grid-gap:1px;
+	background-color: white;
 }
-#gold-efficiency {
-	grid-area: gold-efficiency
+#total-dps-after {
+	grid-area: total-dps-after;
+	background-color: var(--background);
 }
-#total-dps {
-	grid-area: total-dps
+#total-dps-before {
+	grid-area: total-dps-before;
+	background-color: var(--background)
 }
 /* -----------------End Common Section----------------- */
 /* -----------------Damage Before Section----------------- */

@@ -57,16 +57,15 @@
 			<div class="component-body">
 				<div class="main-results-grid" *ngIf="champion else loading">
 					<div id="dps">
-						Gold Efficiency and Total DPS
+						Total DPS
 						<div class="results-grid-2 common">
-							<div id="gold-efficiency">
-								<img class="distribution" src="assets/images/icons/stats/gold_icon.png" alt="Gold Efficiency (%)" />
-								{{ "123%" }}
-							</div>
-							<div id="total-dps">
+							<div id="total-dps-after">
 								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
 								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
 								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
+								{{ totalDPS(AFTER) | number:'1.0-2' }}
+							</div>
+							<div id="total-dps-before">
 								{{ totalDPS(BEFORE) | number:'1.0-2' }}
 							</div>
 						</div>

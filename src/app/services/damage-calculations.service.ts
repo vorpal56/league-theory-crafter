@@ -111,6 +111,7 @@ export class DamageCalculationsService {
 		let bonusPercentAutoDamage: DamageTypes = new DamageTypes();
 
 		let apiname: string = champion.apiname.toLowerCase();
+		let numberOfAutos: number = 0;
 		let nidaleeCalculation = (abilityType: string, attributeObj: object, expressionIndex: number) => {
 			// we create an anonymous function because scope would be difficult to maintain -> see nidaleeCalculationMethod
 			let skillKey = "skill_" + abilityType;
@@ -346,7 +347,6 @@ export class DamageCalculationsService {
 						} else if (apiname == "camille") {
 							if (abilityType == "q") {
 								if (loweredAttribute == "bonus physical damage") {
-									console.log(expressionString, eval(expressionString) + champion.stats.ad);
 									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + (eval(expressionString) + champion.stats.ad); // adds the damage on top of the physical auto damage
 								} else if (loweredAttribute.includes("mixed damage")) {
 									let maxLevel = champion.currentLevel > 16 ? 16 : champion.currentLevel;
@@ -454,16 +454,23 @@ export class DamageCalculationsService {
 								}
 							}
 						} else if (apiname == "darius") {
+							// don't eval the expression so that we can apply additional values from his noxian might passive. same thing with aatrox where his r gives him bonus ad
 							if (abilityType == "q") {
 								if ((applyAbilitySteroids && loweredAttribute.includes("blade")) ||
 									(!applyAbilitySteroids && loweredAttribute.includes("handle"))) {
-									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
 								}
 							} else if (abilityType == "w") {
-								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + eval(expressionString);
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += "+" + expressionString;
+								numberOfAutos += 1;
 							} else if (abilityType == "e") {
 								let expressionValue = this.evalAttributePercent(expressionString, false);
 								targetDetails.abilityResistShred["apen%"] = expressionValue;
+							} else if (abilityType == "r") {
+								if ((applyAbilitySteroids && loweredAttribute.includes("maximum true")) ||
+									(!applyAbilitySteroids && !loweredAttribute.includes("maximum true"))) {
+									damageBeforeResistances[skillKey][this.TRUE_DAMAGE] += "+" + expressionString;
+								}
 							}
 						}
 					});
@@ -483,15 +490,13 @@ export class DamageCalculationsService {
 				}
 			}
 		});
+		// re calculate the attackspeed since some champions will have modifiers within their abilities
 		// these values are read in the eval expression
 		// the reason we eval after is because we apply any additional modifiers directly into the expression
 		// example is aatrox. His R gives AD across the board which impacts all of his abilities and autos hence we reassign the value since when encountered through the expression, we eval directly
 		AD = champion.stats.ad;
 		AP = champion.stats.ap;
 		HP = champion.stats.hp;
-		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
-		let numberOfAutos: number = Math.floor(champion.stats.as * ROTATION_DURATION);
-		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
 		let applyAdditionalPassiveDamage = () => {
 			let passiveSkillKey = SKILL_KEYS[0];
 			if (apiname == "aatrox") {
@@ -560,9 +565,36 @@ export class DamageCalculationsService {
 						}
 					}
 				}
+			} else if (apiname == "darius") {
+				let hemorrhageStackCount = numberOfAutos;
+				let hemorrhage = 12 + champion.currentLevel + 0.3 * bonusAD;
+				if (champion.skill_q["rank"] > 0) { hemorrhageStackCount += 1; }
+				if (champion.skill_w["rank"] > 0) { hemorrhageStackCount += 1; }
+				if (champion.skill_r["rank"] > 0) { hemorrhageStackCount += 1; }
+
+				hemorrhage *= hemorrhageStackCount;
+				damageBeforeResistances[passiveSkillKey][this.PHYSICAL_DAMAGE] += "+" + hemorrhage;
+				if (applyAbilitySteroids || hemorrhageStackCount >= 5) {
+					let baseAdditionalAD = 30;
+					if (champion.currentLevel >= 13) {
+						baseAdditionalAD += (105 - baseAdditionalAD) + 25 * champion.currentLevel - 13;
+					} else if (champion.currentLevel >= 10) {
+						baseAdditionalAD += (75 - baseAdditionalAD) + 10 * champion.currentLevel - 10;
+					} else {
+						baseAdditionalAD += 5 * champion.currentLevel;
+					}
+					champion.otherSourcesStats["ad"] = baseAdditionalAD;
+				}
 			}
 		};
-		applyAdditionalPassiveDamage(); // apply the additional passive damage
+		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
+		numberOfAutos += Math.floor(champion.stats.as * ROTATION_DURATION);
+		// apply the additional passive damage which can additional stats
+		applyAdditionalPassiveDamage();
+		// add the othersourcesstats so that abiliites can be calculated with the additional bonuses -> this does not include attackspeed which is calculated in the statsService call
+		this.addAdditionalStats(champion);
+		// calculate the autoattack damage after adding additional stats (I actually have no idea how it keeps the 'this' context)
+		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
 		let tempBonusAbilityDamage: CalculationResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);
 		let tempBonusAbilityKeys: any[] = [];
 		for (let skillKey in damageBeforeResistances) {
@@ -611,7 +643,6 @@ export class DamageCalculationsService {
 		champion.damageReductions = damageReductions;
 		let damageAfterResistances = this.applyTargetResistance(champion, targetDetails);
 		champion.damageAfterResistances = damageAfterResistances;
-		console.log(champion.damageBeforeResistances, champion.damageReductions);
 		return damageBeforeResistances;
 	}
 	totalDamageFromAutoAttacks(champion: Champion, currentTime: number, numberOfAutos: number, applyAbilitySteroids: boolean): DamageTypes {
@@ -681,6 +712,21 @@ export class DamageCalculationsService {
 			}
 		}
 		return damageAfterResistances;
+	}
+	addAdditionalStats(champion: Champion) {
+		for (let bonusAttributeKey in champion.otherSourcesStats) {
+			if (bonusAttributeKey.charAt(0) != "_") {
+				let statVal = champion.otherSourcesStats[bonusAttributeKey];
+				if (bonusAttributeKey == "flat_ms") {
+					champion.stats.ms += statVal;
+				} else if (bonusAttributeKey == "ms%") {
+					// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
+					champion.stats.ms += champion.stats.ms * (statVal / 100);
+				} else if (bonusAttributeKey != "as") {
+					champion.stats[bonusAttributeKey] += statVal;
+				}
+			}
+		}
 	}
 	evalAttributePercent(expressionString: string, asRatio: boolean = true): number {
 		let expressionValue = eval(expressionString.replace("%", ""));
