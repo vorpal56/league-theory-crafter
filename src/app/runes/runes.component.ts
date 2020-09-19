@@ -199,9 +199,17 @@ export class RunesComponent implements OnInit {
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 	}
 	setSoulCount() {
-		this.selectedRunes.modifiers.soulCount = this.soulCount;
-		this.emitSelectedRunes();
-		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
+		if (this.championService.isBetween(this.soulCount, 0, 1000)) {
+			this.selectedRunes.modifiers.soulCount = this.soulCount;
+			this.emitSelectedRunes();
+			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
+		}
+	}
+	boundError() {
+		return !this.championService.isBetween(this.soulCount, 0, 1000);
+	}
+	boundErrorMessage() {
+		return this.championService.boundErrorMessage(0, 1000);
 	}
 	hasDarkHarvest(): boolean {
 		let selectedKeystone: Rune = this.selectedRunes["primaryTree"]["runes"][0];
