@@ -5,27 +5,6 @@ DATA_PATH = os.path.join(APP_PATH, "data")
 
 skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
-class DictDiffer(object):
-    """
-    Calculate the difference between two dictionaries as:
-    (1) items added
-    (2) items removed
-    (3) keys same in both but changed values
-    (4) keys same in both and unchanged values
-    """
-    def __init__(self, current_dict, past_dict):
-        self.current_dict, self.past_dict = current_dict, past_dict
-        self.set_current, self.set_past = set(current_dict.keys()), set(past_dict.keys())
-        self.intersect = self.set_current.intersection(self.set_past)
-    def added(self):
-        return self.set_current - self.intersect
-    def removed(self):
-        return self.set_past - self.intersect
-    def changed(self):
-        return set(o for o in self.intersect if self.past_dict[o] != self.current_dict[o])
-    def unchanged(self):
-        return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
-
 def get_version():
 	import requests
 	response = requests.get("https://ddragon.leagueoflegends.com/api/versions.json")
@@ -61,7 +40,7 @@ def fix_punctuation(text):
 	# some of the text has some weird things in it so we fix the punctuation
 	if ("0.0%" in text):
 		text = text.replace("0.0%", "0%")
-	return re.sub(r'(?<=[.,])(?=[^\s])', r' ', text)
+	return re.sub(r'(?<=[.,])(?=[\D])', r' ', text)
 
 def full_clean_text(text):
 	return remove_ascii_chars(remove_extra_whitespace(text))

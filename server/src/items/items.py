@@ -64,7 +64,7 @@ def compile_item_data(using="meraki", use="live"):
 	if not os.path.exists(item_cache_path):
 		os.mkdir(item_cache_path)
 
-	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file:
+	with open(os.path.join(DATA_PATH, "json", "items.json"), "r+") as file, \
 		open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
 		items = json.load(file)
 		file.seek(0)
@@ -91,7 +91,7 @@ def compile_item_data(using="meraki", use="live"):
 		file.truncate()
 		json.dump(items, file)
 		# pp = PrettyPrinter(indent=2, width=900)
-		ts_file.write("export const ITEMS = " + str(items))
+		ts_file.write("let False = false;\nlet True=true;\nlet None=null;\nexport const ITEMS = " + str(items))
 	return
 
 def parse_item_data_meraki(response_data, item):
