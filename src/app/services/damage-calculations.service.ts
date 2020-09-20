@@ -112,6 +112,47 @@ export class DamageCalculationsService {
 
 		let apiname: string = champion.apiname.toLowerCase();
 		let numberOfAutos: number = 0;
+
+		let perScalingAbilityCalculation = (expressionString: string): number => {
+			// this is based off the parsed data. the example is the following
+			// "5+0.005*(+0.5*per100AP)maximumhealth"
+			// split into [5+0.005*, +0.5*per100AP, maximumhealth]
+			let splitExpressionString = this.splitDependantScalingAbility(expressionString);
+			// eval midStringExpression
+			let segmentScalingFormula = splitExpressionString[1].split("*");
+			// eval the segment formula
+			// get the scaling value like per 100 ap -> 100, per 200 ap -> 200
+			let scalingDependencyValues = this.scalingDependencyValues(segmentScalingFormula[1]);
+			let scalingValue = eval(scalingDependencyValues[scalingDependencyValues.length - 1]);
+			let perFormula = 0 + eval(segmentScalingFormula[0]);
+			if (scalingDependencyValues[0].toLowerCase() == "per") {
+				perFormula *= eval(scalingDependencyValues[1]) / scalingValue;
+			}
+			// eval the firstStringExpression
+			let firstStringExpression = splitExpressionString[0].split("+");
+			// add the evaled midStringExpression
+			let totalPerAPFormula = (eval(firstStringExpression[1].replace("*", "")) + perFormula) * eval(splitExpressionString[splitExpressionString.length - 1]);
+			let expressionValue = eval(firstStringExpression[0]) + totalPerAPFormula;
+			return expressionValue;
+		};
+
+		let eliseCalculation = (abilityType: string, attributeObj: object, expressionIndex: number) => {
+			// we create an anonymous function because scope would be difficult to maintain -> see nidaleeCalculationMethod
+			let skillKey = "skill_" + abilityType;
+			let loweredAttribute = attributeObj["attribute"].toLowerCase();
+			let expressionString = attributeObj["string_expression"][expressionIndex];
+			if (abilityType == "q") {
+				let expressionValue = perScalingAbilityCalculation(expressionString);
+				damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionValue}`;
+			} else if (abilityType == "w") {
+				if (loweredAttribute == "magic damage") {
+					damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+				} else if (!applyAbilitySteroids && !loweredAttribute.includes("active") ||
+					(applyAbilitySteroids && loweredAttribute.includes("active"))) {
+					champion.otherSourcesStats["as"] = this.evalAttributePercent(expressionString, false);
+				}
+			}
+		};
 		let nidaleeCalculation = (abilityType: string, attributeObj: object, expressionIndex: number) => {
 			// we create an anonymous function because scope would be difficult to maintain -> see nidaleeCalculationMethod
 			let skillKey = "skill_" + abilityType;
@@ -119,7 +160,7 @@ export class DamageCalculationsService {
 			let expressionString = attributeObj["string_expression"][expressionIndex];
 			if (abilityType == "q") {
 				if (applyAbilitySteroids) {
-					if (loweredAttribute == "maximum magic damage" || loweredAttribute.includes("prowl")) {
+					if (loweredAttribute == "maximum magic damage" || loweredAttribute.includes("prowl-enhanced max")) {
 						damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionString}`;
 					}
 				} else {
@@ -152,20 +193,28 @@ export class DamageCalculationsService {
 				if (abilityType != "r") {
 					if (apiname == "karma") {
 
-					} else if (apiname == "nidalee") {
+					} else if (apiname == "nidalee" || apiname == "elise") {
 						let abilityBreakdown = champion[skillKey]["ability_breakdown"];
 						if (formUsage) {
 							let ultRank = Number(champion["skill_r"]["rank"]) - 1;
 							abilityBreakdown.forEach((ability: object, j: number) => {
 								let mainKey = j == 0 ? "main" : "form";
 								ability[mainKey].forEach((attributeObj: object) => {
-									expressionIndex = j == 0 ? expressionIndex : ultRank;
-									nidaleeCalculation(abilityType, attributeObj, expressionIndex);
+									if (apiname == "nidalee") {
+										expressionIndex = j == 0 ? expressionIndex : ultRank;
+										nidaleeCalculation(abilityType, attributeObj, expressionIndex);
+									} else if (apiname == "elise") {
+										eliseCalculation(abilityType, attributeObj, expressionIndex);
+									}
 								});
 							});
 						} else {
 							abilityBreakdown[0]["main"].forEach((attributeObj: object) => {
-								nidaleeCalculation(abilityType, attributeObj, expressionIndex);
+								if (apiname == "nidalee") {
+									nidaleeCalculation(abilityType, attributeObj, expressionIndex);
+								} else if (apiname == "elise") {
+									eliseCalculation(abilityType, attributeObj, expressionIndex);
+								}
 							});
 						}
 						return;
@@ -194,13 +243,18 @@ export class DamageCalculationsService {
 								champion.stats.ad += eval(expressionString);
 							}
 						} else if (apiname == "ahri") {
-							if ((abilityType == "q" && loweredAttribute.includes("total mixed")) ||
-								(abilityType == "w" && loweredAttribute.includes("total single")) ||
+							if (abilityType == "q" && loweredAttribute.includes("total mixed")) {
+								let expressionValue = eval(expressionString);
+								let damageSplit = expressionValue / 2;
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${damageSplit}`;
+								damageBeforeResistances[skillKey][this.TRUE_DAMAGE] += `+${damageSplit}`;
+							} else if ((abilityType == "w" && loweredAttribute.includes("total single")) ||
 								(abilityType == "r" && loweredAttribute.includes("maximum single"))) {
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionString}`;
 							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
 								if (applyAbilitySteroids) {
 									bonusPercentAbilityDamage[this.MAGIC_DAMAGE] += 0.2;
+									bonusPercentAbilityDamage[this.TRUE_DAMAGE] += 0.2;
 								}
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionString}`;
 							}
@@ -230,10 +284,7 @@ export class DamageCalculationsService {
 							} else if (abilityType == "e" && loweredAttribute == "physical damage reduction") {
 								damageReductions[skillKey][this.PHYSICAL_DAMAGE] += eval(`+${expressionString}`);
 							} else if (abilityType == "w" && loweredAttribute.includes("magic damage")) {
-								// this is based off the parsed data. the example is the following"5+0.005*(+0.5*per100AP)maximumhealth"
-								let splitExpressionString = expressionString.split("+");
-								let perAPMaxHealthFormula = 0.5 * Math.floor(AP / 100) + eval(splitExpressionString[1].replace("*(", "")) * maximumhealth;
-								let expressionValue = (eval(splitExpressionString[0]) + perAPMaxHealthFormula) * ROTATION_DURATION * 2;
+								let expressionValue = perScalingAbilityCalculation(expressionString) * ROTATION_DURATION * 2;
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionValue}`;
 							}
 						} else if (apiname == "anivia") {
@@ -362,7 +413,7 @@ export class DamageCalculationsService {
 								}
 								if (applyAbilitySteroids && loweredAttribute.includes("outer")) {
 									let splitExpressionString = expressionString.split("+");
-									let secondHalf = eval(splitExpressionString[1].split("*")[0]) * Math.floor(bonusAD / 100);
+									let secondHalf = eval(splitExpressionString[1].split("*")[0]) * (bonusAD / 100);
 									let totalDamage = eval(splitExpressionString[0]) + secondHalf;
 									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${totalDamage}`;
 								}
@@ -398,11 +449,11 @@ export class DamageCalculationsService {
 							} else if (abilityType == "e" && loweredAttribute == "magic damage") {
 								let numberOfAutos = Math.floor(champion.stats.as * ROTATION_DURATION);
 								numberOfAutos = numberOfAutos > 3 ? 3 : numberOfAutos; // vorpal spikes apply to only 3 auto attacks
-								let splitExpressionString = expressionString.split("*");
-								let feastStackMultiplierValue = 0 + this.evalAttributePercent(splitExpressionString[2].replace("(", "")) * stackCount; // this is in % value and not absolute value
-								let midStringExpression = splitExpressionString[1].split("+");
-								let totalMaxHealthDamage = (eval(midStringExpression[1]) + feastStackMultiplierValue) * maximumhealth;
-								let expressionValue = eval(splitExpressionString[0] + "*" + midStringExpression[0] + `+` + totalMaxHealthDamage) * numberOfAutos;
+								let splitExpressionString = this.splitDependantScalingAbility(expressionString);
+								let perFeastStack = 0 + eval(splitExpressionString[1].split("*")[0]) * stackCount;
+								let firstStringExpression = splitExpressionString[0].split("+");
+								let totalPerStackFormula = (eval(firstStringExpression[firstStringExpression.length - 1].replace("*", ""))) + perFeastStack;
+								let expressionValue = (eval(firstStringExpression[0]) + eval(firstStringExpression[1]) + (totalPerStackFormula * eval(splitExpressionString[splitExpressionString.length - 1]))) * numberOfAutos;
 								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionValue}`;
 							} else if (abilityType == "r") {
 								if (loweredAttribute.includes("true damage")) {
@@ -421,9 +472,9 @@ export class DamageCalculationsService {
 								if (applyAbilitySteroids) {
 									let baseDamage = 7.5;
 									if (champion.currentLevel >= 15) {
-										baseDamage += (17.5 - baseDamage) + 2.5 * champion.currentLevel - 15;
+										baseDamage += (17.5 - baseDamage) + 2.5 * (champion.currentLevel - 15);
 									} else if (champion.currentLevel >= 8) {
-										baseDamage += (8.75 - baseDamage) + 1.25 * champion.currentLevel - 8;
+										baseDamage += (8.75 - baseDamage) + 1.25 * (champion.currentLevel - 8);
 									}
 									let numberOfTicks = ROTATION_DURATION / tickDuration;
 									baseDamage += 0.5 * bonusAD + 0.06 * AP;
@@ -475,6 +526,142 @@ export class DamageCalculationsService {
 									damageBeforeResistances[skillKey][this.TRUE_DAMAGE] += `+${expressionString}`;
 								}
 							}
+						} else if (apiname == "diana") {
+							if ((abilityType == "q" && loweredAttribute == "magic damage") ||
+								(abilityType == "w" && loweredAttribute.includes("total magic")) ||
+								(abilityType == "e" && loweredAttribute == "magic damage")) {
+								let expressionValue = eval(expressionString);
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionValue}`;
+							} else if (abilityType == "r") {
+								if (applyAbilitySteroids && loweredAttribute.includes("total damage")) {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+								} else if (!applyAbilitySteroids && !loweredAttribute.includes("total damage")) {
+									if (loweredAttribute == "magic damage") {
+										damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+									} else {
+										damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString) * 2}`; // assumption we hit 2 champs
+									}
+								}
+							}
+						} else if (apiname == "draven") {
+							if (abilityType == "q") {
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${eval(expressionString) * numberOfAutos}`;
+							}
+							else if (abilityType == "e") {
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (abilityType == "w") {
+								let expressionValue = this.evalAttributePercent(expressionString, false);
+								if (loweredAttribute.includes("attack speed")) {
+									champion.otherSourcesStats["as"] = expressionValue;
+								} else if (loweredAttribute.includes("movement")) {
+									champion.otherSourcesStats["ms%"] = expressionValue;
+								}
+							} else if (abilityType == "r") {
+								if ((applyAbilitySteroids && loweredAttribute.includes("total physical")) ||
+									(!applyAbilitySteroids && loweredAttribute == "physical damage")) {
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${eval(expressionString)}`;
+								}
+							}
+						} else if (apiname == "drmundo") {
+							// mundo is getting a VGU update so I'm just gonna skip this mans
+							// if (abilityType == "q") {
+							// 	// the min damage is met since the ngx-slider can only get min 400
+							// 	// the damage wont be calculated otherwise
+							// 	if (loweredAttribute == "magic damage") {
+							// 		damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`
+							// 	} else if (loweredAttribute.includes("capped")) {
+							// 		let currentDamage = eval(damageBeforeResistances[skillKey][this.MAGIC_DAMAGE])
+							// 		let expressionValue = eval(expressionString)
+							// 		// cap the damage
+							// 		if (currentDamage > expressionValue) {
+							// 			damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] = expressionValue
+							// 		}
+							// 	}
+							// } else if (abilityType == "w") {
+
+							// }
+						} else if (apiname == "ekko") {
+							if ((abilityType == "q" && loweredAttribute.includes("total")) ||
+								(abilityType == "e" && loweredAttribute.includes("bonus")) ||
+								(abilityType == "r" && loweredAttribute == "magic damage")) {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+							}
+						} else if (apiname == "evelynn") {
+							if (abilityType == "q" && loweredAttribute.includes("total")) {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (abilityType == "w") {
+								if (loweredAttribute.includes("reduction")) {
+									targetDetails.abilityResistShred["mpen%"] = this.evalAttributePercent(expressionString, false);
+								}
+							} else if (abilityType == "e") {
+								let expressionValue: number;
+								if (applyAbilitySteroids || formUsage) {
+									// she has an empowered e when she's hidden (technically her form)
+									let empoweredFormSkill = champion[skillKey]["ability_breakdown"][1]["form"][0];
+									expressionValue = perScalingAbilityCalculation(empoweredFormSkill["string_expression"][abilityRank]);
+								} else {
+									expressionValue = perScalingAbilityCalculation(expressionString);
+								}
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${expressionValue}`;
+							} else if (abilityType == "r") {
+								// if the target is missing 70% of their health or has 30% or less
+								if (targetPercentMissingHealth >= 0.7 && loweredAttribute.includes("empowered") ||
+									(loweredAttribute == "magic damage")) {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+								}
+							}
+						} else if (apiname == "ezreal") {
+							if (loweredAttribute == "physical damage") {
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (loweredAttribute == "magic damage") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+							}
+						} else if (apiname == "fiddlesticks") {
+							if (abilityType == "q") {
+								let minDamage = champion[skillKey]["ability_breakdown"][0]["main"].find((otherAttributeObj: object) => otherAttributeObj["attribute"].toLowerCase() == "minimum damage")["string_expression"]; // im just really lazy with it
+								if ((applyAbilitySteroids && loweredAttribute.includes("increased magic")) ||
+									(!applyAbilitySteroids && loweredAttribute == "magic damage")) {
+									let splitExpressionString = expressionString.split("+");
+									let secondarySplitExpressionString = splitExpressionString[1].split("*");
+									let scalingDependencyValues = this.scalingDependencyValues(secondarySplitExpressionString[secondarySplitExpressionString.length - 1]);
+									let scalingValue = eval(scalingDependencyValues[scalingDependencyValues.length - 1]);
+									let perScalingValue = eval(secondarySplitExpressionString[0]);
+									if (scalingDependencyValues[0] == "per") {
+										perScalingValue *= (eval(scalingDependencyValues[1]) / scalingValue);
+									}
+									let primarySplitExpressionString = splitExpressionString[0].split("*");
+									let baseDamage = (eval(primarySplitExpressionString[0]) + perScalingValue) * eval(primarySplitExpressionString[1]);
+									let minDamageValue = eval(minDamage[expressionIndex]);
+									if (applyAbilitySteroids) { minDamageValue *= 2; } // min damage is applied twice
+									if (baseDamage < minDamageValue) {
+										damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${minDamageValue}`;
+									} else {
+										damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${baseDamage}`;
+									}
+								}
+							} else if ((abilityType == "w" && loweredAttribute.includes("total magic")) ||
+								abilityType == "e") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (abilityType == "r" && loweredAttribute.includes("total magic")) {
+								if (!applyAbilitySteroids) {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString) / 2}`; // half the damage if they didnt apply the ability steroid
+								} else {
+									damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+								}
+							}
+						} else if (apiname == "fiora") {
+							if (abilityType == "q" && loweredAttribute == "physical damage") {
+								damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (abilityType == "w" && loweredAttribute == "magic damage") {
+								damageBeforeResistances[skillKey][this.MAGIC_DAMAGE] += `+${eval(expressionString)}`;
+							} else if (abilityType == "e") {
+								if (loweredAttribute.includes("attack speed")) {
+									champion.otherSourcesStats["as"] = this.evalAttributePercent(expressionString, false);
+								} else if (loweredAttribute.includes("crit")) {
+									let critDamage = AD * this.evalAttributePercent(expressionString);
+									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${critDamage}+${AD}`;
+								}
+							}
 						}
 					});
 				} catch (error) {
@@ -487,7 +674,7 @@ export class DamageCalculationsService {
 							let expressionValue = champion.stats.ad * 2;
 							damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${expressionValue}`;
 						}
-					} else {
+					} else if (apiname != "nidalee" && apiname != "elise") {
 						console.error(error);
 					}
 				}
@@ -527,7 +714,7 @@ export class DamageCalculationsService {
 					if (champion.totalAbilityRanks >= 3 && applyAbilitySteroids) {
 						let levelDamageValue = 0.115 + 0.005 * champion.currentLevel;
 						levelDamageValue = levelDamageValue > 0.16 ? 0.16 : levelDamageValue;
-						levelDamageValue += 0.015 * Math.floor(AP / 100);
+						levelDamageValue += 0.015 * (AP / 100);
 						levelDamageValue *= maximumhealth;
 						damageBeforeResistances[passiveSkillKey][this.MAGIC_DAMAGE] += levelDamageValue;
 					}
@@ -538,7 +725,6 @@ export class DamageCalculationsService {
 				if (champion.currentLevel >= 13) {
 					baseDamage += 0.5;
 				} else if (champion.currentLevel >= 7) { baseDamage += 0.25; }
-				let additionalHeadshotFormula = damageBeforeResistances.skill_w[this.PHYSICAL_DAMAGE];
 				// let trapAbility = champion.skill_w["ability_breakdown"][0]["main"]
 				// let additionalHeadshotFormula = trapAbility[trapAbility.length - 1]["string_expression"][champion.skill_w["rank"] - 1]
 				let ieBonus = 0.15625;
@@ -574,30 +760,87 @@ export class DamageCalculationsService {
 				if (champion.skill_q["rank"] > 0) { hemorrhageStackCount += 1; }
 				if (champion.skill_w["rank"] > 0) { hemorrhageStackCount += 1; }
 				if (champion.skill_r["rank"] > 0) { hemorrhageStackCount += 1; }
-
+				hemorrhageStackCount = hemorrhageStackCount > 5 ? 5 : hemorrhageStackCount;
 				hemorrhage *= hemorrhageStackCount;
 				damageBeforeResistances[passiveSkillKey][this.PHYSICAL_DAMAGE] += `+${hemorrhage}`;
 				if (applyAbilitySteroids || hemorrhageStackCount >= 5) {
 					let baseAdditionalAD = 30;
 					if (champion.currentLevel >= 13) {
-						baseAdditionalAD += (105 - baseAdditionalAD) + 25 * champion.currentLevel - 13;
+						baseAdditionalAD += (105 - baseAdditionalAD) + 25 * (champion.currentLevel - 13);
 					} else if (champion.currentLevel >= 10) {
-						baseAdditionalAD += (75 - baseAdditionalAD) + 10 * champion.currentLevel - 10;
+						baseAdditionalAD += (75 - baseAdditionalAD) + 10 * (champion.currentLevel - 10);
 					} else {
-						baseAdditionalAD += 5 * champion.currentLevel;
+						baseAdditionalAD += 5 * (champion.currentLevel - 1);
 					}
 					champion.otherSourcesStats["ad"] = baseAdditionalAD;
 				}
+			} else if (apiname == "diana") {
+				let bonusAttackSpeed = 10;
+				if (champion.currentLevel == 18) {
+					bonusAttackSpeed += 30;
+				} else if (champion.currentLevel == 15) {
+					bonusAttackSpeed += 25;
+				} else if (champion.currentLevel == 12) {
+					bonusAttackSpeed += 20;
+				} else if (champion.currentLevel == 9) {
+					bonusAttackSpeed += 15;
+				} else if (champion.currentLevel == 6) {
+					bonusAttackSpeed += 10;
+				} else if (champion.currentLevel == 3) {
+					bonusAttackSpeed += 5;
+				}
+				if (champion.skill_q["rank"] > 0 || champion.skill_w["rank"] > 0 || champion.skill_e["rank"] > 0 || champion.skill_r["rank"] > 0) {
+					bonusAttackSpeed *= 3; // bonus attack speed is tripled
+				}
+				champion.otherSourcesStats["as"] = bonusAttackSpeed;
+				this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
+				numberOfAutos = Math.floor(champion.stats.as * ROTATION_DURATION);
+				let numberOfPassiveAutos = Math.floor(numberOfAutos / 3); // on third auto, proc
+				if (applyAbilitySteroids) { numberOfPassiveAutos += 1; } // start with passive
+				let bonusDamage = 20;
+				if (champion.currentLevel >= 16) {
+					bonusDamage += (210 - bonusDamage) + 20 * (champion.currentLevel - 16);
+				} else if (champion.currentLevel == 15) {
+					bonusDamage += (180 - bonusDamage);
+				} else if (champion.currentLevel >= 11) {
+					bonusDamage += (120 - bonusDamage) + 15 * (champion.currentLevel - 11);
+				} else if (champion.currentLevel == 10) {
+					bonusDamage += (95 - bonusDamage);
+				} else if (champion.currentLevel >= 6) {
+					bonusDamage += (55 - bonusDamage) + 10 * (champion.currentLevel - 6);
+				} else if (champion.currentLevel == 5) {
+					bonusDamage += (40 - bonusDamage);
+				} else {
+					bonusDamage += 5 * (champion.currentLevel - 1);
+				}
+				bonusDamage += (0.4 * AP);
+				damageBeforeResistances[passiveSkillKey][this.MAGIC_DAMAGE] += `+${bonusDamage * numberOfPassiveAutos}`;
+			} else if (apiname == "elise") {
+				let baseDamage = 10 * champion.skill_r["rank"] + 0.3 * AP;
+				if (formUsage) {
+					autoAttackDamage[this.MAGIC_DAMAGE] += baseDamage;
+				}
+			} else if (apiname == "fiora") {
+				let numberOfVitalsHit = 1;
+				if (applyAbilitySteroids) { numberOfVitalsHit += 1; } // start the rotation with another vital
+				if (champion.skill_r["rank"] > 0) { numberOfVitalsHit += 4; }
+				// max number of vitals that you can hit is 5
+				let baseDamage = (0.025 + 0.045 * (bonusAD / 100)) * maximumhealth;
+				damageBeforeResistances[passiveSkillKey][this.TRUE_DAMAGE] += baseDamage * numberOfVitalsHit;
 			}
 		};
+		// apply the additional passive damage which can additional stats
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
 		numberOfAutos += Math.floor(champion.stats.as * ROTATION_DURATION);
-		// apply the additional passive damage which can additional stats
+		this.addAdditionalStats(champion);
+		// calculate the autoattack damage after adding additional stats
+		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
+		// some champions depend on applyAdditionalPassiveDamage
 		applyAdditionalPassiveDamage();
 		// add the othersourcesstats so that abiliites can be calculated with the additional bonuses -> this does not include attackspeed which is calculated in the statsService call
-		this.addAdditionalStats(champion);
-		// calculate the autoattack damage after adding additional stats (I actually have no idea how it keeps the 'this' context)
-		let autoAttackDamage = this.totalDamageFromAutoAttacks(champion, currentTime, numberOfAutos, applyAbilitySteroids);
+		AD = champion.stats.ad;
+		AP = champion.stats.ap;
+		HP = champion.stats.hp;
 		let tempBonusAbilityDamage: CalculationResults = new CalculationResults(CalculationResults.DEFENSIVE_TYPE);
 		let tempBonusAbilityKeys: any[] = [];
 		for (let skillKey in damageBeforeResistances) {
@@ -702,7 +945,7 @@ export class DamageCalculationsService {
 					let damageVal: number = champion.damageBeforeResistances[damageFrom][damageType];
 					let damageReducedMod: number = 1;
 					if (damageType != this.TRUE_DAMAGE) {
-						let resistVal;
+						let resistVal: number;
 						if (damageType == this.PHYSICAL_DAMAGE) {
 							resistVal = targetDetails.armorAfter;
 						} else {
@@ -735,5 +978,16 @@ export class DamageCalculationsService {
 		let expressionValue = eval(expressionString.replace("%", ""));
 		if (asRatio) { return expressionValue / 100; }
 		return expressionValue;
+	}
+	splitDependantScalingAbility(expressionString: string) {
+		let regex = /\((.*?)\)/;
+		return expressionString.split(regex);
+	}
+	scalingDependencyValues(scalingFormula: string): string[] {
+		let scalingValue = scalingFormula.replace(/[+-]?\D+(?:\.\D+)?/, "").replace(/\D+/, "");
+		// get the dependencies like ["per", "AP"] or ["per", "feaststack"]
+		let scalingDependencies = scalingFormula.split(/\d+/);
+		scalingDependencies.push(scalingValue);
+		return scalingDependencies;
 	}
 }

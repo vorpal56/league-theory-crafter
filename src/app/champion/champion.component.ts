@@ -49,11 +49,11 @@ export class ChampionComponent implements OnInit {
 	readonly minStackCount: number = 0;
 	readonly maxStackCount: number = 10000;
 
-	constructor(private statsService: StatsService, private championService: ChampionService, private damageCalculationsService: DamageCalculationsService, private http: HttpClient) { }
+	constructor(private statsService: StatsService, private championService: ChampionService, private http: HttpClient) { }
 
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
-		let championIndex = 18;
+		let championIndex = 29;
 		this.basicChampions$ = this.http.get<BasicChampion[]>(`${environment.apiBasicChampionsUrl}`).pipe(
 			shareReplay({ refCount: true, bufferSize: 1 })
 		);

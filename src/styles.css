@@ -50,6 +50,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+@media (max-width: 476px) {
+	body {
+		font-size: 14px;
+	}
+}
 /* --------------------------End Body changes-------------------------- */
 /* --------------------------Material Changes-------------------------- */
 mat-label, input, .mat-checkbox-label {
@@ -59,6 +64,11 @@ mat-form-field {
 	line-height: 1.5 !important;
 	width: 100%;
 	/* max-width:180px; */
+}
+@media (max-width: 476px) {
+	mat-form-field {
+		line-height: 2 !important
+	}
 }
 .mat-form-field-subscript-wrapper {
 	margin-top: 2px !important;
@@ -108,8 +118,8 @@ li.item {
 	background-color:#000;
 }
 div.item-block {
-	display:inline-block;
-	vertical-align: middle;
+	display:flex;
+	align-items:center;
 	text-align:center;
 	color:white;
 	border:1px solid var(--background);
@@ -122,6 +132,12 @@ div.item-block:hover {
 }
 .flex-display {
 	display:flex ;
+}
+.flex-column {
+	flex-direction: column;
+}
+.app-main {
+	height: 100%;
 }
 .flex-center {
 	display:flex !important;
@@ -375,13 +391,15 @@ ul.numbered-tooltip >li {
 /* --------------------------End Tooltips-------------------------- */
 /* --------------------------Scrollbar-------------------------- */
 ::-webkit-scrollbar {
-	width: 10px;
+	width: 8px;
 }
 ::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 5px grey;
+	border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
-	background: grey;
+	background: var(--off-white);
+	border-radius: 5px;
 }
 /* --------------------------End Scrollbar-------------------------- */
 /* --------------------------Orbit Spinner-------------------------- */

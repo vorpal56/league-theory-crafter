@@ -21,6 +21,23 @@ img.small-rune {
 img.rune-shard {
 	margin:6px;
 }
+@media (max-width: 476px) {
+	img.large-rune {
+		width: 36px;
+		height :36px;
+		margin: 2px;
+	}
+	img.medium-rune {
+		width: 32px;
+		height: 32px;
+		margin: 2px;
+	}
+	img.rune-shard {
+		width: 26px;
+		height: 26px;
+		margin:4px;
+	}
+}
 .rune-trees-container {
 	display:flex;
 	justify-content: space-around;

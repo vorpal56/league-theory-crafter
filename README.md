@@ -10,7 +10,7 @@ Used for theory crafting item builds and rune configurations as an approximation
 * [nginx](https://nginx.org/en/#basic_http_features) -  Web server for delivering application content.
 * [Python 3](https://docs.python.org/3/) - Scripting and web scraping for up to date data.
 
-\*Note: MongoDB might not be required. We can store the data on S3 or directly on our server since data is JSON and it's just the way data is organized.
+\*Note: MongoDB might not be required. It's probably easier to store the data on S3 or directly on our server since data is JSON and it's just the way data is organized.
 ## Getting Started
 You will need [Node.js](https://nodejs.org/en/) to run this project, [npm](https://www.npmjs.com/) (which comes with Node.js during installation), and [Angular 10+](https://angular.io/). I will be using [yarn](https://classic.yarnpkg.com/en/docs/install/#windows-stable) in the root and `server` directory to run commands.
 1. `npm install -g @angular/cli`
@@ -33,11 +33,15 @@ cd server/src
 python -m items|runes|champions
 ```
 
+### Full Modifiers Table for Champions
+
+Read the full table of applicable modifiers for each champion at [CALCULATIONS.md](CALCULATIONS.md)
+
 ### Key Takeaways for Preason 2021 and Season 11
-The item system is getting a complete revamp in October/November 2021. As such, we'll need to adjust the `Item` model according to the way that new item data is presented. Currently, all items include all item base stats, but only a few item passives calculations are included eg. Stinger, Fiendish Codex, Nashor's Tooth, Kindlegem, and a few others.
+The item system is getting a complete revamp in November 2021. PBE item changes will come out in about 2-3 weeks (as of September 20, 2020). As such, adjustment to the `Item` model is required according to the way that new item data is presented. Currently, all items include all item base stats, but only a few item passives calculations are included eg. Stinger, Fiendish Codex, Nashor's Tooth, Kindlegem, and a few others.
 
 **Design structure for the new item system**
 1. Look at the new structure of items and create a model of the new items in the system for calculation purposes. This must be made in according with the `Champion` model since all services depend on the same structure
-2. Use Meraki CDN to get the new item data. This can potentially take a long time, so alternatively, we'll have to use DDragon for the time being
+2. Use Meraki CDN to get the new item data. This can potentially take a long time, so alternatively, DDragon will have to be used for the time being
 3. Interpret the data and allocate its relevant stats to the new `Item` model
 4. Update `services/items.service.ts` according to the model and data changes
