@@ -3,8 +3,7 @@ import os
 import json
 import requests
 from pprint import PrettyPrinter
-from common.utils import DATA_PATH, remove_html_tags, skill_keys, get_version
-from deepdiff import DeepDiff
+from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, get_live_version, update_data_version
 
 
 def find_all_placeholders(tooltip):
@@ -38,9 +37,9 @@ def compile_champion_data(using="meraki", use="live"):
 
 	# we are going to be using both data points. Some of the data in league wiki is incomplete or organized differently than the expectation.
 	# we will use a combination of the
+	from deepdiff import DeepDiff
 
 	pp = PrettyPrinter(indent=2,width=100)
-
 	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 	if (not os.path.exists(meraki_champion_cache_path)):
 		os.mkdir(meraki_champion_cache_path)
@@ -56,14 +55,28 @@ def compile_champion_data(using="meraki", use="live"):
 		os.mkdir(updated_champion_cache_path)
 
 	all_attribute_names = {}
+	all_basic_champions = []
+	all_champions = []
+
+	ordered_keys = ["index", "apiname", "name", "adaptivetype", "resource", "rangetype", "img"]
+	for skill_key in SKILL_KEYS:
+		ordered_keys.append(skill_key)
+	ordered_keys.append("stats")
+
+	# update the current data patch version so that I know what patch we're on
+	update_data_version()
+
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
 		open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
 		champions = json.load(file)
 		fixed_tooltips = json.load(fixed_tooltips_file)
 		file.seek(0)
 		for l, champion_obj in enumerate(champions):
-			champion_name = champion_obj["apiname"]
-			champion_file_name = "{}.json".format(champion_name)
+			apiname = champion_obj["apiname"]
+			champion_file_name = "{}.json".format(apiname)
+			champion_obj["index"] = l
+			basic_champion_obj = {"apiname" : apiname, "id":champion_obj["id"], "index": champion_obj["index"]}
+
 			if using == "ddragon":
 				if (use == "cache"):
 					json_file = open(os.path.join(ddragon_champion_cache_path, champion_file_name), "r")
@@ -71,104 +84,104 @@ def compile_champion_data(using="meraki", use="live"):
 					json_file.close()
 				elif use == "live":
 					# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
-					patch_num = get_version()
-					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, champion_name)
+					patch_num = get_live_version()
+					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, apiname)
 					response = requests.get(url)
 					response_body = response.json()
 
-				champion_data = response_body["data"][champion_name]
-				champion_tooltips, max_ranks =  parse_champion_data_ddragon(champion_name, champion_data)
+				champion_data = response_body["data"][apiname]
+				champion_tooltips, max_ranks =  parse_champion_data_ddragon(apiname, champion_data)
 
 			if (use == "cache"):
 				json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "r")
 				response_body = json.load(json_file)
 				json_file.close()
 			elif use == "live":
-				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(champion_name)
+				url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}.json".format(apiname)
 				response = requests.get(url)
 				response_body = response.json()
 				json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "w")
 				json.dump(response_body, json_file)
 				json_file.close()
 			if using=="meraki":
-				champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(champion_name, response_body)
+				champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(apiname, response_body)
 				some_keys = {}
 				for key, value in attribute_names.items():
-					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower() ):
+					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower()):
 						some_keys["has_min"] = True
-					elif ("max." in key.lower() or "max" in key.lower() or "maximum" in key.lower() ):
+					elif ("max." in key.lower() or "max" in key.lower() or "maximum" in key.lower()):
 						some_keys["has_max"] = True
 					if (key in all_attribute_names):
 						all_attribute_names[key] += value
 					else:
 						all_attribute_names[key] = value
 
-				# if (len(some_keys.keys()) == 1 ):
-				# 	print(champion_name, attribute_names)
+			champion_name = response_body.get("name")
+			basic_champion_obj["name"] = champion_name
+			champion_obj["name"] = champion_name
+
+			all_basic_champions.append(basic_champion_obj)
 
 			for stat_name, stat_val in champion_stats.items():
 				if ((stat_name in champion_obj["stats"]) or (stat_name not in champion_obj["stats"] and stat_val != 0)):
-					current_stat_val = champion_obj["stats"][stat_name]
-					if (current_stat_val != stat_val):
-						print(champion_name, "has updated", stat_name, "from", current_stat_val, "to", stat_val)
+					if (champion_obj["stats"].get(stat_name) is None):
+						print(apiname, "has new added stat", stat_name)
 						champion_obj["stats"][stat_name] = stat_val
+					else:
+						current_stat_val = champion_obj["stats"][stat_name]
+						if (current_stat_val != stat_val):
+							print(apiname, "has updated", stat_name, "from", current_stat_val, "to", stat_val)
+							champion_obj["stats"][stat_name] = stat_val
 
-			for i, skill_key in enumerate(skill_keys):
+			for i, skill_key in enumerate(SKILL_KEYS):
+				ability_name = champion_obj[skill_key].get("1")
+				if (champion_obj[skill_key].get("img") is None):
+					print("added new skill ability img path")
+					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_name)
 				for subkey in ability_names[skill_key]:
-					current_skill_name = champion_obj[skill_key][subkey]
-					new_skill_name = re.sub(r'[\:]', '', ability_names[skill_key][subkey]) # sometimes the tooltip key is missing characters that are not meaningful
-					if (current_skill_name.lower() != new_skill_name.lower() and champion_name != "Aphelios"):
-						print(champion_name, "has updated", current_skill_name, "to", new_skill_name )
-						champion_obj[skill_key][subkey] = new_skill_name
+					current_skill_details = champion_obj[skill_key][subkey]
+					new_skill_details = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
+					# subkeys are ["1", "img", ?"2"]
+					if (current_skill_details.lower() != new_skill_details.lower() and apiname != "Aphelios"):
+						print(apiname, "has updated", current_skill_details, "to", new_skill_details )
+						champion_obj[skill_key][subkey] = new_skill_details
 
 				if champion_tooltips[i] == "":
-					fixed_tooltip = fixed_tooltips.get("_".join([champion_name, skill_key]))
+					fixed_tooltip = fixed_tooltips.get("_".join([apiname, skill_key]))
 					if (fixed_tooltip is not None):
 						champion_obj[skill_key]["tooltip"] = fixed_tooltip
 					else:
-						print("\nXXXXX", champion_name, "needs tooltip for", skill_key, "XXXXX\n")
+						print("\nXXXXX", apiname, "needs tooltip for", skill_key, "XXXXX\n")
 				else:
 					champion_obj[skill_key]["tooltip"] = champion_tooltips[i]
 
 				if (using == "meraki"):
 					# check if there has been any changes to the ability breakdown
-					if (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[i]):
+					if (champion_obj[skill_key].get("ability_breakdown") is None):
+						print(apiname, "has new ability breakdown")
+						champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
+					elif (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[i]):
 						difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[i])
-						print(champion_name, "has changed", pp.pformat(difference))
+						print(apiname, "has changed", pp.pformat(difference))
 						champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
 
+			new_champion_obj = create_new_champion(ordered_keys, champion_obj)
 			json_file = open(os.path.join(updated_champion_cache_path, champion_file_name), "w")
-			json.dump(champion_obj, json_file)
+			json.dump(new_champion_obj, json_file)
 			json_file.close()
+			all_champions.append(new_champion_obj)
 		file.truncate()
-		json.dump(champions, file)
-	# sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[0]))
+		json.dump(all_champions, file)
+
 	sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[1], reverse=True))
-	attribute_names_file = open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8")
-	json.dump(sorted_attribute_names, attribute_names_file)
-	attribute_names_file.close()
+	with open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8") as attribute_names_file, \
+	open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "w", encoding="utf-8") as basic_champions_file:
+		json.dump(all_basic_champions, basic_champions_file)
+		json.dump(sorted_attribute_names, attribute_names_file)
 	return
 
-'''
-[
-	{main:[
-		{
-			attribute,
-			expressions=[
-				rank 1, rank2, rank3, rank4, rank5
-			]
-		}
-	], form: [
-
-	]
-	},
-	{main, form},
-	{main, form}, ..
-]
-'''
-
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
-def parse_champion_data_meraki(champion_name, champion_data):
+def parse_champion_data_meraki(apiname, champion_data):
 	champion_stats = champion_data["stats"]
 	main_meraki_stat_keys = {
 		"health": "hp",
@@ -203,11 +216,12 @@ def parse_champion_data_meraki(champion_name, champion_data):
 				new_stats[our_stat_key] = stat_base_details["flat"]
 
 	champion_abilities = champion_data["abilities"]
+	champion_name = champion_data["name"]
 	champion_tooltips = []
 	ability_breakdown = []
 	all_attribute_names = {}
 	ability_names = {}
-	for skill_key in skill_keys:
+	for skill_key in SKILL_KEYS:
 		ability_names[skill_key] = {}
 	for i, champion_ability_type in enumerate(champion_abilities):
 		# ability type is p, q, w, e, r
@@ -271,7 +285,7 @@ def parse_champion_data_meraki(champion_name, champion_data):
 									text_formula = str(value/100) + re.sub(r'[%]', ' *', units[l])
 								else:
 									text_formula = str(value) + units[l]
-								if (champion_name == "JarvanIV" and la_name == "armor reduction"):
+								if (apiname == "JarvanIV" and la_name == "armor reduction"):
 									text_formula = text_formula.replace("of target's", "target")
 								else:
 									text_formula = text_formula.replace("of target's", "")
@@ -307,18 +321,44 @@ def parse_champion_data_meraki(champion_name, champion_data):
 					main_dict["applies_cdr"] = False
 					main_dict["cooldown"] = []
 				ability_details.append(main_dict)
-			ability_names[skill_keys[i]][ability_key] = ability_name
+			ability_names[SKILL_KEYS[i]][ability_key] = ability_name
+			if ability_key == "1":
+				ability_names[SKILL_KEYS[i]]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_name)
 			if (ability_obj["blurb"] is not None):
-				base_champion_blurbs.append(ability_obj["blurb"])
+				base_champion_blurbs.append(remove_extra_whitespace(ability_obj["blurb"]))
 		champion_tooltips.append("<br><br>".join(base_champion_blurbs))
 		ability_breakdown.append(ability_details)
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
 	return new_stats, champion_tooltips, ability_breakdown, ability_names, all_attribute_names
 
-def parse_champion_data_ddragon(champion_name, champion_data=None):
+def create_new_champion(ordered_keys, champion_data):
+	'''
+	Order is important for easier readability and consistency
+	'''
+	ordered_champion = {}
+	for ordered_key in ordered_keys:
+		champion_data_val = champion_data.get(ordered_key)
+		if (champion_data_val is not None):
+			ordered_champion[ordered_key] = champion_data_val
+		else:
+			champion_name = champion_data.get("name")
+			if ordered_key == "img":
+				print("{} requires new portrait".format(champion_name))
+				ordered_champion[ordered_key] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, champion_name)
+			else:
+				print("Non-existent data field {} for {}".format(ordered_key, champion_name))
+				ordered_champion[ordered_key] = ""
+	# sort the the champion data to so that the remaining keys are in a uniform order
+	sorted_champion_data = dict(sorted(champion_data.items(), key=lambda champion:champion[0]))
+	for other_data in sorted_champion_data:
+		if other_data not in ordered_champion:
+			ordered_champion[other_data] = sorted_champion_data[other_data]
+	return ordered_champion
+
+def parse_champion_data_ddragon(apiname, champion_data=None):
 	if (champion_data is None):
-		file = open(os.path.join(DATA_PATH, "json_ddragon_champion_cache", "{}.json".format(champion_name)), "r")
-		champion_data = json.load(file)["data"][champion_name]
+		file = open(os.path.join(DATA_PATH, "json_ddragon_champion_cache", "{}.json".format(apiname)), "r")
+		champion_data = json.load(file)["data"][apiname]
 		file.close()
 	champion_stats = champion_data["stats"]
 	champion_spells = champion_data["spells"]
@@ -337,7 +377,7 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 				if value is not None:
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, value)
 				else:
-					# print(champion_spell["id"], champion_name, key) # print the weird spell ids
+					# print(champion_spell["id"], apiname, key) # print the weird spell ids
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
 			elif (look_in == "vars"):
 				obj = find_var_key(champion_spell[look_in], key)
@@ -350,47 +390,47 @@ def parse_champion_data_ddragon(champion_name, champion_data=None):
 		champion_tooltips.append(parsed_tooltip)
 	return champion_tooltips, max_ranks
 
-def combine_champion_data():
-	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
-		champions = json.load(file)
-		file.seek(0)
-		for champion in champions:
-			champion_file = open(os.path.join(DATA_PATH, "json_combined_champion_cache", "{}.json".format(champion["apiname"])), 'r')
-			champion_data = json.load(champion_file)
-			champion_file.close()
-			for i, skill_key in enumerate(skill_keys):
-				if (champion_data[skill_key]["ability_breakdown"] != []):
-					champion_data[skill_key].pop('img', None)
-					champion_data[skill_key].pop('tooltip', None)
-					champion[skill_key] = champion_data[skill_key]
-				else:
-					print(champion_data["apiname"], skill_key)
+def scrape_assets():
+	from bs4 import BeautifulSoup
+	import requests, re, urllib.request, time, random
+	from random import randint
+	# champion-stat__skill tip > a tag > img tag src
 
-		file.truncate()
-		json.dump(champions, file)
-
-def clear_basic_champions():
-	with open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "r+") as file:
-		champions = json.load(file)
-		file.seek(0)
-		for champion in champions:
-			for i, skill_key in enumerate(skill_keys):
-				champion.pop(skill_key, None)
-		file.truncate()
-		json.dump(champions, file)
-
-def store_meraki():
-	meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
-	if (not os.path.exists(meraki_champion_cache_path)):
-		os.mkdir(meraki_champion_cache_path)
+	# mid, supp, bot, top, jng does not influence ability on getting assets
+	request_url = "https://www.op.gg/champion/{}/statistics/mid"
+	champion_img_url = "http://opgg-static.akamaized.net/images/lol/champion/{}.png?image=q_auto,w_120"
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r") as file:
 		champions = json.load(file)
-		for champion_obj in champions:
-			champion_name = champion_obj["apiname"]
-			champion_file_name = "{}.json".format(champion_name)
-			url = "http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions/{}".format(champion_file_name)
-			response = requests.get(url)
-			response_body = response.json()
-			json_file = open(os.path.join(meraki_champion_cache_path, champion_file_name), "w")
-			json.dump(response_body, json_file)
-			json_file.close()
+		for i, champion in enumerate(champions):
+			apiname = champion["apiname"]
+			champion_name = champion["name"]
+			champion_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name)
+			if not os.path.exists(champion_assets_path):
+				os.mkdir(champion_assets_path)
+			champion_url = request_url.format(apiname)
+			response = requests.get(champion_url)
+			champion_img_path = os.path.join(champion_assets_path, "{}.png".format(champion_name))
+			if not os.path.exists(champion_img_path):
+				urllib.request.urlretrieve(champion_img_url.format(apiname), champion_img_path)
+				print("Retrieved {}'s portrait".format(champion_name))
+			if response.status_code == 200:
+				soup = BeautifulSoup(response.text, 'html.parser')
+				div_tag = soup.find_all("div", class_="champion-stat__skill")
+				for i, div in enumerate(div_tag):
+					if i <=4:
+						src_tag = "https:" + div.find("img")["src"].split("?")[0]
+						skill_key = SKILL_KEYS[i]
+						skill_name = champion[skill_key]["1"] # only interested in the first ability
+						skill_img_path = os.path.join(champion_assets_path, "{}.png".format(skill_name))
+						if not os.path.exists(skill_img_path):
+							try:
+								urllib.request.urlretrieve(src_tag, skill_img_path)
+								print("Retrieved", skill_name)
+							except Exception as e:
+								print("Unable to retrieve {} for {}".format(skill_name, champion_name) )
+				print("Finished with", champion_name, "\n")
+			else:
+				print("Something went wrong for", champion["name"])
+
+	print("Finished")
+	return

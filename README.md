@@ -2,6 +2,9 @@
 
 Used for theory crafting item builds and rune configurations as an approximation of the practice tool. This allows quick switching of champions and items without having to go on the client for every champion.
 
+### Full Modifiers Table for Champions
+Read the full table of applicable modifiers for each champion at [CALCULATIONS.md](CALCULATIONS.md)
+
 ## Built with 
 * [MongoDB](https://www.mongodb.com/)* - Storing data for items, champions, and runes used through in the application.
 * [Express](https://expressjs.com/) - Serving the API endpoints used for schedulers and data.
@@ -25,19 +28,21 @@ npm run serve | yarn serve
 ```
 npm run ts-dev | yarn ts-dev
 ```
-### Updating Data using Python
-Run them as **modules** instead of **scripts** to prevent module import errors.
+## Updating Data using Python
+Run them as **modules** instead of **scripts** to prevent module import errors. Running `champions` will provide information in the logs to reference which sections have been changed like asset locations, skill ability names, stat changes, and so on.
 ```
 ./venv/Scripts/activate | source venv/bin/activate
 cd server/src
 python -m items|runes|champions
 ```
+### Adding new champions
+Currently, there isn't an automated step to add new champions, but once the base champion data is in `champions.json`, any other missing or ununiform data is added or fixed respectively.
+1. go to the [`ChampionData`](https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data?action=edit) on the League of Legends Wiki and find the new champion (eg. Samira)
+2. Copy the new `Champion` from the Wiki and remove any unimportant `stats` (eg. `urf`, `ofa`, `nb`, `*_radius`, etc.)
+3. Find the position in `champions.json` to place the champion (eg. Samira in-between Ryze and Sejuani). This is important because there is an `index` that is referenced on new champions.
+4. Run the `champions` module which makes data uniform to our model and scrapes for assets
 
-### Full Modifiers Table for Champions
-
-Read the full table of applicable modifiers for each champion at [CALCULATIONS.md](CALCULATIONS.md)
-
-### Key Takeaways for Preason 2021 and Season 11
+## Key Takeaways for Preason 2021 and Season 11
 The item system is getting a complete revamp in November 2021. PBE item changes will come out in about 2-3 weeks (as of September 20, 2020). As such, adjustment to the `Item` model is required according to the way that new item data is presented. Currently, all items include all item base stats, but only a few item passives calculations are included eg. Stinger, Fiendish Codex, Nashor's Tooth, Kindlegem, and a few others.
 
 **Design structure for the new item system**

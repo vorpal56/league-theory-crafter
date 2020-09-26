@@ -6,7 +6,7 @@
 	<div class="champion-grid">
 		<div id="selectors" class="pad-around">
 			<div class="selector-container">
-				<ng-select [items]="basicChampions$ |async " bindLabel="name" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion($event)" [(ngModel)]="basicChampion"></ng-select>
+				<ng-select [items]="basicChampions$ |async" bindLabel="name" [searchFn]="championSearch" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion($event)" [(ngModel)]="basicChampion"></ng-select>
 			</div>
 			<div class="selector-container">
 				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">

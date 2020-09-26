@@ -1,14 +1,37 @@
-import re, os
+import re, os, json
 
-APP_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_PATH = os.path.join(APP_PATH, "data")
+APP_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+BACKEND_PATH = os.path.join(APP_PATH, "server")
+DATA_PATH = os.path.join(BACKEND_PATH, "data")
 
-skill_keys = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+BASE_ASSETS_PATH = "assets/images/champions/"
+SKILL_KEYS = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
-def get_version():
+def get_current_version():
+	current_version_filename = os.path.join(DATA_PATH, "json", "version.json")
+	if not os.path.exists(current_version_filename):
+		return 0
+	current_version_file = open(current_version_filename, "r", encoding="utf-8")
+	version_obj = json.load(current_version_file)
+	current_version_file.close()
+	return version_obj.get("current_data_patch")
+
+def get_live_version():
 	import requests
 	response = requests.get("https://ddragon.leagueoflegends.com/api/versions.json")
 	return response.json()[0]
+
+def update_data_version():
+	current_version = get_current_version()
+	live_version = get_live_version()
+	if (current_version != live_version):
+		current_version_file = open(os.path.join(DATA_PATH, "json", "version.json"), "w", encoding="utf-8")
+		json.dump({"current_data_patch": live_version}, current_version_file)
+		current_version_file.close()
+		print("Version has been changed from {} to {}".format(current_version, live_version))
+	else:
+		print("Version has not changed. Still on {}".format(current_version))
+	return
 
 def remove_html_tags(text, keep_breaks=True):
 	# useful for parsing the tooltips from ddragon cdn
@@ -46,4 +69,4 @@ def full_clean_text(text):
 	return remove_ascii_chars(remove_extra_whitespace(text))
 
 if __name__ == "__main__":
-	print(get_version())
+	print(get_live_version())

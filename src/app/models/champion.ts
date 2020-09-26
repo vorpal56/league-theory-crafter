@@ -6,8 +6,9 @@ export class BasicChampion {
 	private _id: number;
 	private _index: number;
 	name: string;
+
 	constructor(name: string, apiname: string, index: number, id: number) {
-		this.championName = name;
+		this.name = name;
 		this.apiname = apiname;
 		this.index = index;
 		this.id = id;
@@ -65,6 +66,16 @@ export class Champion extends BasicChampion {
 		this.otherSourcesStats = {};
 		this.abilityModifiers = abilityModifiers;
 		this.totalAbilityRanks = 0;
+		// add the additional stats for less data overhead
+		this.stats.ls = 0;
+		this.stats.spell_vamp = 0;
+		this.stats.leth = 0;
+		this.stats["apen%"] = 0;
+		this.stats.mpen = 0;
+		this.stats["mpen%"] = 0;
+		this.stats.critdmg = 0;
+		this.stats.tenacity = 0;
+		this.stats.heal_shield = 0;
 	}
 
 	get itemStats() { return this._item_stats; }

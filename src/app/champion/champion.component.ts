@@ -50,7 +50,10 @@ export class ChampionComponent implements OnInit {
 	readonly maxStackCount: number = 10000;
 
 	constructor(private statsService: StatsService, private championService: ChampionService, private http: HttpClient) { }
-
+	championSearch(term: string, item: BasicChampion) {
+		term = term.toLowerCase();
+		return item.apiname.toLowerCase().includes(term) || item.name.toLowerCase().includes(term);
+	}
 	ngOnInit(): void {
 		// asyncpipe on template implicitly subscribes so we must share the results to get the initial champion to set to
 		let championIndex = 29;

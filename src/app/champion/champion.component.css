@@ -41,6 +41,8 @@ div.ability {
 img.medium-ability {
 	width: 48px;
 	height: 48px;
+	/* apply border radius to prevent white area around image */
+	border-radius: 18%;
 }
 @media(min-width: 768px) {
 	img.medium-ability {
