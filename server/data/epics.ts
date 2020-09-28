@@ -1,4 +1,4 @@
-import { Dragon } from 'src/app/models/epic';
+import { Dragon } from 'src/app/core/models/epic';
 
 export const CLOUD: Dragon = {
 	active: false,

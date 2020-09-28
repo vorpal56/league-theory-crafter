@@ -1,4 +1,4 @@
-import { DamageTypes } from "../../src/app/models/calculations";
+import { DamageTypes } from 'src/app/core/models/calculations';
 export const GAMEMODES = [
 	{ "gamemodeLabel": "All", "gamemodeValue": "all" },
 	{ "gamemodeLabel": "Summoners Rift", "gamemodeValue": "sr" },

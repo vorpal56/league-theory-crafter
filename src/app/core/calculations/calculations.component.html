@@ -1,0 +1,131 @@
+<div class="component-header">
+	<span>Modifiers and Target Info</span>
+	<mat-icon class="info" [tooltip]="targetTooltip()" placement="left" aria-hidden="false" aria-label="What influences damage?" tooltip-class="expanded-tooltips">info</mat-icon>
+</div>
+<div class="component-body">
+	<div class="calculations-grid">
+		<div id="calculation-selectors" class="pad-around">
+			<div class="selector-container">
+				<mat-checkbox (change)="itemSteroidsChange($event.checked)">Item Steroids</mat-checkbox>
+			</div>
+			<div class="selector-container">
+				<mat-checkbox (change)="abilitySteroidsChange($event.checked)">Ability Steroids</mat-checkbox>
+			</div>
+			<div class="selector-container">
+				<mat-checkbox (change)="formUsageChange($event.checked)">Include Form</mat-checkbox>
+			</div>
+		</div>
+		<div id="target-selectors">
+			<div class="target-selectors-grid pad-around">
+				<div id="target-level" class="selector-container">
+					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Target Level" (change)="updateLevel()" [(ngModel)]="targetLevel" [tooltip]="targetLevelTooltip()">
+					</ng-select>
+				</div>
+				<div id="target-max-hp" class="selector-container">
+					<mat-form-field>
+						<mat-label>Target Max HP</mat-label>
+						<input matInput type="number" [(ngModel)]="targetMaxHP" [min]="minTargetMaxHP" [max]="maxTargetMaxHP" (change)="updateMaxHP()" required>
+						<mat-error *ngIf="boundError(targetMaxHP, minTargetMaxHP, maxTargetMaxHP)">{{boundErrorMessage(minTargetMaxHP, maxTargetMaxHP)}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div id="target-armor" class="selector-container" [tooltip]="shredTooltip('Armor')" placement="top">
+					<mat-form-field>
+						<mat-label>Target Armor</mat-label>
+						<input matInput type="number" [(ngModel)]="targetArmor" [min]="targetMinResist" [max]="targetMaxResist" (change)="updateArmor()" required>
+						<mat-error *ngIf="boundError(targetArmor, targetMinResist, targetMaxResist)">{{boundErrorMessage(targetMinResist, targetMaxResist)}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div id="target-mr" class="selector-container" [tooltip]="shredTooltip('MR')" placement="top">
+					<mat-form-field>
+						<mat-label>Target MR</mat-label>
+						<input matInput type="number" [(ngModel)]="targetMR" [min]="targetMinResist" [max]="targetMaxResist" (change)="updateMR()" required>
+						<mat-error *ngIf="boundError(targetMR, targetMinResist, targetMaxResist)">{{boundErrorMessage(targetMinResist, targetMaxResist)}}</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="target-hp-slider selector-container">
+				<ngx-slider (valueChange)="updateCurrentHP()" [(value)]="targetCurrentHP" [options]="targetHPOptions" [manualRefresh]="manualRefresh"></ngx-slider>
+			</div>
+		</div>
+		<div id="calculations" class="inner-component">
+			<div class="component-header inner-component-header">
+				<span>Calculations</span>
+				<span>
+					<mat-icon class="info" [tooltip]="calculationTooltip()" placement="left" aria-hidden="false" aria-label="How is damage calculated?" tooltip-class="expanded-tooltips">info</mat-icon>
+				</span>
+			</div>
+			<div class="component-body">
+				<div class="main-results-grid" *ngIf="champion else loading">
+					<div id="dps">
+						Total DPS
+						<div class="results-grid-2 common">
+							<div id="total-dps-after">
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
+								{{ totalDPS(AFTER) | number:'1.0-2' }}
+							</div>
+							<div id="total-dps-before">
+								{{ totalDPS(BEFORE) | number:'1.0-2' }}
+							</div>
+						</div>
+					</div>
+					<div id="dbr">
+						Damage Before Resistances
+						<div class="results-grid-3 damage-before">
+							<div id="physical-damage-before" [tooltip]="damageTooltip(BEFORE, PHYSICAL_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage Before Resistances" />
+								{{ damageValue(BEFORE,PHYSICAL_DAMAGE) | floor}}
+							</div>
+							<div id="magic-damage-before" [tooltip]="damageTooltip(BEFORE, MAGIC_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage Before Resistances" />
+								{{ damageValue(BEFORE,MAGIC_DAMAGE) | floor }}
+							</div>
+							<div id="true-damage" [tooltip]="damageTooltip(BEFORE, TRUE_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
+								{{ damageValue(BEFORE,TRUE_DAMAGE) | floor }}
+							</div>
+						</div>
+					</div>
+					<div id="dar">
+						Damage After Resistances
+						<div class="results-grid-3 damage-after">
+							<div id="physical-damage-after" [tooltip]="damageTooltip(AFTER, PHYSICAL_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/physical_damage_icon.png" alt="Total Physical Damage After Resistances" />
+								{{ damageValue(AFTER, PHYSICAL_DAMAGE) | floor }}
+							</div>
+							<div id="magic-damage-after" [tooltip]="damageTooltip(AFTER, MAGIC_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/magic_damage_icon.png" alt="Total Magic Damage After Resistances" />
+								{{ damageValue(AFTER, MAGIC_DAMAGE) | floor}}
+							</div>
+							<div id="true-damage" [tooltip]="damageTooltip(BEFORE, TRUE_DAMAGE)">
+								<img class="distribution" src="assets/images/icons/stats/true_damage_icon.png" alt="Total True Damage" />
+								{{ damageValue(BEFORE,TRUE_DAMAGE) | floor }}
+							</div>
+						</div>
+					</div>
+					<div id="dr">
+						Damage Reduction
+						<div class="results-grid-2 damage-reduction">
+							<div id="physical-damage-reduction">
+								<img src="assets/images/icons/stats/arm_icon.png" alt="Total Physical Damage Reduced" />
+								{{ (damageReduction(PHYSICAL_DAMAGE) | floor) + "%" }}
+							</div>
+							<div id="magic-damage-reduction">
+								<img src="assets/images/icons/stats/mr_icon.png" alt="Total Magic Damage Reduced" />
+								{{ (damageReduction(MAGIC_DAMAGE) | floor)  + "%"}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-template #loading>
+	<div class="orbit-spinner small center-spinner">
+		<div class="orbit-line"></div>
+		<div class="orbit-line"></div>
+		<div class="orbit-line"></div>
+	</div>
+</ng-template>

@@ -1,117 +1,55 @@
-import {
-	Component,
-	OnInit,
-	ViewChild,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	AfterViewInit,
-} from "@angular/core";
-import { Champion } from "./models/champion";
-import { Item, ItemRestrictions } from "./models/item";
-import { RuneModifiers, Runes } from "./models/rune";
-import { TargetDetails } from './models/target';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { EMPTY_ITEM } from "../../server/data/items";
-import { InventoryComponent } from "./inventory/inventory.component";
+import {
+	NavigationCancel,
+	NavigationEnd,
+	NavigationError,
+	NavigationStart,
+	RouteConfigLoadEnd,
+	RouteConfigLoadStart,
+	Router,
+	RouterOutlet
+} from '@angular/router';
+import { fadeAnimation } from './shared/animations/fade.animation';
 
 @Component({
 	selector: "league-theory-crafter",
 	templateUrl: "./app.component.html",
 	styleUrls: ["./app.component.css"],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [fadeAnimation]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 	title = "league-theory-crafter";
+	loadingRouteConfig: boolean;
+	navbarChecked: boolean = false;
 
-	// item definition from the item-selector component to the inventory component
-	selectedItems: [Item, Item, Item, Item, Item, Item] = [
-		EMPTY_ITEM,
-		EMPTY_ITEM,
-		EMPTY_ITEM,
-		EMPTY_ITEM,
-		EMPTY_ITEM,
-		EMPTY_ITEM,
-	];
-	selectedElixir: Item = EMPTY_ITEM;
-	// we can limit the items by adding it here
-	selectedItemRestrictions: ItemRestrictions = {
-		hasGoldOrJg: false,
-		hasBoots: false,
-		hasTear: false,
-		masterworkItems: [EMPTY_ITEM, EMPTY_ITEM],
-		hasHexcore: false,
-	};
-	numberOfEquippedItems: number = 0;
+	constructor(private router: Router) { }
 
-	// runes-epic/item-selector definition to show which page first
-	selectedTab: string = "item-selector";
-
-	// champion and current level definition from the champion component
-	champion: Champion;
-	currentTime: number;
-	selectedRunes: Runes;
-	runeModifiers: RuneModifiers;
-	targetDetails: TargetDetails;
-
-	runElixirComponentChange: boolean = false;
-
-	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
-
-	constructor(private cd: ChangeDetectorRef) { }
-	ngAfterViewInit() {
-		this.cd.detectChanges();
-	}
 	ngOnInit() {
-		// this.statsService.adjustBaseAndItemStats(this.champion, this.currentLevel, this.selectedItems, this.selectedElixir);
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationStart
+				|| event instanceof RouteConfigLoadStart) {
+				this.loadingRouteConfig = true;
+			} else if (event instanceof NavigationEnd ||
+				event instanceof NavigationError ||
+				event instanceof NavigationCancel ||
+				event instanceof RouteConfigLoadEnd) {
+				this.loadingRouteConfig = false;
+			}
+		});
 	}
-	hideTabsFor(tabName: string): boolean {
-		if (tabName == "item-selector") {
-			return this.selectedTab == "runes-epic" || this.selectedTab == "epic-monsters";
-		} else if (tabName == "runes-epic") {
-			return this.selectedTab == "item-selector" || this.selectedTab == "epic-monsters";
-		} else if (tabName == "epic-monsters") {
-			return this.selectedTab == "runes-epic" || this.selectedTab == "item-selector";
-		}
+	getRouterOutletState(outlet: RouterOutlet) {
+		return outlet.isActivated ? outlet.activatedRoute : '';
 	}
-	setChampion(champion: Champion) {
-		this.champion = champion;
-		if (this.inventoryComponent) {
-			this.inventoryComponent.removeInvalidItemsBasedOnChampion(this.champion);
-			// call remove elixir by passing champion
-			this.inventoryComponent.removeElixir(this.champion);
-		}
-		return;
+	setNav(event: boolean) {
+		this.navbarChecked = event;
 	}
-	setCurrentTime(selectedTime: number) {
-		this.currentTime = selectedTime;
-		return;
+	closeNav() {
+		if (this.navbarChecked) { this.navbarChecked = false; console.log("from app", this.navbarChecked); }
+
+		// this.navbarCheckedChange.emit(this.navbarChecked);
 	}
-	setSelectedItemRestrictions(selectedItemRestrictions: ItemRestrictions) {
-		this.selectedItemRestrictions = selectedItemRestrictions;
-		return;
-	}
-	setNumberOfEquippedItems(numberOfEquippedItems: number) {
-		this.numberOfEquippedItems = numberOfEquippedItems;
-		return;
-	}
-	setSelectedItems(selectedItems: [Item, Item, Item, Item, Item, Item]) {
-		this.selectedItems = selectedItems;
-		return;
-	}
-	setSelectedElixir(selectedElixir: Item): void {
-		this.selectedElixir = selectedElixir;
-		return;
-	}
-	setSelectedRunes(selectedRunes: Runes) {
-		this.selectedRunes = selectedRunes;
-		return;
-	}
-	setTargetDetails(targetDetails: TargetDetails) {
-		this.targetDetails = targetDetails;
-		return;
-	}
-	setPage(selectedTabName: string) {
-		this.selectedTab = selectedTabName;
-		return;
+	a() {
+		console.log("clicked");
 	}
 }

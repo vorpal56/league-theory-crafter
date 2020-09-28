@@ -1,0 +1,255 @@
+.stat {
+	margin-right: 3px;
+}
+.ability-leveler {
+	display:flex;
+	padding: 1px 0 3px 0
+}
+.ability-modifier {
+	margin-top: 12px;
+}
+.level-ability {
+	color:white;
+	padding:1px;
+	border: 1px solid var(--border-color-light-grey);
+	background-color: var(--border-color-grey);
+	height:26px;
+	transition: border-color ease 0.3s;
+}
+.level-ability:active {
+	background-color: var(--border-color-light-grey);
+}
+.level-ability:disabled {
+	color: var(--dark-grey);
+	background-color: var(--background-alt-3);
+}
+.level-ability:enabled:hover {
+	border-color: var(--off-white);
+	transition: border-color ease 0.3s;
+}
+span.rank {
+	font-size: 14px;
+}
+div.ability {
+	margin: 1px;
+	flex-direction:column;
+}
+img.medium-ability {
+	width: 48px;
+	height: 48px;
+	/* apply border radius to prevent white area around image */
+	border-radius: 18%;
+}
+@media(min-width: 768px) {
+	img.medium-ability {
+		width: 40px;
+		height: 40px;
+	}
+	.level-ability {
+		height:22px;
+	}
+}
+@media (min-width: 880px) {
+	img.medium-ability {
+		width: 48px;
+		height: 48px;
+	}
+	.level-ability {
+		height:26px;
+	}
+}
+@media (min-width: 1200px) {
+	img.medium-ability {
+		width: 56px;
+		height: 56px;
+	}
+	.mat-icon {
+		height: 24px;
+		width: 24px;
+		font-size: 24px;
+	}
+	.level-ability {
+		height:28px;
+	}
+}
+.champion-grid {
+	display: grid;
+	grid-template-columns: minmax(120px, 200px) auto;
+	grid-template-rows: auto;
+	grid-template-areas: "selectors champion-details";
+}
+#champion-details {
+	grid-area: champion-details;
+	display:grid;
+	grid-template-rows: auto;
+	grid-template-columns: var(--champion-img-height) 1.7fr 1fr;
+	grid-template-areas: "champion-img champion-abilities champion-stats";
+}
+#selectors {
+	grid-area: selectors;
+	display: flex;
+	flex-direction: column;
+	padding: 5px 0px 5px 5px;
+}
+.selector-container {
+	width: auto;
+}
+@media only screen and (max-width: 767px) {
+	.champion-grid {
+		grid-template-columns: auto;
+		grid-template-rows: var(--selector-grid-height) auto;
+		grid-template-areas:
+			"selectors"
+			"champion-details";
+	}
+	#champion-details {
+		grid-template-columns: var(--champion-img-height) auto;
+		grid-template-rows: 1.2fr 1fr;
+		grid-template-areas:
+			"champion-img champion-abilities"
+			"champion-stats champion-stats";
+	}
+	#selectors {
+		flex-direction: row;
+	}
+	.selector-container {
+		width: 100%;
+	}
+	#champion-stats {
+		padding-left: 30px;
+	}
+}
+
+#champion-img {
+	grid-area: champion-img;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.summoner-spells {
+	display:flex;
+}
+.summoner-spell-container {
+	margin:4px
+}
+.summoner-spell {
+	width:32px;
+	height:32px;
+}
+#champion-stats {
+	grid-area: champion-stats;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-template-areas:
+		"ad ap ls spell_vamp"
+		"arm mr apen mpen"
+		"as cdr range critdmg"
+		"crit ms tenacity heal_shield";
+}
+#champion-abilities {
+	grid-area: champion-abilities;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(2, auto);
+	grid-template-areas:
+		"passive q w e r"
+		"hp-mp hp-mp hp-mp hp-mp hp-mp";
+	/* height: var(--champion-img-height); */
+	margin-right: 3px;
+}
+#ad,
+#ap,
+#ls,
+#spell_vamp,
+#arm,
+#mr,
+#apen,
+#mpen,
+#as,
+#cdr,
+#range,
+#critdmg,
+#crit,
+#ms,
+#tenacity,
+#heal_shield {
+	margin: 5px;
+	display: flex;
+	align-items: center;
+}
+#ad {
+	grid-area: ad;
+}
+#ap {
+	grid-area: ap;
+}
+#ls {
+	grid-area: ls;
+}
+#spell_vamp {
+	grid-area: spell_vamp;
+}
+#arm {
+	grid-area: arm;
+}
+#mr {
+	grid-area: mr;
+}
+#apen {
+	grid-area: apen;
+}
+#mpen {
+	grid-area: mpen;
+}
+#as {
+	grid-area: as;
+}
+#cdr {
+	grid-area: cdr;
+}
+#range {
+	grid-area: range;
+}
+#critdmg {
+	grid-area: critdmg;
+}
+#crit {
+	grid-area: crit;
+}
+#ms {
+	grid-area: ms;
+}
+#tenacity {
+	grid-area: tenacity;
+}
+#heal_shield {
+	grid-area: heal_shield;
+}
+#passive {
+	grid-area: passive;
+}
+#q {
+	grid-area: q;
+}
+#w {
+	grid-area: w;
+}
+#e {
+	grid-area: e;
+}
+#r {
+	grid-area: r;
+}
+#hp-mp {
+	grid-area: hp-mp;
+	display:flex;
+	flex-direction: column;
+}
+.hp {
+	background-color: green;
+}
+.mp {
+	background-color: royalblue;
+}

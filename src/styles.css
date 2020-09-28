@@ -109,8 +109,15 @@ button:focus, :focus {
 .center-spinner {
 	margin:auto;
 }
+.center-margin {
+	margin-top: auto;
+	margin-bottom: auto;
+}
 /* --------------------------End Material Changes-------------------------- */
 /* --------------------------Global Component Definitions-------------------------- */
+.core.container{
+	padding: 65px 0px 15px 0px;
+}
 li.item {
 	display:inline-block
 }
@@ -246,7 +253,6 @@ span.component-title#component-title {
 	"item-rune-epic-selector damage-calc";
 	grid-gap: 10px;
 	/* background-color: var(--background-main); */
-	padding: 65px 0px 15px 0px;
 }
 @media only screen and (max-width: 767px) {
 	.container-grid-league {
@@ -411,6 +417,14 @@ ul.numbered-tooltip >li {
   width: 140px;
   border-radius: 50%;
 	perspective: 800px;
+}
+.orbit-spinner.small {
+	height: 110px;
+  width: 110px;
+}
+.orbit-spinner.large {
+	height: 200px;
+  width: 200px;
 }
 @media only screen and (max-width: 767px) {
 	.orbit-spinner {

@@ -1,24 +1,15 @@
-<navbar-details></navbar-details>
-<div class="container">
-	<div class="container-grid-league">
-		<div id="champion">
-			<champion (champion)="setChampion($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"></champion>
-		</div>
-		<div id="item-rune-epic-selector">
-			<item-selector id="item-selector" [hidden]="hideTabsFor('item-selector')" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
-										 (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-										 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime">
-			</item-selector>
-			<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="hideTabsFor('runes-epic')" [champion]="champion" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"
-						 [currentTime]="currentTime" [targetDetails]="targetDetails"></runes>
-		</div>
-		<inventory id="inventory" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
-							 [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)"
-							 [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime">
-		</inventory>
-		<div id="damage-calc">
-			<calculations [champion]="champion" [currentTime]="currentTime" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" (targetDetails)="setTargetDetails($event)"></calculations>
-		</div>
+<!-- put the nav outside to prevent double clicks on close -->
+<navbar-details [navbarChecked]="navbarChecked" (navbarCheckedChange)="setNav($event)"></navbar-details>
+<div class="flex-display flex-column app-main" (click)="closeNav()">
+	<div class="container core" [ngClass]="loadingRouteConfig ? ['flex-center', 'app-main'] : ''" [@fadeAnimation]="getRouterOutletState(o)">
+		<router-outlet #o="outlet"></router-outlet>
+		<ng-container *ngIf="loadingRouteConfig">
+			<div class="orbit-spinner large">
+				<div class="orbit-line"></div>
+				<div class="orbit-line"></div>
+				<div class="orbit-line"></div>
+			</div>
+		</ng-container>
 	</div>
+	<footer-details class="footer-parent"></footer-details>
 </div>
-<footer-details class="footer-parent"></footer-details>

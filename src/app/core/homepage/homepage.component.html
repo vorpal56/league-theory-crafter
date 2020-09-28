@@ -1,0 +1,21 @@
+<div class="container-grid-league">
+	<!-- <p style="font-size: 100px"> hello1</p> -->
+	<div id="champion">
+		<champion (champion)="setChampion($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"></champion>
+	</div>
+	<div id="item-rune-epic-selector">
+		<item-selector id="item-selector" [hidden]="hideTabsFor('item-selector')" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
+									 (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions" (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems"
+									 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime">
+		</item-selector>
+		<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="hideTabsFor('runes-epic')" [champion]="champion" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"
+					 [currentTime]="currentTime" [targetDetails]="targetDetails"></runes>
+	</div>
+	<inventory id="inventory" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)" [itemRestrictions]="selectedItemRestrictions"
+						 (itemRestrictions)="setSelectedItemRestrictions($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"
+						 [currentTime]="currentTime">
+	</inventory>
+	<div id="damage-calc">
+		<calculations [champion]="champion" [currentTime]="currentTime" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" (targetDetails)="setTargetDetails($event)"></calculations>
+	</div>
+</div>

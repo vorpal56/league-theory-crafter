@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
+import { RouteReuseStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
@@ -15,36 +16,21 @@ import { TooltipOptions } from 'ng2-tooltip-directive';
 import { DefaultTooltipOptions } from './tooltip-options';
 
 import { AppComponent } from "./app.component";
-import { ChampionComponent } from "./champion/champion.component";
-import { ItemSelectorComponent } from "./item-selector/item-selector.component";
-import { ItemFilterPipe } from "./item-selector/item-filter.pipe";
-import { RunesComponent } from "./runes/runes.component";
-import { InventoryComponent } from "./inventory/inventory.component";
-import { EpicMonstersComponent } from "./epic-monsters/epic-monsters.component";
-import { CalculationsComponent } from "./calculations/calculations.component";
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { MinValidatorDirective } from './calculations/min-validator.directive';
-import { MaxValidatorDirective } from './calculations/max-validator.directive';
-import { FloorPipe } from './calculations/floor.pipe';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { NavbarComponent } from './shared/layout/navbar/navbar.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AboutComponent } from './about/about.component';
+import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		ChampionComponent,
-		ItemSelectorComponent,
-		ItemFilterPipe,
-		RunesComponent,
-		InventoryComponent,
-		EpicMonstersComponent,
-		CalculationsComponent,
 		FooterComponent,
 		NavbarComponent,
-		MinValidatorDirective,
-		MaxValidatorDirective,
-		FloorPipe,
+		AboutComponent,
 	],
 	imports: [
+		AppRoutingModule,
 		FormsModule,
 		BrowserModule,
 		HttpClientModule,
@@ -53,13 +39,15 @@ import { FloorPipe } from './calculations/floor.pipe';
 		MatIconModule,
 		MatButtonModule,
 		MatCheckboxModule,
-		// MatProgressSpinnerModule,
 		NgSelectModule,
 		NgxSliderModule,
 		TooltipModule,
 		TooltipModule.forRoot(DefaultTooltipOptions as TooltipOptions)
 	],
-	providers: [],
+	providers: [{
+		provide: RouteReuseStrategy,
+		useClass: CustomRouteReuseStrategy,
+	}],
 	bootstrap: [AppComponent],
 })
 export class AppModule { }
