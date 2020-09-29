@@ -13,14 +13,14 @@ const routes: Routes = [
 		path: "about",
 		component: AboutComponent,
 	},
-	// {
-	// 	path: "contact",
-	// 	component: ContactComponent,
-	// },
-	// {
-	// 	path: "change-log",
-	// 	component: ChangeLogComponent,
-	// },
+	{
+		path: "contact",
+		component: ContactComponent,
+	},
+	{
+		path: "change-log",
+		component: ChangeLogComponent,
+	},
 	{
 		path: "**",
 		redirectTo: "",

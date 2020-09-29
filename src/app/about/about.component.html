@@ -8,12 +8,13 @@
 				</mat-icon>
 			</label>
 			<div class="menu">
-				<span>
+				<span #getHeight>
 					When you want to change a Champion, their ability level allocations, your rune selection, and many other important factors in League of Legends, you'll need to open the Practice Tool for every separate configuration. That's a lot of
 					configurations!
 					<br><br>
 					League Theory Crafter is a quick and easy way to look at a Champion's approximated damage output based on the many different factors in League of Legends without the long switch times when using the Practice Tool. It provides other
 					meaningful calculations, such as the damage distribution, which is important to assess how to deal the most with your unique builds.
+					{{ getHeight.offSetHeight}}
 				</span>
 			</div>
 		</div>
@@ -29,14 +30,14 @@
 					Don't fret! Calculations are not meant to be exact values of what's in-game. There are thousands of combinations of interactions that a champion can undergo, so calculations are an approximation of what a champion can do given the
 					circumstances.
 					<br><br>
-					If the damage calculated is way off, report a bug on the <a href="contact">contact page</a> and I'll work on updating it.
+					If the damage calculated is way off, report a bug on the <a routerLink="/contact">contact page</a> and I'll work on updating it.
 				</span>
 			</div>
 		</div>
 		<div class="question last">
 			<input type="checkbox" id="toggle-3" />
 			<label for="toggle-3">
-				<div class="title">Why isn't there 'A' or why is 'B' this way?</div>
+				<div class="title">Have a feature in mind?</div>
 				<mat-icon fontSet="material-icons-round" class="mat-arrow" aria-hidden="false" aria-label="What is this?">keyboard_arrow_down
 				</mat-icon>
 			</label>
@@ -45,7 +46,7 @@
 					To provide an easy-to use interface, there has to be trade-offs in the way sections are designed. When you increase flexibility, complexity increases and intuitiveness tends to decrease.
 					<br><br>
 					Flexibility and customizability is something that can always be improved on and I'm always looking for ways to do so. I'm open to suggestions from you, the League of Legends community, to make this better. Send me your
-					suggestions through the <a href="contact">contact page</a> and we can work together on putting those suggestions onto the platform.
+					suggestions through the <a routerLink="/contact">contact page</a> and we can work together on putting those suggestions onto the platform.
 				</span>
 			</div>
 		</div>

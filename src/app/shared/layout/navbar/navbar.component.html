@@ -10,8 +10,8 @@
 	<div class="menu">
 		<a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeNav()">Home</a>
 		<a routerLink="about" routerLinkActive="active-link" (click)="closeNav()">About</a>
+		<a routerLink="contact" routerLinkActive="active-link" (click)="closeNav()">Contact</a>
 		<ng-container *ngIf="show">
-			<a routerLink="contact" routerLinkActive="active-link" (click)="closeNav()">Contact</a>
 			<a routerLink="change-log" routerLinkActive="active-link" (click)="closeNav()">Change Log</a>
 		</ng-container>
 	</div>

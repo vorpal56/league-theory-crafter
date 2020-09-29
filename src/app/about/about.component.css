@@ -36,7 +36,9 @@
 	cursor:pointer;
 	display:flex;
 	justify-content: space-between;
+	align-items:center;
 	color:white;
+	margin-bottom:0;
 	/* prevent the toggle button from being dragged */
 	-khtml-user-select: none;
 	-o-user-select: none;
@@ -46,21 +48,15 @@
 	-webkit-user-drag: none;
 	-ms-user-select: none;
 }
-.arrow{
-	border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 14px solid;
-  margin-top: 1em;
-  color: rgba(255,255,255,0.54);
-}
 .mat-arrow {
-	margin-top:10px;
 	height:36px;
 	width:36px;
 	font-size: 36px;
 	transition: 0.5s ease;
 }
-.title,
+.title {
+	padding: 10px
+}
 .menu span{
 	color:white;
 	padding: 0.8em 0.4em 0.4em 0.4em;
@@ -82,23 +78,33 @@
 #toggle-2:checked ~ .menu,
 #toggle-3:checked ~ .menu,
 #toggle-4:checked ~ .menu  {
-	max-height: 200px;
+	max-height: 220px;
 	transition:max-height 0.5s ease;
 }
 #toggle-1:checked ~ .menu {
 	max-height: 350px;
 }
 #toggle-3:checked ~ .menu {
-	max-height: 250px;
+	max-height: 260px;
+}
+@media only screen and (min-width: 992px) {
+	#toggle-1:checked ~ .menu{
+		max-height: 280px;
+	}
+}
+@media only screen and (max-width: 991px) {
+	#toggle-3:checked ~ .menu{
+		max-height: 290px;
+	}
 }
 @media only screen and (max-width: 767px) {
 	#toggle-1:checked ~ .menu{
 		max-height: 280px;
 	}
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (max-width: 575px) {
 	#toggle-1:checked ~ .menu{
-		max-height: 280px;
+		max-height: 350px;
 	}
 }
 #toggle-1:checked ~ label mat-icon.mat-arrow,

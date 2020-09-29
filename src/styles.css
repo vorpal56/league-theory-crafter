@@ -106,13 +106,6 @@ mat-form-field {
 button:focus, :focus {
 	outline:none;
 }
-.center-horizontal {
-	margin:auto;
-}
-.center-vertical {
-	margin-top: auto;
-	margin-bottom: auto;
-}
 /* --------------------------End Material Changes-------------------------- */
 /* --------------------------Global Component Definitions-------------------------- */
 .core.container{
@@ -151,8 +144,34 @@ div.item-block:hover {
 	justify-content: center;
 	align-items: center;
 }
+.center-horizontal {
+	margin:auto;
+}
+.center-vertical {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.center-text {
+	text-align:center;
+}
 .selector-container {
 	padding:0px 5px
+}
+.selector-container.left {
+	padding-right: 5px;
+	padding-left: 0;
+}
+.selector-container.right {
+	padding-left: 5px;
+	padding-right: 0;
+}
+.selector-container.bottom {
+	padding-bottom: 5px;
+	padding-top: 0;
+}
+.selector-container.top{
+	padding-top: 5px;
+	padding-bottom: 0;
 }
 .pad-around {
 	padding: 5px 5px 0px 5px

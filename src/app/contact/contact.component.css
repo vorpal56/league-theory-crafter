@@ -8,7 +8,32 @@
 	width: 100%;
 }
 textarea {
-	height:200px;
-	max-height: 200px;
-	min-height:56px;
+	height:124px;
+	max-height: 150px;
+	min-height:54px;
+}
+.divider {
+	border-top:1px solid rgba(255,255,255,.3)
+}
+button.submit {
+	background-color: transparent;
+  color: white;
+  border: 1px solid white;
+	padding: 4px 16px;
+	transition: 0.4s;
+	width: 100%;
+	margin-top: 10px;
+}
+button.submit:hover{
+  color: var(--background-alt);
+	background-color: white;
+}
+.unsubmitted {
+	display:none
+}
+.submitted {
+	display:block;
+}
+.thank-you-message {
+	margin-top: 10px;
 }

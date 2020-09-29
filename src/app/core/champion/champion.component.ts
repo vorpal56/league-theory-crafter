@@ -71,6 +71,7 @@ export class ChampionComponent implements OnInit {
 				this.championChanged();
 			});
 		});
+		this.currentTimeEventEmitter.emit(this.currentTime);
 		return;
 	}
 	updateChampion(basicChampion: BasicChampion) {
