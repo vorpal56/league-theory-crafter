@@ -54,8 +54,11 @@
   color: rgba(255,255,255,0.54);
 }
 .mat-arrow {
-	transform: rotate(90deg);
+	margin-top:10px;
+	height:36px;
+	width:36px;
 	font-size: 36px;
+	transition: 0.5s ease;
 }
 .title,
 .menu span{
@@ -69,14 +72,12 @@
 	overflow:hidden;
 	transition: max-height 0.5s ease;
 }
-
 #toggle-1,
 #toggle-2,
 #toggle-3,
 #toggle-4  {
 	display:none;
 }
-
 #toggle-1:checked ~ .menu,
 #toggle-2:checked ~ .menu,
 #toggle-3:checked ~ .menu,
@@ -84,8 +85,26 @@
 	max-height: 200px;
 	transition:max-height 0.5s ease;
 }
-#toggle-1:checked ~ .menu,
+#toggle-1:checked ~ .menu {
+	max-height: 350px;
+}
 #toggle-3:checked ~ .menu {
 	max-height: 250px;
 }
-
+@media only screen and (max-width: 767px) {
+	#toggle-1:checked ~ .menu{
+		max-height: 280px;
+	}
+}
+@media only screen and (min-width: 992px) {
+	#toggle-1:checked ~ .menu{
+		max-height: 280px;
+	}
+}
+#toggle-1:checked ~ label mat-icon.mat-arrow,
+#toggle-2:checked ~ label mat-icon.mat-arrow,
+#toggle-3:checked ~ label mat-icon.mat-arrow,
+#toggle-4:checked ~ label mat-icon.mat-arrow {
+	/* rotate the arrow up  */
+	transform: rotate(180deg);
+}

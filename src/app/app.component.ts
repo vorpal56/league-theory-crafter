@@ -45,11 +45,6 @@ export class AppComponent implements OnInit {
 		this.navbarChecked = event;
 	}
 	closeNav() {
-		if (this.navbarChecked) { this.navbarChecked = false; console.log("from app", this.navbarChecked); }
-
-		// this.navbarCheckedChange.emit(this.navbarChecked);
-	}
-	a() {
-		console.log("clicked");
+		if (this.navbarChecked) { this.navbarChecked = false; }
 	}
 }
