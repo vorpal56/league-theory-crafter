@@ -106,10 +106,10 @@ mat-form-field {
 button:focus, :focus {
 	outline:none;
 }
-.center-spinner {
+.center-horizontal {
 	margin:auto;
 }
-.center-margin {
+.center-vertical {
 	margin-top: auto;
 	margin-bottom: auto;
 }

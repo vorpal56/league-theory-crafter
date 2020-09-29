@@ -1,0 +1,38 @@
+<div class="contact-container center-horizontal">
+	<div class="component-header">
+		<span>
+			Contact
+		</span>
+	</div>
+	<div class="component-body contact">
+		<div style="text-align: center; font-size: 18px;">
+			Have any features you'd like implemented? Found a bug? Want to chat about something? I'm eager to connect with you! Send me an email and let's talk.
+		</div>
+		<form class="flex-display flex-column">
+			<div class="flex-display">
+				<div class="selector-container">
+					<mat-form-field>
+						<mat-label>Name</mat-label>
+						<input name="contactName" matInput type="text" required>
+					</mat-form-field>
+				</div>
+				<div class="selector-container">
+					<mat-form-field>
+						<mat-label>Email</mat-label>
+						<input name="contactEmail" matInput type="email" placeholder="email@example.com" required>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="selector-container">
+				<ng-select [items]="SUBJECTS" bindLabel="subjectLabel" bindValue="subjectValue" [clearable]="false" placeholder="Subject" [(ngModel)]="targetSubject" name="contactSubject" required>
+				</ng-select>
+			</div>
+			<div class="selector-container">
+				<mat-form-field>
+					<mat-label>Message</mat-label>
+					<textarea name="contactMessage" matInput placeholder="I'm interested in..." required></textarea>
+				</mat-form-field>
+			</div>
+		</form>
+	</div>
+</div>

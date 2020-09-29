@@ -11,12 +11,13 @@ export class NavbarComponent implements OnInit {
 	@Input('navbarChecked') navbarChecked: boolean;
 	@Output('navbarCheckedChange') navbarCheckedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+	show: boolean = false;
 	constructor() { }
 
 	ngOnInit(): void {
 
 	}
-	emit(event) {
+	emit(event: boolean) {
 		this.navbarCheckedChange.emit(event);
 	}
 	closeNav() {

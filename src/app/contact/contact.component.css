@@ -1,0 +1,14 @@
+.component-body.contact {
+	padding:10px;
+}
+.contact-container {
+	max-width: 767px;
+}
+.selector-container {
+	width: 100%;
+}
+textarea {
+	height:200px;
+	max-height: 200px;
+	min-height:56px;
+}

@@ -21,6 +21,8 @@ import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AboutComponent } from './about/about.component';
 import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
+import { ChangeLogComponent } from './change-log/change-log.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +30,8 @@ import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
 		FooterComponent,
 		NavbarComponent,
 		AboutComponent,
+		ChangeLogComponent,
+		ContactComponent,
 	],
 	imports: [
 		AppRoutingModule,

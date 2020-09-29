@@ -1,0 +1,91 @@
+.about-container {
+	width:100%;
+	padding:5px;
+	display:grid;
+	grid-template-rows: auto;
+	grid-template-columns: 1.5fr 1fr;
+	grid-template-areas:
+	"questions about-me";
+	grid-gap:10px;
+}
+@media only screen and (max-width: 767px) {
+	.about-container {
+		grid-template-rows: repeat(2,auto);
+		grid-template-columns: auto;
+		grid-template-areas:
+		"questions"
+		"about-me"
+		;
+	}
+}
+.component-body.about {
+	padding:10px;
+}
+#about-me {
+	grid-area: about-me
+}
+.question {
+	background-color:var(--background-alt);
+	border-bottom: 1px solid var(--border-color-grey);
+	margin-bottom:10px;
+}
+.question.last {
+	margin-bottom:0
+}
+.about-container label {
+	cursor:pointer;
+	display:flex;
+	justify-content: space-between;
+	color:white;
+	/* prevent the toggle button from being dragged */
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	-ms-user-select: none;
+}
+.arrow{
+	border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 14px solid;
+  margin-top: 1em;
+  color: rgba(255,255,255,0.54);
+}
+.mat-arrow {
+	transform: rotate(90deg);
+	font-size: 36px;
+}
+.title,
+.menu span{
+	color:white;
+	padding: 0.8em 0.4em 0.4em 0.4em;
+}
+.menu{
+	display:flex;
+	flex-direction: column;
+	max-height:0px;
+	overflow:hidden;
+	transition: max-height 0.5s ease;
+}
+
+#toggle-1,
+#toggle-2,
+#toggle-3,
+#toggle-4  {
+	display:none;
+}
+
+#toggle-1:checked ~ .menu,
+#toggle-2:checked ~ .menu,
+#toggle-3:checked ~ .menu,
+#toggle-4:checked ~ .menu  {
+	max-height: 200px;
+	transition:max-height 0.5s ease;
+}
+#toggle-1:checked ~ .menu,
+#toggle-3:checked ~ .menu {
+	max-height: 250px;
+}
+
