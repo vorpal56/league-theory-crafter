@@ -7,7 +7,8 @@ export const environment = {
 	apiBasicChampionsUrl: "/api/champions/",
 	apiChampionsUrl: "/api/champions/",
 	apiItemsUrl: "/api/items/",
-	apiRunesUrl: "/api/runes/"
+	apiRunesUrl: "/api/runes/",
+	apiContactUrl: "/api/contact/"
 };
 
 /*

@@ -24,7 +24,7 @@ button.submit {
 	width: 100%;
 	margin-top: 10px;
 }
-button.submit:hover{
+button.submit:hover:enabled{
   color: var(--background-alt);
 	background-color: white;
 }
@@ -34,6 +34,17 @@ button.submit:hover{
 .submitted {
 	display:block;
 }
-.thank-you-message {
+.response-message {
 	margin-top: 10px;
+}
+.orbit-spinner-wrapper {
+	position: relative;
+	z-index: 9999;
+}
+.orbit-spinner {
+	position: absolute;
+	left:0;
+	right:0;
+	top: 50%;
+	transform: translateY(50%);
 }

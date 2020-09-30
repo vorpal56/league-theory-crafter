@@ -9,43 +9,45 @@
 			Have any features you'd like implemented? Found a bug? Want to chat about something? I'm eager to connect with you! Send me an email and let's talk.
 			<hr class="divider">
 		</div>
-		<form method="post" (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="!isLoading else loading">
-			<div class="flex-display">
-				<div class="selector-container left bottom">
-					<mat-form-field>
-						<mat-label>Name</mat-label>
-						<input matInput [formControl]="name" required>
-						<mat-error *ngIf="name.invalid">Please enter your name</mat-error>
-					</mat-form-field>
-				</div>
-				<div class="selector-container right bottom">
-					<mat-form-field>
-						<mat-label>Email</mat-label>
-						<input matInput [formControl]="email" placeholder="email@example.com" required>
-						<mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
-					</mat-form-field>
+		<div>
+			<div class="orbit-spinner-wrapper" *ngIf="isLoading">
+				<div class="orbit-spinner center-horizontal">
+					<div class="orbit-line"></div>
+					<div class="orbit-line"></div>
+					<div class="orbit-line"></div>
 				</div>
 			</div>
-			<ng-select [items]="TYPES" bindLabel="typeLabel" bindValue="typeValue" [clearable]="false" placeholder="Type of contact" required formControlName="type">
-			</ng-select>
-			<mat-form-field>
-				<mat-label>Message</mat-label>
-				<textarea matInput maxlength="256" placeholder="I'm interested in..." required [formControl]="message"></textarea>
-				<mat-hint align="end"> {{message.value?.length || 0}}/256</mat-hint>
-				<mat-error *ngIf="message.invalid">Please enter a message</mat-error>
-			</mat-form-field>
-			<input class="unsubmitted" id="honeypot" type="text" [formControl]="honeypot" />
-			<button class=" submit" type="submit">Submit</button>
-			<div [ngClass]="isSubmittedClass()" class="thank-you-message center-text">
-				<span>Thanks for the message! I'll get back to you soon!</span>
-			</div>
-		</form>
+			<form method="post" (ngSubmit)="onSubmit()" [formGroup]="form" [ngClass]="isLoading ? 'loading' : 'finished'">
+				<div class="flex-display">
+					<div class="selector-container left bottom">
+						<mat-form-field>
+							<mat-label>Name</mat-label>
+							<input matInput [formControl]="name" required>
+							<mat-error *ngIf="name.invalid">Please enter your name</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="selector-container right bottom">
+						<mat-form-field>
+							<mat-label>Email</mat-label>
+							<input matInput [formControl]="email" placeholder="email@example.com" required>
+							<mat-error *ngIf="email.invalid">{{emailErrorMessage()}}</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<ng-select class="no-transition" [items]="TYPES" bindLabel="typeLabel" bindValue="typeValue" [clearable]="false" placeholder="Subject type *" required formControlName="type">
+				</ng-select>
+				<mat-form-field>
+					<mat-label>Message</mat-label>
+					<textarea matInput maxlength="256" placeholder="I'm interested in..." required [formControl]="message"></textarea>
+					<mat-hint align="end"> {{message.value?.length || 0}}/256</mat-hint>
+					<mat-error *ngIf="message.invalid">Please enter a message</mat-error>
+				</mat-form-field>
+				<input class="unsubmitted" id="honeypot" type="text" [formControl]="honeypot" />
+				<button class="submit" type="submit" [disabled]="isLoading">Submit</button>
+				<div [ngClass]="isSubmittedClass()" class="response-message center-text">
+					<span>{{responseMessage}}</span>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
-<ng-template #loading>
-	<div class="orbit-spinner center-horizontal">
-		<div class="orbit-line"></div>
-		<div class="orbit-line"></div>
-		<div class="orbit-line"></div>
-	</div>
-</ng-template>

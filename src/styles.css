@@ -145,7 +145,8 @@ div.item-block:hover {
 	align-items: center;
 }
 .center-horizontal {
-	margin:auto;
+	margin-left:auto;
+	margin-right:auto;
 }
 .center-vertical {
 	margin-top: auto;
@@ -428,6 +429,12 @@ ul.numbered-tooltip >li {
 }
 /* --------------------------End Scrollbar-------------------------- */
 /* --------------------------Orbit Spinner-------------------------- */
+.loading {
+	opacity: 0.5;
+}
+.finished {
+	opacity: 1;
+}
 .orbit-spinner, .orbit-spinner * {
   box-sizing: border-box;
 }

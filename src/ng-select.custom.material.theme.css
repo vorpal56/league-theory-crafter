@@ -64,6 +64,10 @@
 	transition: border-color 0.3s cubic-bezier(0.55, 0, 0.55, 0.2)
 }
 
+.ng-select.no-transition .ng-select-container:after {
+	transition:none
+}
+
 .ng-select .ng-select-container.ng-appearance-outline {
 	padding: 0 .5em;
 	min-height: 60px
