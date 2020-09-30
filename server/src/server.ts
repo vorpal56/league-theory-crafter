@@ -1,12 +1,12 @@
 import * as express from "express";
 var championsModule = require("./routes/champions.route");
 var champions = championsModule.router;
-var championRequests = championsModule.championRequests;
 var items = require("./routes/items.route");
 var runes = require("./routes/runes.route");
+var contact = require("./routes/contact.route");
 const app = express();
-
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
@@ -25,6 +25,8 @@ app.use((req, res, next) => {
 app.use("/api/champions", champions);
 app.use("/api/items", items);
 app.use("/api/runes", runes);
-app.listen(3000, "127.0.0.1", () => {
-	console.log("server now listening on port 3000");
+app.use("/api/contact", contact);
+var portNumber = 3000;
+app.listen(portNumber, "127.0.0.1", () => {
+	console.log(`server now listening on port ${portNumber}`);
 });
