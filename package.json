@@ -9,7 +9,8 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"ts-dev": "cd server/ && yarn ts-dev",
-		"deploy-gh": "ng deploy --base-href=https://vorpal56.github.io/league-theory-crafter/"
+		"deploy-gh": "ng deploy --base-href=https://vorpal56.github.io/league-theory-crafter/",
+		"update-champions": "./venv/Scripts/activate.bat && cd server/src && python -m champions"
 	},
 	"private": true,
 	"dependencies": {

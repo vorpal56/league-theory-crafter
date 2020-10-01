@@ -518,9 +518,13 @@ export const RUNES = [
 						"index": 2,
 						"keyslot": "slot3",
 						"name": "Relentless Hunter",
-						"stackable": {},
+						"stackable": {
+							"ms": 40
+						},
 						"stacked": false,
-						"stats": {},
+						"stats": {
+							"ms": 5
+						},
 						"string_expression": "",
 						"affects_stat": "",
 						"tooltip": "Relentless Hunter<br><br>Passive: Gain 10 (+ 9 per Bounty Hunter stack) out-of-combat  movement speed, up to 55 at 5 stacks."

@@ -7,10 +7,30 @@ from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remov
 
 
 def find_all_placeholders(tooltip):
+	"""Helper that finds all placeholders in the ddragon tooltip information
+
+	Args:
+			tooltip (str): tooltip data from ddragon
+
+	Returns:
+			(list): all placeholders in the tooltip from the expression_pattern
+	"""
 	expression_pattern = r'({{.*?}})'
 	return re.findall(expression_pattern, tooltip)
 
 def placeholder_type(placeholder_var):
+	"""Helper that finds the value to replace the placeholder given from ddragon
+
+	Args:
+			placeholder_var (str): the placeholder varaible name
+
+	Returns:
+			(tuple):
+			(
+				(str): the placeholder type if any in the champion spell which is "effectBurn" or "vars"
+				(int|str): the key name to find in the champion spell-placeholder type combination
+			)
+	"""
 	expression_pattern = r'{{(.*?)}}'
 	variable_name = re.sub(r' ', '', re.search(expression_pattern, placeholder_var).group(1))
 	variable_length = len(variable_name)
@@ -23,15 +43,46 @@ def placeholder_type(placeholder_var):
 		return "?", 0
 
 def find_var_key(var_array, var_key):
+	"""Helper that finds the respsective coeff value for the spell
+
+	Args:
+			var_array (list): vars list in the champion spell
+			var_key (int | str): the key to find in var_array
+
+	Returns:
+			(str | None): the found coeff value for the spell or none
+	"""
 	for obj in var_array:
 		if (obj["key"] == var_key):
-			return obj
+			return obj["coeff"]
 	return None
 
 def replace_placeholder(tooltip, placeholder, value):
+	"""Helper that replaces the {{}} placeholder in champion tooltip with the
+	potentially filled in tooltip
+
+	Args:
+			tooltip (str): original tooltip
+			placeholder (str): placeholder to replace
+			value (str): placeholder to replace with
+
+	Returns:
+			(str): new tooltip with data
+	"""
 	return tooltip.replace(placeholder, value)
 
 def compile_champion_data(using="meraki", use="live"):
+	"""Compiles the champion data into one large champions file and individual champion files
+	Follows the data model described in the application
+	Also caches requests into our file system to make quicker requests
+
+	Args:
+			using (str, optional): the platform to extract data from. ddragon is incomplete. Defaults to "meraki".
+			use (str, optional): "cache" uses the saved requests in our file system, "live" sends a request for live data. Defaults to "live".
+
+	Returns:
+			assets_changed (dict): the champions that had their assets changed. passed into the scrape_assets method to determine which champions to request for new assets
+	"""
 	# champion data from meraki analytics use the lol wiki which is the full item descriptions, this is actually way to indepth. it might be interesting to apply both definitions, but this is difficult to actually get the numbers. I would need a way to combine the values compiled from merkai with ddragon
 	# champion data from ddragon has many values that are unprovided leaving multiple "?" and is the ingame tooltip
 
@@ -66,12 +117,15 @@ def compile_champion_data(using="meraki", use="live"):
 	# update the current data patch version so that I know what patch we're on
 	update_data_version()
 
+	assets_changed = {}
+
 	with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file, \
 		open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
 		champions = json.load(file)
 		fixed_tooltips = json.load(fixed_tooltips_file)
 		file.seek(0)
-		for l, champion_obj in enumerate(champions):
+		sorted_champions = sorted(champions, key=lambda champion:champion["name"].lower())
+		for l, champion_obj in enumerate(sorted_champions):
 			apiname = champion_obj["apiname"]
 			champion_file_name = "{}.json".format(apiname)
 			champion_obj["index"] = l
@@ -130,20 +184,26 @@ def compile_champion_data(using="meraki", use="live"):
 					else:
 						current_stat_val = champion_obj["stats"][stat_name]
 						if (current_stat_val != stat_val):
-							print(apiname, "has updated", stat_name, "from", current_stat_val, "to", stat_val)
+							print(apiname, "has updated stat", stat_name, "from", current_stat_val, "to", stat_val)
 							champion_obj["stats"][stat_name] = stat_val
 
 			for i, skill_key in enumerate(SKILL_KEYS):
 				ability_name = champion_obj[skill_key].get("1")
+				existing_champion_ability_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name, ability_name)
 				if (champion_obj[skill_key].get("img") is None):
 					print("added new skill ability img path")
 					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_name)
+					assets_changed[apiname] = True # the champion didn't have a skill ability img we need to grab the assets
 				for subkey in ability_names[skill_key]:
 					current_skill_details = champion_obj[skill_key][subkey]
 					new_skill_details = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
 					# subkeys are ["1", "img", ?"2"]
 					if (current_skill_details.lower() != new_skill_details.lower() and apiname != "Aphelios"):
-						print(apiname, "has updated", current_skill_details, "to", new_skill_details )
+						print(apiname, "has updated skill", current_skill_details, "to", new_skill_details)
+						if (subkey == "img" and os.path.exists(existing_champion_ability_assets_path)):
+							os.remove(existing_champion_ability_assets_path) # remove the old ability asset to the new one
+						assets_changed[apiname] = True # the champion has an updated ability with new details
+						# this means like a new name, or a new image, something has changed about it
 						champion_obj[skill_key][subkey] = new_skill_details
 
 				if champion_tooltips[i] == "":
@@ -162,7 +222,7 @@ def compile_champion_data(using="meraki", use="live"):
 						champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
 					elif (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[i]):
 						difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[i])
-						print(apiname, "has changed", pp.pformat(difference))
+						print(apiname, "has changed", pp.pformat(difference.get("values_changed")))
 						champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[i]
 
 			new_champion_obj = create_new_champion(ordered_keys, champion_obj)
@@ -178,10 +238,27 @@ def compile_champion_data(using="meraki", use="live"):
 	open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "w", encoding="utf-8") as basic_champions_file:
 		json.dump(all_basic_champions, basic_champions_file)
 		json.dump(sorted_attribute_names, attribute_names_file)
-	return
+	return assets_changed
 
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
 def parse_champion_data_meraki(apiname, champion_data):
+	"""Parses the champion data from the Meraki CDN
+	This is the main way of updating data (dependant on this)
+
+	Args:
+			apiname (str): apiname of the champion data for the purpose of data checking
+			champion_data (dict): the champion data obtained from the response body
+
+	Returns:
+			tuple:
+			(
+				new_stats (list): the new stats of a champion from patch notes modeled in the application
+				champion_tooltips (list): tooltips grabbed using the "blurb" key in the champion data,
+				ability_breakdown (list): the ability breakdown for the champion which consists of ability cooldowns and damage formulas that modeled in the application,
+				ability_names (list): the ability names that were extracted from the champion data which is used for reassigning ability names if changed,
+				all_attribute_names (list): the list of attribute names that are relevant and that are changed from patch to patch. can be used to assess the most frequent attribute names and outliers
+			)
+	"""
 	champion_stats = champion_data["stats"]
 	main_meraki_stat_keys = {
 		"health": "hp",
@@ -332,9 +409,16 @@ def parse_champion_data_meraki(apiname, champion_data):
 	return new_stats, champion_tooltips, ability_breakdown, ability_names, all_attribute_names
 
 def create_new_champion(ordered_keys, champion_data):
-	'''
-	Order is important for easier readability and consistency
-	'''
+	"""Creates a new champion object in a particular order
+
+	Args:
+			ordered_keys (list): list of ordered keys we want to sort the champion_data by
+				any keys unlisted will be sorted alphabetically
+			champion_data (dict): champion data object passed after compiling all their relevant information
+
+	Returns:
+			ordered_champion (dict): champion data ordered passed by ordered_keys
+	"""
 	ordered_champion = {}
 	for ordered_key in ordered_keys:
 		champion_data_val = champion_data.get(ordered_key)
@@ -356,6 +440,20 @@ def create_new_champion(ordered_keys, champion_data):
 	return ordered_champion
 
 def parse_champion_data_ddragon(apiname, champion_data=None):
+	"""Parses the champion data from the ddragon CDN.
+	Never in use.
+
+	Args:
+			apiname (str): [description]
+			champion_data (obj, optional): [description]. Defaults to None.
+
+	Returns:
+			tuple:
+			(
+				champion_tooltips (list): champion tooltips that were parsed,
+				max_ranks (list): the ability max ranks
+			)
+	"""
 	if (champion_data is None):
 		file = open(os.path.join(DATA_PATH, "json_ddragon_champion_cache", "{}.json".format(apiname)), "r")
 		champion_data = json.load(file)["data"][apiname]
@@ -380,17 +478,24 @@ def parse_champion_data_ddragon(apiname, champion_data=None):
 					# print(champion_spell["id"], apiname, key) # print the weird spell ids
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
 			elif (look_in == "vars"):
-				obj = find_var_key(champion_spell[look_in], key)
-				if obj is None:
+				coeff_value = find_var_key(champion_spell[look_in], key)
+				if coeff_value is None:
 					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, "?")
 				else:
-					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, str(obj["coeff"]))
+					parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, str(coeff_value))
 			elif (look_in == "?"):
 				parsed_tooltip = replace_placeholder(parsed_tooltip, placeholder, look_in)
 		champion_tooltips.append(parsed_tooltip)
 	return champion_tooltips, max_ranks
 
-def scrape_assets():
+def scrape_assets(assets_changed):
+	"""Scrapes the assets from OP.GG. It's much easier to do it this way
+	Args:
+			assets_changed (dict): (key=apiname, value=doesnt matter) sends requests to the details
+	"""
+	if (len(assets_changed)) == 0:
+		print("No champion has assets changed")
+		return
 	from bs4 import BeautifulSoup
 	import requests, re, urllib.request, time, random
 	from random import randint
@@ -403,6 +508,8 @@ def scrape_assets():
 		champions = json.load(file)
 		for i, champion in enumerate(champions):
 			apiname = champion["apiname"]
+			if apiname not in assets_changed:
+				continue
 			champion_name = champion["name"]
 			champion_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name)
 			if not os.path.exists(champion_assets_path):
@@ -428,9 +535,7 @@ def scrape_assets():
 								print("Retrieved", skill_name)
 							except Exception as e:
 								print("Unable to retrieve {} for {}".format(skill_name, champion_name) )
-				print("Finished with", champion_name, "\n")
+				print("Finished with", champion_name)
 			else:
-				print("Something went wrong for", champion["name"])
-
-	print("Finished")
+				print("Something went wrong for", champion_name)
 	return

@@ -1,6 +1,6 @@
 from .champions import compile_champion_data, scrape_assets
 
 if __name__ == "__main__":
-	compile_champion_data(using="meraki", use="cache")
-	# scrape_assets()
+	assets_changed = compile_champion_data(using="meraki", use="live")
+	scrape_assets(assets_changed)
 	pass
