@@ -33,6 +33,9 @@ def update_data_version():
 		print("Version has not changed. Still on {}".format(current_version))
 	return live_version
 
+def create_search_type_string(search_type):
+	return re.sub(r'[\W\_]', ' ', search_type).title()
+
 def create_apiname(name):
 	return re.sub(r'[\W\_]', '', name.lower())
 

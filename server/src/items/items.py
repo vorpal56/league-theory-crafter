@@ -2,7 +2,7 @@ import os
 import requests
 import json
 from pprint import PrettyPrinter
-from common.utils import DATA_PATH, fix_punctuation, create_apiname, full_clean_text
+from common.utils import DATA_PATH, fix_punctuation, create_apiname, full_clean_text, create_search_type_string
 from collections import OrderedDict
 
 # stat keys is used to write the tooltip data based on the model of our data
@@ -33,6 +33,7 @@ stat_key_mapping = {
 }
 
 stat_keys = {
+	'ability_haste': ' Ability Haste',
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
 	'apen%': '% Armor Penetration',
@@ -46,7 +47,7 @@ stat_keys = {
 	'heal_shield': '% Bonus Healing or Shielding',
 	'hp': ' Health',
 	'hp5': ' Health per 5',
-	'hp5%': '% Heatlh per 5',
+	'hp5%': '% Health per 5',
 	'leth': ' Lethality',
 	'ls': '% Lifesteal',
 	'mp': ' Mana',
@@ -55,7 +56,9 @@ stat_keys = {
 	'mpen': ' Magic Penetration',
 	'mpen%': '% Magic Penetration',
 	'mr': ' Magic Resistance',
+	'ms': ' Move Speed',
 	'ms%': '% Move Speed',
+	'omnivamp': '% Omnivamp',
 	'shield': ' Shield',
 	'spell_vamp': '% Spell Vamp',
 	'tenacity': '% Tenacity',
@@ -118,6 +121,8 @@ def compile_new_item_data(using="meraki", use="live"):
 	boots_id = "1001"
 	builds_into = set(response_body.get(boots_id).get("buildsInto"))
 	items = []
+	existing_items = set()
+	item_search_types = {}
 	with open(os.path.join(item_cache_path, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
 		for i, (item_id, item_details) in enumerate(response_body.items()):
 			int_item_id = int(item_id)
@@ -125,14 +130,31 @@ def compile_new_item_data(using="meraki", use="live"):
 			apiname = create_apiname(name)
 			# some items don't have any stat bonuses like refillable potion, corrupting, kalista spear, etc. so we don't add them to our item set
 			# some items that we want to include (elixirs and boots) apparently have no effects so we need to extend the condition
-			if not item_details.get("removed") and (item_details.get("noEffects") is False or "elixir" in apiname or "boots" in apiname):
+			#2422 is magical footwear which we'll account for in the runes component
+			if not item_details.get("removed") and apiname not in existing_items and item_id != "2422" and (item_details.get("noEffects") is False or "elixir" in apiname or "boots" in apiname):
 				# not sure how to deal with passive stats yet, I'll need an example of it
+				existing_items.add(apiname)
 				stats = item_details.get("stats")
 				passives = item_details.get("passives")
 				try:
 					rank = item_details.get("rank")[0].lower()
 				except Exception as e:
 					rank = 'basic'
+				shop = item_details.get("shop")
+				shop_search_types = []
+				for search_type in shop.get("tags"):
+					key = search_type # change the key type so when we apply the item filter pipe, and we check, for example, armor, we don't check armor_penetration, just armor since the filter pipe does .includes(search_type)
+					if search_type == "ARMOR_PENETRATION":
+						key = "APEN"
+					elif search_type == "MANA_REGEN":
+						key = "MP5"
+					elif search_type == "HEALTH_REGEN":
+						key = "HP5"
+					elif search_type == "DAMAGE":
+						key = "ATTACK DAMAGE"
+						search_type = key
+					shop_search_types.append(key.lower())
+					item_search_types[key] = create_search_type_string(search_type)
 				item_info = OrderedDict([
 					('name', name),
 					('allowed_to', { 'melee': True, 'ranged': True}),
@@ -140,13 +162,13 @@ def compile_new_item_data(using="meraki", use="live"):
 					('img', item_details.get("icon")), # hotlink the` item to ddragon and have them handle it or cache on our own server?
 					('id', item_id),
 					('index', i),
-					# ('modes', 'all,sr'), # we can generate a set of items that are in different modes. for now, we'll use all and sr. is this really important? I don't think it provides any value
 					('rank', rank),
 					('tags', ",".join([nickname.lower() for nickname in item_details.get("nicknames")])),
+					('search_types', ",".join(shop_search_types)),
 					('visible', True),
 					('stackable', False),
 					('stacked', False),
-					('gold', item_details.get("shop").get("prices").get("total")),
+					('gold', shop.get("prices").get("total")),
 					('passives', []),
 					('stats', {}),
 				])
@@ -155,6 +177,8 @@ def compile_new_item_data(using="meraki", use="live"):
 						full_stat_key = stat_parent_key + stat_child_key
 						if stat_val != 0 and full_stat_key in stat_key_mapping: # remove data redundancy
 							item_info["stats"][stat_key_mapping.get(full_stat_key)] = int(stat_val)
+				if apiname == "mercurystreads":
+					item_info["stats"]["tenacity"] = 30 # mercury treads don't have tenacity in data object
 				# passive stats are really weird, sometimes it's not included into the dataset, so we'll need to figure out how we're going to handle this on a patch by patch basis (especially during the early stages of preseason)
 				for passive in passives:
 					passive_name = passive.get("name")
@@ -188,18 +212,25 @@ def compile_new_item_data(using="meraki", use="live"):
 				item_info["tooltip"] = full_clean_text(meraki_tooltip + passives_tooltip + actives_tooltip)
 
 				item_info = dict(sorted(item_info.items(), key=lambda item: item[0]))
-				if int_item_id in builds_into:
+				if (int_item_id in builds_into or item_id == boots_id) and "boots" not in item_info["tags"]:
 					item_info["tags"] += "boots" if item_info["tags"] == "" else ",boots"
 
 				item_json_file = open(os.path.join(item_cache_path, "_".join([apiname, item_id]) + ".json"), "w", encoding="utf-8")
 				json.dump(item_info, item_json_file)
 				item_json_file.close()
 				items.append(item_info)
+		a = [{"label": "All", "value": ""}]
+		k = []
+		for key, value in item_search_types.items():
+			b = {"label": value, "value": key}
+			k.append(b)
+		k = sorted(k, key = lambda item: item["label"])
+		# pp.pprint(a+k)
 		ts_file.write("let False = false;\nlet True=true;\nlet None=null;\nexport const ITEMS = " + str(items))
 	return
 
 def compile_item_data(using="meraki", use="live"):
-	"""DEPRECATED. Used during <=S10. Use compile_new_item_data function
+	"""DEPRECATED. Used during S<=10. Use compile_new_item_data function
 
 	Args:
 			using (str, optional): [description]. Defaults to "meraki".
@@ -258,4 +289,4 @@ def effects_tooltip(effects, effect_type="p"):
 	return ""
 
 def base_item_stats_tooltip(item):
-	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + stat_keys[stat_name] for stat_name, stat_val in item.items() if (stat_val != 0 and stat_name in stat_keys)])
+	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + stat_keys[stat_name] for stat_name, stat_val in item["stats"].items() if (stat_val != 0 and stat_name in stat_keys)])

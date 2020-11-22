@@ -54,10 +54,6 @@ export class ChampionService {
 		if (champion.apiname.toLowerCase() == "yasuo") {
 			champion.stats.crit *= 2;
 		}
-		if (itemAdditions.hexcoreItem && itemAdditions.hexcoreItem != EMPTY_ITEM) {
-			champion.stats.ap += (itemAdditions.hexcoreItem.ap * (champion.currentLevel - 1));
-			champion.stats.mp += (itemAdditions.hexcoreItem.mp * (champion.currentLevel - 1));
-		}
 		if (itemAdditions.aweItem && itemAdditions.aweItem != EMPTY_ITEM && champion.resource.toLowerCase() == "mana") {
 			if (itemAdditions.aweItem.apiname == "manamune" || itemAdditions.aweItem.apiname == "muramana") {
 				champion.stats.ad += (champion.stats.mp * 0.02);

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { GAMEMODES, ORDERBY, ORDERMODES } from 'server/data/data';
+import { SEARCH_TYPES, ITEM_ORDER } from 'server/data/data';
 
 
 import { Champion } from 'src/app/core/models/champion';
@@ -20,12 +20,16 @@ import { ApiService } from 'src/app/core/services/api.service';
 export class ItemSelectorComponent implements OnInit {
 
 	items$: Observable<Item[]>;
-	gamemodes = GAMEMODES;
-	ordersBy = ORDERBY;
-	orderModes = ORDERMODES;
-	orderBy: string = this.ordersBy[0].orderByValue;
-	orderMode: string = this.orderModes[0].orderModeValue;
-	searchMode: string = "all";
+	starterItems: Item[] = [];
+	basicItems: Item[] = [];
+	epicItems: Item[] = [];
+	legendaryItems: Item[] = [];
+	mythicItems: Item[] = [];
+	allItems: any[] = [];
+	searchTypes = SEARCH_TYPES;
+	itemsOrder = ITEM_ORDER;
+	searchType: string = this.searchTypes[0].value;
+	itemOrder: string = this.itemsOrder[0].value;
 	searchText: string = "";
 
 	@Input('champion') champion: Champion;
@@ -47,8 +51,31 @@ export class ItemSelectorComponent implements OnInit {
 	constructor(private championService: ChampionService, private apiService: ApiService) { }
 	ngOnInit(): void {
 		this.items$ = this.apiService.getItems();
+		// {'starter', 'epic', 'consumable', 'basic', 'legendary', 'boots', 'mythic'}
+		this.items$.subscribe((items: Item[]) => {
+			items.forEach((item: Item) => {
+				if (item.rank == "starter") {
+					this.starterItems.push(item);
+				} else if (item.rank == "consumable" || item.rank == "basic" || item.rank == "boots") {
+					this.basicItems.push(item);
+				} else if (item.rank == "epic") {
+					this.epicItems.push(item);
+				} else if (item.rank == "legendary") {
+					this.legendaryItems.push(item);
+				} else if (item.rank == "mythic") {
+					this.mythicItems.push(item);
+				}
+			});
+			this.allItems.push({ name: 'Starter', items: this.starterItems });
+			this.allItems.push({ name: 'Basic', items: this.basicItems });
+			this.allItems.push({ name: 'Epic', items: this.epicItems });
+			this.allItems.push({ name: 'Legendary', items: this.legendaryItems });
+			this.allItems.push({ name: 'Mythic', items: this.mythicItems });
+		});
 	}
-
+	reverseOrder() {
+		this.allItems.reverse();
+	}
 	/**
 	 * Method that determines if the item is allowed given the champion and item restrictions
 	 * Legendary and Mythic items are unique.
@@ -62,13 +89,10 @@ export class ItemSelectorComponent implements OnInit {
 			// can't add items that are 'invisible'
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasHexcore == true && itemDetails.shared_item == "hexcore") {
-			return false;
-		}
 		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item == "goldjg") {
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.boots_ms) {
+		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.rank == "boots") {
 			return false;
 		}
 		if (this.selectedItemRestrictions.hasTear == true && itemDetails.tags.includes("tear")) {
@@ -112,13 +136,10 @@ export class ItemSelectorComponent implements OnInit {
 		if (itemDetails.name.toLowerCase().includes("elixir") && itemDetails != this.selectedElixir) {
 			this.addElixir(itemDetails);
 		} else if (this.isItemAllowed(itemDetails) && itemDetails != this.selectedElixir) {
-			if (itemDetails.shared_item == "hexcore") {
-				this.selectedItemRestrictions.hasHexcore = true;
-			}
 			if (itemDetails.shared_item == "goldjg") {
 				this.selectedItemRestrictions.hasGoldOrJg = true;
 			}
-			if (itemDetails.boots_ms != 0) {
+			if (itemDetails.rank == 'boots') {
 				this.selectedItemRestrictions.hasBoots = true;
 			}
 			if (itemDetails.tags.includes("tear")) {
@@ -209,4 +230,3 @@ export class ItemSelectorComponent implements OnInit {
 	}
 
 }
-

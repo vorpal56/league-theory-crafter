@@ -67,7 +67,7 @@ export class RunesService {
 								let additiveTenacity = rune.stats.tenacity;
 								if (selectedElixir.apiname == "elixirofiron") {
 									addedTenacityElixir = true;
-									additiveTenacity += selectedElixir.tenacity;
+									additiveTenacity += selectedElixir.stats.tenacity;
 								}
 								currentTenacityRatio *= (1 - (additiveTenacity) / 100);
 							} else if (runeApiname == "suddenimpact") {
@@ -202,7 +202,7 @@ export class RunesService {
 			}
 		}
 		if (!addedTenacityElixir && selectedElixir.apiname == "elixirofiron") {
-			currentTenacityRatio *= (1 - (selectedElixir.tenacity) / 100);
+			currentTenacityRatio *= (1 - (selectedElixir.stats.tenacity) / 100);
 		}
 		let totalTenacityRatio: number = (1 - currentTenacityRatio) * 100;
 		let tenacity = totalTenacityRatio - champion.stats.tenacity;

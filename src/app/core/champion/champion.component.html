@@ -9,11 +9,11 @@
 				<ng-select [items]="basicChampions$ | async" bindLabel="name" [searchFn]="championSearch" [virtualScroll]="true" [clearable]="false" placeholder="Select a Champion" (change)="updateChampion($event)" [(ngModel)]="basicChampion"></ng-select>
 			</div>
 			<div class="selector-container">
-				<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">
+				<ng-select [items]="levels" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Select a level" (change)="updateLevel()" [(ngModel)]="currentLevel">
 				</ng-select>
 			</div>
 			<div class="selector-container">
-				<ng-select [items]="times" bindLabel="timeLabel" bindValue="timeValue" [clearable]="false" placeholder="In-game time" (change)="updateCurrentTime()" [(ngModel)]="currentTime">
+				<ng-select [items]="times" bindLabel="label" bindValue="value" [clearable]="false" placeholder="In-game time" (change)="updateCurrentTime()" [(ngModel)]="currentTime">
 				</ng-select>
 			</div>
 		</div>

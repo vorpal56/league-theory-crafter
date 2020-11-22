@@ -11,19 +11,15 @@
 </div>
 <div class="component-body">
 	<div class="item-selector-grid pad-around">
-		<div id="item-grid-orderby-sort" class="selector-container">
-			<ng-select [items]="ordersBy" bindLabel="orderByLabel" bindValue="orderByValue" [clearable]="false" placeholder="Sort items" [(ngModel)]="orderBy">
+		<div id="orderby-sort" class="selector-container">
+			<ng-select [items]="itemsOrder" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Item Order" [(ngModel)]="itemOrder" (change)="reverseOrder()">
 			</ng-select>
 		</div>
-		<div id="item-grid-orderby-sort" class="selector-container">
-			<ng-select [items]="orderModes" bindLabel="orderModeLabel" bindValue="orderModeValue" [clearable]="false" placeholder="Sort items in" [(ngModel)]="orderMode">
+		<div id="search-type" class="selector-container">
+			<ng-select [items]="searchTypes" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Filter by Item Type" [(ngModel)]="searchType">
 			</ng-select>
 		</div>
-		<div id="item-grid-gamemode-filter" class="selector-container">
-			<ng-select [items]="gamemodes" bindLabel="gamemodeLabel" bindValue="gamemodeValue" [clearable]="false" placeholder="Filter by Gamemodes" [(ngModel)]="searchMode">
-			</ng-select>
-		</div>
-		<div id="item-grid-search-filter" class="selector-container">
+		<div id="search-field" class="selector-container">
 			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
 				<input matInput type="text" [(ngModel)]="searchText" placeholder="eg. support, ornn.." id="item-grid-filter-search-field">
@@ -34,23 +30,21 @@
 		</div>
 	</div>
 	<div class="flex-wrapper" id="item-list">
-		<div class="overflow" *ngIf="items$ | async as items else loading">
-			<ul class="item-grid">
-				<li class="item" *ngFor="let item of items | itemFilter: champion : searchText : searchMode : orderBy : orderMode" (click)="addItem(item)">
-					<div class="item-block">
-						<!-- <ng-container *ngIf="isVisible(item) else noTooltip"> -->
-						<div class="bg-black" [ngClass]="isVisibleClass(item)">
-							<img class="item-img" [src]="item.img" draggable="false" [tooltip]="item.tooltip" tooltip-class="item-tooltips" />
-						</div>
-						<!-- </ng-container> -->
-						<ng-template #noTooltip>
-							<div class="bg-black" [ngClass]="isVisibleClass(item)">
-								<img class="item-img" [src]="item.img" draggable="false" />
+		<div class="overflow" *ngIf="items$ | async else loading">
+			<ng-container *ngFor="let itemSection of allItems ">
+				<div class="rank-title">{{itemSection.name}}</div>
+				<ul class="item-grid">
+					<ng-container *ngFor="let item of itemSection.items | itemFilter: champion : searchText : searchType">
+						<li class="item" (click)="addItem(item)">
+							<div class="item-block">
+								<div class="bg-black" [ngClass]="isVisibleClass(item)">
+									<img class="item-img" [src]="item.img" draggable="false" [tooltip]="item.tooltip" tooltip-class="item-tooltips" />
+								</div>
 							</div>
-						</ng-template>
-					</div>
-				</li>
-			</ul>
+						</li>
+					</ng-container>
+				</ul>
+			</ng-container>
 		</div>
 		<ng-template #loading>
 			<div class="orbit-spinner center-horizontal">

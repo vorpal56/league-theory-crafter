@@ -42,20 +42,20 @@ export class ItemFilterPipe implements PipeTransform {
 	 * @param  {string} orderMode orders in ascending or descending order
 	 * @returns Item[]
 	 */
-	transform(items: Item[], champion: Champion, searchText: string, searchMode: string, orderBy: string, orderMode: string): Item[] {
+	transform(items: Item[], champion: Champion, searchText: string, searchType: string): Item[] {
 		if (!items) return [];
 		// check if there is a selected champion from oninit in champion component
 		if (!champion) return items;
 		let apiname = champion.apiname.toLowerCase();
 		let championRangeType = champion["rangetype"].toLowerCase();
 		searchText = searchText.toLowerCase();
-		searchMode = searchMode.toLowerCase();
+		searchType = searchType.toLowerCase();
 
 		// if we want to remove items from the list that do not match the details, we can use the filter function
 		// and change the return value from nothing to the conditional expression and call the sort on the results array
 		// let results = items.filter(item => {
 		items.forEach((item: Item) => {
-			let itemsSearchedByMode = item.modes.toLowerCase().includes(searchMode);
+			let itemsSearchedByType = searchType == "" ? true : item.search_types.toLowerCase().includes(searchType);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
 			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
 			// set some intermediary conditions for granularity
@@ -81,29 +81,14 @@ export class ItemFilterPipe implements PipeTransform {
 				item.visible = false;
 				return;
 			}
-			finalCondition = intermediaryCondition2 && itemsSearchedByMode;
+			finalCondition = intermediaryCondition2 && itemsSearchedByType;
 			if (apiname == "cassiopeia") {
-				item.visible = finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
-				// return finalCondition && item.boots_ms == 0 && !item.apiname.includes("hexcore");
-				return;
-			} else if (apiname == "viktor") {
-				item.visible = finalCondition || (finalCondition && item.apiname.includes("hexcore"));
-				// return finalCondition || (finalCondition && item.apiname.includes("hexcore"));
+				item.visible = finalCondition && item.rank != 'boots';
 				return;
 			}
-			item.visible = finalCondition && !item.apiname.includes("hexcore");
-			// return finalCondition && !item.apiname.includes("hexcore");
+			item.visible = finalCondition;
 			return;
 		});
-		if (orderMode == "desc") {
-			return orderBy == "gold" ? items.sort(this.byGoldDescending) : items.sort(this.byAlphaDescending);
-		} else if (orderMode == "asc") {
-			return orderBy == "gold" ? items.sort(this.byGoldAscending) : items.sort(this.byAlphaAscending);
-		}
-		// if (orderMode == "desc") {
-		// 	return orderBy == "gold" ? results.sort(this.byGoldDescending) : results.sort(this.byAlphaDescending);
-		// } else if (orderMode == "asc") {
-		// 	return orderBy == "gold" ? results.sort(this.byGoldAscending) : results.sort(this.byAlphaAscending);
-		// }
+		return items;
 	}
 }

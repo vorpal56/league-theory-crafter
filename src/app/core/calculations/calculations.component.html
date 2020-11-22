@@ -18,7 +18,7 @@
 		<div id="target-selectors">
 			<div class="target-selectors-grid pad-around">
 				<div id="target-level" class="selector-container">
-					<ng-select [items]="levels" bindLabel="levelLabel" bindValue="levelValue" [clearable]="false" placeholder="Target Level" (change)="updateLevel()" [(ngModel)]="targetLevel" [tooltip]="targetLevelTooltip()">
+					<ng-select [items]="levels" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Target Level" (change)="updateLevel()" [(ngModel)]="targetLevel" [tooltip]="targetLevelTooltip()">
 					</ng-select>
 				</div>
 				<div id="target-max-hp" class="selector-container">

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-import { ITEMS } from 'server/data/updated_items_merkai';
+import { ITEMS } from 'server/data/json_meraki_item_cache/preseason_11/updated_items_merkai';
 
 import { Champion } from 'src/app/core/models/champion';
 import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
@@ -67,13 +67,10 @@ export class InventoryComponent implements OnInit {
 	}
 	removeItem(itemDetails: Item, index?: number, runService: boolean = true): void {
 		// we check if there exists an item directly on the template
-		if (itemDetails.shared_item == "hexcore") {
-			this.selectedItemRestrictions.hasHexcore = false;
-		}
 		if (itemDetails.shared_item == "goldjg") {
 			this.selectedItemRestrictions.hasGoldOrJg = false;
 		}
-		if (itemDetails.boots_ms != 0) {
+		if (itemDetails.rank == "boots") {
 			this.selectedItemRestrictions.hasBoots = false;
 		}
 		if (itemDetails.tags.includes("tear")) {
@@ -100,7 +97,7 @@ export class InventoryComponent implements OnInit {
 		return;
 	}
 	/**
-	 * Method that removes any invalid items depending on the selected champion restrictions including boots, hexcore items, ornn items, etc.
+	 * Method that removes any invalid items depending on the selected champion restrictions including boots, ornn items, etc.
 	 * Called by parent component on (change)
 	 * @param  {Champion} champion the champion that was changed into -> previous selected champion is on this.champion when called -> model doesn't update immediately?
 	 * @param  {number} currentLevel the level that was changed into -> previous selected level is on this.currentLevel when called -> model doesn't update immediately?
@@ -110,9 +107,7 @@ export class InventoryComponent implements OnInit {
 		let runService = false;
 		this.selectedItems.forEach((item, index) => {
 			let championRangeType = champion["rangetype"].toLowerCase();
-			if (champion.name == "Cassiopeia" && item.boots_ms != 0) {
-				this.removeItem(item, index, runService);
-			} else if (champion.name != "Viktor" && item.apiname.includes("hexcore")) {
+			if (champion.name == "Cassiopeia" && item.rank == "boots") {
 				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.melee && !item.allowed_to.ranged && championRangeType == "ranged") {
 				this.removeItem(item, index, runService);

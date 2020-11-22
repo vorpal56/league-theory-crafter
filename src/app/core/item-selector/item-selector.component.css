@@ -1,3 +1,6 @@
+div.rank-title {
+	padding: 0 10px;
+}
 div.item-block {
 	width:50px;
 	height:50px;
@@ -25,40 +28,37 @@ div.overflow {
 }
 .item-selector-grid {
 	display:grid;
-	grid-template-columns: repeat(4,1fr);
+	grid-template-columns: repeat(3,1fr);
 	grid-template-rows: var(--selector-grid-height);
 	grid-template-areas:
-	"orderby-name orderby-mode gamemode-filter search-filter";
+	"orderby-name search-type search-field";
 }
 #item-list {
 	max-height:700px;
 }
 @media only screen and (max-width: 767px) {
-	.item-selector-grid {
+	/* .item-selector-grid {
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows:  repeat(2, 1fr);
 		grid-template-areas:
-		"orderby-name orderby-mode"
-		"gamemode-filter search-filter"
-	}
+		"orderby-name search-type"
+		"search-field search-field"
+	} */
 	#item-list {
 		max-height:470px;
 	}
 }
-.item-selector-filter {
-	padding:4px
-}
-#item-grid-orderby-name {
+#orderby-name {
 	grid-area: orderby-name;
 }
-#item-grid-orderby-mode {
-	grid-area: orderby-name;
+#orderby-mode {
+	grid-area: orderby-mode;
 }
-#item-grid-gamemode-filter {
-	grid-area: gamemode-filter;
+#search-type {
+	grid-area: search-type;
 }
-#item-grid-search-filter {
-	grid-area: search-filter;
+#search-field {
+	grid-area: search-field;
 }
 .flex-wrapper {
 	display:flex;

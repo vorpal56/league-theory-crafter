@@ -30,7 +30,6 @@ export class HomepageComponent implements OnInit {
 		hasBoots: false,
 		hasTear: false,
 		masterworkItems: [EMPTY_ITEM, EMPTY_ITEM],
-		hasHexcore: false,
 	};
 	numberOfEquippedItems: number = 0;
 

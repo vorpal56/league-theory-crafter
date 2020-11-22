@@ -40,20 +40,16 @@ export class ItemsService {
 			// stackedItemCounts relates to the stackable items that have been stacked. This is to allow stacking of only 1 or multiple items when the stacakble checkbox is checked. If we only reference the sharedItemCounts, we can only select the first option instead of any other option
 			let stackedItemCounts: object = {};
 			let aweItem: Item = EMPTY_ITEM;
-			let hexCoreItem: Item = EMPTY_ITEM;
 			for (let itemIndex in selectedItemsIncludingElixir) {
 				let selectedItem: Item = selectedItemsIncludingElixir[itemIndex];
 				if (selectedItem.name != "Empty") {
 					// add the tenacity directly (we're not gonna add steraks since its due to lifeline active items. This allows us to separate the tenacity formula dynamically into the rune/elixir calculation in the runesService and the items calc here).
 					//maybe in the future i'll take a look at adding in active items -> checkbox to see what stats on all activation? individual items might be too difficult
 					if (selectedItem.apiname == "mercurystreads") {
-						champion.stats.tenacity = selectedItem.tenacity;
+						champion.stats.tenacity = selectedItem.stats.tenacity;
 					}
 					if (selectedItem.shared_item == "awe" && selectedItem.name.includes('tear') == false) {
 						aweItem = selectedItem;
-					}
-					if (selectedItem.shared_item == "hexcore") {
-						hexCoreItem = selectedItem;
 					}
 					let sharedStatKeys = {};
 					if (selectedItem.shared_passives.length != 0) {
@@ -66,7 +62,7 @@ export class ItemsService {
 							}
 						});
 					}
-					for (let itemStatName in selectedItem) {
+					for (let itemStatName in selectedItem.stats) {
 						let itemStatVal = selectedItem[itemStatName];
 						let numSharedPassives = selectedItem.shared_passives.length;
 						// skip any of irrelevant stat related items
@@ -199,7 +195,7 @@ export class ItemsService {
 				adaptiveType = totalAdFromItems > totalApFromItems ? "ad" : "ap";
 			}
 			champion.adaptiveType = adaptiveType;
-			let itemAdditions = { "aweItem": aweItem, "hexcoreItem": hexCoreItem };
+			let itemAdditions = { "aweItem": aweItem };
 			return [totalStatsFromItems, multKeyValues, itemAdditions];
 		}
 		champion.adaptiveType = champion.mainAdaptiveType;

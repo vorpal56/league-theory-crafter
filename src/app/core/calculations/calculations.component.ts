@@ -39,7 +39,7 @@ export class CalculationsComponent implements OnInit {
 	targetMR: number = 30;
 	targetArmor: number = 10;
 	levels = LEVELS;
-	targetLevel: number = this.levels[0].levelValue;
+	targetLevel: number = this.levels[0].value;
 
 	applyItemSteroids: boolean = false;
 	applyAbilitySteroids: boolean = false;

@@ -31,8 +31,8 @@ export class ChampionComponent implements OnInit {
 	levels = LEVELS;
 	times = TIMES;
 	statKeys = STAT_KEYS;
-	currentLevel: number = this.levels[5].levelValue;
-	currentTime: number = this.times[1].timeValue;
+	currentLevel: number = this.levels[5].value;
+	currentTime: number = this.times[1].value;
 
 	basicChampions$: Observable<BasicChampion[]>;
 	basicChampion: BasicChampion;
