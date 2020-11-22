@@ -1,0 +1,1 @@
+{"allowed_to": {"melee": true, "ranged": true}, "apiname": "dagger", "gold": 300, "id": "1042", "img": "http://ddragon.leagueoflegends.com/cdn/10.23.1/img/item/1042.png", "index": 33, "name": "Dagger", "passives": [], "rank": "basic", "stackable": false, "stacked": false, "stats": {"as": 12}, "tags": "", "tooltip": "Dagger<br><br>Cost: 300<br>", "visible": true}

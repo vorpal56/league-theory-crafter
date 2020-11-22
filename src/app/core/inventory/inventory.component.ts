@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-import { EMPTY_ITEM } from 'server/data/items';
 import { ITEMS } from 'server/data/updated_items_merkai';
 
 import { Champion } from 'src/app/core/models/champion';
-import { Item, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
 import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
@@ -36,6 +35,8 @@ export class InventoryComponent implements OnInit {
 	muramana: Item;
 	seraphs: Item;
 
+	items: Item[] = ITEMS;
+
 	constructor(private championService: ChampionService) { }
 
 	ngOnInit(): void {
@@ -62,7 +63,6 @@ export class InventoryComponent implements OnInit {
 	 * @returns boolean
 	 */
 	selectedSlotIsFree(itemDetails: Item, a?: number): boolean {
-		// if (a) { console.log(itemDetails, itemDetails == EMPTY_ITEM); }
 		return itemDetails == EMPTY_ITEM ? true : false;
 	}
 	removeItem(itemDetails: Item, index?: number, runService: boolean = true): void {
@@ -164,9 +164,9 @@ export class InventoryComponent implements OnInit {
 	}
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
-			this.selectedItems[index] = environment.production ? ITEMS[99] : this.muramana;
+			this.selectedItems[index] = environment.production ? this.items[99] : this.muramana;
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
-			this.selectedItems[index] = environment.production ? ITEMS[133] : this.seraphs;
+			this.selectedItems[index] = environment.production ? this.items[133] : this.seraphs;
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}

@@ -2,11 +2,10 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 
-import { EMPTY_ITEM } from 'server/data/items';
 import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from 'server/data/data';
 
 import { Champion, BasicChampion } from 'src/app/core/models/champion';
-import { Item } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
 import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 

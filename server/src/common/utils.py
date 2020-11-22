@@ -31,7 +31,10 @@ def update_data_version():
 		print("Version has been changed from {} to {}".format(current_version, live_version))
 	else:
 		print("Version has not changed. Still on {}".format(current_version))
-	return
+	return live_version
+
+def create_apiname(name):
+	return re.sub(r'[\W\_]', '', name.lower())
 
 def remove_html_tags(text, keep_breaks=True):
 	# useful for parsing the tooltips from ddragon cdn

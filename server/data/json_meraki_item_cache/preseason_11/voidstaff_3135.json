@@ -1,0 +1,1 @@
+{"allowed_to": {"melee": true, "ranged": true}, "apiname": "voidstaff", "gold": 2500, "id": "3135", "img": "http://ddragon.leagueoflegends.com/cdn/10.23.1/img/item/3135.png", "index": 187, "name": "Void Staff", "passives": [], "rank": "legendary", "stackable": false, "stacked": false, "stats": {"ap": 65}, "tags": "", "tooltip": "Void Staff<br><br>Cost: 2500<br>", "visible": true}

@@ -1,0 +1,1 @@
+{"allowed_to": {"melee": true, "ranged": true}, "apiname": "clotharmor", "gold": 300, "id": "1029", "img": "http://ddragon.leagueoflegends.com/cdn/10.23.1/img/item/1029.png", "index": 27, "name": "Cloth Armor", "passives": [], "rank": "basic", "stackable": false, "stacked": false, "stats": {"arm": 15}, "tags": "", "tooltip": "Cloth Armor<br><br>Cost: 300<br>", "visible": true}

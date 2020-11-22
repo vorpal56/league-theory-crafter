@@ -2,21 +2,19 @@
 
 /venv/
 ref/
-/*.com/
 *.zip
-*_test.ts
-*_test2.ts
 *_runes.ts
-ability-leveler/
 *.psd
 *.csv
 example_layout.png
 *cache*/
 *attributes.json
+!json_meraki_item_cache/
+**/s1-s10
 !json_ddragon_champion_cache_updated/
 !json_combined_champion_cache/
 # src/assets/images/champions/*
-
+item_tests/
 # compiled output
 dist/
 /tmp

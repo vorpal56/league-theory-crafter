@@ -3,7 +3,7 @@ import os
 import json
 import requests
 from pprint import PrettyPrinter
-from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, get_live_version, update_data_version
+from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version
 
 
 def find_all_placeholders(tooltip):
@@ -115,7 +115,7 @@ def compile_champion_data(using="meraki", use="live"):
 	ordered_keys.append("stats")
 
 	# update the current data patch version so that I know what patch we're on
-	update_data_version()
+	live_version = update_data_version()
 
 	assets_changed = {}
 
@@ -138,8 +138,7 @@ def compile_champion_data(using="meraki", use="live"):
 					json_file.close()
 				elif use == "live":
 					# not really concerned about constantly requesting from the ddragon cdn since they handle quite a lot of traffic
-					patch_num = get_live_version()
-					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(patch_num, apiname)
+					url = "https://ddragon.leagueoflegends.com/cdn/{}.1/data/en_US/champion/{}.json".format(live_version, apiname)
 					response = requests.get(url)
 					response_body = response.json()
 

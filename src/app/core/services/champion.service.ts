@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { EMPTY_ITEM } from 'server/data/items';
-
 import { Champion } from '../models/champion';
-import { Item } from '../models/item';
+import { Item, EMPTY_ITEM } from '../models/item';
 import { Runes, RuneModifiers } from '../models/rune';
 import { TargetDetails } from '../models/target';
 

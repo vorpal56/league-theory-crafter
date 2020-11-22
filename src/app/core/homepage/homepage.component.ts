@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 
-import { EMPTY_ITEM } from "server/data/items";
-
 import { Champion } from 'src/app/core/models/champion';
-import { Item, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
 import { Runes, RuneModifiers } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 

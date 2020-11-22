@@ -2,10 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { GAMEMODES, ORDERBY, ORDERMODES } from 'server/data/data';
-import { EMPTY_ITEM } from 'server/data/items';
+
 
 import { Champion } from 'src/app/core/models/champion';
-import { Item, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
 import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
@@ -51,6 +51,9 @@ export class ItemSelectorComponent implements OnInit {
 
 	/**
 	 * Method that determines if the item is allowed given the champion and item restrictions
+	 * Legendary and Mythic items are unique.
+	 * You can build as many legendaries, but can only choose one: if inven doesn't have same item, allowed else false
+	 * You can build only one Mythic: if inven doesn't have mythic, allowed else false
 	 * @param  {Item} itemDetails item info to test validity
 	 * @returns boolean
 	 */
