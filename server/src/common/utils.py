@@ -1,4 +1,8 @@
-import re, os, json
+import re
+import os
+import json
+import requests
+from functools import wraps
 
 APP_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 BACKEND_PATH = os.path.join(APP_PATH, "server")
@@ -6,6 +10,26 @@ DATA_PATH = os.path.join(BACKEND_PATH, "data")
 
 BASE_ASSETS_PATH = "assets/images/champions/"
 SKILL_KEYS = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
+
+def fetch_response(calling_function):
+	@wraps(calling_function)
+	def wrapper(*args, **kwargs):
+		use = kwargs.get("use")
+		data_path = kwargs.get("data_path")
+		file_name = kwargs.get("filename")
+		if use == "live":
+			response = requests.get(kwargs.get("url"))
+			if response.status_code == 200:
+				if kwargs.get("response_type") == "text":
+					return calling_function(response.text)
+				response_body = response.json()
+				with open(os.path.join(data_path, file_name), "w") as json_file:
+					json.dump(response_body, json_file)
+		elif use == "cache":
+			with open(os.path.join(data_path, file_name), "r") as json_file:
+				response_body = json.load(json_file)
+		return calling_function(response_body)
+	return wrapper
 
 def get_current_version():
 	current_version_filename = os.path.join(DATA_PATH, "json", "version.json")
@@ -76,3 +100,82 @@ def full_clean_text(text):
 
 if __name__ == "__main__":
 	print(get_live_version())
+
+item_tooltip_stat_keys = {
+	'ability_haste': ' Ability Haste',
+	'ad': ' Attack Damage',
+	'ap': ' Ability Power',
+	'apen%': '% Armor Penetration',
+	'arm': ' Armor',
+	'as': '% Attack Speed',
+	'boots_ms': ' Move Speed',
+	'cdr': '% Cooldown Reduction',
+	'crit': '% Critical Hit Chance',
+	'critdmg': '% Bonus Critical Damage',
+	'flat_ms': ' Move Speed',
+	'heal_shield': '% Bonus Healing or Shielding',
+	'hp': ' Health',
+	'hp5': ' Health per 5',
+	'hp5%': '% Health per 5',
+	'leth': ' Lethality',
+	'ls': '% Lifesteal',
+	'mp': ' Mana',
+	'mp5':  ' Mana per 5',
+	'mp5%': '% Mana per 5',
+	'mpen': ' Magic Penetration',
+	'mpen%': '% Magic Penetration',
+	'mr': ' Magic Resistance',
+	'ms': ' Move Speed',
+	'ms%': '% Move Speed',
+	'omnivamp': '% Omnivamp',
+	'shield': ' Shield',
+	'spell_vamp': '% Spell Vamp',
+	'tenacity': '% Tenacity',
+}
+
+item_stat_key_mapping = {
+	"abilityPowerflat":"ap",
+	"armorflat":"arm",
+	"armorPenetrationpercent":"apen%",
+	"attackDamageflat":"ad",
+	"attackSpeedflat":"as",
+	"criticalStrikeChanceflat":"crit",
+	"healAndShieldPowerflat":"heal_shield",
+	"healthpercent":"hp%",
+	"healthflat":"hp",
+	"healthRegenpercent":"hp5%",
+	"healthRegenflat":"hp5",
+	"lethalityflat":"leth",
+	"lifestealpercent":"ls",
+	"magicPenetrationpercent":"mpen%",
+	"magicResistanceflat":"mr",
+	"manaflat":"mp",
+	"manaRegenpercent":"mp5%",
+	"manaRegenflat":"mp5",
+	"movespeedpercent":"ms%",
+	"movespeedflat":"ms",
+	"abilityHasteflat":"ability_haste",
+	"omnivamppercent":"omnivamp",
+}
+
+meraki_stat_keys = {
+	"abilityPower": "ap",
+	"armor": "arm",
+	"armorPenetration": "apen",
+	"attackDamage": "ad",
+	"attackSpeed": "as",
+	"criticalStrikeChance": "crit",
+	# "goldPer_10": "gp10",
+	"healAndShieldPower": "heal_shield",
+	"health": "hp",
+	"healthRegen": "hp5",
+	"lethality": "leth",
+	"lifesteal": "ls", #lifesteal only applies on basics
+	"magicPenetration": "mpen",
+	"magicResistance": "mr",
+	"mana": "mp",
+	"manaRegen": "mp5",
+	"movespeed": "ms",
+	"abilityHaste":"ability_haste",
+	"omnivamp":"omnivamp", #applies on all sources of damage (physical, magic, and true) += additively
+}

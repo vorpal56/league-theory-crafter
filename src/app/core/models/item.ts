@@ -8,6 +8,7 @@ export interface Item {
 	'id': string,
 	'img': string,
 	'index': number,
+	'item_group'?: string,
 	'name': string,
 	'passives'?: any,
 	'rank'?: string,
