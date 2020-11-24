@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-	currentPatch = "10.20";
+	currentPatch = "10.23";
 	@Input('navbarChecked') navbarChecked: boolean;
 	@Output('navbarCheckedChange') navbarCheckedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 

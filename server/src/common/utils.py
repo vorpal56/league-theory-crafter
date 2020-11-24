@@ -60,8 +60,10 @@ def update_data_version():
 def create_search_type_string(search_type):
 	return re.sub(r'[\W\_]', ' ', search_type).title()
 
-def create_apiname(name):
-	return re.sub(r'[\W\_]', '', name.lower())
+def create_apiname(name, as_lower=True):
+	if as_lower:
+		name = name.lower()
+	return re.sub(r'[\W\_]', '', name)
 
 def remove_html_tags(text, keep_breaks=True):
 	# useful for parsing the tooltips from ddragon cdn

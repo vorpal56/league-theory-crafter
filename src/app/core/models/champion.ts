@@ -49,17 +49,12 @@ export class Champion extends BasicChampion {
 	constructor(championDetails: any, currentLevel: number, abilityModifiers: any) {
 		super(championDetails["name"], championDetails["apiname"], championDetails["index"], championDetails["id"]);
 		for (let attributeName in championDetails) {
-			if (attributeName != "apiname" && attributeName != "id" && attributeName != "index") {
+			if (attributeName != "adaptivetype" && attributeName != "apiname" && attributeName != "id" && attributeName != "index") {
 				this[attributeName] = championDetails[attributeName];
 			}
 		}
-		let adaptiveTypes = championDetails["adaptivetype"].toLowerCase();
-		if (!adaptiveTypes.includes("mixed")) {
-			this.mainAdaptiveType = adaptiveTypes == "magic" ? "ap" : "ad";
-		} else {
-			this.mainAdaptiveType = "ad"; // assumption is anyone with mixed means main is ad
-		}
-		this.adaptiveType = this.mainAdaptiveType;
+		this.mainAdaptiveType = championDetails["adaptivetype"];
+		this.adaptiveType = championDetails["adaptivetype"];
 		this.currentLevel = currentLevel;
 		this.itemStats = {};
 		this.runeStats = {};

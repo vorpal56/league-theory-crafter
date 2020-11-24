@@ -258,8 +258,12 @@ export class ChampionComponent implements OnInit {
 		if (this.champion.resource.toLowerCase() != "mana" && statName == "mp") {
 			baseString += this.champion.name + " does not use Mana as its resource. Any items with Mana are not included.<br><br>";
 		}
-		baseString += "+" + this.championService.formatNPlaces(this.champion.stats[statName + "5"]) + " " + statName + "/5 and ";
-		baseString += "+" + this.championService.formatNPlaces(this.champion.stats[statName + "_lvl"]) + " " + statName + "/level";
+		let statValPer5 = this.champion.stats[statName + "5"];
+		let statValPerLvl = this.champion.stats[statName + "_lvl"];
+		if (statValPer5 == null) { statValPer5 = 0; }
+		if (statValPerLvl == null) { statValPerLvl = 0; }
+		baseString += "+" + this.championService.formatNPlaces(statValPer5) + " " + statName + "/5 and ";
+		baseString += "+" + this.championService.formatNPlaces(statValPerLvl) + " " + statName + "/level";
 		return baseString;
 	}
 	statTooltip(statName: string) {

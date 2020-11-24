@@ -16,6 +16,7 @@ export class StatsService {
 	 * @returns number
 	 */
 	statsGrowthFormula(growthStatistic: number, championLevel: number, base?: number): number {
+		if (growthStatistic == null) { growthStatistic = 0; }
 		var value = growthStatistic * (championLevel - 1) * (0.7025 + 0.0175 * (championLevel - 1));
 		if (base) { value += base; }
 		return value;
