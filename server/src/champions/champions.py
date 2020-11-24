@@ -64,13 +64,22 @@ def compile_champion_data(use="live", extract_attributes=False):
 				champion_obj = json.load(champion_json_file)
 				champion_json_file.seek(0)
 				champion_json_file.truncate()
+				# update the existing champion obj with data that we know immediately (if it's the same then it doesn't matter)
+				champion_obj["index"] = i
+				champion_obj["apiname"] = apiname
+				champion_obj["name"] = champion_name
+				champion_obj["adaptivetype"] = adaptive_type
+				champion_obj["resource"] = resource
+				champion_obj["rangetype"] = rangetype
+				champion_obj["img"] = champion_img_path
+				champion_obj["id"] = champion_id
 			except:
 				champion_obj = {"index": i, "apiname":apiname, "name":champion_name, "adaptivetype": adaptive_type, "resource":resource, "rangetype":rangetype, "img":champion_img_path, "stats":{}, "id":champion_id }
 				for skill_key in SKILL_KEYS:
 					champion_obj[skill_key] = {}
-				print(apiname, champion_name)
+				print("Champion apiname", apiname, "does not have an existing JSON file. This means that either this Champion is new or you don't have existing data. The data will be extracted and modeled accordingly.")
 
-			basic_champion_obj = {"apiname" : apiname, "id":champion_id, "index":i,"name":champion_name}
+			basic_champion_obj = {"apiname" : apiname, "id":champion_id, "index":i, "name":champion_name}
 			all_basic_champions.append(basic_champion_obj)
 
 			champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(apiname, champion_details)
