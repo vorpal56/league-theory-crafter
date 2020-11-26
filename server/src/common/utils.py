@@ -139,9 +139,11 @@ item_stat_key_mapping = {
 	"abilityPowerflat":"ap",
 	"armorflat":"arm",
 	"armorPenetrationpercent":"apen%",
+	"armorPenetrationflat": "apen%", # temp map added PR to meraki to fix
 	"attackDamageflat":"ad",
 	"attackSpeedflat":"as",
-	"criticalStrikeChanceflat":"crit",
+	"attackSpeedpercent":"as", # temp map added PR to meraki to fix
+	"criticalStrikeChancepercent":"crit",
 	"healAndShieldPowerflat":"heal_shield",
 	"healthpercent":"hp%",
 	"healthflat":"hp",

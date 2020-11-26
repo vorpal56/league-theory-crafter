@@ -34,6 +34,8 @@ def get_item_groups(response_text):
 			if "and" in item_group_name:
 				item_group_name = item_group_name.replace("and", ",")
 			item_group_name = re.sub(r'[^A-Za-z0-9^,]', '', item_group_name)
+			# if item_group_name == "mythiccomponent":
+			# 	item_group_name = "mythic"
 			item_names = item_group_row[1]
 			item_group = {"name": item_group_name, "items":[]}
 			for span in item_names.find_all("span", class_="item-icon"):
@@ -69,6 +71,8 @@ def compile_new_item_data(using="meraki", use="live"):
 		"tearofthegoddess": "mana charge"
 	}
 
+	# this will always overwrite items that have
+	index = 0
 	for i, (item_id, item_details) in enumerate(item_data.items()):
 		int_item_id = int(item_id)
 		name = item_details.get("name")
@@ -106,18 +110,19 @@ def compile_new_item_data(using="meraki", use="live"):
 				('apiname', apiname),
 				('img', item_details.get("icon")), # hotlink the` item to ddragon and have them handle it or cache on our own server?
 				('id', item_id),
-				('index', i),
+				('index', index),
 				('rank', rank),
 				('tags', ",".join([nickname.lower() for nickname in item_details.get("nicknames")])),
 				('search_types', ",".join(shop_search_types)),
 				('visible', True),
-				('stackable', apiname in stackable_items), # stackable is a set of stats that increase the existing base stats
+				('stackable', stackable_items.get(apiname) if apiname in stackable_items else False), # stackable is a set of stats that increase the existing base stats
 				('stacked', False),
 				('gold', shop.get("prices").get("total")),
 				('passives', []),
 				('stats', {}),
 				('item_group', item_groups.get(apiname))
 			])
+			index += 1
 			for stat_parent_key, stat_parent_details in stats.items():
 				for stat_child_key, stat_val in stat_parent_details.items():
 					full_stat_key = stat_parent_key + stat_child_key
@@ -128,19 +133,26 @@ def compile_new_item_data(using="meraki", use="live"):
 			# passive stats are really weird, sometimes it's not included into the dataset, so we'll need to figure out how we're going to handle this on a patch by patch basis (especially during the early stages of preseason)
 			for passive in passives:
 				passive_name = passive.get("name")
+				effect_description = passive.get("effects")
 				if passive_name is None:
-					continue # if there is no passive name, then the assumption is there are no important stat related details
+					lower_passive_name = passive_name
+					if "lethality" not in effect_description.lower():
+						# print(item_id, apiname)
+						continue
+				else:
+					lower_passive_name = passive_name.lower()
 				applies_to_mythic = passive.get("mythic")
-				lower_passive_name = passive_name.lower()
 				passive_details = OrderedDict([
 					('mythic', applies_to_mythic),
 					('name', lower_passive_name),
 					('stats', {}),
 					('unique', passive.get("unique")),
 				])
-				effect_description = passive.get("effects")
 				if lower_passive_name == "mana charge":
-					passive_details
+					# these values are hardcoded right now... should be dynamic on patches. how do I do this?
+					passive_details["stats"]["mp"] = 450
+				elif lower_passive_name == "witch's path":
+					passive_details["stats"]["arm"] = 30
 				passive_stats = passive.get("stats")
 				for stat_parent_key, stat_parent_details in passive_stats.items():
 					if type(stat_parent_details) == dict:
@@ -186,9 +198,11 @@ def effects_tooltip(effects, effect_type="p"):
 		effect_name = effect.get("name")
 		effect_str = ""
 		if (effect.get("unique")):
-			effect_str += "UNIQUE Passive - " if effect_type == "p" else "UNIQUE Active - "
-		if (effect_name is not None):
-			effect_str += effect_name + ": "
+			effect_str += "UNIQUE Passive" if effect_type == "p" else "UNIQUE Active"
+		if (effect_name is not None and effect_name != "Passive"):
+			effect_str += " - " + effect_name + ": "
+		elif (effect_name == "Passive"): # effect_name is None is leth items so far
+			effect_str += ": "
 		effect_str += effect.get("effects")
 		string_iter.append(fix_punctuation(effect_str))
 	if len(string_iter) != 0:
@@ -196,4 +210,5 @@ def effects_tooltip(effects, effect_type="p"):
 	return ""
 
 def base_item_stats_tooltip(item):
-	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + item_tooltip_stat_keys[stat_name] for stat_name, stat_val in item["stats"].items() if (stat_val != 0 and stat_name in item_tooltip_stat_keys)])
+	sorted_stats = dict(sorted(item["stats"].items(), key=lambda item: item[0]))
+	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + item_tooltip_stat_keys[stat_name] for stat_name, stat_val in sorted_stats.items() if (stat_val != 0 and stat_name in item_tooltip_stat_keys)])
