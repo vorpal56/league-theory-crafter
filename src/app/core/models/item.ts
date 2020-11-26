@@ -50,7 +50,7 @@ export interface Item {
 		'tenacity'?: number,
 	};
 	'stacked'?: boolean,
-	'stackable'?: any,
+	'stackable'?: boolean | string,
 	'tags': string,
 	'tooltip'?: string,
 	'visible': boolean,

@@ -37,7 +37,10 @@ export class ItemsService {
 			};
 
 			let sharedItemCounts: object = {};
+			let uniquePassives: object = {};
 			// stackedItemCounts relates to the stackable items that have been stacked. This is to allow stacking of only 1 or multiple items when the stacakble checkbox is checked. If we only reference the sharedItemCounts, we can only select the first option instead of any other option
+			let mythicEffects = {};
+			let legendaryItemCount = 0;
 			let stackedItemCounts: object = {};
 			let aweItem: Item = EMPTY_ITEM;
 			for (let itemIndex in selectedItemsIncludingElixir) {
@@ -48,127 +51,92 @@ export class ItemsService {
 					if (selectedItem.apiname == "mercurystreads") {
 						champion.stats.tenacity = selectedItem.stats.tenacity;
 					}
-					if (selectedItem.shared_item == "awe" && selectedItem.name.includes('tear') == false) {
+					if (selectedItem.item_group == "manacharge" && selectedItem.name.includes("tear") == false) {
 						aweItem = selectedItem;
 					}
-					let sharedStatKeys = {};
-					if (selectedItem.shared_passives.length != 0) {
-						selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
-							sharedItemCounts[sharedPassiveObj.name] ? sharedItemCounts[sharedPassiveObj.name] += 1 : sharedItemCounts[sharedPassiveObj.name] = 1;
-							for (let sharedKey in sharedPassiveObj) {
-								if (sharedKey != "name") {
-									sharedStatKeys[sharedKey] = sharedPassiveObj.name;
-								}
-							}
-						});
-					}
-					for (let itemStatName in selectedItem.stats) {
-						let itemStatVal = selectedItem[itemStatName];
-						let numSharedPassives = selectedItem.shared_passives.length;
-						// skip any of irrelevant stat related items
-						if (itemStatVal != 0 && itemStatName != "stacked" && itemStatName != "allowed_to" && itemStatName != "index" && itemStatName != "stackable" && itemStatName != "shared_item" && itemStatName != "shared_passives" && itemStatName != "visible" && typeof (itemStatVal) != "string") {
-							// check if it has any multipliers
-							let hasMultType = itemStatName.includes("mult");
-							if (hasMultType) {
-								if (numSharedPassives == 0 || numSharedPassives > 1) {
-									if (itemStatVal["type"] == "total") {
-										multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
-									} else if (itemStatVal["type"] == "bonus") {
-										multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
-									}
-								} else if (numSharedPassives == 1) {
-									let sharedPassiveName = selectedItem.shared_passives[0]["name"];
-									if (itemStatName in sharedStatKeys == false || sharedItemCounts[sharedPassiveName] <= 1) {
-										if (itemStatVal["type"] == "total") {
-											multKeyValues[itemStatName][0]["value"] += (itemStatVal["value"] / 100);
-										} else if (itemStatVal["type"] == "bonus") {
-											multKeyValues[itemStatName][1]["value"] += (itemStatVal["value"] / 100);
-										}
-									} else if (itemStatName in sharedStatKeys && itemStatVal >= totalStatsFromItems[itemStatName]) {
-										if (itemStatVal["type"] == "total") {
-											multKeyValues[itemStatName][0]["value"] = (itemStatVal["value"] / 100);
-										} else if (itemStatVal["type"] == "bonus") {
-											multKeyValues[itemStatName][1]["value"] = (itemStatVal["value"] / 100);
-										}
-									}
-								}
-								// on other stats that are not tenacity, add them since the tenacity calculation happens on the rune additions (tenacity only exists on mercs)
-							} else if (hasMultType === false && itemStatName != "tenacity") {
-								if (itemStatName in totalStatsFromItems) {
-									if (numSharedPassives == 0) {
-										// if the item is completely separate and it has no shared items, we can add every stat
-										totalStatsFromItems[itemStatName] += itemStatVal;
-									} else if (numSharedPassives == 1) {
-										// if it has 1 shared item, we can look at it directly
-										// first we need to get the shared passive name eg. fiendish
-										// check if the itemstat is not in the shared stats or the number of references to the shared passive is <=1 beacuse that means we can account for it
-										let sharedPassiveName = selectedItem.shared_passives[0]["name"];
-										if (itemStatName in sharedStatKeys == false || sharedItemCounts[sharedPassiveName] <= 1) {
-											totalStatsFromItems[itemStatName] += itemStatVal;
-											// if the stat is in the shared stat and the value is larger than the current stat val, we assign the larger val
-											// eg. void staff, and guinsoos
-										} else if (itemStatName in sharedStatKeys && itemStatVal >= totalStatsFromItems[itemStatName]) {
-											totalStatsFromItems[itemStatName] = itemStatVal;
-										}
-									} else if (numSharedPassives > 1) {
-										for (let sharedPassiveIndex in selectedItem.shared_passives) {
-											let statInKey = itemStatName in sharedStatKeys;
-											if (!statInKey || sharedItemCounts[sharedStatKeys[itemStatName]] <= 1) {
-												totalStatsFromItems[itemStatName] += itemStatVal;
-												break;
-											} else if (statInKey && itemStatVal >= totalStatsFromItems[itemStatName]) {
-												totalStatsFromItems[itemStatName] = itemStatVal;
-												break;
-											}
-										}
-									}
-								} else if (itemStatName in totalStatsFromItems === false) {
-									if (numSharedPassives == 0) {
-										totalStatsFromItems[itemStatName] = itemStatVal;
-									} else if (numSharedPassives == 1) {
-										let sharedPassiveName = selectedItem.shared_passives[0]["name"];
-										if (itemStatName in sharedStatKeys == false || sharedItemCounts[sharedPassiveName] <= 1) {
-											totalStatsFromItems[itemStatName] = itemStatVal;
-										}
-									} else if (numSharedPassives > 1) {
-										selectedItem.shared_passives.forEach((sharedPassiveObj: any) => {
-											let sharedPassiveName = sharedPassiveObj.name;
-											for (let sharedPassiveStat in sharedPassiveObj) {
-												if (sharedPassiveStat != "name" && sharedItemCounts[sharedPassiveName]) {
-													if (sharedPassiveStat == itemStatName && sharedItemCounts[sharedPassiveName].length <= 1) {
-														totalStatsFromItems[itemStatName] = itemStatVal;
-														break;
-													} else if (sharedPassiveStat != 'name') {
-														totalStatsFromItems[itemStatName] = itemStatVal;
-														break;
-													}
-												}
-											}
-										});
+					if (selectedItem.rank == "legendary") { legendaryItemCount += 1; }
+					selectedItem.passives.forEach((passiveObj: any) => {
+						let passiveStats = passiveObj.stats;
+						let passiveName = passiveObj.name;
+						let appliesToMythic = passiveObj.mythic;
+						if (passiveObj.unique) {
+							if (passiveName in uniquePassives === false) {
+								uniquePassives[passiveName] = [1, [passiveObj]];
+								if (appliesToMythic) { mythicEffects[passiveName] = passiveStats; }
+							} else {
+								uniquePassives[passiveName][0] += 1;
+								uniquePassives[passiveName][1].push(passiveObj);
+								if (appliesToMythic) {
+									for (let passiveItemStatName in passiveStats) {
+										let passiveItemStatVal = passiveStats[passiveItemStatName];
+										passiveItemStatName in mythicEffects[passiveName][passiveItemStatName] ? mythicEffects[passiveName][passiveItemStatName] += passiveItemStatVal : mythicEffects[passiveName][passiveItemStatName] = passiveItemStatVal;
 									}
 								}
 							}
-						} else if (itemStatName == "stackable") {
-							if (selectedItem.stackable != false && selectedItem.stacked == true) {
-								// stackable items only share the first object and can be purchased multiple times.
-								let sharedItemName = selectedItem.shared_item;
-								if (numSharedPassives != 0) { sharedItemName = selectedItem.shared_passives[0].name; }
-								sharedItemName != null && stackedItemCounts[sharedItemName] ? stackedItemCounts[sharedItemName] += 1 : stackedItemCounts[sharedItemName] = 1;
-								if (selectedItem.apiname == 'rodofages' || stackedItemCounts[sharedItemName] <= 1) {
-									// add the stackable stats. this is is the incremental value since we have the toggle option which switches from adding and decrementing.
-									for (let stackedItemStatKey in selectedItem.stackable) {
-										if (stackedItemStatKey != "name") {
-											if (stackedItemStatKey in totalStatsFromItems) {
-												totalStatsFromItems[stackedItemStatKey] += selectedItem.stackable[stackedItemStatKey];
-											} else {
-												totalStatsFromItems[stackedItemStatKey] = selectedItem.stackable[stackedItemStatKey];
+							if (passiveName in stackedItemCounts === false && appliesToMythic === false) {
+								if (selectedItem.stacked == true && selectedItem.stackable == passiveName) {
+									stackedItemCounts[passiveName] = 1;
+									// you can find the references in items.py for stackable_items (key=apiname, value=stackable passive name)
+									if (selectedItem.stackable == "deathwalker" || selectedItem.stackable == "dread") {
+										let maxStackCount = selectedItem.stackable == "deathwalker" ? 25 : 10;
+										for (let stackablePassiveStatName in passiveStats) {
+											let stackableStatVal = passiveStats[stackablePassiveStatName];
+											if (stackablePassiveStatName == "ap") {
+												stackableStatVal *= maxStackCount;
 											}
+											stackablePassiveStatName in totalStatsFromItems ? totalStatsFromItems[stackablePassiveStatName] += stackableStatVal : totalStatsFromItems[stackablePassiveStatName] = stackableStatVal;
 										}
+									} else if (selectedItem.stackable == "mana charge") {
+										let stackablePassiveStatVal = passiveStats["mp"];
+										"mp" in totalStatsFromItems ? totalStatsFromItems["mp"] += stackablePassiveStatVal : totalStatsFromItems["mp"] = stackablePassiveStatVal;
+									} else if (selectedItem.stackable == "witch's path") {
+										let stackablePassiveStatVal = passiveStats["arm"];
+										"arm" in totalStatsFromItems ? totalStatsFromItems["arm"] += stackablePassiveStatVal : totalStatsFromItems["arm"] = stackablePassiveStatVal;
 									}
 								}
+							}
+						} else {
+							for (let itemPassiveStatName in passiveStats) {
+								let itemPassiveStatVal = passiveStats[itemPassiveStatName];
+								itemPassiveStatName in totalStatsFromItems ? totalStatsFromItems[itemPassiveStatName] += itemPassiveStatVal : totalStatsFromItems[itemPassiveStatName] = itemPassiveStatVal;
 							}
 						}
+					});
+					for (let itemStatName in selectedItem.stats) {
+						let itemStatVal = selectedItem.stats[itemStatName];
+						if (itemStatName != "tenacity") {
+							itemStatName in totalStatsFromItems ? totalStatsFromItems[itemStatName] += itemStatVal : totalStatsFromItems[itemStatName] = itemStatVal;
+						}
 					}
+				}
+			}
+			for (let uniquePassiveName in uniquePassives) {
+				let uniquePassiveVal: [number, object] = uniquePassives[uniquePassiveName];
+				let uniqueMaxVals: object = {};
+				let passiveObj: object = uniquePassiveVal[1];
+				let passiveStats: any = passiveObj["stats"];
+				if (passiveObj["mythic"] === false) {
+					passiveStats.forEach((passiveStatDetails: object) => {
+						for (let itemPassiveStatName in passiveStatDetails) {
+							let itemPassiveStatVal = passiveStatDetails[itemPassiveStatName];
+							if (itemPassiveStatName in uniqueMaxVals && uniqueMaxVals[itemPassiveStatName] < itemPassiveStatVal) {
+								uniqueMaxVals[itemPassiveStatName] = itemPassiveStatVal;
+							} else if (itemPassiveStatName in uniqueMaxVals === false) {
+								uniqueMaxVals[itemPassiveStatName] = itemPassiveStatVal;
+							}
+						}
+					});
+					for (let itemStatName in uniqueMaxVals) {
+						let itemStatVal = uniqueMaxVals[itemStatName];
+						itemStatName in totalStatsFromItems ? totalStatsFromItems[itemStatName] += itemStatVal : totalStatsFromItems[itemStatName] = itemStatVal;
+					}
+				}
+			}
+			for (let mythicPassiveName in mythicEffects) {
+				let mythicPassiveStats = mythicEffects[mythicPassiveName];
+				for (let mythicPassiveStatName in mythicPassiveStats) {
+					let mythicPassiveStatVal = mythicPassiveStats[mythicPassiveStatName] * legendaryItemCount;
+					mythicPassiveStatName in totalStatsFromItems ? totalStatsFromItems[mythicPassiveStatName] += mythicPassiveStatVal : totalStatsFromItems[mythicPassiveStatName] = mythicPassiveStatVal;
 				}
 			}
 			console.log("Stats from items: ", totalStatsFromItems, "Shared Item Passives: ", sharedItemCounts);
@@ -291,10 +259,10 @@ export class ItemsService {
 		}
 		return;
 	}
-	hasIE(selectedItems: [Item, Item, Item, Item, Item, Item]): boolean {
-		for (let i in selectedItems) {
-			let item: Item = selectedItems[i];
-			if (item.apiname == "infinityedge") {
+	hasItem(selectedItems: [Item, Item, Item, Item, Item, Item], apiname: string): boolean {
+		for (let selectedItemIndex in selectedItems) {
+			let selectedItem = selectedItems[selectedItemIndex];
+			if (selectedItem.apiname == apiname) {
 				return true;
 			}
 		}

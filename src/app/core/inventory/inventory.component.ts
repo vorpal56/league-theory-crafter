@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ITEMS } from 'server/data/json_meraki_item_cache/preseason_11/updated_items_merkai';
 
 import { Champion } from 'src/app/core/models/champion';
-import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
 import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
@@ -24,12 +24,12 @@ export class InventoryComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
-	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
+	@Input("existingItemGroups") existingItemGroups: object;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
-	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
+	@Output('existingItemGroups') existingItemGroupsEmitter = new EventEmitter<object>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 
 	muramana: Item;
@@ -67,23 +67,17 @@ export class InventoryComponent implements OnInit {
 	}
 	removeItem(itemDetails: Item, index?: number, runService: boolean = true): void {
 		// we check if there exists an item directly on the template
-		if (itemDetails.shared_item == "goldjg") {
-			this.selectedItemRestrictions.hasGoldOrJg = false;
-		}
-		if (itemDetails.rank == "boots") {
-			this.selectedItemRestrictions.hasBoots = false;
-		}
-		if (itemDetails.tags.includes("tear")) {
-			this.selectedItemRestrictions.hasTear = false;
+		if (itemDetails.item_group !== null && itemDetails.item_group in this.existingItemGroups) {
+			delete this.existingItemGroups[itemDetails.item_group];
 		}
 		// replace the item at index with an empty item
 		this.selectedItems.splice(index, 1, EMPTY_ITEM);
 		// replace the item in the masterworkItems as well
 		if (itemDetails.apiname.includes("masterwork")) {
-			for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
-				let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
+			for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
+				let masterworkItem = this.existingItemGroups["masterworkItems"][masterworkIndex];
 				if (masterworkItem.apiname == itemDetails.apiname) {
-					this.selectedItemRestrictions.masterworkItems.splice(Number(masterworkIndex), 1, EMPTY_ITEM);
+					this.existingItemGroups["masterworkItems"].splice(Number(masterworkIndex), 1, EMPTY_ITEM);
 					break;
 				}
 			}
@@ -118,8 +112,8 @@ export class InventoryComponent implements OnInit {
 				// look at this logic again and see if there is a logically better way of doing this
 				// remove any ornn items that can't be held in the inventory on switching champs
 				// ornn can hold 2, others can hold only 1
-				for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
-					let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
+				for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
+					let masterworkItem = this.existingItemGroups["masterworkItems"][masterworkIndex];
 					if (masterworkItem.apiname != '') {
 						occupiedSlots += 1;
 					}
@@ -159,9 +153,9 @@ export class InventoryComponent implements OnInit {
 	}
 	setStackedSelectedItem(isStacked: boolean, index: number): void {
 		if (isStacked == true && this.selectedItems[index].apiname == "manamune") {
-			this.selectedItems[index] = environment.production ? this.items[99] : this.muramana;
+			this.selectedItems[index] = environment.production ? this.items[102] : this.items[102];
 		} else if (isStacked == true && this.selectedItems[index].apiname == "archangelsstaff") {
-			this.selectedItems[index] = environment.production ? this.items[133] : this.seraphs;
+			this.selectedItems[index] = environment.production ? this.items[135] : this.items[135];
 		} else {
 			this.selectedItems[index].stacked = isStacked;
 		}
@@ -176,7 +170,7 @@ export class InventoryComponent implements OnInit {
 	emitSelectedItems(): void {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
-		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
+		this.existingItemGroupsEmitter.emit(this.existingItemGroups);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

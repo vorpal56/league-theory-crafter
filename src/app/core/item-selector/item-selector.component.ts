@@ -5,12 +5,14 @@ import { SEARCH_TYPES, ITEM_ORDER } from 'server/data/data';
 
 
 import { Champion } from 'src/app/core/models/champion';
-import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
 import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
 import { ChampionService } from 'src/app/core/services/champion.service';
+import { ItemsService } from 'src/app/core/services/items.service';
 import { ApiService } from 'src/app/core/services/api.service';
+
 
 @Component({
 	selector: 'item-selector',
@@ -29,7 +31,7 @@ export class ItemSelectorComponent implements OnInit {
 	searchTypes = SEARCH_TYPES;
 	itemsOrder = ITEM_ORDER;
 	searchType: string = this.searchTypes[0].value;
-	itemOrder: string = this.itemsOrder[0].value;
+	itemOrder: string = this.itemsOrder[1].value;
 	searchText: string = "";
 
 	@Input('champion') champion: Champion;
@@ -38,17 +40,17 @@ export class ItemSelectorComponent implements OnInit {
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: Runes;
 	@Input("targetDetails") targetDetails: TargetDetails;
-	@Input("itemRestrictions") selectedItemRestrictions: ItemRestrictions;
+	@Input("existingItemGroups") existingItemGroups: object;
 	@Input("numberOfEquippedItems") numberOfEquippedItems: number;
 	@Input("selectedPage") selectedPage: string;
 
 	@Output('selectedItems') selectedItemsEmitter = new EventEmitter<[Item, Item, Item, Item, Item, Item]>();
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
-	@Output('itemRestrictions') selectedItemRestrictionsEmitter = new EventEmitter<ItemRestrictions>();
+	@Output('existingItemGroups') existingItemGroupsEmitter = new EventEmitter<object>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
 
-	constructor(private championService: ChampionService, private apiService: ApiService) { }
+	constructor(private championService: ChampionService, private itemsService: ItemsService, private apiService: ApiService) { }
 	ngOnInit(): void {
 		this.items$ = this.apiService.getItems();
 		// {'starter', 'epic', 'consumable', 'basic', 'legendary', 'boots', 'mythic'}
@@ -66,16 +68,22 @@ export class ItemSelectorComponent implements OnInit {
 					this.mythicItems.push(item);
 				}
 			});
-			this.allItems.push({ name: 'Starter', items: this.starterItems });
-			this.allItems.push({ name: 'Basic', items: this.basicItems });
-			this.allItems.push({ name: 'Epic', items: this.epicItems });
-			this.allItems.push({ name: 'Legendary', items: this.legendaryItems });
-			this.allItems.push({ name: 'Mythic', items: this.mythicItems });
+			if (this.itemOrder == this.itemsOrder[1].value) {
+				this.allItems.push({ name: 'Mythic', items: this.mythicItems });
+				this.allItems.push({ name: 'Legendary', items: this.legendaryItems });
+				this.allItems.push({ name: 'Epic', items: this.epicItems });
+				this.allItems.push({ name: 'Basic', items: this.basicItems });
+				this.allItems.push({ name: 'Starter', items: this.starterItems });
+			} else {
+				this.allItems.push({ name: 'Starter', items: this.starterItems });
+				this.allItems.push({ name: 'Basic', items: this.basicItems });
+				this.allItems.push({ name: 'Epic', items: this.epicItems });
+				this.allItems.push({ name: 'Legendary', items: this.legendaryItems });
+				this.allItems.push({ name: 'Mythic', items: this.mythicItems });
+			}
 		});
 	}
-	reverseOrder() {
-		this.allItems.reverse();
-	}
+	reverseOrder() { this.allItems.reverse(); }
 	/**
 	 * Method that determines if the item is allowed given the champion and item restrictions
 	 * Legendary and Mythic items are unique.
@@ -85,26 +93,33 @@ export class ItemSelectorComponent implements OnInit {
 	 * @returns boolean
 	 */
 	isItemAllowed(itemDetails: Item): boolean {
-		if (itemDetails.visible == false) {
-			// can't add items that are 'invisible'
+		// split the logic into different sections for easier readability
+		if (itemDetails.visible == false ||
+			(itemDetails.item_group !== null && itemDetails.item_group in this.existingItemGroups)) {
+			// can't add items that are 'invisible' and items that are in the same item group
 			return false;
 		}
-		if (this.selectedItemRestrictions.hasGoldOrJg == true && itemDetails.shared_item == "goldjg") {
+		if ((itemDetails.item_group == "mythiccomponent" && "mythic" in this.existingItemGroups) ||
+			(itemDetails.item_group == "mythic" && "mythiccomponent" in this.existingItemGroups)) {
+			// mythic component items cannot be added with existing mythic items and vice versa
+			alert("You cannot add Mythic items with existing mythic components and vice versa. Remove the existing Mythic/Mythic Component item and add your item again.");
 			return false;
+		} else if (itemDetails.rank == "legendary") {
+			// only add unique legendary item
+			let hasSameItem = this.itemsService.hasItem(this.selectedItems, itemDetails.apiname);
+			if (hasSameItem) {
+				alert("You cannot add the same Legendary item since Legendary items are unique.");
+				return false;
+			}
 		}
-		if (this.selectedItemRestrictions.hasBoots == true && itemDetails.rank == "boots") {
-			return false;
-		}
-		if (this.selectedItemRestrictions.hasTear == true && itemDetails.tags.includes("tear")) {
-			return false;
-		}
-		if (itemDetails.apiname.includes("masterwork")) {
+		if (itemDetails.tags.includes("masterwork")) {
 			let occupiedSlots = 0;
-			for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
-				let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-				if (masterworkItem.apiname == itemDetails.apiname) {
+			// ddragon doesn't even have the masterwork items let alone meraki. pass this atm (nov 25)
+			for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
+				let masterworkItemApiname = this.existingItemGroups["masterworkItems"][masterworkIndex];
+				if (masterworkItemApiname == itemDetails.apiname) {
 					return false;
-				} else if (masterworkItem.apiname != "") {
+				} else if (masterworkItemApiname != "") {
 					occupiedSlots += 1;
 				}
 			}
@@ -136,14 +151,8 @@ export class ItemSelectorComponent implements OnInit {
 		if (itemDetails.name.toLowerCase().includes("elixir") && itemDetails != this.selectedElixir) {
 			this.addElixir(itemDetails);
 		} else if (this.isItemAllowed(itemDetails) && itemDetails != this.selectedElixir) {
-			if (itemDetails.shared_item == "goldjg") {
-				this.selectedItemRestrictions.hasGoldOrJg = true;
-			}
-			if (itemDetails.rank == 'boots') {
-				this.selectedItemRestrictions.hasBoots = true;
-			}
-			if (itemDetails.tags.includes("tear")) {
-				this.selectedItemRestrictions.hasTear = true;
+			if (itemDetails.item_group != null) {
+				this.existingItemGroups[itemDetails.item_group] = true;
 			}
 			// go through the items and change the first empty item to the selected item -> break afterwards
 			for (let itemIndex in this.selectedItems) {
@@ -151,11 +160,11 @@ export class ItemSelectorComponent implements OnInit {
 					// deep copy the object so it doesn't reference the same object. This is important because some objects allow multiple stacking (eg. rod of ages)
 					this.selectedItems[itemIndex] = JSON.parse(JSON.stringify(itemDetails));
 					// check if the item we're adding is an ornn item and there's an open space -> break after finding
-					if (itemDetails.apiname.includes("masterwork")) {
-						for (let masterworkIndex in this.selectedItemRestrictions.masterworkItems) {
-							let masterworkItem = this.selectedItemRestrictions.masterworkItems[masterworkIndex];
-							if (masterworkItem.apiname == '') {
-								this.selectedItemRestrictions.masterworkItems[masterworkIndex] = itemDetails;
+					if (itemDetails.tags.includes("masterwork")) {
+						for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
+							let masterworkItemApiname = this.existingItemGroups["masterworkItems"][masterworkIndex];
+							if (masterworkItemApiname == '') {
+								this.existingItemGroups["masterworkItems"][masterworkIndex] = itemDetails.apiname;
 								break;
 							}
 						}
@@ -201,7 +210,7 @@ export class ItemSelectorComponent implements OnInit {
 	emitSelectedItems(): void {
 		this.selectedItemsEmitter.emit(this.selectedItems);
 		this.selectedElixirEmitter.emit(this.selectedElixir);
-		this.selectedItemRestrictionsEmitter.emit(this.selectedItemRestrictions);
+		this.existingItemGroupsEmitter.emit(this.existingItemGroups);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
 	}

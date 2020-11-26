@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 
 import { Champion } from 'src/app/core/models/champion';
-import { Item, EMPTY_ITEM, ItemRestrictions } from 'src/app/core/models/item';
+import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
 import { Runes, RuneModifiers } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
@@ -25,12 +25,8 @@ export class HomepageComponent implements OnInit {
 	];
 	selectedElixir: Item = EMPTY_ITEM;
 	// we can limit the items by adding it here
-	selectedItemRestrictions: ItemRestrictions = {
-		hasGoldOrJg: false,
-		hasBoots: false,
-		hasTear: false,
-		masterworkItems: [EMPTY_ITEM, EMPTY_ITEM],
-	};
+	// masterwork items hold apinames and not EMPTY_ITEM since in operator can't check for Item
+	existingItemGroups: object = { "masterworkItems": ['', ''] };
 	numberOfEquippedItems: number = 0;
 
 	// runes-epic/item-selector definition to show which page first
@@ -76,8 +72,8 @@ export class HomepageComponent implements OnInit {
 		this.currentTime = selectedTime;
 		return;
 	}
-	setSelectedItemRestrictions(selectedItemRestrictions: ItemRestrictions) {
-		this.selectedItemRestrictions = selectedItemRestrictions;
+	setExistingItemGroups(existingItemGroups: object) {
+		this.existingItemGroups = existingItemGroups;
 		return;
 	}
 	setNumberOfEquippedItems(numberOfEquippedItems: number) {
