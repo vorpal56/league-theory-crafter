@@ -4,7 +4,9 @@ import { ITEMS } from "../../data/json_meraki_item_cache/preseason_11/updated_it
 var router = express.Router();
 
 router.get("/", (req, res) => {
+	// setTimeout(() => {
 	res.send(ITEMS);
+	// }, 50000);
 });
 
 router.get("/:id", (req, res) => {

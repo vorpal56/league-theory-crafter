@@ -23,8 +23,9 @@ def fetch_response(calling_function):
 				if kwargs.get("response_type") == "text":
 					return calling_function(response.text)
 				response_body = response.json()
-				with open(os.path.join(data_path, file_name), "w") as json_file:
-					json.dump(response_body, json_file)
+				if (data_path is not None):
+					with open(os.path.join(data_path, file_name), "w") as json_file:
+						json.dump(response_body, json_file)
 		elif use == "cache":
 			with open(os.path.join(data_path, file_name), "r") as json_file:
 				response_body = json.load(json_file)
@@ -111,7 +112,6 @@ item_tooltip_stat_keys = {
 	'arm': ' Armor',
 	'as': '% Attack Speed',
 	'boots_ms': ' Move Speed',
-	'cdr': '% Cooldown Reduction',
 	'crit': '% Critical Hit Chance',
 	'critdmg': '% Bonus Critical Damage',
 	'flat_ms': ' Move Speed',

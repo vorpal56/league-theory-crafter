@@ -12,10 +12,9 @@ updated_champion_cache_path = os.path.join(DATA_PATH, "json_combined_champion_ca
 def get_champion_data(response_body):
 	return response_body
 
-def get_max_ranks(apiname, patch_num):
-	url = "https://ddragon.leagueoflegends.com/cdn/{}/data/en_US/champion/{}.json".format(patch_num, apiname)
-	response = requests.get(url)
-	response_body = response.json()
+@fetch_response
+def get_max_ranks(response_body):
+	apiname = next(iter(response_body["data"].keys()))
 	champion_data = response_body["data"][apiname]
 	champion_spells = champion_data["spells"]
 	return [champion_spell["maxrank"] for champion_spell in champion_spells]
@@ -83,7 +82,8 @@ def compile_champion_data(use="live", extract_attributes=False):
 			all_basic_champions.append(basic_champion_obj)
 
 			champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(apiname, champion_details)
-			max_ranks = get_max_ranks(apiname, live_version)
+			url = "https://ddragon.leagueoflegends.com/cdn/{}/data/en_US/champion/{}.json".format(live_version, apiname)
+			max_ranks = get_max_ranks(use="live", url=url, response_type="json")
 
 			if extract_attributes:
 				some_keys = {}
@@ -305,10 +305,10 @@ def parse_champion_data_meraki(apiname, champion_data):
 				# the name is already attached to the champion skill key in the json obj we use for our calculations
 				main_dict["name"] = ability_name
 				if ability_obj["cooldown"]:
-					main_dict["applies_cdr"] = ability_cooldown_affected_by_cdr
+					main_dict["applies_ah"] = ability_cooldown_affected_by_cdr
 					main_dict["cooldown"] = total_cooldown_expressions
 				else:
-					main_dict["applies_cdr"] = False
+					main_dict["applies_ah"] = False
 					main_dict["cooldown"] = []
 				ability_details.append(main_dict)
 			ability_names[SKILL_KEYS[i]][ability_key] = ability_name

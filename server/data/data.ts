@@ -43,13 +43,13 @@ DAMAGE_TYPE_MAPPING[DamageTypes.PHYSICAL_DAMAGE] = "Physical Damage";
 DAMAGE_TYPE_MAPPING[DamageTypes.MAGIC_DAMAGE] = "Magic Damage";
 DAMAGE_TYPE_MAPPING[DamageTypes.TRUE_DAMAGE] = "True Damage";
 export const STAT_KEYS = {
+	'ability_haste': ' Ability Haste',
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
 	'apen%': '% Armor Penetration',
 	'arm': ' Armor',
 	'as': ' Attack Speed',
 	'boots_ms': ' Move Speed',
-	'cdr': '% Cooldown Reduction',
 	'crit': '% Critical Hit Chance',
 	'critdmg': '% Bonus Critical Damage',
 	'flat_ms': ' Move Speed',
@@ -67,6 +67,7 @@ export const STAT_KEYS = {
 	'mr': ' Magic Resistance',
 	'ms': ' Move Speed',
 	'ms%': '% Move Speed',
+	'omnivamp': '% Omnivamp',
 	'range': ' Range',
 	'shield': ' Shield',
 	'spell_vamp': '% Spell Vamp',
