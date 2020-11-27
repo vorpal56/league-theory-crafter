@@ -12,7 +12,7 @@
 					 [currentTime]="currentTime" [targetDetails]="targetDetails"></runes>
 	</div>
 	<inventory id="inventory" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)" [existingItemGroups]="existingItemGroups"
-						 (existingItemGroups)="setNumberOfEquippedItems($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"
+						 (existingItemGroups)="setExistingItemGroups($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"
 						 [currentTime]="currentTime">
 	</inventory>
 	<div id="damage-calc">

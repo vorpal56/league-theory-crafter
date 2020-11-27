@@ -2,16 +2,16 @@ div.rank-title {
 	padding: 0 10px;
 }
 div.item-block {
-	width:50px;
-	height:50px;
-	margin:2px;
+	width:46px;
+	height:46px;
+	margin:1.5px;
 }
 ul.item-grid {
 	padding-inline-start: 20px;
 }
 img.item-img {
-	width:48px;
-	height:48px;
+	width:44px;
+	height:44px;
 	cursor:pointer;
 }
 mat-form-field.full-width {

@@ -39,12 +39,12 @@ export class StatsService {
 		champion.stats.mr = champion.stats.mr_base ? this.statsGrowthFormula(champion.stats.mr_lvl, champion.currentLevel, champion.stats.mr_base) : 0;
 		// attack speed is calculated in the adjustAttackSpeed method since it is dependant on items and runes which can be grabbed afterwards
 		// champion.stats.as = champion.stats.as_base ? champion.stats.as_base * (1 + this.statsGrowthFormula(champion.stats.as_lvl, champion.currentLevel) / 100) : 0;
-		champion.stats.cdr = champion.stats.cdr_base ? champion.stats.cdr_base : 0;
+		champion.stats.ability_haste = champion.stats.ability_haste_base ? champion.stats.ability_haste_base : 0;
 		champion.stats.ms = champion.stats.ms_base ? champion.stats.ms_base : 0;
 		champion.stats.crit = champion.stats.crit_base ? 100 - champion.stats.crit_base : 0;
 		champion.stats.critdmg = 0;
 		champion.stats.ls = 0;
-		champion.stats.spell_vamp = 0;
+		champion.stats.omnivamp = 0;
 		champion.stats.leth = 0;
 		champion.stats["apen%"] = 0;
 		champion.stats.mpen = 0;
@@ -63,8 +63,13 @@ export class StatsService {
 		// the calulation is dependant on the stats growth formula which is calculated on adjustBaseStats function
 		// but does not include item or rune bonuses
 		// General Formula is:
-		// AS = AS_BASE * (1 + (SGF + items + runes) / 100 )
-		// 100 * (AS/AS_BASE - 1 - SGF/100) = items + runes
+		// AS = AS_BASE * (1 + (SGF + items + runes + modifiers) / 100)
+		// AS/AS_BASE = 1 + (SGF + items + runes + modifiers) / 100
+		// AS/AS_BASE - 1 = (SGF + items + runes + modifiers) / 100
+		// AS/AS_BASE - 1 = SGF/100 + items/100 + runes/100 + modifiers/100
+		// AS/AS_BASE - 1 - SGF/100 = items/100 + runes/100 + modifiers/100
+		// 100 * (AS / AS_BASE - 1 - SGF/100) = (items/100 + runes/100 + modifiers/100) * 100
+		// 100 * (AS/AS_BASE - 1 - SGF/100) = items + runes + modifiers
 		let statsGrowthIncrease = this.statsGrowthFormula(champion.stats.as_lvl, champion.currentLevel) / 100;
 		let totalAttackSpeed = 0;
 		// the as stat is based on whole values (eg. 100% = 100, 20% = 20)

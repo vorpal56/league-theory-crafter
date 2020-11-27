@@ -34,7 +34,6 @@ export class RunesService {
 		let currentLevel: number = champion.currentLevel; // used in eval expression
 		// get the current tenacity ratio which comes from merc treads if any without having to pass the item into the function
 		let currentTenacityRatio = (1 - champion.stats.tenacity / 100);
-		let hasTranscendance: boolean = false;
 		let addedTenacityElixir: boolean = false;
 		let adaptiveDamageType = champion.adaptiveType == "ad" ? "physicalDamage" : "magicDamage";
 		let championRangeType = champion["rangetype"].toLowerCase();
@@ -97,7 +96,12 @@ export class RunesService {
 								let gatheringStormTotal = this.gatheringStormRune(champion.adaptiveType, currentTime);
 								totalStats[champion.adaptiveType] ? totalStats[champion.adaptiveType] += gatheringStormTotal : totalStats[champion.adaptiveType] = gatheringStormTotal;
 							} else if (runeApiname == "transcendence") {
-								hasTranscendance = true;
+								let abilityHasteBonus = 5;
+								if (champion.currentLevel >= 8) {
+									totalStats["ability_haste"] ? totalStats["ability_haste"] += abilityHasteBonus * 2 : totalStats["ability_haste"] = abilityHasteBonus * 2;
+								} else if (champion.currentLevel >= 5) {
+									totalStats["ability_haste"] ? totalStats["ability_haste"] += abilityHasteBonus : totalStats["ability_haste"] = abilityHasteBonus;
+								}
 							} else if (runeApiname == "conditioning") {
 								if (currentTime >= 12) {
 									for (let statKey in rune.stats) {
@@ -121,8 +125,6 @@ export class RunesService {
 									totalStats["mp"] ? totalStats["mp"] += rune.stackable["mp"] : totalStats["mp"] = rune.stackable["mp"];
 								}
 							} else if (runeApiname == "cosmicinsight") {
-								selectedRunes.modifiers.cdrCap += 5;
-								totalStats["cdr"] = rune.stats.cdr; // reason we can add directly is because we need to know the cdr cap before applying transcendance and no other rune provides cdr
 							} else {
 								// consist of other runes with more complicated formulas
 								let expressionString = rune["string_expression"];
@@ -194,13 +196,6 @@ export class RunesService {
 				}
 			}
 		}
-		if (hasTranscendance) {
-			let transcendenceTotal = this.transcendenceRune(champion, selectedRunes.modifiers.cdrCap);
-			for (let bonus in transcendenceTotal) {
-				let bonusVal = transcendenceTotal[bonus];
-				totalStats[bonus] ? totalStats[bonus] += bonusVal : totalStats[bonus] = bonusVal;
-			}
-		}
 		if (!addedTenacityElixir && selectedElixir.apiname == "elixirofiron") {
 			currentTenacityRatio *= (1 - (selectedElixir.stats.tenacity) / 100);
 		}
@@ -233,14 +228,6 @@ export class RunesService {
 		// gathering storm is dependant on time and it only increases on increments of 10 minutes
 		let targetAdditionalMaxHealthPercent = currentTime % 10 == 0 ? 1 + 0.1 * (currentTime) : 1 + 1 * Math.floor(currentTime / 10);
 		return adaptiveType == "ad" ? 4.8 * targetAdditionalMaxHealthPercent * (targetAdditionalMaxHealthPercent - 1) * 0.5 : 8 * targetAdditionalMaxHealthPercent * (targetAdditionalMaxHealthPercent - 1) * 0.5;
-	}
-	transcendenceRune(champion: Champion, cdrCap: number): any {
-		let additionalTranscendenceCdr: number = champion.currentLevel >= 10 ? 10 : 0;
-		let totalAdditionalCdr: number = additionalTranscendenceCdr;
-		totalAdditionalCdr += champion.itemStats["cdr"] && champion.itemStats["cdr"] > cdrCap ? champion.itemStats["cdr"] - cdrCap : 0;
-		let results = { "cdr": additionalTranscendenceCdr };
-		results[champion.adaptiveType] = champion.adaptiveType == "ad" ? 1.2 * totalAdditionalCdr : 2 * totalAdditionalCdr;
-		return results;
 	}
 	addRuneStats(champion: Champion) {
 		for (let key in champion.runeStats) {

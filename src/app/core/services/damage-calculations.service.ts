@@ -405,7 +405,6 @@ export class DamageCalculationsService {
 									let trueDamageDistribution = 0.36 + 0.04 * (maxLevel);
 									let totalDamage = eval(expressionString) + champion.stats.ad;
 									damageBeforeResistances[skillKey][this.TRUE_DAMAGE] += `+${(trueDamageDistribution * totalDamage)}`;
-									console.log(damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE]);
 									damageBeforeResistances[skillKey][this.PHYSICAL_DAMAGE] += `+${((1 - trueDamageDistribution) * totalDamage)}`;
 								}
 							} else if (abilityType == "w") {

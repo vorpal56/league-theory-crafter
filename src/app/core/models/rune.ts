@@ -26,17 +26,12 @@ export interface RuneShard {
 export class RuneModifiers {
 	stackAllRunes: boolean;
 	soulCount: number;
-	private _cdrCap: number;
 	private _exceedsAttackSpeedLimit: boolean;
 	constructor(stackAllRunes: boolean, soulCount: number) {
 		this.stackAllRunes = stackAllRunes;
 		this.soulCount = soulCount;
-		this.cdrCap = 40;
 		this.exceedsAttackSpeedLimit = false;
 	}
-
-	get cdrCap() { return this._cdrCap; }
-	set cdrCap(cdrCap: number) { this._cdrCap = cdrCap; }
 
 	get exceedsAttackSpeedLimit() { return this._exceedsAttackSpeedLimit; }
 	set exceedsAttackSpeedLimit(exceedsAttackSpeedLimit: boolean) { this._exceedsAttackSpeedLimit = exceedsAttackSpeedLimit; }

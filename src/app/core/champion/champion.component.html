@@ -111,9 +111,9 @@
 					<img class="stat" src="assets/images/icons/stats/ls_icon.png" alt="Lifesteal" />
 					{{ champion.stats.ls | number: "1.0-0" }}%
 				</div>
-				<div id="spell_vamp" [tooltip]="statTooltip('spell_vamp')">
-					<img class="stat" src="assets/images/icons/stats/spell_vamp_icon.png" alt="Spell Vamp" />
-					{{ champion.stats.spell_vamp | number: "1.0-0" }}%
+				<div id="omnivamp" [tooltip]="statTooltip('omnivamp')">
+					<img class="stat" src="assets/images/icons/stats/omnivamp_icon.png" alt="Omnivamp" />
+					{{ champion.stats.omnivamp | number: "1.0-0" }}%
 				</div>
 				<div id="arm" [tooltip]="statTooltip('arm')">
 					<img class="stat" src="assets/images/icons/stats/arm_icon.png" alt="Armour" />
@@ -139,9 +139,9 @@
 					<img class="stat" src="assets/images/icons/stats/as_icon.png" alt="Attack Speed" />
 					{{ champion.stats.as | number: "1.0-2" }}
 				</div>
-				<div id="cdr" [tooltip]="statTooltip('cdr')">
-					<img class="stat" src="assets/images/icons/stats/cdr_icon.png" alt="Cooldown Reduction" />
-					{{ champion.stats.cdr | number: "1.0-2" }}%
+				<div id="ability_haste" [tooltip]="statTooltip('ability_haste')">
+					<img class="stat" src="assets/images/icons/stats/ability_haste_icon.png" alt="Ability Haste	" />
+					{{ champion.stats.ability_haste | number: "1.0-2" }}
 				</div>
 				<div id="range" [tooltip]="statTooltip('range')">
 					<img class="stat" src="assets/images/icons/stats/range_icon.png" alt="Range" />

@@ -30,10 +30,10 @@ export class ChampionService {
 	applyAllComponentChanges(champion: Champion, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: Runes, targetDetails: TargetDetails) {
 
 		this.statsService.adjustBaseStats(champion);
-		let [totalStatsFromItems, multKeyValues, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
+		let [totalStatsFromItems, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
 
 		champion.itemStats = totalStatsFromItems;
-		this.itemsService.addItemStats(champion, multKeyValues);
+		this.itemsService.addItemStats(champion);
 		let totalStatsFromRunes = this.runesService.calculateRuneStats(champion, selectedRunes, currentTime, selectedElixir, targetDetails);
 		champion.runeStats = totalStatsFromRunes;
 
@@ -48,7 +48,7 @@ export class ChampionService {
 	 * @param  {Champion} champion the champion to apply post calculations towards
 	 * @param  {number} currentLevel the current level to apply post calculations of items or runes
 	 * @param  {any} itemAdditions any additional items that are calculated post like tear items
-	 * @param  {number} cdrCap cdr cap to limit the champions cdr if the cosmic insight option in runes is selected
+	 * @param  {RuneModifiers} runeModifiers rune modifiers that are applied like dark harvest stack, cosmic insight, etc.
 	 */
 	preDamageCalculations(champion: Champion, itemAdditions: any, runeModifiers: RuneModifiers) {
 		if (champion.apiname.toLowerCase() == "yasuo") {
@@ -63,7 +63,6 @@ export class ChampionService {
 				champion.stats.ap += (champion.stats.mp * 0.03);
 			}
 		}
-		champion.stats.cdr -= champion.stats.cdr > runeModifiers.cdrCap ? (champion.stats.cdr - runeModifiers.cdrCap) : 0;
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 		return;
 	}

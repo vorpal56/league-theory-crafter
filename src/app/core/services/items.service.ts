@@ -19,7 +19,7 @@ export class ItemsService {
 	 * @param  {[Item*6]} selectedItems the selected items/inventory (tuple of 6 items) to adjust by
 	 * @returns [object, object, string, object] total calculated stats from items, any multipliers on items, the adaptive type for runes, and item additions for post calculations
 	 */
-	calculateItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): [object, object, object] {
+	calculateItemStats(champion: Champion, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item): [object, object] {
 		//shared items are in order of which they are in the inventory
 		//if i buy steraks and maw => steraks mult applies
 
@@ -30,11 +30,6 @@ export class ItemsService {
 				selectedItemsIncludingElixir.push(selectedElixir);
 			}
 			let totalStatsFromItems: object = {};
-			let multKeyValues: object = {
-				"ad_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }],
-				"ap_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }],
-				"hp_mult": [{ "type": "total", "value": 0 }, { "type": "bonus", "value": 0 }]
-			};
 
 			let sharedItemCounts: object = {};
 			let uniquePassives: object = {};
@@ -147,9 +142,6 @@ export class ItemsService {
 				}
 			}
 
-			// are the total multipliers added including the bonus stats or just the base+item
-			// console.log(champion.stats, totalStatsFromItems, multKeyValues);
-
 			let adaptiveType: string;
 			let totalApFromItems = totalStatsFromItems["ap"];
 			let totalAdFromItems = totalStatsFromItems["ad"];
@@ -164,29 +156,12 @@ export class ItemsService {
 			}
 			champion.adaptiveType = adaptiveType;
 			let itemAdditions = { "aweItem": aweItem };
-			return [totalStatsFromItems, multKeyValues, itemAdditions];
+			return [totalStatsFromItems, itemAdditions];
 		}
 		champion.adaptiveType = champion.mainAdaptiveType;
-		return [{}, {}, {}];
+		return [{}, {}];
 	}
-	addItemStats(champion: Champion, multKeyValues: any) {
-		let hasTotalMultiplier: boolean = false;
-		for (let key in multKeyValues) {
-			let additionalMultipliers = multKeyValues[key];
-			for (let additionalMultiplierObj in additionalMultipliers) {
-				let additionalMultiplier = additionalMultipliers[additionalMultiplierObj];
-				let additionalMultiplierType = additionalMultiplier["type"];
-				let additionalMultiplierVal = additionalMultiplier["value"];
-				let statKey = key.replace("_mult", "");
-				// some of the multipliers (as the name suggests are multiplicative) are dependant on total stats, some are dependant on bonus stats -> comeback to this
-				if (additionalMultiplierType == "bonus" && additionalMultiplierVal != 0) {
-					champion.itemStats[statKey] *= (1 + additionalMultiplier["value"]);
-				}
-				if (additionalMultiplierType == "total") {
-					hasTotalMultiplier = true;
-				}
-			}
-		}
+	addItemStats(champion: Champion) {
 		// add all the stats that we've computed from items. this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with and without having to keep track of a post stat calculation
 
 		let flatMoveSpeedBonuses = 0;
@@ -214,17 +189,8 @@ export class ItemsService {
 		for (let key in baseBonuses) {
 			champion.stats[key] += baseBonuses[key];
 		}
-		// console.log(baseBonuses);
 		// the move speed multiplier is not applied on base and total very confusting
 		// champion.stats.ms += flatMoveSpeedBonuses;
-
-		// the order of applying total multipliers is significant -> comeback to this
-		// for example, do we apply the total multipliers before after or the same time as the overgrowth rune?
-		// the multipliers availble for items are ad ap and hp which is different than conditioning rune
-		// example item set is cinderhulk with overgrowth
-		if (hasTotalMultiplier) {
-			this.applyTotalMultipliers(champion, multKeyValues);
-		}
 	}
 	/**
 	 * @param  {[Item*6]} selectedItems the selected items
@@ -238,33 +204,10 @@ export class ItemsService {
 		if (selectedElixir != EMPTY_ITEM) { return false; }
 		return true;
 	}
-	/**
-	 * Method that applies the total multiplers for ad, ap, and hp after items have been added
-	 * @param  {Champion} champion champion to apply total multipliers towards
-	 * @param  {any} multKeyValues multipliers for ad, ap, and hp with their type and value
-	 * @returns void
-	 */
-	applyTotalMultipliers(champion: Champion, multKeyValues: any): void {
-		for (let key in multKeyValues) {
-			let additionalMultipliers = multKeyValues[key];
-			for (let additionalMultiplierObj in additionalMultipliers) {
-				let additionalMultiplier = additionalMultipliers[additionalMultiplierObj];
-				let additionalMultiplierType = additionalMultiplier["type"];
-				let additionalMultiplierVal = additionalMultiplier["value"];
-				let statKey = key.replace("_mult", "");
-				if (additionalMultiplierType == "total" && additionalMultiplierVal != 0) {
-					champion.stats[statKey] *= (1 + additionalMultiplierVal);
-				}
-			}
-		}
-		return;
-	}
 	hasItem(selectedItems: [Item, Item, Item, Item, Item, Item], apiname: string): boolean {
-		for (let selectedItemIndex in selectedItems) {
-			let selectedItem = selectedItems[selectedItemIndex];
-			if (selectedItem.apiname == apiname) {
-				return true;
-			}
+		for (let index in selectedItems) {
+			let selectedItem = selectedItems[index];
+			if (selectedItem.apiname == apiname) { return true; }
 		}
 		return false;
 	}

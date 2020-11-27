@@ -143,9 +143,9 @@ img.medium-ability {
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
 	grid-template-areas:
-		"ad ap ls spell_vamp"
+		"ad ap ls omnivamp"
 		"arm mr apen mpen"
-		"as cdr range critdmg"
+		"as ability_haste range critdmg"
 		"crit ms tenacity heal_shield";
 }
 #champion-abilities {
@@ -162,13 +162,13 @@ img.medium-ability {
 #ad,
 #ap,
 #ls,
-#spell_vamp,
+#omnivamp,
 #arm,
 #mr,
 #apen,
 #mpen,
 #as,
-#cdr,
+#ability_haste,
 #range,
 #critdmg,
 #crit,
@@ -188,8 +188,8 @@ img.medium-ability {
 #ls {
 	grid-area: ls;
 }
-#spell_vamp {
-	grid-area: spell_vamp;
+#omnivamp {
+	grid-area: omnivamp;
 }
 #arm {
 	grid-area: arm;
@@ -206,8 +206,8 @@ img.medium-ability {
 #as {
 	grid-area: as;
 }
-#cdr {
-	grid-area: cdr;
+#ability_haste {
+	grid-area: ability_haste;
 }
 #range {
 	grid-area: range;

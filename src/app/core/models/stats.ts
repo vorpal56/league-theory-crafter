@@ -32,9 +32,9 @@ export interface ChampionStats {
 	as_base?: number;
 	as_lvl?: number;
 
-	cdr?: number;
-	cdr_base?: number;
-	cdr_lvl?: number;
+	ability_haste?: number;
+	ability_haste_base?: number;
+	ability_haste_lvl?: number;
 
 	range?: number;
 	range_lvl?: number;
@@ -49,7 +49,7 @@ export interface ChampionStats {
 	critdmg?: number,
 
 	ls?: number,
-	spell_vamp?: number,
+	omnivamp?: number,
 
 	leth?: number,
 	'apen%'?: number,

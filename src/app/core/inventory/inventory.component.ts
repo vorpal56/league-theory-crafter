@@ -51,6 +51,7 @@ export class InventoryComponent implements OnInit {
 		if (this.numberOfEquippedItems != 0 || this.selectedElixir != EMPTY_ITEM) {
 			this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 			this.selectedElixir = EMPTY_ITEM;
+			this.existingItemGroups = { "masterworkItems": ['', ''] };
 			this.numberOfEquippedItems = 0;
 			this.emitSelectedItems();
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);

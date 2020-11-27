@@ -234,8 +234,8 @@ export class ChampionComponent implements OnInit {
 			return baseTooltipExpression;
 		}
 		let cooldownExpression = `<br><div class="cd">`;
-		let affectedBy = " (CDR Affected)";
-		let notAffectedBy = " (Not CDR Affected)";
+		let affectedBy = "(Haste Affected)";
+		let notAffectedBy = " (Not Haste Affected)";
 		if (abilityBreakdownLength > 1) {
 			abilityBreakdown.forEach((breakdown: object, i: number) => {
 				if (breakdown["cooldown"].length != 0) {
@@ -243,13 +243,13 @@ export class ChampionComponent implements OnInit {
 					// we add the <br> straight into the div since there can be multiple abilities
 					cooldownExpression += `<br>${mainKey}: `;
 					cooldownExpression += breakdown["cooldown"].join("/");
-					cooldownExpression += breakdown["applies_cdr"] ? affectedBy : notAffectedBy;
+					cooldownExpression += breakdown["applies_ah"] ? affectedBy : notAffectedBy;
 				}
 			});
 		} else {
 			cooldownExpression += `<br>`;
 			cooldownExpression += abilityBreakdown[0]["cooldown"].join("/");
-			cooldownExpression += abilityBreakdown[0]["applies_cdr"] ? affectedBy : notAffectedBy;
+			cooldownExpression += abilityBreakdown[0]["applies_ah"] ? affectedBy : notAffectedBy;
 		}
 		return baseTooltipExpression + cooldownExpression + "</div>";
 	}
