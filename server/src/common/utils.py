@@ -2,12 +2,17 @@ import re
 import os
 import json
 import requests
+import urllib.request
 from functools import wraps
+from collections import OrderedDict
 
 APP_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+FRONTEND_PATH = os.path.join(APP_PATH, "src")
 BACKEND_PATH = os.path.join(APP_PATH, "server")
 DATA_PATH = os.path.join(BACKEND_PATH, "data")
 
+ASSETS_PATH = os.path.join(FRONTEND_PATH, "assets")
+IMAGE_ASSETS_PATH = os.path.join(ASSETS_PATH, "images")
 BASE_ASSETS_PATH = "assets/images/champions/"
 SKILL_KEYS = ["skill_i", "skill_q", "skill_w", "skill_e", "skill_r"]
 
@@ -31,6 +36,20 @@ def fetch_response(calling_function):
 				response_body = json.load(json_file)
 		return calling_function(response_body)
 	return wrapper
+
+def fetch_asset(url, full_destination_path):
+	urllib.request.urlretrieve(url, full_destination_path)
+	return
+
+def parse_table(soup):
+	data_contents = OrderedDict()
+	for td in soup.findAll("td", {"data-name": True}):
+		attributes = td.find_previous("td").text.rstrip()
+		attributes = attributes.lstrip()
+		values = td.text.rstrip()
+		values = values.lstrip().rstrip()
+		data_contents[attributes] = remove_extra_whitespace(remove_ascii_chars(values))
+	return data_contents
 
 def get_current_version():
 	current_version_filename = os.path.join(DATA_PATH, "json", "version.json")
@@ -86,7 +105,7 @@ def remove_ascii_chars(text):
 	text = text.replace("\u2013", ":")  # left-to-right mark
 	text = text.replace("\xa0", " ")
 	text = text.replace("\uFF06", "&")
-	# text = text.replace(r"−", "-")
+	text = text.replace(r"−", "-")
 	return text
 
 def remove_extra_whitespace(text):
