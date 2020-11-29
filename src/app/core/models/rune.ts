@@ -11,6 +11,7 @@ export interface Rune {
 	index: number,
 	apiname: string,
 	tooltip: string,
+	string_base_formula?: string;
 }
 
 export interface RuneShard {
