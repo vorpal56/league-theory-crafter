@@ -234,7 +234,7 @@ export class ChampionComponent implements OnInit {
 			return baseTooltipExpression;
 		}
 		let cooldownExpression = `<br><div class="cd">`;
-		let affectedBy = "(Haste Affected)";
+		let affectedBy = " (Haste Affected)";
 		let notAffectedBy = " (Not Haste Affected)";
 		if (abilityBreakdownLength > 1) {
 			abilityBreakdown.forEach((breakdown: object, i: number) => {

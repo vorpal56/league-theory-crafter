@@ -3,7 +3,7 @@ import os
 import json
 import requests
 from pprint import PrettyPrinter
-from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version, fetch_response, create_apiname
+from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version, fetch_response, create_apiname, fetch_asset
 
 meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 updated_champion_cache_path = os.path.join(DATA_PATH, "json_combined_champion_cache")
@@ -359,7 +359,6 @@ def scrape_assets(assets_changed):
 		print("No champion has assets changed")
 		return
 	from bs4 import BeautifulSoup
-	import urllib.request
 	# champion-stat__skill tip > a tag > img tag src
 
 	# mid, supp, bot, top, jng does not influence ability on getting assets
@@ -377,7 +376,7 @@ def scrape_assets(assets_changed):
 			champion_url = request_url.format(apiname)
 			champion_img_path = os.path.join(champion_assets_path, "{}.png".format(champion_name))
 			if not os.path.exists(champion_img_path):
-				urllib.request.urlretrieve(champion_img_url.format(apiname), champion_img_path)
+				fetch_asset(champion_img_url.format(apiname), champion_img_path)
 				print("Retrieved {}'s portrait".format(champion_name))
 
 			response = requests.get(champion_url)
@@ -392,7 +391,7 @@ def scrape_assets(assets_changed):
 						skill_img_path = os.path.join(champion_assets_path, "{}.png".format(skill_name))
 						if not os.path.exists(skill_img_path):
 							try:
-								urllib.request.urlretrieve(src_tag, skill_img_path)
+								fetch_asset(src_tag, skill_img_path)
 								print("Retrieved", skill_name)
 							except Exception as e:
 								print("Unable to retrieve {} for {}".format(skill_name, champion_name) )
