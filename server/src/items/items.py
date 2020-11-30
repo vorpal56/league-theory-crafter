@@ -5,7 +5,7 @@ import re
 from collections import OrderedDict
 from pprint import PrettyPrinter
 from bs4 import BeautifulSoup
-from common.utils import IMAGE_ASSETS_PATH, DATA_PATH, fetch_response, item_stat_key_mapping, item_tooltip_stat_keys, create_apiname, create_search_type_string, full_clean_text, fix_punctuation, fetch_asset
+from common.utils import IMAGE_ASSETS_PATH, DATA_PATH, fetch_response, item_stat_key_mapping, item_tooltip_stat_keys, create_apiname, create_search_type_string, full_clean_text, fix_punctuation, fetch_asset, remove_ascii_chars
 
 # stat keys is used to write the tooltip data based on the model of our data
 
@@ -47,6 +47,16 @@ def get_item_groups(response_text):
 @fetch_response
 def get_item_data(response_body):
 	sorted_items = OrderedDict(sorted(response_body.items(), key=lambda item: item[1]["name"])) # Sort the items just for cleanliness in the mythic section
+	return sorted_items
+
+def compile_new_item_data(using="meraki", use="live"):
+	pp = PrettyPrinter(indent=2, width=200)
+	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "preseason_11")
+	if not os.path.exists(item_cache_path):
+		os.makedir(item_cache_path)
+	item_data = get_item_data(use=use, data_path=item_cache_path, filename="items.json", url="http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json", response_type="json")
+	item_groups = get_item_groups(use="live", url="https://leagueoflegends.fandom.com/wiki/Item_group", response_type="text")
+
 	ornn_items_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "ornn_items") # the files need to be updated manually currently (nov 28, PR going to be made by dryancd for ornn items)
 	for full_filename in os.listdir(ornn_items_cache_path):
 		if os.path.isfile(os.path.join(ornn_items_cache_path, full_filename)):
@@ -67,16 +77,8 @@ def get_item_data(response_body):
 						continue
 				ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
 				ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
-				sorted_items[item_id] = ornn_item_data
-	return sorted_items
-
-def compile_new_item_data(using="meraki", use="live"):
-	pp = PrettyPrinter(indent=2, width=200)
-	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "preseason_11")
-	if not os.path.exists(item_cache_path):
-		os.makedir(item_cache_path)
-	item_data = get_item_data(use=use, data_path=item_cache_path, filename="items.json", url="http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json", response_type="json")
-	item_groups = get_item_groups(use="live", url="https://leagueoflegends.fandom.com/wiki/Item_group", response_type="text")
+				item_data[item_id] = ornn_item_data
+				item_groups[item_apiname] = "mythic"
 
 	boots_id = "1001"
 	builds_into = set(item_data.get(boots_id).get("buildsInto"))
@@ -228,7 +230,7 @@ def effects_tooltip(effects, effect_type="p"):
 		elif (effect_name == "Passive"): # effect_name is None is leth items so far
 			effect_str += ": "
 		effect_str += effect.get("effects")
-		string_iter.append(fix_punctuation(effect_str))
+		string_iter.append(remove_ascii_chars(fix_punctuation(effect_str)))
 	if len(string_iter) != 0:
 		return "<br><br>" + "<br><br>".join(string_iter)
 	return ""

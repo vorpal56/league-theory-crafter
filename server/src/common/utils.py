@@ -106,6 +106,9 @@ def remove_ascii_chars(text):
 	text = text.replace("\xa0", " ")
 	text = text.replace("\uFF06", "&")
 	text = text.replace(r"−", "-")
+	text = text.replace("\u00e2\u02c6\u2019", "-") # I don't know what this is, but it's extracted from Meraki
+	# text = text.encode("ascii", "ignore")
+	# return text.decode()
 	return text
 
 def remove_extra_whitespace(text):
@@ -156,6 +159,7 @@ item_tooltip_stat_keys = {
 
 item_stat_key_mapping = {
 	"abilityPowerflat":"ap",
+	"abilityPowerpercent": "ap%",
 	"armorflat":"arm",
 	"armorPenetrationpercent":"apen%",
 	"armorPenetrationflat": "apen%", # temp map added PR to meraki to fix
