@@ -51,32 +51,36 @@ def compile_new_item_data(using="meraki", use="live"):
 	pp = PrettyPrinter(indent=2, width=200)
 	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "preseason_11")
 	if not os.path.exists(item_cache_path):
-		os.makedir(item_cache_path)
+		os.makedirs(item_cache_path, exist_ok=True)
+	item_combined_cache_path = os.path.join(DATA_PATH, "json_combined_item_cache")
+	if not os.path.exists(item_combined_cache_path):
+		os.makedir(item_combined_cache_path)
 	item_data = get_item_data(use=use, data_path=item_cache_path, filename="items.json", url="http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json", response_type="json")
 	item_groups = get_item_groups(use="live", url="https://leagueoflegends.fandom.com/wiki/Item_group", response_type="text")
 
-	ornn_items_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "ornn_items") # the files need to be updated manually currently (nov 28, PR going to be made by dryancd for ornn items)
-	for full_filename in os.listdir(ornn_items_cache_path):
-		if os.path.isfile(os.path.join(ornn_items_cache_path, full_filename)):
+	for full_filename in os.listdir(item_cache_path):
+		if os.path.isfile(os.path.join(item_cache_path, full_filename)):
 			filename = os.path.splitext(full_filename)[0]
-			item_apiname, item_id = filename.split("_")
-			with open(os.path.join(DATA_PATH, "json_meraki_item_cache", "ornn_items", full_filename), "r") as ornn_file:
-				ornn_item_data = json.load(ornn_file)
-				name = ornn_item_data.get("name")
-				image_name = re.sub(r"[^A-Za-z0-9^, ]", '', name)
-				image_name = re.sub(r"\ ", '-', image_name).lower()
-				url = "https://www.mobafire.com/images/item/{}.gif".format(image_name)
-				item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
-				if not os.path.exists(item_image_path):
-					try:
-						fetch_asset(url, item_image_path)
-					except Exception as e:
-						print(e, image_name, url)
-						continue
-				ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
-				ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
-				item_data[item_id] = ornn_item_data
-				item_groups[item_apiname] = "mythic"
+			if filename != "items":
+				item_apiname, item_id = filename.split("_")
+				if int(item_id) >= 7000:
+					with open(os.path.join(item_cache_path, full_filename), "r") as ornn_file:
+						ornn_item_data = json.load(ornn_file)
+						name = ornn_item_data.get("name")
+						image_name = re.sub(r"[^A-Za-z0-9^, ]", '', name)
+						image_name = re.sub(r"\ ", '-', image_name).lower()
+						url = "https://www.mobafire.com/images/item/{}.gif".format(image_name)
+						item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
+						if not os.path.exists(item_image_path):
+							try:
+								fetch_asset(url, item_image_path)
+							except Exception as e:
+								print(e, image_name, url)
+								continue
+						ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
+						ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
+						item_data[item_id] = ornn_item_data
+						item_groups[item_apiname] = "mythic"
 
 	boots_id = "1001"
 	builds_into = set(item_data.get(boots_id).get("buildsInto"))
@@ -206,9 +210,10 @@ def compile_new_item_data(using="meraki", use="live"):
 			if (int_item_id in builds_into or item_id == boots_id) and "boots" not in item_info["tags"]:
 				item_info["tags"] += "boots" if item_info["tags"] == "" else ",boots"
 
-			item_json_file = open(os.path.join(item_cache_path, "_".join([apiname, item_id]) + ".json"), "w", encoding="utf-8")
-			json.dump(item_info, item_json_file)
-			item_json_file.close()
+			with open(os.path.join(item_cache_path, f"{'_'.join([apiname, item_id])}.json"), "w", encoding="utf-8") as item_cache_json_file, \
+				open(os.path.join(item_combined_cache_path, f"{'_'.join([apiname, item_id])}.json"), "w", encoding="utf-8") as item_combined_json_file:
+				json.dump(item_details, item_cache_json_file)
+				json.dump(item_info, item_combined_json_file)
 			items.append(item_info)
 	a = [{"label": "All", "value": ""}]
 	k = []
@@ -218,8 +223,10 @@ def compile_new_item_data(using="meraki", use="live"):
 	k = sorted(k, key = lambda item: item["label"])
 	# pp.pprint(a+k)
 
-	with open(os.path.join(item_cache_path, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file:
+	with open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file, \
+		open(os.path.join(DATA_PATH, "json", "items.json"), "w", encoding="utf-8") as items_json_file:
 		ts_file.write("let False = false;\nlet True=true;\nlet None=null;\nexport const ITEMS = " + str(items))
+		json.dump(items, items_json_file)
 	return
 
 def effects_tooltip(effects, effect_type="p"):

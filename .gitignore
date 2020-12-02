@@ -9,8 +9,8 @@ ref/
 example_layout.png
 *cache*/
 *attributes.json
-!json_meraki_item_cache/
-**/s1-s10
+# !json_meraki_item_cache/
+# **/s1-s10
 !json_combined_champion_cache/
 # src/assets/images/champions/*
 item_tests/

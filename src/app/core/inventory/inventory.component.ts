@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-import { ITEMS } from 'server/data/json_meraki_item_cache/preseason_11/updated_items_merkai';
+import { ITEMS } from 'server/data/updated_items_merkai';
 
 import { Champion } from 'src/app/core/models/champion';
 import { Item, EMPTY_ITEM } from 'src/app/core/models/item';

@@ -32,7 +32,7 @@ export const RUNE_SHARDS = {
 			"ability_haste": 8
 		},
 		"img": "assets/images/runes/Rune Shards/Ability Haste.png",
-		"tooltip": "8 Ability Haste",
+		"tooltip": "+8 Ability Haste",
 	}], "set2": [{
 		"name": "Adaptive Force",
 		"apiname": "adaptive",
