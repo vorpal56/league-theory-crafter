@@ -136,7 +136,7 @@ def compile_new_item_data(using="meraki", use="live"):
 				('name', name),
 				('allowed_to', { 'melee': True, 'ranged': True}),
 				('apiname', apiname),
-				('img', item_details.get("icon")), # hotlink the` item to ddragon and have them handle it or cache on our own server?
+				('img', item_details.get("icon").replace("http", "https")), # hotlink the` item to ddragon and have them handle it or cache on our own server?
 				('id', item_id),
 				('index', index),
 				('rank', rank),
