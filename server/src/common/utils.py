@@ -126,7 +126,7 @@ def full_clean_text(text):
 if __name__ == "__main__":
 	print(get_live_version())
 
-item_tooltip_stat_keys = {
+ITEM_TOOLTIP_STAT_KEYS = {
 	'ability_haste': ' Ability Haste',
 	'ad': ' Attack Damage',
 	'ap': ' Ability Power',
@@ -157,7 +157,7 @@ item_tooltip_stat_keys = {
 	'tenacity': '% Tenacity',
 }
 
-item_stat_key_mapping = {
+ITEM_STAT_KEY_MAPPING = {
 	"abilityPowerflat":"ap",
 	"abilityPowerpercent": "ap%",
 	"armorflat":"arm",
@@ -174,6 +174,7 @@ item_stat_key_mapping = {
 	"healthRegenflat":"hp5",
 	"lethalityflat":"leth",
 	"lifestealpercent":"ls",
+	"magicPenetrationflat":"mpen",
 	"magicPenetrationpercent":"mpen%",
 	"magicResistanceflat":"mr",
 	"manaflat":"mp",

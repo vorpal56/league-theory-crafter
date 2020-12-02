@@ -5,17 +5,15 @@ import re
 from collections import OrderedDict
 from pprint import PrettyPrinter
 from bs4 import BeautifulSoup
-from common.utils import IMAGE_ASSETS_PATH, DATA_PATH, fetch_response, item_stat_key_mapping, item_tooltip_stat_keys, create_apiname, create_search_type_string, full_clean_text, fix_punctuation, fetch_asset, remove_ascii_chars
+from common.utils import IMAGE_ASSETS_PATH, DATA_PATH, ITEM_STAT_KEY_MAPPING, ITEM_TOOLTIP_STAT_KEYS, fetch_response, create_apiname, create_search_type_string, full_clean_text, fix_punctuation, fetch_asset, remove_ascii_chars
 
 # stat keys is used to write the tooltip data based on the model of our data
 
-stat_val_reps = {
+STAT_VAL_REPS = {
 	"percent":"%",
 	"flat": "",
 	"perLevel":"_lvl",
 }
-
-# because of the new item data, our item model no longer works. This means we need to look at the data of the new items, create a model, request the items.json (cache if needed per patch), parse it and compile it to our own requirements. now interactions between items is something that we'll need to model again (such as last whisper, LDR and so on)
 
 # items are broken down into 5 ranks: starters, basics, epics, legendaries, mythics
 
@@ -127,7 +125,8 @@ def compile_new_item_data(using="meraki", use="live"):
 				elif search_type == "DAMAGE":
 					key = "ATTACK DAMAGE"
 					search_type = key
-				shop_search_types.append(key.lower())
+				key = re.sub(r'[\_]', ' ', key.lower())
+				shop_search_types.append(key)
 				item_search_types[key] = create_search_type_string(search_type)
 			item_info = OrderedDict([
 				('name', name),
@@ -148,11 +147,15 @@ def compile_new_item_data(using="meraki", use="live"):
 				('item_group', item_groups.get(apiname))
 			])
 			index += 1
+			# stats are broken down into their parent and their child stats
+			# each parent stat is the main stat (ap, ad, haste, lifesteal, ms, etc)
+			# each child stat is the breakdown of the parent stat (eg. flat, percent, per level, etc)
+			# we have a direct mapping to the stats we should map from meraki to our item model
 			for stat_parent_key, stat_parent_details in stats.items():
 				for stat_child_key, stat_val in stat_parent_details.items():
 					full_stat_key = stat_parent_key + stat_child_key
-					if stat_val != 0 and full_stat_key in item_stat_key_mapping: # remove data redundancy
-						item_info["stats"][item_stat_key_mapping.get(full_stat_key)] = int(stat_val)
+					if stat_val != 0 and full_stat_key in ITEM_STAT_KEY_MAPPING: # remove data redundancy
+						item_info["stats"][ITEM_STAT_KEY_MAPPING.get(full_stat_key)] = int(stat_val)
 			if apiname == "mercurystreads":
 				item_info["stats"]["tenacity"] = 30 # mercury treads don't have tenacity in data object
 			# passive stats are really weird, sometimes it's not included into the dataset, so we'll need to figure out how we're going to handle this on a patch by patch basis (especially during the early stages of preseason)
@@ -179,18 +182,19 @@ def compile_new_item_data(using="meraki", use="live"):
 				elif lower_passive_name == "witch's path":
 					passive_details["stats"]["arm"] = 30
 				passive_stats = passive.get("stats")
+				# breakdown the passive stats into the same fashion as we did for the main item stats
 				for stat_parent_key, stat_parent_details in passive_stats.items():
 					if type(stat_parent_details) == dict:
 						for stat_child_key, stat_val in stat_parent_details.items():
 							full_stat_key = stat_parent_key + stat_child_key
-							if stat_val != 0 and full_stat_key in item_stat_key_mapping:
-								passive_details["stats"][item_stat_key_mapping.get(full_stat_key)] = int(stat_val)
+							if stat_val != 0 and full_stat_key in ITEM_STAT_KEY_MAPPING:
+								passive_details["stats"][ITEM_STAT_KEY_MAPPING.get(full_stat_key)] = int(stat_val)
 					else:
 						# some passive stat objects have values as floats and not dicts (eg. abyssal mask)? really weird
-						for stat_val_rep_key, stat_val_rep_val in stat_val_reps.items():
+						for stat_val_rep_key, stat_val_rep_val in STAT_VAL_REPS.items():
 							full_stat_key = stat_parent_key + stat_val_rep_key
-							if stat_parent_details !=0 and full_stat_key in item_stat_key_mapping:
-								passive_details["stats"][item_stat_key_mapping.get(full_stat_key)] = int(stat_val)
+							if stat_parent_details !=0 and full_stat_key in ITEM_STAT_KEY_MAPPING:
+								passive_details["stats"][ITEM_STAT_KEY_MAPPING.get(full_stat_key)] = int(stat_val)
 				item_info["passives"].append(dict(passive_details))
 			meraki_tooltip = base_item_stats_tooltip(item_info)
 			passives_tooltip = effects_tooltip(passives)
@@ -230,11 +234,11 @@ def effects_tooltip(effects, effect_type="p"):
 		elif (effect_name == "Passive"): # effect_name is None is leth items so far
 			effect_str += ": "
 		effect_str += effect.get("effects")
-		string_iter.append(remove_ascii_chars(fix_punctuation(effect_str)))
+		string_iter.append(fix_punctuation(remove_ascii_chars(effect_str)))
 	if len(string_iter) != 0:
 		return "<br><br>" + "<br><br>".join(string_iter)
 	return ""
 
 def base_item_stats_tooltip(item):
-	sorted_stats = dict(sorted(item["stats"].items(), key=lambda item: item[0]))
-	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + item_tooltip_stat_keys[stat_name] for stat_name, stat_val in sorted_stats.items() if (stat_val != 0 and stat_name in item_tooltip_stat_keys)])
+	sorted_stats = dict(sorted(item["stats"].items(), key=lambda item: item[0])) # Sort the stats for consistency
+	return item["name"] + "<br><br>" + "Cost: " + str(item["gold"]) + "<br>" + "<br>".join(["+" + str(stat_val) + ITEM_TOOLTIP_STAT_KEYS[stat_name] for stat_name, stat_val in sorted_stats.items() if (stat_val != 0 and stat_name in ITEM_TOOLTIP_STAT_KEYS)])
