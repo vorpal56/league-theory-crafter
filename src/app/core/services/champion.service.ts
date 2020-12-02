@@ -19,6 +19,7 @@ export class ChampionService {
 
 	/**
 	 * Method that performs all the calculations for changes in all components. This invokes calls to the stats, items and runes service
+	 * The order in which calls are made are significant in making sure that calculations are as accurate as possible (given the data models)
 	 * @param  {Champion} champion the champion to apply the calculations to
 	 * @param  {number} currentLevel the current level selected
 	 * @param  {number} currentTime the current time in game for time dependant runes and items
@@ -29,19 +30,27 @@ export class ChampionService {
 	 */
 	applyAllComponentChanges(champion: Champion, currentTime: number, selectedItems: [Item, Item, Item, Item, Item, Item], selectedElixir: Item, selectedRunes: Runes, targetDetails: TargetDetails) {
 
+		// First we adjust the stats of the champion without any items
 		this.statsService.adjustBaseStats(champion);
-		let [totalStatsFromItems, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
-
-		champion.itemStats = totalStatsFromItems;
-		this.itemsService.addItemStats(champion);
+		// Then we calculate the total stats from Runes, assign and add the stats gained from Runes to the champion
 		let totalStatsFromRunes = this.runesService.calculateRuneStats(champion, selectedRunes, currentTime, selectedElixir, targetDetails);
 		champion.runeStats = totalStatsFromRunes;
-
 		this.runesService.addRuneStats(champion);
+
+		// Second we calculate the item stats. Multipliers like Rabadon's are applied on total after Rune stats have been applied
+		let [totalStatsFromItems, itemAdditions] = this.itemsService.calculateItemStats(champion, selectedItems, selectedElixir);
+		// Then we assign and add the stats gained from items to the champion
+		champion.itemStats = totalStatsFromItems;
+		this.itemsService.addItemStats(champion);
+
+		// Third we readjust Attack Speed since Items give Attack Speed which is not in a linear fashion. This is also dependant on Rune choices like Hail of Blades and Lethal Tempo which breaks the Attack Speed limit
 		this.statsService.adjustAttackSpeed(champion, selectedRunes.modifiers.exceedsAttackSpeedLimit);
+
+		// Fourth take away/apply some additional stats from Items like Awe Items, Yasuo crit passive, and cap crit at 100
 		this.preDamageCalculations(champion, itemAdditions, selectedRunes.modifiers);
+
+		// Finally calculate the potential damage outputs from the champion under certain parameters
 		this.damageCalculationsService.totalChampionDamageCalculation(champion, currentTime, targetDetails, selectedRunes);
-		// maybe its good to share the calculated data straight into the champion obj to limit the number of input parameters
 		return;
 	}
 	/**

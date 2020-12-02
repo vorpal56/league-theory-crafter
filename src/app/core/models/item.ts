@@ -105,10 +105,3 @@ export const EMPTY_ITEM: Item = {
 	'tags': '',
 	'visible': true,
 };
-
-export interface ItemRestrictions {
-	"hasGoldOrJg": boolean,
-	"hasBoots": boolean,
-	"hasTear": boolean,
-	"masterworkItems": [Item, Item],
-}

@@ -42,6 +42,7 @@ export class Champion extends BasicChampion {
 	adaptiveType: string;
 	mainAdaptiveType: string;
 	totalAbilityRanks: number;
+	rangetype: string;
 	private _damageBeforeResistances: CalculationResults;
 	private _damageAfterResistances: CalculationResults;
 	private _damageReductions: CalculationResults;
@@ -63,7 +64,7 @@ export class Champion extends BasicChampion {
 		this.totalAbilityRanks = 0;
 		// add the additional stats for less data overhead
 		this.stats.ls = 0;
-		this.stats.spell_vamp = 0;
+		this.stats.omnivamp = 0;
 		this.stats.leth = 0;
 		this.stats["apen%"] = 0;
 		this.stats.mpen = 0;

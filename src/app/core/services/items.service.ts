@@ -31,7 +31,6 @@ export class ItemsService {
 			}
 			let totalStatsFromItems: object = {};
 
-			let sharedItemCounts: object = {};
 			let uniquePassives: object = {};
 			// stackedItemCounts relates to the stackable items that have been stacked. This is to allow stacking of only 1 or multiple items when the stacakble checkbox is checked. If we only reference the sharedItemCounts, we can only select the first option instead of any other option
 			let mythicEffects = {};
@@ -105,28 +104,31 @@ export class ItemsService {
 					}
 				}
 			}
+			// apply the unique passive that isn't a mythic passive
 			for (let uniquePassiveName in uniquePassives) {
-				let uniquePassiveVal: [number, object] = uniquePassives[uniquePassiveName];
+				let uniquePassiveVal: [number, object[]] = uniquePassives[uniquePassiveName];
 				let uniqueMaxVals: object = {};
-				let passiveObj: object = uniquePassiveVal[1];
-				let passiveStats: any = passiveObj["stats"];
-				if (passiveObj["mythic"] === false) {
-					passiveStats.forEach((passiveStatDetails: object) => {
-						for (let itemPassiveStatName in passiveStatDetails) {
-							let itemPassiveStatVal = passiveStatDetails[itemPassiveStatName];
+				let passiveObjs: object[] = uniquePassiveVal[1];
+				for (let passiveObjIndex in passiveObjs) {
+					let passiveObj: object = passiveObjs[passiveObjIndex];
+					let passiveStats: any = passiveObj["stats"];
+					if (passiveObj["mythic"] === false) {
+						for (let itemPassiveStatName in passiveStats) {
+							let itemPassiveStatVal = passiveStats[itemPassiveStatName];
 							if (itemPassiveStatName in uniqueMaxVals && uniqueMaxVals[itemPassiveStatName] < itemPassiveStatVal) {
 								uniqueMaxVals[itemPassiveStatName] = itemPassiveStatVal;
 							} else if (itemPassiveStatName in uniqueMaxVals === false) {
 								uniqueMaxVals[itemPassiveStatName] = itemPassiveStatVal;
 							}
 						}
-					});
-					for (let itemStatName in uniqueMaxVals) {
-						let itemStatVal = uniqueMaxVals[itemStatName];
-						itemStatName in totalStatsFromItems ? totalStatsFromItems[itemStatName] += itemStatVal : totalStatsFromItems[itemStatName] = itemStatVal;
+						for (let itemStatName in uniqueMaxVals) {
+							let itemStatVal = uniqueMaxVals[itemStatName];
+							itemStatName in totalStatsFromItems ? totalStatsFromItems[itemStatName] += itemStatVal : totalStatsFromItems[itemStatName] = itemStatVal;
+						}
 					}
-				}
+				};
 			}
+			// apply the mythic passive bonuses to n number of legendary items.
 			for (let mythicPassiveName in mythicEffects) {
 				let mythicPassiveStats = mythicEffects[mythicPassiveName];
 				for (let mythicPassiveStatName in mythicPassiveStats) {
@@ -134,7 +136,7 @@ export class ItemsService {
 					mythicPassiveStatName in totalStatsFromItems ? totalStatsFromItems[mythicPassiveStatName] += mythicPassiveStatVal : totalStatsFromItems[mythicPassiveStatName] = mythicPassiveStatVal;
 				}
 			}
-			console.log("Stats from items: ", totalStatsFromItems, "Shared Item Passives: ", sharedItemCounts);
+			console.log("Stats from items: ", totalStatsFromItems, "Unique Passives: ", uniquePassives);
 			// the total stats from items does not include energy which is only obtainable with presence of mind
 			for (let key in totalStatsFromItems) {
 				if (champion.resource.toLowerCase() != "mana" && (key == "mp" || key == "mp5" || key == "mp5%")) {
@@ -163,7 +165,6 @@ export class ItemsService {
 	}
 	addItemStats(champion: Champion) {
 		// add all the stats that we've computed from items. this iteration works because we call adjustBaseStats which "resets" the champion all the way to its base stat as if there were no stats to begin with and without having to keep track of a post stat calculation
-
 		let flatMoveSpeedBonuses = 0;
 		let baseBonuses = {};
 		for (let key in champion.itemStats) {
@@ -174,6 +175,10 @@ export class ItemsService {
 			} else if (key == "ms%") {
 				// apply the bonus multiplier move speeds first before the flat movespeed bonuses (eg. aether wisp and mobility boots)
 				champion.stats.ms += champion.stats.ms * (statVal / 100);
+			} else if (key == "ap%") {
+				let flatKey = key.replace("%", "");
+				let bonusVal = champion.stats[flatKey] * (statVal / 100);
+				champion.stats.ap += bonusVal;
 			} else if (key == "mp5%" || key == "hp5%") {
 				// hp5 and mp5 are only % on champion base (after SGF)
 				let flatKey = key.replace("%", "");
