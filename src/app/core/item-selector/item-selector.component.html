@@ -11,10 +11,6 @@
 </div>
 <div class="component-body">
 	<div class="item-selector-grid pad-around">
-		<div id="orderby-sort" class="selector-container">
-			<ng-select [items]="itemsOrder" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Item Order" [(ngModel)]="itemOrder" (change)="reverseOrder()">
-			</ng-select>
-		</div>
 		<div id="search-type" class="selector-container">
 			<ng-select [items]="searchTypes" bindLabel="label" bindValue="value" [clearable]="false" placeholder="Filter by Item Type" [(ngModel)]="searchType">
 			</ng-select>
@@ -22,11 +18,14 @@
 		<div id="search-field" class="selector-container">
 			<mat-form-field class="full-width">
 				<mat-label>Search Items</mat-label>
-				<input matInput type="text" [(ngModel)]="searchText" placeholder="eg. support, ornn.." id="item-grid-filter-search-field">
+				<input matInput type="text" [(ngModel)]="searchText" placeholder="eg. support, ornn, lethality..." id="item-grid-filter-search-field">
 				<button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
 					<mat-icon>close</mat-icon>
 				</button>
 			</mat-form-field>
+		</div>
+		<div id="swap-item-order" class="center-vertical" (click)="reverseOrder()">
+			<mat-icon class="swap-item-order-icon" [tooltip]="'Swap Item Order'" aria-hidden="false" aria-label="Swap Item Order">swap_vert</mat-icon>
 		</div>
 	</div>
 	<div class="flex-wrapper" id="item-list">

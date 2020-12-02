@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SEARCH_TYPES, ITEM_ORDER } from 'server/data/data';
-
+import { SEARCH_TYPES } from 'server/data/data';
 
 import { Champion } from 'src/app/core/models/champion';
 import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
@@ -29,9 +28,8 @@ export class ItemSelectorComponent implements OnInit {
 	mythicItems: Item[] = [];
 	allItems: any[] = [];
 	searchTypes = SEARCH_TYPES;
-	itemsOrder = ITEM_ORDER;
 	searchType: string = this.searchTypes[0].value;
-	itemOrder: string = this.itemsOrder[1].value;
+	itemOrder: string = "m-s";
 	searchText: string = "";
 
 	@Input('champion') champion: Champion;
@@ -68,7 +66,7 @@ export class ItemSelectorComponent implements OnInit {
 					this.mythicItems.push(item);
 				}
 			});
-			if (this.itemOrder == this.itemsOrder[1].value) {
+			if (this.itemOrder == "m-s") {
 				this.allItems.push({ name: 'Mythic', items: this.mythicItems });
 				this.allItems.push({ name: 'Legendary', items: this.legendaryItems });
 				this.allItems.push({ name: 'Epic', items: this.epicItems });
@@ -112,23 +110,6 @@ export class ItemSelectorComponent implements OnInit {
 				return false;
 			}
 		}
-		if (itemDetails.tags.includes("masterwork")) {
-			let occupiedSlots = 0;
-			// ddragon doesn't even have the masterwork items let alone meraki. pass this atm (nov 25)
-			for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
-				let masterworkItemApiname = this.existingItemGroups["masterworkItems"][masterworkIndex];
-				if (masterworkItemApiname == itemDetails.apiname) {
-					return false;
-				} else if (masterworkItemApiname != "") {
-					occupiedSlots += 1;
-				}
-			}
-			if (this.champion.name == "Ornn" && occupiedSlots == 2) {
-				return false;
-			} else if (this.champion.name != "Ornn" && occupiedSlots == 1) {
-				return false;
-			}
-		}
 		return this.numberOfEquippedItems != 6;
 	}
 
@@ -160,15 +141,6 @@ export class ItemSelectorComponent implements OnInit {
 					// deep copy the object so it doesn't reference the same object. This is important because some objects allow multiple stacking (eg. rod of ages)
 					this.selectedItems[itemIndex] = JSON.parse(JSON.stringify(itemDetails));
 					// check if the item we're adding is an ornn item and there's an open space -> break after finding
-					if (itemDetails.tags.includes("masterwork")) {
-						for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
-							let masterworkItemApiname = this.existingItemGroups["masterworkItems"][masterworkIndex];
-							if (masterworkItemApiname == '') {
-								this.existingItemGroups["masterworkItems"][masterworkIndex] = itemDetails.apiname;
-								break;
-							}
-						}
-					}
 					break;
 				}
 			}

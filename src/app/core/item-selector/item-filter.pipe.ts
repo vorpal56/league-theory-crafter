@@ -47,7 +47,7 @@ export class ItemFilterPipe implements PipeTransform {
 		// check if there is a selected champion from oninit in champion component
 		if (!champion) return items;
 		let apiname = champion.apiname.toLowerCase();
-		let championRangeType = champion["rangetype"].toLowerCase();
+		let championRangeType = champion.rangetype.toLowerCase();
 		searchText = searchText.toLowerCase();
 		searchType = searchType.toLowerCase();
 
@@ -55,9 +55,10 @@ export class ItemFilterPipe implements PipeTransform {
 		// and change the return value from nothing to the conditional expression and call the sort on the results array
 		// let results = items.filter(item => {
 		items.forEach((item: Item) => {
-			let itemsSearchedByType = searchType == "" ? true : item.search_types.toLowerCase().includes(searchType);
+			let itemsSearchedByTypeDropdown = searchType == "" ? true : item.search_types.toLowerCase().includes(searchType);
 			let itemsSearchedByName = item.name.toLowerCase().includes(searchText) || item.apiname.includes(searchText);
 			let itemsSearchedByTag = item.tags && item.tags != "" ? item.tags.includes(searchText) : null;
+			let itemsSearchedByTypeInText = item.search_types.includes(searchText);
 			// set some intermediary conditions for granularity
 			let intermediaryCondition1: boolean;
 			let intermediaryCondition2: boolean;
@@ -65,6 +66,7 @@ export class ItemFilterPipe implements PipeTransform {
 
 			// for example, check if it has tags, include it as a possible search term
 			intermediaryCondition1 = itemsSearchedByTag ? itemsSearchedByName || itemsSearchedByTag : itemsSearchedByName;
+			intermediaryCondition1 = intermediaryCondition1 || itemsSearchedByTypeInText;
 			// fixed the logic, much more straight forward and actually makes sense
 			// check if there are any restrictions on the item given the champion
 			if (item.allowed_to.melee && item.allowed_to.ranged) {
@@ -81,7 +83,7 @@ export class ItemFilterPipe implements PipeTransform {
 				item.visible = false;
 				return;
 			}
-			finalCondition = intermediaryCondition2 && itemsSearchedByType;
+			finalCondition = intermediaryCondition2 && itemsSearchedByTypeDropdown;
 			if (apiname == "cassiopeia") {
 				item.visible = finalCondition && item.rank != 'boots';
 				return;

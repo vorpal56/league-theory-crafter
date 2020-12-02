@@ -208,7 +208,7 @@ export class CalculationsComponent implements OnInit {
 		return total;
 	}
 	calculationTooltip(): string {
-		return `Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of ${ROTATION_DURATION} seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on.`;
+		return `Hover over the numbers to see the where the damage is coming from.<br><br>Calculation is <b>only an approximation (not exact) of how much damage is dealt and distributed</b> (physical, magical, and true). It uses a full rotation (applying modifiers whenever certain abilities are leveled) over a duration of ${ROTATION_DURATION} seconds. Abilities that <b>do not impact damage are not included</b>. For example minion, monster, or non-champion damage, slows, stat restores, and so on.`;
 	}
 	targetTooltip(): string {
 		let targetTooltip = `The calculation is dependant on the following attributes: <br>`;

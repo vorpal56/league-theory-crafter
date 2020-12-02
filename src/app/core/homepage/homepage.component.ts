@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit {
 	selectedElixir: Item = EMPTY_ITEM;
 	// we can limit the items by adding it here
 	// masterwork items hold apinames and not EMPTY_ITEM since in operator can't check for Item
-	existingItemGroups: object = { "masterworkItems": ['', ''] };
+	existingItemGroups: object = {};
 	numberOfEquippedItems: number = 0;
 
 	// runes-epic/item-selector definition to show which page first

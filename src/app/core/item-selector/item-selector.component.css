@@ -1,5 +1,6 @@
 div.rank-title {
 	padding: 0 10px;
+	user-select: none;
 }
 div.item-block {
 	width:46px;
@@ -28,10 +29,10 @@ div.overflow {
 }
 .item-selector-grid {
 	display:grid;
-	grid-template-columns: repeat(3,1fr);
+	grid-template-columns: repeat(2,1fr) 34px;
 	grid-template-rows: var(--selector-grid-height);
 	grid-template-areas:
-	"orderby-name search-type search-field";
+	"search-type search-field swap-item-order";
 }
 #item-list {
 	max-height:700px;
@@ -59,6 +60,14 @@ div.overflow {
 }
 #search-field {
 	grid-area: search-field;
+}
+#swap-item-order {
+	grid-area: swap-item-order;
+	cursor: pointer;
+	user-select: none;
+}
+.swap-item-order-icon {
+	font-size: 28px;
 }
 .flex-wrapper {
 	display:flex;

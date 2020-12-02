@@ -51,7 +51,7 @@ export class InventoryComponent implements OnInit {
 		if (this.numberOfEquippedItems != 0 || this.selectedElixir != EMPTY_ITEM) {
 			this.selectedItems = [EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM, EMPTY_ITEM];
 			this.selectedElixir = EMPTY_ITEM;
-			this.existingItemGroups = { "masterworkItems": ['', ''] };
+			this.existingItemGroups = {};
 			this.numberOfEquippedItems = 0;
 			this.emitSelectedItems();
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
@@ -73,16 +73,6 @@ export class InventoryComponent implements OnInit {
 		}
 		// replace the item at index with an empty item
 		this.selectedItems.splice(index, 1, EMPTY_ITEM);
-		// replace the item in the masterworkItems as well
-		if (itemDetails.apiname.includes("masterwork")) {
-			for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
-				let masterworkItem = this.existingItemGroups["masterworkItems"][masterworkIndex];
-				if (masterworkItem.apiname == itemDetails.apiname) {
-					this.existingItemGroups["masterworkItems"].splice(Number(masterworkIndex), 1, EMPTY_ITEM);
-					break;
-				}
-			}
-		}
 
 		this.numberOfEquippedItems -= 1;
 		this.emitSelectedItems();
@@ -108,20 +98,6 @@ export class InventoryComponent implements OnInit {
 				this.removeItem(item, index, runService);
 			} else if (item.allowed_to.ranged && !item.allowed_to.melee && championRangeType == "melee") {
 				this.removeItem(item, index, runService);
-			} else if (item.apiname.includes("masterwork") && champion.name != "Ornn") {
-				let occupiedSlots = 0;
-				// look at this logic again and see if there is a logically better way of doing this
-				// remove any ornn items that can't be held in the inventory on switching champs
-				// ornn can hold 2, others can hold only 1
-				for (let masterworkIndex in this.existingItemGroups["masterworkItems"]) {
-					let masterworkItem = this.existingItemGroups["masterworkItems"][masterworkIndex];
-					if (masterworkItem.apiname != '') {
-						occupiedSlots += 1;
-					}
-				}
-				if (occupiedSlots > 1) {
-					this.removeItem(item, index, runService);
-				}
 			}
 		});
 		// this.emitSelectedItems();
