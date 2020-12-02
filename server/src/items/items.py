@@ -2,6 +2,7 @@ import os
 import requests
 import json
 import re
+import gzip
 from collections import OrderedDict
 from pprint import PrettyPrinter
 from bs4 import BeautifulSoup
@@ -224,7 +225,7 @@ def compile_new_item_data(using="meraki", use="live"):
 	# pp.pprint(a+k)
 
 	with open(os.path.join(DATA_PATH, "updated_items_merkai.ts"), "w", encoding="utf-8") as ts_file, \
-		open(os.path.join(DATA_PATH, "json", "items.json"), "w", encoding="utf-8") as items_json_file:
+		gzip.open(os.path.join(DATA_PATH, "json", "items.json"), "wt", encoding="utf-8") as items_json_file:
 		ts_file.write("let False = false;\nlet True=true;\nlet None=null;\nexport const ITEMS = " + str(items))
 		json.dump(items, items_json_file)
 	return

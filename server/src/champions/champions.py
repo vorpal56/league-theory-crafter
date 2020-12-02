@@ -1,6 +1,7 @@
 import re
 import os
 import json
+import gzip
 import requests
 from pprint import PrettyPrinter
 from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version, fetch_response, create_apiname, fetch_asset
@@ -41,8 +42,6 @@ def compile_champion_data(use="live", extract_attributes=False):
 	with open(os.path.join(DATA_PATH, "json", "fixed_tooltips.json"), "r") as fixed_tooltips_file:
 		fixed_tooltips = json.load(fixed_tooltips_file)
 
-	# with open(os.path.join(DATA_PATH, "json", "champions.json"), "r+") as file:
-
 	for i, champion_details in enumerate(champion_data.values()):
 		# name attr is the full actual name of the champion eg. Aurelion Sol, Cho'Gath, Dr. Mundo, Kai'Sa, etc.
 		champion_name = champion_details.get("name")
@@ -55,14 +54,12 @@ def compile_champion_data(use="live", extract_attributes=False):
 		if resource != "mana" and resource !="energy":
 			resource = "none"
 		# img paths for champions are written as the full actual name
-		champion_img_path = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, champion_name)
+		champion_img_path = BASE_ASSETS_PATH + f"{champion_name}/{champion_name}.png"
 		champion_id = champion_details.get("id")
 
-		with open(os.path.join(updated_champion_cache_path, "{}.json".format(apiname)), "r+") as champion_json_file:
+		with gzip.open(os.path.join(updated_champion_cache_path, f"{apiname}.json"), "rt", encoding="utf-8") as champion_json_file:
 			try:
 				champion_obj = json.load(champion_json_file)
-				champion_json_file.seek(0)
-				champion_json_file.truncate()
 				# update the existing champion obj with data that we know immediately (if it's the same then it doesn't matter)
 				champion_obj["index"] = i
 				champion_obj["apiname"] = apiname
@@ -78,89 +75,90 @@ def compile_champion_data(use="live", extract_attributes=False):
 					champion_obj[skill_key] = {}
 				print("Champion apiname", apiname, "does not have an existing JSON file. This means that either this Champion is new or you don't have existing data. The data will be extracted and modeled accordingly.")
 
-			basic_champion_obj = {"apiname" : apiname, "id":champion_id, "index":i, "name":champion_name}
-			all_basic_champions.append(basic_champion_obj)
+		basic_champion_obj = {"apiname" : apiname, "id":champion_id, "index":i, "name":champion_name}
+		all_basic_champions.append(basic_champion_obj)
 
-			champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(apiname, champion_details)
-			url = "https://ddragon.leagueoflegends.com/cdn/{}/data/en_US/champion/{}.json".format(live_version, apiname)
-			max_ranks = get_max_ranks(use="live", url=url, response_type="json")
+		champion_stats, champion_tooltips, ability_breakdown, ability_names, attribute_names = parse_champion_data_meraki(apiname, champion_details)
+		url = f"https://ddragon.leagueoflegends.com/cdn/{live_version}/data/en_US/champion/{apiname}.json"
+		max_ranks = get_max_ranks(use="live", url=url, response_type="json")
 
-			if extract_attributes:
-				some_keys = {}
-				for key, value in attribute_names.items():
-					if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower()):
-						some_keys["has_min"] = True
-					elif ("max." in key.lower() or "max" in key.lower() or "maximum" in key.lower()):
-						some_keys["has_max"] = True
-					if (key in all_attribute_names):
-						all_attribute_names[key] += value
-					else:
-						all_attribute_names[key] = value
-
-			for stat_name, stat_val in champion_stats.items():
-				if ((stat_name in champion_obj["stats"]) or (stat_name not in champion_obj["stats"] and stat_val != 0)):
-					if (champion_obj["stats"].get(stat_name) is None):
-						print(apiname, "has new added stat", stat_name)
-						champion_obj["stats"][stat_name] = stat_val
-					else:
-						current_stat_val = champion_obj["stats"][stat_name]
-						if (current_stat_val != stat_val):
-							print(apiname, "has updated stat", stat_name, "from", current_stat_val, "to", stat_val)
-							champion_obj["stats"][stat_name] = stat_val
-
-			for j, skill_key in enumerate(SKILL_KEYS):
-				ability_name = champion_obj[skill_key].get("1")
-				if ability_name is None:
-					ability_name = ability_names[skill_key].get("1")
-					champion_obj[skill_key]["1"] = ability_name
-				if j > 0:
-					champion_obj[skill_key]["maxrank"] = max_ranks[j-1]
-				existing_champion_ability_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name, ability_name)
-				if (champion_obj[skill_key].get("img") is None):
-					print("added new skill ability img path")
-					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_name)
-					assets_changed.add(apiname) # the champion didn't have a skill ability img we need to grab the assets
-				for subkey in ability_names[skill_key]:
-					current_skill_details = champion_obj[skill_key].get(subkey)
-					new_skill_details = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
-					# subkeys are ["1", "img", ?"2"]
-					if current_skill_details is not None:
-						if (current_skill_details.lower() != new_skill_details.lower() and apiname != "Aphelios"):
-							print(apiname, "has updated skill", current_skill_details, "to", new_skill_details)
-							if (subkey == "img" and os.path.exists(existing_champion_ability_assets_path)):
-								os.remove(existing_champion_ability_assets_path) # remove the old ability asset to the new one
-							assets_changed.add(apiname) # the champion has an updated ability with new details
-							# this means like a new name, or a new image, something has changed about it
-							champion_obj[skill_key][subkey] = new_skill_details
-
-				if champion_tooltips[j] == "":
-					fixed_tooltip = fixed_tooltips.get("_".join([apiname, skill_key]))
-					if (fixed_tooltip is not None):
-						champion_obj[skill_key]["tooltip"] = fixed_tooltip
-					else:
-						print("\nXXXXX", apiname, "needs tooltip for", skill_key, "XXXXX\n")
+		if extract_attributes:
+			some_keys = {}
+			for key, value in attribute_names.items():
+				if ("min." in key.lower() or "min" in key.lower() or "minimum" in key.lower()):
+					some_keys["has_min"] = True
+				elif ("max." in key.lower() or "max" in key.lower() or "maximum" in key.lower()):
+					some_keys["has_max"] = True
+				if (key in all_attribute_names):
+					all_attribute_names[key] += value
 				else:
-					champion_obj[skill_key]["tooltip"] = champion_tooltips[j]
+					all_attribute_names[key] = value
 
-				# check if there has been any changes to the ability breakdown
-				if (champion_obj[skill_key].get("ability_breakdown") is None):
-					print(apiname, "has new ability breakdown")
-					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
-				elif (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[j]):
-					difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[j])
-					print(apiname, "has changed", pp.pformat(difference.get("values_changed")))
-					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
+		for stat_name, stat_val in champion_stats.items():
+			if ((stat_name in champion_obj["stats"]) or (stat_name not in champion_obj["stats"] and stat_val != 0)):
+				if (champion_obj["stats"].get(stat_name) is None):
+					print(apiname, "has new added stat", stat_name)
+					champion_obj["stats"][stat_name] = stat_val
+				else:
+					current_stat_val = champion_obj["stats"][stat_name]
+					if (current_stat_val != stat_val):
+						print(apiname, "has updated stat", stat_name, "from", current_stat_val, "to", stat_val)
+						champion_obj["stats"][stat_name] = stat_val
 
-			new_champion_obj = create_new_champion(ordered_keys, champion_obj)
+		for j, skill_key in enumerate(SKILL_KEYS):
+			ability_name = champion_obj[skill_key].get("1")
+			if ability_name is None:
+				ability_name = ability_names[skill_key].get("1")
+				champion_obj[skill_key]["1"] = ability_name
+			if j > 0:
+				champion_obj[skill_key]["maxrank"] = max_ranks[j-1]
+			existing_champion_ability_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name, ability_name)
+			if (champion_obj[skill_key].get("img") is None):
+				print("added new skill ability img path")
+				champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + f"{champion_name}/{ability_name}.png"
+				assets_changed.add(apiname) # the champion didn't have a skill ability img we need to grab the assets
+			for subkey in ability_names[skill_key]:
+				current_skill_details = champion_obj[skill_key].get(subkey)
+				new_skill_details = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
+				# subkeys are ["1", "img", ?"2"]
+				if current_skill_details is not None:
+					if (current_skill_details.lower() != new_skill_details.lower() and apiname != "Aphelios"):
+						print(apiname, "has updated skill", current_skill_details, "to", new_skill_details)
+						if (subkey == "img" and os.path.exists(existing_champion_ability_assets_path)):
+							os.remove(existing_champion_ability_assets_path) # remove the old ability asset to the new one
+						assets_changed.add(apiname) # the champion has an updated ability with new details
+						# this means like a new name, or a new image, something has changed about it
+						champion_obj[skill_key][subkey] = new_skill_details
+
+			if champion_tooltips[j] == "":
+				fixed_tooltip = fixed_tooltips.get("_".join([apiname, skill_key]))
+				if (fixed_tooltip is not None):
+					champion_obj[skill_key]["tooltip"] = fixed_tooltip
+				else:
+					print("\nXXXXX", apiname, "needs tooltip for", skill_key, "XXXXX\n")
+			else:
+				champion_obj[skill_key]["tooltip"] = champion_tooltips[j]
+
+			# check if there has been any changes to the ability breakdown
+			if (champion_obj[skill_key].get("ability_breakdown") is None):
+				print(apiname, "has new ability breakdown")
+				champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
+			elif (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[j]):
+				difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[j])
+				print(apiname, "has changed", pp.pformat(difference.get("values_changed")))
+				champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
+
+		new_champion_obj = create_new_champion(ordered_keys, champion_obj)
+		all_champions.append(new_champion_obj)
+		with gzip.open(os.path.join(updated_champion_cache_path, f"{apiname}.json"), "wt", encoding="utf-8") as champion_json_file:
 			json.dump(new_champion_obj, champion_json_file)
-			all_champions.append(new_champion_obj)
 
 	if extract_attributes:
 		sorted_attribute_names = dict(sorted(all_attribute_names.items(), key=lambda item: item[1], reverse=True))
 		with open(os.path.join(DATA_PATH, "json", "filtered_attributes.json"), "w", encoding="utf-8") as attribute_names_file:
 			json.dump(sorted_attribute_names, attribute_names_file)
 
-	with open(os.path.join(updated_champion_cache_path, "champions.json"), "w") as file, \
+	with gzip.open(os.path.join(updated_champion_cache_path, "champions.json"), "wt", encoding="utf-8") as file, \
 		open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "w", encoding="utf-8") as basic_champions_file:
 		json.dump(all_champions, file)
 		json.dump(all_basic_champions, basic_champions_file)
@@ -338,10 +336,10 @@ def create_new_champion(ordered_keys, champion_data):
 		else:
 			champion_name = champion_data.get("name")
 			if ordered_key == "img":
-				print("{} requires new portrait".format(champion_name))
-				ordered_champion[ordered_key] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, champion_name)
+				print(f"{champion_name} requires new portrait")
+				ordered_champion[ordered_key] = BASE_ASSETS_PATH + f"{champion_name}/{champion_name}.png"
 			else:
-				print("Non-existent data field {} for {}".format(ordered_key, champion_name))
+				print(f"Non-existent data field {ordered_key} for {champion_name}")
 				ordered_champion[ordered_key] = ""
 	# sort the the champion data to so that the remaining keys are in a uniform order
 	sorted_champion_data = dict(sorted(champion_data.items(), key=lambda champion:champion[0]))
@@ -364,7 +362,7 @@ def scrape_assets(assets_changed):
 	# mid, supp, bot, top, jng does not influence ability on getting assets
 	request_url = "https://www.op.gg/champion/{}/statistics/mid"
 	champion_img_url = "http://opgg-static.akamaized.net/images/lol/champion/{}.png?image=q_auto,w_120"
-	with open(os.path.join(updated_champion_cache_path, "champions.json"), "r") as file:
+	with gzip.open(os.path.join(updated_champion_cache_path, "champions.json"), "rt", encoding="utf-8") as file:
 		champions = json.load(file)
 	for champion in champions:
 		apiname = champion.get("apiname")
@@ -374,10 +372,10 @@ def scrape_assets(assets_changed):
 			if not os.path.exists(champion_assets_path):
 				os.mkdir(champion_assets_path)
 			champion_url = request_url.format(apiname)
-			champion_img_path = os.path.join(champion_assets_path, "{}.png".format(champion_name))
+			champion_img_path = os.path.join(champion_assets_path, f"{champion_name}.png")
 			if not os.path.exists(champion_img_path):
 				fetch_asset(champion_img_url.format(apiname), champion_img_path)
-				print("Retrieved {}'s portrait".format(champion_name))
+				print(f"Retrieved {champion_name}'s portrait")
 
 			response = requests.get(champion_url)
 			if response.status_code == 200:
@@ -388,13 +386,13 @@ def scrape_assets(assets_changed):
 						src_tag = "https:" + div.find("img")["src"].split("?")[0]
 						skill_key = SKILL_KEYS[i]
 						skill_name = champion[skill_key]["1"] # only interested in the first ability
-						skill_img_path = os.path.join(champion_assets_path, "{}.png".format(skill_name))
+						skill_img_path = os.path.join(champion_assets_path, f"{skill_name}.png")
 						if not os.path.exists(skill_img_path):
 							try:
 								fetch_asset(src_tag, skill_img_path)
 								print("Retrieved", skill_name)
 							except Exception as e:
-								print("Unable to retrieve {} for {}".format(skill_name, champion_name) )
+								print(f"Unable to retrieve {skill_name} for {champion_name}")
 				print("Finished with", champion_name)
 			else:
 				print("Something went wrong for", champion_name)

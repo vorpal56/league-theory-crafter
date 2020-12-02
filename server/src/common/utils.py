@@ -2,6 +2,7 @@ import re
 import os
 import json
 import requests
+import gzip
 import urllib.request
 from functools import wraps
 from collections import OrderedDict
@@ -29,10 +30,10 @@ def fetch_response(calling_function):
 					return calling_function(response.text)
 				response_body = response.json()
 				if (data_path is not None):
-					with open(os.path.join(data_path, file_name), "w") as json_file:
+					with gzip.open(os.path.join(data_path, file_name), "wt", encoding="utf-8") as json_file:
 						json.dump(response_body, json_file)
 		elif use == "cache":
-			with open(os.path.join(data_path, file_name), "r") as json_file:
+			with gzip.open(os.path.join(data_path, file_name), "rt", encoding="utf-8") as json_file:
 				response_body = json.load(json_file)
 		return calling_function(response_body)
 	return wrapper

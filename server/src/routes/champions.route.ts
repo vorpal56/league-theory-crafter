@@ -13,9 +13,10 @@ router.get("/:apiname", (req, res) => {
 	let apiname = req.params.apiname;
 	let json_file = `../../data/json_combined_champion_cache/${apiname}.json`;
 	import(json_file).then(data => {
+		console.log(data);
 		championRequests[apiname] = numRequestChampions++;
 		res.header("Content-Type", 'application/json');
-		res.send(JSON.stringify(data));
+		res.send(data);
 	});
 });
 

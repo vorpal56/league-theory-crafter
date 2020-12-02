@@ -20,7 +20,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 })
 export class ItemSelectorComponent implements OnInit {
 
-	items$: Observable<Item[]>;
+	items$: Observable<any>;
 	starterItems: Item[] = [];
 	basicItems: Item[] = [];
 	epicItems: Item[] = [];
