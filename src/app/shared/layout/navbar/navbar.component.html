@@ -1,18 +1,22 @@
 <nav id="navbar">
-	<a class="logo-icon" href="#">
-		<img src="assets/images/icons/common/asiconwhite.png" height="40" width="40">
-	</a>
-	<div class="patch-number">
-		Patch {{currentPatch}}
+	<div class="flex-display">
+		<a class="logo-icon" href="#">
+			<img src="assets/images/icons/common/asiconwhite.png" height="40" width="40">
+		</a>
+		<span class="patch-number">
+			Patch {{currentPatch}}
+		</span>
 	</div>
-	<label for="toggle">&#9776;</label>
-	<input type="checkbox" id="toggle" [(ngModel)]="navbarChecked" (ngModelChange)="emit($event)" />
-	<div class="menu">
-		<a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeNav()">Home</a>
-		<a routerLink="about" routerLinkActive="active-link" (click)="closeNav()">About</a>
-		<a routerLink="contact" routerLinkActive="active-link" (click)="closeNav()">Contact</a>
-		<ng-container *ngIf="show">
-			<a routerLink="change-log" routerLinkActive="active-link" (click)="closeNav()">Change Log</a>
-		</ng-container>
+	<div class="flex-display column center-vertical">
+		<label for="toggle">&#9776;</label>
+		<input type="checkbox" id="toggle" [(ngModel)]="navbarChecked" (ngModelChange)="emit($event)" />
+		<div class="menu">
+			<a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="closeNav()">Home</a>
+			<a routerLink="about" routerLinkActive="active-link" (click)="closeNav()">About</a>
+			<a routerLink="contact" routerLinkActive="active-link" (click)="closeNav()">Contact</a>
+			<ng-container *ngIf="show">
+				<a routerLink="change-log" routerLinkActive="active-link" (click)="closeNav()">Change Log</a>
+			</ng-container>
+		</div>
 	</div>
 </nav>

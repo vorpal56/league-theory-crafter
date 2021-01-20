@@ -1,19 +1,35 @@
+<div class="modal-container" [ngClass]="isModalVisible()">
+	<div class="modal-content" [ngClass]="isModalVisible()">
+		<div class="modal-header">
+			<span class="modal-title">{{modalTitle}}</span>
+			<div class="flex-display center">
+				<!-- <span class="esc">ESC</span> -->
+				<button type="button" class="close" (click)="toggleModal('close')">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+		</div>
+		<div class="modal-body"> {{modalBody}} </div>
+		<div class="modal-footer">
+			<button class="white ok" (click)="toggleModal('close')" tabindex="0">OK</button>
+		</div>
+	</div>
+</div>
 <div class="container-grid-league">
-	<!-- <p style="font-size: 100px"> hello1</p> -->
 	<div id="champion">
-		<champion (champion)="setChampion($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"></champion>
+		<champion [champion]="champion" (champion)="setChampion($event)" (selectedTime)="setCurrentTime($event)" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"></champion>
 	</div>
 	<div id="item-rune-epic-selector">
 		<item-selector id="item-selector" [hidden]="hideTabsFor('item-selector')" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir"
 									 (selectedElixir)="setSelectedElixir($event)" [existingItemGroups]="existingItemGroups" (existingItemGroups)="setExistingItemGroups($event)" [numberOfEquippedItems]="numberOfEquippedItems"
-									 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime">
+									 (numberOfEquippedItems)="setNumberOfEquippedItems($event)" (selectedPage)="setPage($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails" [currentTime]="currentTime" (modalInfo)="setModalInfo($event)">
 		</item-selector>
 		<runes id="rune-selector" (selectedPage)="setPage($event)" (selectedRunes)="setSelectedRunes($event)" [hidden]="hideTabsFor('runes-epic')" [champion]="champion" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir"
 					 [currentTime]="currentTime" [targetDetails]="targetDetails"></runes>
 	</div>
-	<inventory id="inventory" [champion]="champion" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)" [existingItemGroups]="existingItemGroups"
-						 (existingItemGroups)="setExistingItemGroups($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)" [selectedRunes]="selectedRunes" [targetDetails]="targetDetails"
-						 [currentTime]="currentTime">
+	<inventory id="inventory" [champion]="champion" (champion)="setChampion($event)" [selectedItems]="selectedItems" (selectedItems)="setSelectedItems($event)" [selectedElixir]="selectedElixir" (selectedElixir)="setSelectedElixir($event)"
+						 [existingItemGroups]="existingItemGroups" (existingItemGroups)="setExistingItemGroups($event)" [numberOfEquippedItems]="numberOfEquippedItems" (numberOfEquippedItems)="setNumberOfEquippedItems($event)" [selectedRunes]="selectedRunes"
+						 [targetDetails]="targetDetails" [currentTime]="currentTime">
 	</inventory>
 	<div id="damage-calc">
 		<calculations [champion]="champion" [currentTime]="currentTime" [selectedItems]="selectedItems" [selectedElixir]="selectedElixir" [selectedRunes]="selectedRunes" (targetDetails)="setTargetDetails($event)"></calculations>

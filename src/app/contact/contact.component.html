@@ -43,7 +43,7 @@
 					<mat-error *ngIf="message.invalid">Please enter a message</mat-error>
 				</mat-form-field>
 				<input class="unsubmitted" id="honeypot" type="text" [formControl]="honeypot" />
-				<button class="submit" type="submit" [disabled]="isLoading">Submit</button>
+				<button class="white" type="submit" [disabled]="isLoading">Submit</button>
 				<div [ngClass]="isSubmittedClass()" class="response-message center-text">
 					<span>{{responseMessage}}</span>
 				</div>

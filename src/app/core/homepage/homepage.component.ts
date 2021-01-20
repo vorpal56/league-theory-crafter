@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from "@angular/core";
 
 import { Champion } from 'src/app/core/models/champion';
 import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
@@ -38,8 +38,9 @@ export class HomepageComponent implements OnInit {
 	selectedRunes: Runes;
 	runeModifiers: RuneModifiers;
 	targetDetails: TargetDetails;
-
-	runElixirComponentChange: boolean = false;
+	modalBody: string;
+	modalTitle: string;
+	modalIsOpen: boolean = false;
 
 	@ViewChild(InventoryComponent) inventoryComponent: InventoryComponent;
 
@@ -99,5 +100,26 @@ export class HomepageComponent implements OnInit {
 	setPage(selectedTabName: string) {
 		this.selectedTab = selectedTabName;
 		return;
+	}
+	setModalInfo(modalInfo: {title:string, body:string}) {
+		this.modalTitle = modalInfo.title;
+		this.modalBody = modalInfo.body;
+		this.toggleModal("open");
+		return;
+	}
+	toggleModal(event: string) {
+		if ((event == "close" && this.modalIsOpen) || (event == "open" && !this.modalIsOpen)) {
+			this.modalIsOpen = !this.modalIsOpen;
+		}
+		return;
+	}
+	isModalVisible() {
+		return this.modalIsOpen ? 'show' : ''
+	}
+	@HostListener('document:keydown', ['$event'])
+	handleEsc(event:KeyboardEvent) {
+		if (event.key == "Escape" && this.modalIsOpen) {
+			this.toggleModal("close")
+		}
 	}
 }

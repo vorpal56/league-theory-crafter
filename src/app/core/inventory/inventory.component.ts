@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import { ITEMS } from 'server/data/updated_items_merkai';
@@ -9,6 +9,7 @@ import { Runes } from 'src/app/core/models/rune';
 import { TargetDetails } from 'src/app/core/models/target';
 
 import { ChampionService } from 'src/app/core/services/champion.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
 	selector: 'inventory',
@@ -31,16 +32,91 @@ export class InventoryComponent implements OnInit {
 	@Output('selectedElixir') selectedElixirEmitter = new EventEmitter<Item>();
 	@Output('existingItemGroups') existingItemGroupsEmitter = new EventEmitter<object>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
+	@Output("champion") championEventEmitter = new EventEmitter<Champion>();
+
+	@ViewChild('importBuildFileInput') importBuildInput: ElementRef;
 
 	muramana: Item;
 	seraphs: Item;
 
 	items: Item[] = ITEMS;
 
-	constructor(private championService: ChampionService) { }
+	constructor(private championService: ChampionService, private apiService: ApiService) { }
 
 	ngOnInit(): void {
 		this.emitSelectedItems();
+	}
+	importBuild(files: FileList): void {
+		let buildFile = files[0];
+		const doesNotExist = (element) => element === null || element === undefined;
+		if (buildFile.type == 'application/json') {
+			const reader = new FileReader();
+			reader.onload = () => {
+				let build = JSON.parse(reader.result.toString());
+				let championApiname: string = build["championApiname"];
+				let currentLevel: number = build["currentLevel"];
+				let currentTime: number = build["currentTime"];
+				let elixir: string = build["elixir"];
+				let items: string[] = build["items"];
+				let targetDetails = build["target"];
+				let runes = build["runes"];
+				if (runes !== null || runes !== undefined) {
+					let primaryRunes = runes["primary"];
+					let secondaryRunes = runes["secondary"];
+					let runeShards = runes["shards"];
+					let runeModifiers = runes["modifiers"];
+				}
+				let existingItemGroups = build["existingItemGroups"];
+				let numberOfEquippedItems = build["numOfItems"];
+				let abilityModifiers = build["abilityModifiers"];
+				let allItems = [championApiname, currentLevel, currentTime, elixir, items, targetDetails, runes, existingItemGroups, numberOfEquippedItems, abilityModifiers];
+				let isInvalid = allItems.some(doesNotExist);
+				if (isInvalid == false) {
+					this.champion = null;
+					let championUrl = `${environment.apiChampionsUrl}${championApiname}`;
+					championUrl += environment.production ? ".json" : "";
+					console.log(championUrl);
+					this.apiService.getChampionByUrl(championUrl).subscribe((champion: Champion) => {
+						this.champion = new Champion(champion, currentLevel, abilityModifiers);
+						this.championService.resetAbilities(this.champion);
+						this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
+						this.championEventEmitter.emit(this.champion);
+					});
+					this.importBuildInput.nativeElement.value = ""; // We have to clear the input field to allow choosing the same file multiple times (since technically we're not actually submitting anything)
+				}
+			};
+			reader.readAsText(buildFile);
+		} else {
+			alert("File needs to be JSON format.");
+			return;
+		}
+	}
+	exportBuild(): void {
+		let build = {
+			"championApiname": this.champion.apiname,
+			"currentLevel": this.champion.currentLevel,
+			"currentTime": this.currentTime,
+			"abilityModifiers": this.champion.abilityModifiers,
+			"items": [],
+			"elixir": this.selectedElixir.apiname,
+			"target": this.targetDetails,
+			"runes": {
+				"primary": this.selectedRunes.primaryTree,
+				"secondary": this.selectedRunes.secondaryTree,
+				"shards": this.selectedRunes.runeShards,
+				"modifiers": this.selectedRunes.modifiers
+			},
+			"existingItemGroups": this.existingItemGroups,
+			"numOfItems": this.numberOfEquippedItems
+		};
+		this.selectedItems.forEach((item: Item, index: number) => {
+			build["items"][index] = item.apiname;
+		});
+		var a = document.createElement('a');
+		var file = new Blob([JSON.stringify(build)], { type: 'application/json' });
+		a.href = URL.createObjectURL(file);
+		a.download = `${this.champion.apiname}_Build_LoLTheoryCrafter.json`;
+		a.click();
 	}
 	/**
 	 * Method that clears all the selected items including potions (sets them to EMPTY_ITEM)
@@ -150,5 +226,8 @@ export class InventoryComponent implements OnInit {
 		this.existingItemGroupsEmitter.emit(this.existingItemGroups);
 		this.numberOfEquippedItemsEmitter.emit(this.numberOfEquippedItems);
 		return;
+	}
+	isProduction(): boolean {
+		return environment.production;
 	}
 }

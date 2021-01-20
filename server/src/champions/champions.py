@@ -3,23 +3,24 @@ import os
 import json
 import requests
 from pprint import PrettyPrinter
+from typing import Tuple
 from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version, fetch_response, create_apiname, fetch_asset
 
 meraki_champion_cache_path = os.path.join(DATA_PATH, "json_meraki_champion_cache")
 updated_champion_cache_path = os.path.join(DATA_PATH, "json_combined_champion_cache")
 
 @fetch_response
-def get_champion_data(response_body):
+def get_champion_data(response_body) -> dict:
 	return response_body
 
 @fetch_response
-def get_max_ranks(response_body):
+def get_max_ranks(response_body) -> list:
 	apiname = next(iter(response_body["data"].keys()))
 	champion_data = response_body["data"][apiname]
 	champion_spells = champion_data["spells"]
 	return [champion_spell["maxrank"] for champion_spell in champion_spells]
 
-def compile_champion_data(use="live", extract_attributes=False):
+def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> set:
 	from deepdiff import DeepDiff
 	pp = PrettyPrinter(indent=2,width=100)
 	if (not os.path.exists(meraki_champion_cache_path)):
@@ -167,7 +168,7 @@ def compile_champion_data(use="live", extract_attributes=False):
 	return assets_changed
 
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
-def parse_champion_data_meraki(apiname, champion_data):
+def parse_champion_data_meraki(apiname: str, champion_data: dict) -> Tuple[list, list, list, list, list]:
 	"""Parses the champion data from the Meraki CDN
 	This is the main way of updating data (dependant on this)
 
@@ -319,7 +320,7 @@ def parse_champion_data_meraki(apiname, champion_data):
 	# champion_tooltips can vary in length (eg. aphelios is 15 long due to the number of guns)
 	return new_stats, champion_tooltips, ability_breakdown, ability_names, all_attribute_names
 
-def create_new_champion(ordered_keys, champion_data):
+def create_new_champion(ordered_keys: list, champion_data: dict) -> dict:
 	"""Creates a new champion object in a particular order
 
 	Args:
@@ -350,7 +351,7 @@ def create_new_champion(ordered_keys, champion_data):
 			ordered_champion[other_data] = sorted_champion_data[other_data]
 	return ordered_champion
 
-def scrape_assets(assets_changed):
+def scrape_assets(assets_changed: set) -> None:
 	"""Scrapes the assets from OP.GG. It's much easier to do it this way
 	Args:
 			assets_changed (set): (key=apiname) sends requests to the details

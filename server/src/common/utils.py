@@ -37,11 +37,11 @@ def fetch_response(calling_function):
 		return calling_function(response_body)
 	return wrapper
 
-def fetch_asset(url, full_destination_path):
+def fetch_asset(url: str, full_destination_path: str) -> None:
 	urllib.request.urlretrieve(url, full_destination_path)
 	return
 
-def parse_table(soup):
+def parse_table(soup) -> OrderedDict:
 	data_contents = OrderedDict()
 	for td in soup.findAll("td", {"data-name": True}):
 		attributes = td.find_previous("td").text.rstrip()
@@ -51,7 +51,7 @@ def parse_table(soup):
 		data_contents[attributes] = remove_extra_whitespace(remove_ascii_chars(values))
 	return data_contents
 
-def get_current_version():
+def get_current_version() -> str:
 	current_version_filename = os.path.join(DATA_PATH, "json", "version.json")
 	if not os.path.exists(current_version_filename):
 		return 0
@@ -60,12 +60,12 @@ def get_current_version():
 	current_version_file.close()
 	return version_obj.get("current_data_patch")
 
-def get_live_version():
+def get_live_version() -> str:
 	import requests
 	response = requests.get("https://ddragon.leagueoflegends.com/api/versions.json")
 	return response.json()[0]
 
-def update_data_version():
+def update_data_version() -> str:
 	current_version = get_current_version()
 	live_version = get_live_version()
 	if (current_version != live_version):
@@ -77,15 +77,15 @@ def update_data_version():
 		print("Version has not changed. Still on {}".format(current_version))
 	return live_version
 
-def create_search_type_string(search_type):
+def create_search_type_string(search_type: str) -> str:
 	return re.sub(r'[\W\_]', ' ', search_type).title()
 
-def create_apiname(name, as_lower=True):
+def create_apiname(name: str, as_lower: bool = True) -> str:
 	if as_lower:
 		name = name.lower()
 	return re.sub(r'[\W\_]', '', name)
 
-def remove_html_tags(text, keep_breaks=True):
+def remove_html_tags(text: str, keep_breaks:bool = True) -> str:
 	# useful for parsing the tooltips from ddragon cdn
 	exp = '<[^<]+?>'
 	if (keep_breaks):
@@ -95,7 +95,7 @@ def remove_html_tags(text, keep_breaks=True):
 	else:
 		return re.sub(exp, '', text)
 
-def remove_ascii_chars(text):
+def remove_ascii_chars(text: str) -> str:
 	text = text.replace("\u00a0", " ")
 	text = text.replace("\u300c", "[")
 	text = text.replace("\u300d", "]")
@@ -111,16 +111,16 @@ def remove_ascii_chars(text):
 	# return text.decode()
 	return text
 
-def remove_extra_whitespace(text):
+def remove_extra_whitespace(text: str) -> str:
 	return re.sub(r' +', ' ', text)
 
-def fix_punctuation(text):
+def fix_punctuation(text: str) -> str:
 	# some of the text has some weird things in it so we fix the punctuation
 	if ("0.0%" in text):
 		text = text.replace("0.0%", "0%")
 	return re.sub(r'(?<=[.,])(?=[\D])', r' ', text)
 
-def full_clean_text(text):
+def full_clean_text(text: str) -> str:
 	return remove_ascii_chars(remove_extra_whitespace(text))
 
 if __name__ == "__main__":

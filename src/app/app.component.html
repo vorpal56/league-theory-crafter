@@ -1,7 +1,7 @@
 <!-- put the nav outside to prevent double clicks on close -->
 <navbar-details [navbarChecked]="navbarChecked" (navbarCheckedChange)="setNav($event)"></navbar-details>
-<div class="flex-display flex-column app-main" (click)="closeNav()">
-	<div class="container core" [ngClass]="loadingRouteConfig ? ['flex-center', 'app-main'] : ''" [@fadeAnimation]="getRouterOutletState(o)">
+<div class="flex-display column app-main" (click)="closeNav()">
+	<div class="container core" [ngClass]="loadingRouteConfig ? ['flex-display center', 'app-main'] : ''" [@fadeAnimation]="getRouterOutletState(o)">
 		<router-outlet #o="outlet"></router-outlet>
 		<ng-container *ngIf="loadingRouteConfig">
 			<div class="orbit-spinner large">

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 
-import { LEVELS, TIMES, STAT_KEYS, SKILL_KEYS } from 'server/data/data';
+import { LEVELS, TIMES, STAT_KEYS } from 'server/data/data';
 
 import { Champion, BasicChampion } from 'src/app/core/models/champion';
 import { Item, EMPTY_ITEM } from 'src/app/core/models/item';
@@ -20,6 +20,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 })
 export class ChampionComponent implements OnInit {
 
+	@Input("champion") champion: Champion;
 	@Input("selectedItems") selectedItems: [Item, Item, Item, Item, Item, Item];
 	@Input("selectedElixir") selectedElixir: Item;
 	@Input("selectedRunes") selectedRunes: Runes;
@@ -40,7 +41,6 @@ export class ChampionComponent implements OnInit {
 	numChampsCalled: number = 0;
 	championsIndices: object = {};
 	champions: Champion[] = [];
-	champion: Champion;
 
 	stackCount: number = 0;
 	readonly minStackCount: number = 0;
@@ -83,7 +83,7 @@ export class ChampionComponent implements OnInit {
 		let apiname = this.basicChampion.apiname.toLowerCase();
 		if (apiname in this.championsIndices) {
 			this.champion = this.champions[this.championsIndices[apiname]];
-			this.resetAbilities();
+			this.championService.resetAbilities(this.champion);
 			this.championEventEmitter.emit(this.champion);
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		} else {
@@ -100,7 +100,7 @@ export class ChampionComponent implements OnInit {
 	}
 	championChanged() {
 		let apiname = this.basicChampion.apiname.toLowerCase();
-		this.resetAbilities();
+		this.championService.resetAbilities(this.champion);
 		this.championsIndices[apiname] = this.numChampsCalled++;
 		this.champions.push(this.champion);
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
@@ -108,7 +108,7 @@ export class ChampionComponent implements OnInit {
 	}
 	updateLevel() {
 		this.champion.currentLevel = this.currentLevel;
-		this.resetAbilities();
+		this.championService.resetAbilities(this.champion);
 		// champion component does not receive the changes from inventory component
 		let tempElixir = this.currentLevel < 9 ? EMPTY_ITEM : this.selectedElixir;
 		this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, tempElixir, this.selectedRunes, this.targetDetails);
@@ -180,7 +180,7 @@ export class ChampionComponent implements OnInit {
 		let skillKey = "skill_" + abilityType;
 		if (abilityType == "r") {
 			if (this.championIsAphelios()) { return false; }
-			let maxUltPoints = this.maxUltPoints();
+			let maxUltPoints = this.championService.maxUltPoints(this.champion);
 			if (this.champion[skillKey]["rank"] < maxUltPoints && this.champion.totalAbilityRanks < this.currentLevel) {
 				return true;
 			} else if (this.champion[skillKey]["rank"] >= maxUltPoints) {
@@ -274,32 +274,7 @@ export class ChampionComponent implements OnInit {
 		}
 		return this.championService.formatNPlaces(this.champion.stats[statName]) + this.statKeys[statName];
 	}
-	resetAbilities() {
-		SKILL_KEYS.forEach((skillKey: string) => {
-			this.champion[skillKey]["rank"] = 0;
-			this.champion[skillKey]["canLevelUp"] = true;
-			this.champion[skillKey]["canLevelDown"] = false;
-		});
-		if (this.championService.hasUltLevel1(this.champion)) {
-			this.champion[SKILL_KEYS[4]]["rank"] = 1;
-		} else if (this.championIsAphelios()) {
-			this.champion[SKILL_KEYS[4]]["rank"] = this.maxUltPoints();
-		}
-		this.champion.totalAbilityRanks = 0;
-		return;
-	}
-	maxUltPoints(): number {
-		let maxPoints = this.champion["skill_r"]["maxrank"];
-		let apiname = this.champion.apiname.toLowerCase();
-		if (apiname != "udyr") {
-			if (this.currentLevel < 6) { return maxPoints - 3; }
-			else if (this.currentLevel < 11) { return maxPoints - 2; }
-			else if (this.currentLevel < 16) { return maxPoints - 1; }
-			else { return maxPoints; }
-		} else {
-			return maxPoints;
-		}
-	}
+
 	championIsAphelios() {
 		return this.championService.championIsAphelios(this.champion);
 	}

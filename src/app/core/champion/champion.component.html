@@ -37,11 +37,11 @@
 				</div> -->
 			</div>
 			<div id="champion-abilities" class="center-vertical">
-				<div id="passive" class="flex-center ability">
+				<div id="passive" class="flex-display center ability">
 					<mat-icon *ngIf="championIsAphelios()" [tooltip]="apheliosTooltip()" class="info-icon" aria-hidden="false" aria-label="Info">info</mat-icon>
 					<img class="medium-ability" [src]="champion.skill_i.img" [alt]="champion.skill_i[1]" [tooltip]="abilityTooltip('i')" />
 				</div>
-				<div id="q" class="flex-center ability" [tooltip]="abilityTooltip('q')">
+				<div id="q" class="flex-display center ability" [tooltip]="abilityTooltip('q')">
 					<div class="ability-leveler">
 						<button class="level-ability center-vertical" (click)="decreaseSkillLevel('q')" [disabled]="!canLevelDown('q')">
 							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
@@ -53,7 +53,7 @@
 					<img class="medium-ability" [src]="champion.skill_q.img" [alt]="champion.skill_q[1]" />
 					<span class="rank">{{champion.skill_q["rank"]}}</span>
 				</div>
-				<div id="w" class="flex-center ability" [tooltip]="abilityTooltip('w')">
+				<div id="w" class="flex-display center ability" [tooltip]="abilityTooltip('w')">
 					<div class="ability-leveler">
 						<button class="level-ability center-vertical" (click)="decreaseSkillLevel('w')" [disabled]="!canLevelDown('w')">
 							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
@@ -65,7 +65,7 @@
 					<img class="medium-ability" [src]="champion.skill_w.img" [alt]="champion.skill_w[1]" />
 					<span class="rank">{{champion.skill_w["rank"]}}</span>
 				</div>
-				<div id="e" class="flex-center ability" [tooltip]="abilityTooltip('e')">
+				<div id="e" class="flex-display center ability" [tooltip]="abilityTooltip('e')">
 					<div class="ability-leveler">
 						<button class="level-ability center-vertical" (click)="decreaseSkillLevel('e')" [disabled]="!canLevelDown('e')">
 							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
@@ -77,7 +77,7 @@
 					<img class="medium-ability" [src]="champion.skill_e.img" [alt]="champion.skill_e[1]" />
 					<span class="rank">{{champion.skill_e["rank"]}}</span>
 				</div>
-				<div id="r" class="flex-center ability" [tooltip]="abilityTooltip('r')">
+				<div id="r" class="flex-display center ability" [tooltip]="abilityTooltip('r')">
 					<div class="ability-leveler">
 						<button class="level-ability center-vertical" (click)="decreaseSkillLevel('r')" [disabled]="!canLevelDown('r')">
 							<mat-icon class="leveler-icon" aria-hidden="false" aria-label="Decrease Ability Level">remove</mat-icon>
@@ -90,10 +90,10 @@
 					<span class="rank">{{champion.skill_r["rank"]}}</span>
 				</div>
 				<div id="hp-mp" class="center-vertical">
-					<div class="flex-center hp" [tooltip]="resourceTooltip('hp')">
+					<div class="flex-display center hp" [tooltip]="resourceTooltip('hp')">
 						{{ champion.stats.hp | number: "1.0-2" }} hp
 					</div>
-					<div class="flex-center mp" [tooltip]="resourceTooltip('mp')">
+					<div class="flex-display center mp" [tooltip]="resourceTooltip('mp')">
 						{{ champion.stats.mp | number: "1.0-2" }} mp
 					</div>
 				</div>

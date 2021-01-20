@@ -9,13 +9,15 @@
 	z-index:1000;
 	line-height:1;
 	padding:5px;
+	display:flex;
+	justify-content: space-between;
 }
 #navbar label {
 	cursor:pointer;
 	display:none;
 	font-size:32px;
 	color:white;
-	margin: 3px 0.6em 0 0;
+	padding: 6px 0.6rem;
 	/* prevent the toggle button from being dragged */
 	-khtml-user-select: none;
 	-o-user-select: none;
@@ -26,8 +28,7 @@
 	-ms-user-select: none;
 }
 .patch-number {
-	display:inline-block;
-	margin-top:13px;
+	margin-top:1rem;
 }
 .logo-icon {
 	margin:0 1em;
@@ -39,8 +40,7 @@
 .menu a {
 	text-decoration:none;
 	color:white;
-	padding: 0.8em 0.4em 0.4em 0.4em;
-	margin-right:1em;
+	padding: 0.8rem 0.7rem 0.4rem 0.7rem;
 	/* position:relative; */
 }
 .active-link::after, .menu a::after {
@@ -64,8 +64,8 @@
 }
 @media only screen and (max-width: 575px) {
 	#navbar label{
-		display:inline-flex;
-		float:right;
+		display:flex;
+		justify-content: flex-end;
 	}
 	.menu {
 		display:flex;

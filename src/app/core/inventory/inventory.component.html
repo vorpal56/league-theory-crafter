@@ -1,5 +1,12 @@
 <div class="component-header">
 	<span>Items and Elixir</span>
+	<div class="flex-display" *ngIf="isProduction()">
+		<mat-icon class="config-options inactive-option" (click)="exportBuild()" [tooltip]="'Export Build'" aria-hidden="false" aria-label="Export Build">publish</mat-icon>
+		<label for="import-build" class="import-build">
+			<mat-icon class="config-options inactive-option" [tooltip]="'Import Build'" aria-hidden="false" aria-label="Import Build">get_app</mat-icon>
+		</label>
+		<input #importBuildFileInput id="import-build" type="file" (change)="importBuild($event.target.files)" />
+	</div>
 </div>
 <div class="component-body">
 	<div class="selected-items-grid">
@@ -8,7 +15,7 @@
 				<ng-container *ngFor="let selectedItem of selectedItems; index as i">
 					<div class="item-block">
 						<ng-container *ngIf="!selectedSlotIsFree(selectedItem) else emptySlot">
-							<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Remove Item" (click)="removeItem(selectedItem, i)" [tooltip]="selectedItem.tooltip" tooltip-class="item-tooltips">clear</mat-icon>
+							<mat-icon class="remove-item flex-display center" aria-hidden="false" aria-label="Remove Item" (click)="removeItem(selectedItem, i)" [tooltip]="selectedItem.tooltip" tooltip-class="item-tooltips">clear</mat-icon>
 							<img [src]="selectedItem.img" draggable="false" />
 						</ng-container>
 						<ng-template #emptySlot>Item Slot {{i + 1}}</ng-template>
@@ -19,7 +26,7 @@
 		<div id="elixir">
 			<div class="item-block">
 				<ng-container *ngIf="!selectedSlotIsFree(selectedElixir, 1) else emptyElixir">
-					<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Remove Item" (click)="removeElixir()" [tooltip]="selectedElixir.tooltip" tooltip-class="item-tooltips">clear</mat-icon>
+					<mat-icon class="remove-item flex-display center" aria-hidden="false" aria-label="Remove Item" (click)="removeElixir()" [tooltip]="selectedElixir.tooltip" tooltip-class="item-tooltips">clear</mat-icon>
 					<img [src]="selectedElixir.img" draggable="false" />
 				</ng-container>
 				<ng-template #emptyElixir>Elixir Slot</ng-template>
@@ -27,7 +34,7 @@
 		</div>
 		<div id="clear-selected-items">
 			<div class="item-block">
-				<mat-icon class="remove-item flex-center" aria-hidden="false" aria-label="Clear Items" (click)="clearSelectedItems()">clear</mat-icon>
+				<mat-icon class="remove-item flex-display center" aria-hidden="false" aria-label="Clear Items" (click)="clearSelectedItems()">clear</mat-icon>
 				Clear Items
 			</div>
 		</div>

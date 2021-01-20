@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { SKILL_KEYS } from 'server/data/data';
+
 import { Champion } from '../models/champion';
 import { Item, EMPTY_ITEM } from '../models/item';
 import { Runes, RuneModifiers } from '../models/rune';
@@ -74,6 +76,32 @@ export class ChampionService {
 		}
 		champion.stats.crit -= champion.stats.crit > 100 ? (champion.stats.crit - 100) : 0;
 		return;
+	}
+	resetAbilities(champion: Champion) {
+		SKILL_KEYS.forEach((skillKey: string) => {
+			champion[skillKey]["rank"] = 0;
+			champion[skillKey]["canLevelUp"] = true;
+			champion[skillKey]["canLevelDown"] = false;
+		});
+		if (this.hasUltLevel1(champion)) {
+			champion[SKILL_KEYS[4]]["rank"] = 1;
+		} else if (this.championIsAphelios(champion)) {
+			champion[SKILL_KEYS[4]]["rank"] = this.maxUltPoints(champion);
+		}
+		champion.totalAbilityRanks = 0;
+		return;
+	}
+	maxUltPoints(champion: Champion): number {
+		let maxPoints = champion["skill_r"]["maxrank"];
+		let apiname = champion.apiname.toLowerCase();
+		if (apiname != "udyr") {
+			if (champion.currentLevel < 6) { return maxPoints - 3; }
+			else if (champion.currentLevel < 11) { return maxPoints - 2; }
+			else if (champion.currentLevel < 16) { return maxPoints - 1; }
+			else { return maxPoints; }
+		} else {
+			return maxPoints;
+		}
 	}
 	hasUltLevel1(champion: Champion): boolean {
 		let apiname = champion.apiname.toLowerCase();

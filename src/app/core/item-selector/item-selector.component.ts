@@ -47,6 +47,7 @@ export class ItemSelectorComponent implements OnInit {
 	@Output('existingItemGroups') existingItemGroupsEmitter = new EventEmitter<object>();
 	@Output('numberOfEquippedItems') numberOfEquippedItemsEmitter = new EventEmitter<number>();
 	@Output('selectedPage') selectedPageEmitter = new EventEmitter<string>();
+	@Output('modalInfo') modalInfoEmitter = new EventEmitter<object>();
 
 	constructor(private championService: ChampionService, private itemsService: ItemsService, private apiService: ApiService) { }
 	ngOnInit(): void {
@@ -92,21 +93,25 @@ export class ItemSelectorComponent implements OnInit {
 	 */
 	isItemAllowed(itemDetails: Item): boolean {
 		// split the logic into different sections for easier readability
-		if (itemDetails.visible == false ||
-			(itemDetails.item_group !== null && itemDetails.item_group in this.existingItemGroups)) {
-			// can't add items that are 'invisible' and items that are in the same item group
+		if (itemDetails.visible == false) {
+			// can't add items that are 'invisible'
+			return false
+		}
+		if (itemDetails.item_group !== null && itemDetails.item_group in this.existingItemGroups) {
+			// can't add items that are in the same item group
+			this.modalInfoEmitter.emit({title: "Error: Same Item Category", body: `You cannot add items in the same category/group. Remove any existing items in your Inventory with the same category/group as ${itemDetails.name}.`})
 			return false;
 		}
 		if ((itemDetails.item_group == "mythiccomponent" && "mythic" in this.existingItemGroups) ||
 			(itemDetails.item_group == "mythic" && "mythiccomponent" in this.existingItemGroups)) {
 			// mythic component items cannot be added with existing mythic items and vice versa
-			alert("You cannot add Mythic items with existing mythic components and vice versa. Remove the existing Mythic/Mythic Component item and add your item again.");
+			this.modalInfoEmitter.emit({title: "Error: Existing Mythic/Mythic Component", body: "You cannot add Mythic items with existing Mythic Components and vice versa. Remove the existing Mythic/Mythic Component and add your item again."})
 			return false;
 		} else if (itemDetails.rank == "legendary") {
 			// only add unique legendary item
 			let hasSameItem = this.itemsService.hasItem(this.selectedItems, itemDetails.apiname);
 			if (hasSameItem) {
-				alert("You cannot add the same Legendary item since Legendary items are unique.");
+				this.modalInfoEmitter.emit({title:"Error: Duplicate Legendary", body: `You cannot add another ${itemDetails.name} since the Legendary items category are unique.`})
 				return false;
 			}
 		}
@@ -119,7 +124,7 @@ export class ItemSelectorComponent implements OnInit {
 			this.emitSelectedItems();
 			this.championService.applyAllComponentChanges(this.champion, this.currentTime, this.selectedItems, this.selectedElixir, this.selectedRunes, this.targetDetails);
 		} else {
-			alert("need to be lvl 9 or more");
+			this.modalInfoEmitter.emit({title:"Error: Under Level 9", body: "You need to be at least level 9 to use any Elixir. Update your level to add this item."})
 		}
 	}
 	/**

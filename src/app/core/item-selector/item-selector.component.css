@@ -29,13 +29,13 @@ div.overflow {
 }
 .item-selector-grid {
 	display:grid;
-	grid-template-columns: repeat(2,1fr) 34px;
+	grid-template-columns: repeat(2,1fr) 40px;
 	grid-template-rows: var(--selector-grid-height);
 	grid-template-areas:
 	"search-type search-field swap-item-order";
 }
 #item-list {
-	max-height:700px;
+	max-height:650px;
 }
 @media only screen and (max-width: 767px) {
 	/* .item-selector-grid {
@@ -47,6 +47,11 @@ div.overflow {
 	} */
 	#item-list {
 		max-height:470px;
+	}
+}
+@media (min-width: 1200px) {
+	#item-list {
+		max-height: 540px;
 	}
 }
 #orderby-name {
@@ -63,11 +68,12 @@ div.overflow {
 }
 #swap-item-order {
 	grid-area: swap-item-order;
-	cursor: pointer;
 	user-select: none;
 }
 .swap-item-order-icon {
 	font-size: 28px;
+	width:30px;
+	height:30px;
 }
 .flex-wrapper {
 	display:flex;

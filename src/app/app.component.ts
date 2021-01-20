@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 import {
 	NavigationCancel,
@@ -46,5 +46,11 @@ export class AppComponent implements OnInit {
 	}
 	closeNav() {
 		if (this.navbarChecked) { this.navbarChecked = false; }
+	}
+	@HostListener('document:keydown', ['$event'])
+	handleEsc(event:KeyboardEvent) {
+		if (event.key == "Escape" && this.navbarChecked) {
+			this.setNav(false);
+		}
 	}
 }

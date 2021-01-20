@@ -15,19 +15,6 @@ textarea {
 .divider {
 	border-top:1px solid rgba(255,255,255,.3)
 }
-button.submit {
-	background-color: transparent;
-  color: white;
-  border: 1px solid white;
-	padding: 4px 16px;
-	transition: 0.4s;
-	width: 100%;
-	margin-top: 10px;
-}
-button.submit:hover:enabled{
-  color: var(--background-alt);
-	background-color: white;
-}
 .unsubmitted {
 	display:none
 }
