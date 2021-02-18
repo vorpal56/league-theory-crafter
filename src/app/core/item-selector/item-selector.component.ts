@@ -67,6 +67,12 @@ export class ItemSelectorComponent implements OnInit {
 					this.mythicItems.push(item);
 				}
 			});
+			// Sort the mythic items by non ornn then ornn items
+			this.mythicItems.sort((itemA: Item, itemB:Item) => {
+				if ( itemA.tags.includes("ornn")) return 1;
+				if ( itemB.tags.includes("ornn")) return -1;
+				return 0;
+			})
 			if (this.itemOrder == "m-s") {
 				this.allItems.push({ name: 'Mythic', items: this.mythicItems });
 				this.allItems.push({ name: 'Legendary', items: this.legendaryItems });

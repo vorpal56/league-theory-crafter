@@ -38,7 +38,12 @@ def fetch_response(calling_function):
 	return wrapper
 
 def fetch_asset(url: str, full_destination_path: str) -> None:
-	urllib.request.urlretrieve(url, full_destination_path)
+	if "http" in url:
+		f = open(full_destination_path, "wb")
+		request_details = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+		f.write(urllib.request.urlopen(request_details).read())
+		f.close()
+	# urllib.request.urlretrieve(url, full_destination_path)
 	return
 
 def parse_table(soup) -> OrderedDict:

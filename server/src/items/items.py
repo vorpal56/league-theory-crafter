@@ -58,29 +58,29 @@ def compile_new_item_data(using="meraki", use="live"):
 	item_data = get_item_data(use=use, data_path=item_cache_path, filename="items.json", url="http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json", response_type="json")
 	item_groups = get_item_groups(use="live", url="https://leagueoflegends.fandom.com/wiki/Item_group", response_type="text")
 
-	for full_filename in os.listdir(item_cache_path):
-		if os.path.isfile(os.path.join(item_cache_path, full_filename)):
-			filename = os.path.splitext(full_filename)[0]
-			if filename != "items":
-				item_apiname, item_id = filename.split("_")
-				if int(item_id) >= 7000:
-					with open(os.path.join(item_cache_path, full_filename), "r") as ornn_file:
-						ornn_item_data = json.load(ornn_file)
-						name = ornn_item_data.get("name")
-						image_name = re.sub(r"[^A-Za-z0-9^, ]", '', name)
-						image_name = re.sub(r"\ ", '-', image_name).lower()
-						url = "https://www.mobafire.com/images/item/{}.gif".format(image_name)
-						item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
-						if not os.path.exists(item_image_path):
-							try:
-								fetch_asset(url, item_image_path)
-							except Exception as e:
-								print(e, image_name, url)
-								continue
-						ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
-						ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
-						item_data[item_id] = ornn_item_data
-						item_groups[item_apiname] = "mythic"
+	# for full_filename in os.listdir(item_cache_path):
+	# 	if os.path.isfile(os.path.join(item_cache_path, full_filename)):
+	# 		filename = os.path.splitext(full_filename)[0]
+	# 		if filename != "items":
+	# 			item_apiname, item_id = filename.split("_")
+	# 			if int(item_id) >= 7000:
+	# 				with open(os.path.join(item_cache_path, full_filename), "r") as ornn_file:
+	# 					ornn_item_data = json.load(ornn_file)
+	# 					name = ornn_item_data.get("name")
+	# 					image_name = re.sub(r"[^A-Za-z0-9^, ]", '', name)
+	# 					image_name = re.sub(r"\ ", '-', image_name).lower()
+	# 					url = "https://www.mobafire.com/images/item/{}.gif".format(image_name)
+	# 					item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
+	# 					if not os.path.exists(item_image_path):
+	# 						try:
+	# 							fetch_asset(url, item_image_path)
+	# 						except Exception as e:
+	# 							print(e, image_name, url)
+	# 							continue
+	# 					ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
+	# 					ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
+	# 					item_data[item_id] = ornn_item_data
+	# 					item_groups[item_apiname] = "mythic"
 
 	boots_id = "1001"
 	builds_into = set(item_data.get(boots_id).get("buildsInto"))
@@ -104,6 +104,9 @@ def compile_new_item_data(using="meraki", use="live"):
 		int_item_id = int(item_id)
 		name = item_details.get("name")
 		apiname = create_apiname(name)
+		if int_item_id >= 7000:
+			item_details["nicknames"] = ["masterwork", "ornn", "forge"]
+			item_groups[apiname] = "mythic"
 		# some items don't have any stat bonuses like refillable potion, corrupting, kalista spear, etc. so we don't add them to our item set
 		# some items that we want to include (elixirs and boots) apparently have no effects so we need to extend the condition
 		#2422 is magical footwear which we'll account for in the runes component
@@ -132,11 +135,14 @@ def compile_new_item_data(using="meraki", use="live"):
 				key = re.sub(r'[\_]', ' ', key.lower())
 				shop_search_types.append(key)
 				item_search_types[key] = create_search_type_string(search_type)
+			if int_item_id < 7000:
+				item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
+				fetch_asset(item_details.get("icon"), item_image_path)
 			item_info = OrderedDict([
 				('name', name),
 				('allowed_to', { 'melee': True, 'ranged': True}),
 				('apiname', apiname),
-				('img', item_details.get("icon").replace("http", "https")), # hotlink the` item to ddragon and have them handle it or cache on our own server?
+				('img', f"assets/images/items/{name}.png"), # hotlink the` item to ddragon and have them handle it or cache on our own server?
 				('id', item_id),
 				('index', index),
 				('rank', rank),

@@ -1,6 +1,6 @@
 <div class="component-header">
 	<span>Items and Elixir</span>
-	<div class="flex-display" *ngIf="isProduction()">
+	<div class="flex-display" *ngIf="!isProduction()">
 		<mat-icon class="config-options inactive-option" (click)="exportBuild()" [tooltip]="'Export Build'" aria-hidden="false" aria-label="Export Build">publish</mat-icon>
 		<label for="import-build" class="import-build">
 			<mat-icon class="config-options inactive-option" [tooltip]="'Import Build'" aria-hidden="false" aria-label="Import Build">get_app</mat-icon>

@@ -58,8 +58,11 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 		# img paths for champions are written as the full actual name
 		champion_img_path = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, champion_name)
 		champion_id = champion_details.get("id")
-
-		with open(os.path.join(updated_champion_cache_path, "{}.json".format(apiname)), "r+") as champion_json_file:
+		champion_path = os.path.join(updated_champion_cache_path, "{}.json".format(apiname))
+		if not os.path.exists(champion_path):
+			with open(champion_path, "w"):
+				print("Champion apiname", apiname, "does not have an existing JSON file. This means that either this Champion is new or you don't have existing data. The data will be extracted and modeled accordingly.")
+		with open(champion_path, "r+") as champion_json_file:
 			try:
 				champion_obj = json.load(champion_json_file)
 				champion_json_file.seek(0)
@@ -77,7 +80,6 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 				champion_obj = {"index": i, "apiname":apiname, "name":champion_name, "adaptivetype": adaptive_type, "resource":resource, "rangetype":rangetype, "img":champion_img_path, "stats":{}, "id":champion_id }
 				for skill_key in SKILL_KEYS:
 					champion_obj[skill_key] = {}
-				print("Champion apiname", apiname, "does not have an existing JSON file. This means that either this Champion is new or you don't have existing data. The data will be extracted and modeled accordingly.")
 
 			basic_champion_obj = {"apiname" : apiname, "id":champion_id, "index":i, "name":champion_name}
 			all_basic_champions.append(basic_champion_obj)
@@ -118,9 +120,13 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 					champion_obj[skill_key]["maxrank"] = max_ranks[j-1]
 				existing_champion_ability_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name, ability_name)
 				if (champion_obj[skill_key].get("img") is None):
+					ability_img_name = re.sub(r'[\:]', '', ability_name)
 					print("added new skill ability img path")
-					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_name)
+					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_img_name)
 					assets_changed.add(apiname) # the champion didn't have a skill ability img we need to grab the assets
+				# else:
+				# 	ability_img_name = re.sub(r'[\:]', '', ability_name)
+				# 	champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_img_name)
 				for subkey in ability_names[skill_key]:
 					current_skill_details = champion_obj[skill_key].get(subkey)
 					new_skill_details = re.sub(r'[\:]', '', ability_names[skill_key][subkey])
@@ -148,9 +154,11 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 					print(apiname, "has new ability breakdown")
 					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
 				elif (champion_obj[skill_key]["ability_breakdown"] != ability_breakdown[j]):
-					difference= DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[j])
-					print(apiname, "has changed", pp.pformat(difference.get("values_changed")))
+					difference = DeepDiff(champion_obj[skill_key]["ability_breakdown"], ability_breakdown[j])
+					difference_val = difference.get("values_changed")
 					champion_obj[skill_key]["ability_breakdown"] = ability_breakdown[j]
+					if difference_val is not None:
+						print(apiname, "has changed", pp.pformat(difference_val))
 
 			new_champion_obj = create_new_champion(ordered_keys, champion_obj)
 			json.dump(new_champion_obj, champion_json_file)
@@ -238,7 +246,7 @@ def parse_champion_data_meraki(apiname: str, champion_data: dict) -> Tuple[list,
 			# we'll dictate it into 2 separate objs for form and main
 			main_key = "main" if x == 0 else "form"
 			ability_key = "1" if x == 0 else "2" # used for the data representation in our champion model
-			ability_name = ability_obj["name"]
+			ability_name = re.sub(r'[\:]', '', ability_obj["name"])
 			main_dict = {main_key:[]}
 			ability_effects = ability_obj["effects"]
 			ability_cooldown_affected_by_cdr = False

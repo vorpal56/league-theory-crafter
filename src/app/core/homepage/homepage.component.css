@@ -24,7 +24,7 @@
 	top: -100px;
 	transform: translate(-50%);
 	transition: transform .3s ease-out;
-	border-radius: 0.5rem;
+	border-radius: 0.2rem;
 	max-width: 500px;
 	width: 90%;
 }
