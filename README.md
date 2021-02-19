@@ -1,6 +1,6 @@
 # LeagueTheoryCrafter
 
-https://vorpal56.github.io/league-theory-crafter/
+https://www.leaguetheorycrafter.com
 
 Used for theory crafting item builds and rune configurations as an approximation of the practice tool. This allows quick switching of champions and items without having to go on the client for every champion.
 
@@ -27,15 +27,15 @@ npm run serve
 npm run ts-dev
 ```
 ## Updating Data using Python
-All data is provided by the [League of Legends Wiki](https://leagueoflegends.fandom.com/wiki/League_of_Legends_Wiki) and compiled together by [Meraki Analytics](https://github.com/meraki-analytics) in the [`lolstaticdata` repository](https://github.com/meraki-analytics/lolstaticdata). Huge thanks to their amazing work. 
+All data is provided by the [League of Legends Wiki](https://leagueoflegends.fandom.com/wiki/League_of_Legends_Wiki) and compiled together by [Meraki Analytics](https://github.com/meraki-analytics) in the [`lolstaticdata` repository](https://github.com/meraki-analytics/lolstaticdata). Huge thanks for their amazing work. 
 
 Run the files as **modules** instead of **scripts** to prevent module import errors. 
-### Updating Champions
+### Champions
 Existing Champions are updated and new Champions are added to the existing list whenever new patch data is available. Assets are scraped on new Champions or when abilities are changed. Running the `champions` module will provide information in the console about which sections were changed such as asset locations, skill ability names, stat changes, and so on.
 ```
 npm run update-champions || cd server/src/ && python -m champions
 ```
-### Updating Items
+### Items
 Items are updated less frequently, but during Preseason 2021, data is updated quite regularly. Items are modelled in a similar way to Champions so that data relationships are easy to map in the application. Item images are hotlinked directly to Data Dragon.
 ```
 npm run update-items || cd server/src/ && python -m items

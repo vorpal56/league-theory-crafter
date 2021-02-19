@@ -1,4 +1,4 @@
-let apiUrl = "https://www.anthonysukadil.com/";
+let apiUrl = "https://www.leaguetheorycrafter.com/";
 
 export const environment = {
 	production: true,

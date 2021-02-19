@@ -9,6 +9,7 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"ts-dev": "cd server/ && yarn ts-dev",
+		"deploy-aws": "ng build --prod --base-href=https://leaguetheorycrafter.com/ && python server/src/deploy.py",
 		"deploy-gh": "ng deploy --base-href=https://vorpal56.github.io/league-theory-crafter/ && python server/src/deploy.py",
 		"update-champions": "cd server/src && python -m champions",
 		"update-items": "cd server/src && python -m items"
