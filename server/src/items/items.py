@@ -48,6 +48,7 @@ def get_item_data(response_body):
 	return sorted_items
 
 def compile_new_item_data(using="meraki", use="live"):
+	print(f"Compiling item data from {use}...")
 	pp = PrettyPrinter(indent=2, width=200)
 	item_cache_path = os.path.join(DATA_PATH, "json_meraki_item_cache", "preseason_11")
 	if not os.path.exists(item_cache_path):
@@ -57,30 +58,6 @@ def compile_new_item_data(using="meraki", use="live"):
 		os.makedir(item_combined_cache_path)
 	item_data = get_item_data(use=use, data_path=item_cache_path, filename="items.json", url="http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items.json", response_type="json")
 	item_groups = get_item_groups(use="live", url="https://leagueoflegends.fandom.com/wiki/Item_group", response_type="text")
-
-	# for full_filename in os.listdir(item_cache_path):
-	# 	if os.path.isfile(os.path.join(item_cache_path, full_filename)):
-	# 		filename = os.path.splitext(full_filename)[0]
-	# 		if filename != "items":
-	# 			item_apiname, item_id = filename.split("_")
-	# 			if int(item_id) >= 7000:
-	# 				with open(os.path.join(item_cache_path, full_filename), "r") as ornn_file:
-	# 					ornn_item_data = json.load(ornn_file)
-	# 					name = ornn_item_data.get("name")
-	# 					image_name = re.sub(r"[^A-Za-z0-9^, ]", '', name)
-	# 					image_name = re.sub(r"\ ", '-', image_name).lower()
-	# 					url = "https://www.mobafire.com/images/item/{}.gif".format(image_name)
-	# 					item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
-	# 					if not os.path.exists(item_image_path):
-	# 						try:
-	# 							fetch_asset(url, item_image_path)
-	# 						except Exception as e:
-	# 							print(e, image_name, url)
-	# 							continue
-	# 					ornn_item_data["icon"] = "assets/images/items/{}.png".format(name)
-	# 					ornn_item_data["nicknames"] = ["masterwork", "ornn", "forge"]
-	# 					item_data[item_id] = ornn_item_data
-	# 					item_groups[item_apiname] = "mythic"
 
 	boots_id = "1001"
 	builds_into = set(item_data.get(boots_id).get("buildsInto"))
@@ -98,8 +75,6 @@ def compile_new_item_data(using="meraki", use="live"):
 		"tearofthegoddess": "mana charge"
 	}
 
-	# this will always overwrite items that have
-	index = 0
 	for i, (item_id, item_details) in enumerate(item_data.items()):
 		int_item_id = int(item_id)
 		name = item_details.get("name")
@@ -120,34 +95,19 @@ def compile_new_item_data(using="meraki", use="live"):
 			except Exception as e:
 				rank = 'basic'
 			shop = item_details.get("shop")
-			shop_search_types = []
-			for search_type in shop.get("tags"):
-				key = search_type # change the key type so when we apply the item filter pipe, and we check, for example, armor, we don't check armor_penetration, just armor since the filter pipe does .includes(search_type)
-				if search_type == "ARMOR_PENETRATION":
-					key = "APEN"
-				elif search_type == "MANA_REGEN":
-					key = "MP5"
-				elif search_type == "HEALTH_REGEN":
-					key = "HP5"
-				elif search_type == "DAMAGE":
-					key = "ATTACK DAMAGE"
-					search_type = key
-				key = re.sub(r'[\_]', ' ', key.lower())
-				shop_search_types.append(key)
-				item_search_types[key] = create_search_type_string(search_type)
-			if int_item_id < 7000:
-				item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
-				fetch_asset(item_details.get("icon"), item_image_path)
+			shop_search_types = set()
+			# if int_item_id < 7000:
+			# 	item_image_path = os.path.join(IMAGE_ASSETS_PATH, "items", "{}.png".format(name))
+			# 	fetch_asset(item_details.get("icon"), item_image_path)
 			item_info = OrderedDict([
 				('name', name),
 				('allowed_to', { 'melee': True, 'ranged': True}),
 				('apiname', apiname),
 				('img', f"assets/images/items/{name}.png"), # hotlink the` item to ddragon and have them handle it or cache on our own server?
 				('id', item_id),
-				('index', index),
+				('index', i),
 				('rank', rank),
 				('tags', ",".join([nickname.lower() for nickname in item_details.get("nicknames")])),
-				('search_types', ",".join(shop_search_types)),
 				('visible', True),
 				('stackable', stackable_items.get(apiname) if apiname in stackable_items else False), # stackable is a set of stats that increase the existing base stats
 				('stacked', False),
@@ -156,7 +116,6 @@ def compile_new_item_data(using="meraki", use="live"):
 				('stats', {}),
 				('item_group', item_groups.get(apiname))
 			])
-			index += 1
 			# stats are broken down into their parent and their child stats
 			# each parent stat is the main stat (ap, ad, haste, lifesteal, ms, etc)
 			# each child stat is the breakdown of the parent stat (eg. flat, percent, per level, etc)
@@ -206,6 +165,24 @@ def compile_new_item_data(using="meraki", use="live"):
 							if stat_parent_details !=0 and full_stat_key in ITEM_STAT_KEY_MAPPING:
 								passive_details["stats"][ITEM_STAT_KEY_MAPPING.get(full_stat_key)] = int(stat_val)
 				item_info["passives"].append(dict(passive_details))
+				if "leth" in passive_details["stats"]:
+					shop_search_types.add("lethality") # Items like serrated dirk, duskblade, eclipse, etc don't have stats directly in the item, but in the passive instead
+			for search_type in shop.get("tags"):
+				key = search_type # change the key type so when we apply the item filter pipe, and we check, for example, armor, we don't check armor_penetration, just armor since the filter pipe does .includes(search_type)
+				if search_type == "ARMOR_PENETRATION":
+					key = "apen"
+				elif search_type == "MANA_REGEN":
+					key = "mp5"
+				elif search_type == "HEALTH_REGEN":
+					key = "hp5"
+				elif search_type == "DAMAGE":
+					key = "attack damage"
+					search_type = key
+				key = re.sub(r'[\_]', ' ', key.lower())
+				shop_search_types.add(key)
+				item_search_types[key] = create_search_type_string(search_type)
+			item_info["search_types"] = ",".join(shop_search_types)
+
 			meraki_tooltip = base_item_stats_tooltip(item_info)
 			passives_tooltip = effects_tooltip(passives)
 			actives_tooltip = effects_tooltip(item_details.get("active"), effect_type="a")
@@ -215,7 +192,6 @@ def compile_new_item_data(using="meraki", use="live"):
 			item_info = dict(sorted(item_info.items(), key=lambda item: item[0]))
 			if (int_item_id in builds_into or item_id == boots_id) and "boots" not in item_info["tags"]:
 				item_info["tags"] += "boots" if item_info["tags"] == "" else ",boots"
-
 			with open(os.path.join(item_cache_path, f"{'_'.join([apiname, item_id])}.json"), "w", encoding="utf-8") as item_cache_json_file, \
 				open(os.path.join(item_combined_cache_path, f"{'_'.join([apiname, item_id])}.json"), "w", encoding="utf-8") as item_combined_json_file:
 				json.dump(item_details, item_cache_json_file)
@@ -233,6 +209,7 @@ def compile_new_item_data(using="meraki", use="live"):
 		open(os.path.join(DATA_PATH, "json", "items.json"), "w", encoding="utf-8") as items_json_file:
 		ts_file.write("let False = false;\nlet True=true;\nlet None=null;\nexport const ITEMS = " + str(items))
 		json.dump(items, items_json_file)
+	print("Finished item evaluation")
 	return
 
 def effects_tooltip(effects, effect_type="p"):

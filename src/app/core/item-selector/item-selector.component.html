@@ -36,7 +36,7 @@
 					<ng-container *ngFor="let item of itemSection.items | itemFilter: champion : searchText : searchType">
 						<li class="item" (click)="addItem(item)">
 							<div class="item-block">
-								<div class="bg-black" [ngClass]="isVisibleClass(item)">
+								<div class="item-img" [ngClass]="isVisibleClass(item)">
 									<img class="item-img" [src]="item.img" draggable="false" [tooltip]="item.tooltip" tooltip-class="item-tooltips" />
 								</div>
 							</div>
