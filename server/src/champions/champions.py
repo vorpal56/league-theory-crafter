@@ -2,6 +2,7 @@ import re
 import os
 import json
 import requests
+import pickle
 from pprint import PrettyPrinter
 from typing import Tuple
 from common.utils import APP_PATH,DATA_PATH, SKILL_KEYS, BASE_ASSETS_PATH, remove_html_tags, remove_extra_whitespace, update_data_version, fetch_response, create_apiname, fetch_asset
@@ -123,7 +124,7 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 					ability_img_name = re.sub(r'[\:]', '', ability_name)
 					print("added new skill ability img path")
 					champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_img_name)
-					assets_changed.add(apiname) # the champion didn't have a skill ability img we need to grab the assets
+					assets_changed.add(champion_name) # the champion didn't have a skill ability img we need to grab the assets
 				# else:
 				# 	ability_img_name = re.sub(r'[\:]', '', ability_name)
 				# 	champion_obj[skill_key]["img"] = BASE_ASSETS_PATH + "{}/{}.png".format(champion_name, ability_img_name)
@@ -136,7 +137,7 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 							print(apiname, "has updated skill", current_skill_details, "to", new_skill_details)
 							if (subkey == "img" and os.path.exists(existing_champion_ability_assets_path)):
 								os.remove(existing_champion_ability_assets_path) # remove the old ability asset to the new one
-							assets_changed.add(apiname) # the champion has an updated ability with new details
+							assets_changed.add(champion_name) # the champion has an updated ability with new details
 							# this means like a new name, or a new image, something has changed about it
 							champion_obj[skill_key][subkey] = new_skill_details
 
@@ -170,9 +171,11 @@ def compile_champion_data(use:str = "live", extract_attributes:bool = False) -> 
 			json.dump(sorted_attribute_names, attribute_names_file)
 
 	with open(os.path.join(updated_champion_cache_path, "champions.json"), "w") as file, \
-		open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "w", encoding="utf-8") as basic_champions_file:
+		open(os.path.join(DATA_PATH, "json", "basic_champions.json"), "w", encoding="utf-8") as basic_champions_file, \
+			open(os.path.join(DATA_PATH, "json", "assets_changed.pkl"), "wb") as assets_changed_file:
 		json.dump(all_champions, file)
 		json.dump(all_basic_champions, basic_champions_file)
+		pickle.dump(assets_changed, assets_changed_file)
 	return assets_changed
 
 # def parse_champion_data_meraki(champion_data)-> [{"main":[{"attribute", "expressions"}, {"attribute", "expressions"}], "form":[]}, {"main":[], "form":[]}]:
@@ -377,8 +380,8 @@ def scrape_assets(assets_changed: set) -> None:
 		champions = json.load(file)
 	for champion in champions:
 		apiname = champion.get("apiname")
-		if apiname in assets_changed:
-			champion_name = champion.get("name")
+		champion_name = champion.get("name")
+		if champion_name in assets_changed:
 			champion_assets_path = os.path.join(APP_PATH, "src", "assets", "images", "champions", champion_name)
 			if not os.path.exists(champion_assets_path):
 				os.mkdir(champion_assets_path)
