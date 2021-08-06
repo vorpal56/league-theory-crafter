@@ -2,6 +2,8 @@
 
 https://www.leaguetheorycrafter.com
 
+https://www.youtube.com/watch?v=BHWbA3TOmaU
+
 Used for theory crafting item builds and rune configurations as an approximation of the practice tool. This allows quick switching of champions and items without having to go on the client for every champion.
 
 ## Built with 
