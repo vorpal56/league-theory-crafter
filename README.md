@@ -1,6 +1,4 @@
-# LeagueTheoryCrafter
-
-https://www.leaguetheorycrafter.com
+# LeagueTheoryCrafter [Discontinued]
 
 https://www.youtube.com/watch?v=BHWbA3TOmaU
 
